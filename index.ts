@@ -5,6 +5,7 @@ import { Document, Packer, Paragraph, TextRun, HeadingLevel, ImageRun } from 'do
 import { Jimp } from "jimp";
 import fs from 'fs';
 import path from 'path';
+import CONFIG from "./config.json";
 
 // 1. Define the shape of a DayOne entry
 interface DayOneEntry {
@@ -30,9 +31,9 @@ interface DayOneEntry {
 }
 
 // 2. Load your exported JSON
-const dataPath = './input/dayone_export.json';
-const photosDir = './input/photos'; // Directory where your images are stored
-const outputPath = './output/journal.docx';
+const dataPath = CONFIG.DATA_PATH;
+const photosDir = CONFIG.PHOTOS_DIR_PATH; // Directory where your images are stored
+const outputPath = CONFIG.OUTPUT_PATH;
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
