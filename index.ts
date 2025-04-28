@@ -31,9 +31,9 @@ interface DayOneEntry {
 }
 
 // 2. Load your exported JSON
-const dataPath = CONFIG.DATA_PATH;
-const photosDir = CONFIG.PHOTOS_DIR_PATH; // Directory where your images are stored
-const outputPath = CONFIG.OUTPUT_PATH;
+const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
+const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
+const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_FILE);
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;

@@ -1,5 +1,7 @@
 {
-    "DATA_PATH": "./input/dayone_export.json",
-    "PHOTOS_DIR_PATH": "./input/photos",
-    "OUTPUT_PATH": "./output/journal.docx"
+    "INPUT_DIR": "./input",
+    "OUTPUT_DIR": "./output",
+    "DATA_FILE": "dayone_export.json",
+    "PHOTOS_DIR": "photos",
+    "OUTPUT_FILE": "journal.docx"
 }
