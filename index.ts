@@ -1,0 +1,159 @@
+// First mockup: Basic Node.js + TypeScript-style DayOne JSON to DOCX exporter
+// (Assumes you have the JSON file and images already exported from DayOne)
+
+import { Document, Packer, Paragraph, TextRun, HeadingLevel, ImageRun } from 'docx';
+import fs from 'fs';
+import path from 'path';
+
+// 1. Define the shape of a DayOne entry
+interface DayOneEntry {
+    creationDate: string; // ISO date string
+    text: string; // Markdown-ish text with ![](dayone-moment://ID)
+    location?: {
+        localityName?: string;
+        administrativeArea?: string;
+        country?: string;
+        latitude?: number;
+        longitude?: number;
+    };
+    weather?: {
+        conditionsDescription?: string;
+        temperatureCelsius?: number;
+    };
+    photos?: {
+        identifier: string;
+        // filename: string;
+        "md5": string,
+        "type": string
+    }[];
+}
+
+// 2. Load your exported JSON
+const dataPath = './input/dayone_export.json';
+const photosDir = './input/photos'; // Directory where your images are stored
+const outputPath = './output/journal.docx';
+
+const rawJson = fs.readFileSync(dataPath, 'utf-8');
+const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
+
+// 3. Helper: Convert Celsius to Fahrenheit
+const celsiusToFahrenheit = (c: number) => Math.round((c * 9) / 5 + 32);
+
+// 4. Helper: Format datetime
+function formatDateTime(iso: string): string {
+    const d = new Date(iso);
+    return d.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+    });
+}
+
+// 5. Helper: Find photo by ID
+function findPhoto(entry: DayOneEntry, id: string) {
+    return entry.photos?.find(photo => photo.identifier === id);
+}
+
+// 6. Main logic: Create the document
+async function createDoc(entries: DayOneEntry[]) {
+    const children: Paragraph[] = [];
+
+    for (const entry of entries) {
+        // --- Date/time ---
+        children.push(new Paragraph({
+            text: formatDateTime(entry.creationDate),
+            heading: HeadingLevel.HEADING_3,
+            spacing: { after: 100 },
+        }));
+
+        // --- Location / Weather ---
+        const locParts = [
+            entry.location?.localityName,
+            entry.location?.administrativeArea,
+            entry.location?.country,
+        ].filter(Boolean);
+
+        const location = locParts.join(', ');
+        const weather = entry.weather?.conditionsDescription
+            ? `${entry.weather.conditionsDescription}, ${celsiusToFahrenheit(entry.weather.temperatureCelsius ?? 0)}°F`
+            : '';
+
+        const metaLine = [location, weather].filter(Boolean).join(' — ');
+
+        if (metaLine) {
+            children.push(new Paragraph({
+                children: [
+                    new TextRun({
+                        text: metaLine,
+                        italics: true,
+                    }),
+                ],
+                spacing: { after: 300 },
+            }));
+        }
+
+        // --- Text body ---
+        const lines = entry.text.split('\n');
+        for (let line of lines) {
+            const imgMatch = line.match(/!\[]\(dayone-moment:\/\/(.*?)\)/);
+            if (imgMatch) {
+                const photoId = imgMatch[1];
+                const photo = findPhoto(entry, photoId);
+
+                if (photo) {
+                    const photoPath = path.join(
+                        photosDir,
+                        `${photo.md5}.${photo.type}`
+                    );
+                    // const photoPath = path.join(photosDir, photo.filename);
+                    const imageBuffer = fs.readFileSync(photoPath);
+                    children.push(new Paragraph({
+                        children: [
+                            new ImageRun({
+                                data: new Uint8Array(imageBuffer), // Correct type conversion
+                                transformation: {
+                                    width: 400,
+                                    height: 300,
+                                },
+                                type: "jpg"
+                            }),
+                        ],
+                        spacing: { after: 300 },
+                    }));
+                }
+            } else {
+                // Normal text paragraph
+                if (line.trim() !== '') {
+                    children.push(new Paragraph({
+                        children: [new TextRun(line)],
+                        spacing: { after: 200 },
+                    }));
+                }
+            }
+        }
+
+        // --- Extra spacing between entries ---
+        children.push(new Paragraph({
+            children: [new TextRun('')],
+            spacing: { after: 800 },
+        }));
+    }
+
+    const doc = new Document({
+        sections: [
+            {
+                properties: {},
+                children: children,
+            },
+        ],
+    });
+
+    const buffer = await Packer.toBuffer(doc);
+    fs.writeFileSync(outputPath, buffer);
+    console.log(`✅ Exported journal to ${outputPath}`);
+}
+
+// 7. Run it!
+createDoc(entries).catch(console.error);
