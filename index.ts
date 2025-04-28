@@ -34,6 +34,7 @@ interface DayOneEntry {
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_FILE);
+fs.mkdirSync(CONFIG.OUTPUT_DIR);
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
