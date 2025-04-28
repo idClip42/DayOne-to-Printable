@@ -2,6 +2,7 @@
 // (Assumes you have the JSON file and images already exported from DayOne)
 
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, ImageRun } from 'docx';
+import { Jimp } from "jimp";
 import fs from 'fs';
 import path from 'path';
 
@@ -56,7 +57,7 @@ function findPhoto(entry: DayOneEntry, id: string) {
     return entry.photos?.find(photo => photo.identifier === id);
 }
 
-// 6. Main logic: Create the document
+// 6. Main logic: Create the document (image resizing with aspect ratio preservation)
 async function createDoc(entries: DayOneEntry[]) {
     const children: Paragraph[] = [];
 
@@ -107,17 +108,27 @@ async function createDoc(entries: DayOneEntry[]) {
                         photosDir,
                         `${photo.md5}.${photo.type}`
                     );
-                    // const photoPath = path.join(photosDir, photo.filename);
                     const imageBuffer = fs.readFileSync(photoPath);
+
+                    // Get the image's natural dimensions (width and height)
+                    const img = await Jimp.read(imageBuffer);
+                    const originalWidth = img.bitmap.width;
+                    const originalHeight = img.bitmap.height;
+
+                    // Calculate the new height based on the width while preserving the aspect ratio
+                    const width = 400; // Fixed width for the image
+                    const height = Math.round((width / originalWidth) * originalHeight);
+
+                    // Add the image to the document
                     children.push(new Paragraph({
                         children: [
                             new ImageRun({
-                                data: new Uint8Array(imageBuffer), // Correct type conversion
+                                data: new Uint8Array(imageBuffer),
                                 transformation: {
-                                    width: 400,
-                                    height: 300,
+                                    width: width,
+                                    height: height,
                                 },
-                                type: "jpg"
+                                type: "jpg",
                             }),
                         ],
                         spacing: { after: 300 },
