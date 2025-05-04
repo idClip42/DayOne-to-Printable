@@ -52,6 +52,8 @@ body {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff);
     padding: 0.25em 1em;
     border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
+    
+    break-inside: avoid;
 }
 
 .entry-location {
