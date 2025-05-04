@@ -1,4 +1,6 @@
 {
+    "RUN_RESIZE": true,
+    "IMG_MAX_WIDTH": 600,
     "INPUT_DIR": "./input",
     "OUTPUT_DIR": "./output",
     "DATA_FILE": "Journal.json",

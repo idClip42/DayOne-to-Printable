@@ -5,8 +5,8 @@ import { DayOneEntry } from './types/DayOneEntry';
 import CONFIG from "./config.json";
 import { formatDate, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
+import { ResizeImages } from './src/resizeImages';
 
-// TODO: We should process all images to create JPGs with a max pixel width.
 // TODO: If possible, we shouldn't break inside the *headers* of each entry, and/or the headers and first body paragraph.
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Do actual styling once the base stuff is dealt with
@@ -18,6 +18,9 @@ const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
 if(!fs.existsSync(CONFIG.OUTPUT_DIR))
     fs.mkdirSync(CONFIG.OUTPUT_DIR);
+
+if(CONFIG.RUN_RESIZE)
+    await ResizeImages();
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
