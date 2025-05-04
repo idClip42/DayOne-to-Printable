@@ -9,6 +9,18 @@
         column-gap: 2em;
         column-fill: balance;
     }
+
+    .entry-photo img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen {
+    .entry-photo img {
+        width: 300px;
+        height: auto;
+    }
 }
 
 body {
@@ -35,9 +47,4 @@ body {
     text-align: center;
     break-inside: avoid;
     page-break-inside: avoid; /* fallback for older engines */
-}
-
-.entry-photo img {
-    width: 100%;
-    height: auto;
 }
