@@ -1,9 +1,10 @@
 // generate-journal.ts
 import fs from 'fs';
 import path from 'path';
-import { DayOneEntry } from './DayOneEntry';
+import { DayOneEntry } from './types/DayOneEntry';
 import { marked } from 'marked';
 import CONFIG from "./config.json";
+import { formatDate, formatDateTime, isSameLocalDay } from './utilities/date';
 
 // TODO: We should process all images to create JPGs with a max pixel width.
 // TODO: If possible, we shouldn't break inside the *headers* of each entry, and/or the headers and first body paragraph.
@@ -28,53 +29,7 @@ function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
 }
 
-function formatDate(iso: string, timeZone: string): string {
-    const d = new Date(iso);
-    return d.toLocaleString('en-US', {
-        timeZone: timeZone,
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
 
-function formatDateTime(iso: string, timeZone: string): string {
-    const d = new Date(iso);
-    return d.toLocaleString('en-US', {
-        timeZone: timeZone,
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-    });
-}
-
-interface DateConfig {
-    iso: string;
-    timeZone: string;
-}
-
-function isSameLocalDay(config1: DateConfig, config2: DateConfig): boolean {
-    const formatter1 = new Intl.DateTimeFormat('en-CA', {
-        timeZone: config1.timeZone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    });
-
-    const formatter2 = new Intl.DateTimeFormat('en-CA', {
-        timeZone: config2.timeZone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    });
-
-    const date1 = formatter1.format(new Date(config1.iso));
-    const date2 = formatter2.format(new Date(config2.iso));
-
-    return date1 === date2;
-}
 
 function findPhoto(entry: DayOneEntry, id: string) {
     return entry.photos?.find(photo => photo.identifier === id);
