@@ -60,7 +60,7 @@ function convertEntryToHTML(entry: DayOneEntry): string {
         html += `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
     }
 
-    const lines = entry.text.split('\n\n');
+    const lines = entry.text.split('\n');
     for (const line of lines) {
         const imgMatch = line.match(/!\[]\(dayone-moment:\/\/(.*?)\)/);
         if (imgMatch) {
