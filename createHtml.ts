@@ -9,6 +9,9 @@ import CONFIG from "./config.json";
 // TODO: If possible, we shouldn't break inside the *headers* of each entry, and/or the headers and first body paragraph.
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Get more specific with location text.
+// TODO: Do actual styling once the base stuff is dealt with
+// TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
+// TODO: Double-check timezone crossing and lack of timezone
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
