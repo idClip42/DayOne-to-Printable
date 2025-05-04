@@ -27,17 +27,40 @@ function CreateDateTimeHtml(entry: DayOneEntry):string{
     `.trim();
 }
 
-function CreateLocationWeatherHtml(entry: DayOneEntry):string{
+function GetLocationString(entry: DayOneEntry):string{
     const locParts = [
+        entry.location?.placeName,
         entry.location?.localityName,
         entry.location?.administrativeArea,
         entry.location?.country,
     ].filter(Boolean);
-    const location = locParts.join(', ');
-    const weather = entry.weather?.conditionsDescription
-        ? `${entry.weather.conditionsDescription}, ${celsiusToFahrenheit(entry.weather.temperatureCelsius ?? 0)}°F`
-        : '';
-    const metaLine = [location, weather].filter(Boolean).join(' — ');
+    return locParts.join(', ');
+}
+
+function GetWeatherString(entry: DayOneEntry):string{
+    if(!entry.weather?.conditionsDescription) return "";
+    const fTemp = celsiusToFahrenheit(entry.weather.temperatureCelsius ?? 0);
+    return `${entry.weather.conditionsDescription}, ${fTemp}°F`;
+
+}
+
+function GetLatLonString(entry: DayOneEntry):string{
+    const lat = entry.location?.latitude;
+    const lon = entry.location?.longitude;
+    if(lat === undefined) return "";
+    if(lon === undefined) return "";
+
+    const ns = lat >= 0 ? 'N' : 'S';
+    const ew = lon >= 0 ? 'E' : 'W';
+    return `(${Math.abs(lat).toFixed(4)}°${ns}, ${Math.abs(lon).toFixed(4)}°${ew})`;
+}
+
+function CreateLocationWeatherHtml(entry: DayOneEntry):string{
+    const location = GetLocationString(entry);
+    const weather = GetWeatherString(entry);
+    const latLon = GetLatLonString(entry);
+
+    const metaLine = [location, weather, latLon].filter(Boolean).join(' — ');
     if (metaLine) {
         return `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
     }

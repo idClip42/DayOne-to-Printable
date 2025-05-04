@@ -5,6 +5,7 @@ export interface DayOneEntry {
     creationDate: string; // ISO date string
     text: string; // Markdown-ish text with ![](dayone-moment://ID)
     location?: {
+        placeName?: string;
         localityName?: string;
         administrativeArea?: string;
         timeZoneName?: string;
