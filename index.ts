@@ -12,6 +12,7 @@ import { ResizeImages } from './src/resizeImages';
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one).
 // TODO: Double-check timezone crossing and lack of timezone.
 // TODO: Check that all file attachments exist when building file.
+// TODO: How do tables end up looking?
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
