@@ -3,5 +3,6 @@
     "OUTPUT_DIR": "./output",
     "DATA_FILE": "dayone_export.json",
     "PHOTOS_DIR": "photos",
-    "OUTPUT_FILE": "journal.docx"
+    "OUTPUT_DOCX": "journal.docx",
+    "OUTPUT_HTML": "journal.html"
 }

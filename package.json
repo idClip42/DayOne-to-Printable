@@ -4,7 +4,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "tsx createDocx.ts"
+    "start": "tsx createHtml.ts"
   },
   "author": "",
   "license": "ISC",

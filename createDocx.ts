@@ -12,7 +12,7 @@ import { DayOneEntry } from './DayOneEntry';
 // 2. Load your exported JSON
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
-const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_FILE);
+const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_DOCX);
 if(!fs.existsSync(CONFIG.OUTPUT_DIR))
     fs.mkdirSync(CONFIG.OUTPUT_DIR);
 
