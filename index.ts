@@ -12,7 +12,6 @@ import { ResizeImages } from './src/resizeImages';
 // TODO: Do actual styling once the base stuff is dealt with
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
 // TODO: Double-check timezone crossing and lack of timezone
-// TODO: Rename repo to "DayOne to Printable" or something.
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
