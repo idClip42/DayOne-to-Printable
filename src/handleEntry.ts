@@ -1,20 +1,7 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { formatDateTime } from "./dateUtilities";
 import { marked } from 'marked';
 import { CreateImageHtml, ImageTokenMatch, ImageTokenSplit } from "./handleImage";
-
-function celsiusToFahrenheit(c: number) {
-    return Math.round((c * 9) / 5 + 32);
-}
-
-function escapeHTML(text: string): string {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
+import { CreateMetadataHtml } from "./handleEntryMeta";
 
 function preprocessEntryText(text: string): string {
     // Trim leading/trailing whitespace
@@ -34,21 +21,8 @@ function preprocessEntryText(text: string): string {
 
 export function convertEntryToHTML(entry: DayOneEntry): string {
     let html = `<article class="entry">`;
-    html += `<h2 class="entry-date">${formatDateTime(entry.creationDate, entry.location.timeZoneName)}</h2>`;
 
-    const locParts = [
-        entry.location?.localityName,
-        entry.location?.administrativeArea,
-        entry.location?.country,
-    ].filter(Boolean);
-    const location = locParts.join(', ');
-    const weather = entry.weather?.conditionsDescription
-        ? `${entry.weather.conditionsDescription}, ${celsiusToFahrenheit(entry.weather.temperatureCelsius ?? 0)}°F`
-        : '';
-    const metaLine = [location, weather].filter(Boolean).join(' — ');
-    if (metaLine) {
-        html += `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
-    }
+    html += CreateMetadataHtml(entry);
 
     const preprocessedText = preprocessEntryText(entry.text);
     const paragraphs = preprocessedText.split(/\n{2,}/);
