@@ -13,6 +13,7 @@ import CONFIG from "./config.json";
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
 // TODO: Double-check timezone crossing and lack of timezone
 // TODO: Break this up into smaller files
+// TODO: Rename repo to "DayOne to Printable" or something.
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
