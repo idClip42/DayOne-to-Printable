@@ -6,6 +6,7 @@ import { marked } from 'marked';
 import CONFIG from "./config.json";
 
 // TODO: We should process all images to create JPGs with a max pixel width.
+// TODO: If possible, we shouldn't break inside the *headers* of each entry, and/or the headers and first body paragraph.
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
