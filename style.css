@@ -15,6 +15,7 @@ body {
 
 .entry {
     margin-bottom: 2em;
+    /* break-inside: avoid;  */ /* This wastes a lot of space */
 }
 
 .entry-date {
@@ -35,6 +36,6 @@ body {
 }
 
 .entry-photo img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }

@@ -1,7 +1,7 @@
 {
     "INPUT_DIR": "./input",
     "OUTPUT_DIR": "./output",
-    "DATA_FILE": "dayone_export.json",
+    "DATA_FILE": "Journal.json",
     "PHOTOS_DIR": "photos",
     "OUTPUT_DOCX": "journal.docx",
     "OUTPUT_HTML": "journal.html",
