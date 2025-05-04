@@ -6,6 +6,7 @@ import { Jimp } from "jimp";
 import fs from 'fs';
 import path from 'path';
 import CONFIG from "./config.json";
+import { marked } from 'marked';
 
 // 1. Define the shape of a DayOne entry
 interface DayOneEntry {
@@ -34,7 +35,8 @@ interface DayOneEntry {
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_FILE);
-fs.mkdirSync(CONFIG.OUTPUT_DIR);
+if(!fs.existsSync(CONFIG.OUTPUT_DIR))
+    fs.mkdirSync(CONFIG.OUTPUT_DIR);
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
@@ -139,10 +141,8 @@ async function createDoc(entries: DayOneEntry[]) {
             } else {
                 // Normal text paragraph
                 if (line.trim() !== '') {
-                    children.push(new Paragraph({
-                        children: [new TextRun(line)],
-                        spacing: { after: 200 },
-                    }));
+                    const parsed = parseMarkdownToParagraphs(line);
+                    children.push(...parsed);
                 }
             }
         }
@@ -170,3 +170,59 @@ async function createDoc(entries: DayOneEntry[]) {
 
 // 7. Run it!
 createDoc(entries).catch(console.error);
+
+/// ----
+
+// Converts a markdown string into an array of Paragraphs
+function parseMarkdownToParagraphs(markdown: string): Paragraph[] {
+    const tokens = marked.lexer(markdown);
+    const paragraphs: Paragraph[] = [];
+
+    for (const token of tokens) {
+        if (token.type === 'heading') {
+            const runs = [new TextRun({ text: token.text, bold: true })];
+            paragraphs.push(new Paragraph({
+                children: runs,
+                heading: token.depth === 1
+                    ? HeadingLevel.HEADING_1
+                    : token.depth === 2
+                        ? HeadingLevel.HEADING_2
+                        : HeadingLevel.HEADING_3,
+                spacing: { after: 200 },
+            }));
+        } else if (token.type === 'paragraph') {
+            paragraphs.push(new Paragraph({
+                children: parseInlineMarkdown(token.tokens),
+                spacing: { after: 200 },
+            }));
+        } else if (token.type === 'text') {
+            paragraphs.push(new Paragraph({
+                children: [new TextRun(token.text)],
+                spacing: { after: 200 },
+            }));
+        }
+    }
+
+    return paragraphs;
+}
+
+// Handles bold/italic inside paragraphs
+function parseInlineMarkdown(inlineTokens: any[]): TextRun[] {
+    const runs: TextRun[] = [];
+
+    for (const token of inlineTokens) {
+        if (token.type === 'text') {
+            runs.push(new TextRun(token.text));
+        } else if (token.type === 'strong') {
+            runs.push(new TextRun({ text: token.text, bold: true }));
+        } else if (token.type === 'em') {
+            runs.push(new TextRun({ text: token.text, italics: true }));
+        } else if (token.type === 'codespan') {
+            runs.push(new TextRun({ text: token.text, font: "Courier New" }));
+        } else if (token.type === 'link') {
+            runs.push(new TextRun({ text: token.text + ` (${token.href})`, style: "Hyperlink" }));
+        }
+    }
+
+    return runs;
+}
