@@ -1,12 +1,14 @@
-@page {
-    size: 8.5in 11in;
-    margin: 0.75in 0.5in;
-}
+@media print{
+    @page {
+        size: 8.5in 11in;
+        margin: 0.75in 0.5in;
+    }
 
-#entries {
-    column-count: 2;
-    column-gap: 2em;
-    column-fill: balance;
+    #entries {
+        column-count: 2;
+        column-gap: 2em;
+        column-fill: balance;
+    }
 }
 
 body {
