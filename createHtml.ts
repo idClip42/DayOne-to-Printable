@@ -5,6 +5,8 @@ import { DayOneEntry } from './DayOneEntry';
 import { marked } from 'marked';
 import CONFIG from "./config.json";
 
+// TODO: We should process all images to create JPGs with a max pixel width.
+
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
