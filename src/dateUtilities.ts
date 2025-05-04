@@ -2,6 +2,7 @@ export function formatDate(iso: string, timeZone: string): string {
     const d = new Date(iso);
     return d.toLocaleString('en-US', {
         timeZone: timeZone,
+        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -12,6 +13,7 @@ export function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
     return d.toLocaleString('en-US', {
         timeZone: timeZone,
+        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
