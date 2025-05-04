@@ -1,29 +1,39 @@
 @page {
     size: 8.5in 11in;
-    margin: 1in;
+    margin: 0.75in 0.5in;
 }
-body {
-    font-family: sans-serif;
-    margin: 1in;
+
+#entries {
     column-count: 2;
     column-gap: 2em;
+    column-fill: balance;
 }
+
+body {
+    font-family: sans-serif;
+}
+
 .entry {
-    break-inside: avoid;
     margin-bottom: 2em;
 }
+
 .entry-date {
     margin-bottom: 0.2em;
     font-size: 1.2em;
 }
+
 .entry-meta {
     margin-bottom: 0.5em;
     color: #555;
 }
+
 .entry-photo {
     margin: 1em 0;
     text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid; /* fallback for older engines */
 }
+
 .entry-photo img {
     max-width: 100%;
     height: auto;
