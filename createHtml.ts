@@ -42,6 +42,22 @@ function escapeHTML(text: string): string {
         .replace(/'/g, '&#039;');
 }
 
+function preprocessEntryText(text: string): string {
+    // Trim leading/trailing whitespace
+    const trimmed = text.trim();
+
+    // Find first line break
+    const firstNewlineIndex = trimmed.indexOf('\n');
+    const firstLine = firstNewlineIndex === -1 ? trimmed : trimmed.slice(0, firstNewlineIndex);
+
+    // If the first line doesn't start with a markdown header but is short enough, prepend "# "
+    if (!firstLine.startsWith('#') && firstLine.length <= 100) {
+        return `# ${trimmed}`;
+    }
+
+    return trimmed;
+}
+
 function convertEntryToHTML(entry: DayOneEntry): string {
     let html = `<article class="entry">`;
     html += `<h2 class="entry-date">${formatDateTime(entry.creationDate)}</h2>`;
@@ -60,7 +76,8 @@ function convertEntryToHTML(entry: DayOneEntry): string {
         html += `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
     }
 
-    const paragraphs = entry.text.split(/\n{2,}/); // Split by two or more newlines
+    const preprocessedText = preprocessEntryText(entry.text);
+    const paragraphs = preprocessedText.split(/\n{2,}/);
     for (const paragraph of paragraphs) {
         // Break paragraph into segments: either image matches or plain text
         const tokens = paragraph.split(/(!\[]\(dayone-moment:\/\/.*?\))/g);
