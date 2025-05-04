@@ -62,13 +62,35 @@ function CreateLocationWeatherHtml(entry: DayOneEntry):string{
 
     const metaLine = [location, weather, latLon].filter(Boolean).join(' — ');
     if (metaLine) {
-        return `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
+        return `
+<p class="entry-meta">
+    <em>
+        ${escapeHTML(metaLine)}
+    </em>
+</p>
+        `.trim();
     }
     return "";
 }
 
+function CreateTagsHtml(entry: DayOneEntry):string {
+    if(!entry.tags || entry.tags.length === 0)
+        return "";
+    const tagsList = entry.tags.join(", ");
+    return `
+<p class="entry-meta">
+<em>
+    Tags: ${tagsList}
+</em>
+</p>
+    `.trim();
+}
+
 export function CreateMetadataHtml(entry: DayOneEntry):string{
-    const dateTimeHtml = CreateDateTimeHtml(entry);
-    const locWeatherHtml = CreateLocationWeatherHtml(entry);
-    return dateTimeHtml + "\n" + locWeatherHtml;
+    const parts = [
+        CreateDateTimeHtml(entry),
+        CreateLocationWeatherHtml(entry),
+        CreateTagsHtml(entry)
+    ].filter(Boolean);
+    return parts.join("\n");
 }

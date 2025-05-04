@@ -25,4 +25,5 @@ export interface DayOneEntry {
         /** This is the stored photo type */
         "type": string;
     }[];
+    tags?: string[];
 }
