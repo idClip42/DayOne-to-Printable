@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import CONFIG from "./../config.json";
+import CONFIG from "../config.json";
 import path from 'path';
 
 export const ImageTokenSplit = /(!\[]\(dayone-moment:\/\/.*?\))/g;
