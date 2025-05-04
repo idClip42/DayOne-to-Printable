@@ -14,6 +14,13 @@
         width: 100%;
         height: auto;
     }
+
+    .new-day {
+        display: block;
+        break-before: page;
+        page-break-before: always;
+        /* background-color: yellow; */
+    }
 }
 
 @media screen {
