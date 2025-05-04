@@ -18,7 +18,9 @@ export interface DayOneEntry {
     photos?: {
         identifier: string;
         // filename: string;
+        /** This is the stored photo name */
         "md5": string;
+        /** This is the stored photo type */
         "type": string;
     }[];
 }
