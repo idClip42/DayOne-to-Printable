@@ -11,6 +11,8 @@ const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
 if(!fs.existsSync(CONFIG.OUTPUT_DIR))
     fs.mkdirSync(CONFIG.OUTPUT_DIR);
 
+const STYLES = fs.readFileSync(CONFIG.STYLE_FILE);
+
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 
@@ -109,32 +111,7 @@ const fullHTML = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <title>Journal Export</title>
 <style>
-  body {
-    font-family: sans-serif;
-    margin: 1in;
-    column-count: 2;
-    column-gap: 2em;
-  }
-  .entry {
-    break-inside: avoid;
-    margin-bottom: 2em;
-  }
-  .entry-date {
-    margin-bottom: 0.2em;
-    font-size: 1.2em;
-  }
-  .entry-meta {
-    margin-bottom: 0.5em;
-    color: #555;
-  }
-  .entry-photo {
-    margin: 1em 0;
-    text-align: center;
-  }
-  .entry-photo img {
-    max-width: 100%;
-    height: auto;
-  }
+${STYLES}
 </style>
 </head>
 <body>

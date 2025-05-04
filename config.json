@@ -4,5 +4,6 @@
     "DATA_FILE": "dayone_export.json",
     "PHOTOS_DIR": "photos",
     "OUTPUT_DOCX": "journal.docx",
-    "OUTPUT_HTML": "journal.html"
+    "OUTPUT_HTML": "journal.html",
+    "STYLE_FILE": "./style.css"
 }
