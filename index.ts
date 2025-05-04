@@ -7,7 +7,6 @@ import { formatDate, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 
-// TODO: If possible, we shouldn't break inside the *headers* of each entry, and/or the headers and first body paragraph.
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Do actual styling once the base stuff is dealt with
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
