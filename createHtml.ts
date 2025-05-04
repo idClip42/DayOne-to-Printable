@@ -60,18 +60,25 @@ function convertEntryToHTML(entry: DayOneEntry): string {
         html += `<p class="entry-meta"><em>${escapeHTML(metaLine)}</em></p>`;
     }
 
-    const lines = entry.text.split('\n');
-    for (const line of lines) {
-        const imgMatch = line.match(/!\[]\(dayone-moment:\/\/(.*?)\)/);
-        if (imgMatch) {
-            const photoId = imgMatch[1];
-            const photo = findPhoto(entry, photoId);
-            if (photo) {
-                const filename = `${photo.md5}.${photo.type}`;
-                html += `<div class="entry-photo"><img src="${path.join("..", photosDir, filename)}" alt="Photo" /></div>`;
+    const paragraphs = entry.text.split(/\n{2,}/); // Split by two or more newlines
+    for (const paragraph of paragraphs) {
+        // Break paragraph into segments: either image matches or plain text
+        const tokens = paragraph.split(/(!\[]\(dayone-moment:\/\/.*?\))/g);
+    
+        for (const token of tokens) {
+            const imgMatch = token.match(/!\[]\(dayone-moment:\/\/(.*?)\)/);
+            if (imgMatch) {
+                const photoId = imgMatch[1];
+                const photo = findPhoto(entry, photoId);
+                if (photo) {
+                    const filename = `${photo.md5}.${photo.type}`;
+                    html += `<div class="entry-photo"><img src="${path.join("..", photosDir, filename)}" alt="Photo" /></div>`;
+                }
+            } else if (token.trim()) {
+                // Replace single newlines with <br> and parse with marked
+                const withBreaks = token.replace(/\n/g, '<br>\n');
+                html += marked.parse(withBreaks);
             }
-        } else if (line.trim()) {
-            html += marked.parse(line);
         }
     }
 
