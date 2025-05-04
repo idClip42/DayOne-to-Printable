@@ -1,17 +1,10 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import { formatDateTime } from "./dateUtilities";
-import path from 'path';
-import CONFIG from "./../config.json";
 import { marked } from 'marked';
-
-const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
+import { CreateImageHtml, ImageTokenMatch, ImageTokenSplit } from "./handleImage";
 
 function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
-}
-
-function findPhoto(entry: DayOneEntry, id: string) {
-    return entry.photos?.find(photo => photo.identifier === id);
 }
 
 function escapeHTML(text: string): string {
@@ -61,17 +54,12 @@ export function convertEntryToHTML(entry: DayOneEntry): string {
     const paragraphs = preprocessedText.split(/\n{2,}/);
     for (const paragraph of paragraphs) {
         // Break paragraph into segments: either image matches or plain text
-        const tokens = paragraph.split(/(!\[]\(dayone-moment:\/\/.*?\))/g);
+        const tokens = paragraph.split(ImageTokenSplit);
     
         for (const token of tokens) {
-            const imgMatch = token.match(/!\[]\(dayone-moment:\/\/(.*?)\)/);
+            const imgMatch = token.match(ImageTokenMatch);
             if (imgMatch) {
-                const photoId = imgMatch[1];
-                const photo = findPhoto(entry, photoId);
-                if (photo) {
-                    const filename = `${photo.md5}.${photo.type}`;
-                    html += `<div class="entry-photo"><img src="${path.join("..", photosDir, filename)}" alt="Photo" /></div>`;
-                }
+                html += CreateImageHtml(entry, imgMatch[1]);
             } else if (token.trim()) {
                 // Replace single newlines with <br> and parse with marked
                 const withBreaks = token.replace(/\n/g, '<br>\n');
