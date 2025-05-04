@@ -49,19 +49,21 @@ for(const e in entries){
     entriesHtml.push(entryHtml);
 }
 
-const fullHTML = `<!DOCTYPE html>
+const fullHTML = `
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Journal Export</title>
-<link rel="stylesheet" type="text/css" href="../${CONFIG.STYLESHEET}">
-</head>
-<body>
-<div id="entries">
-${entriesHtml.join('\n')}
-</div>
-</body>
-</html>`;
+    <head>
+        <meta charset="UTF-8">
+        <title>Journal Export</title>
+        <link rel="stylesheet" type="text/css" href="../${CONFIG.STYLESHEET}">
+    </head>
+    <body>
+        <div id="entries">
+            ${entriesHtml.join('\n')}
+        </div>
+    </body>
+</html>
+`.trim();
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
