@@ -24,7 +24,10 @@ export function CreateContentHtml(entry:DayOneEntry):string{
     const preprocessedText = preprocessEntryText(entry.text);
     const paragraphs = preprocessedText.split(/\n{2,}/);
 
-    for (const paragraph of paragraphs) {
+    for (let paragraph of paragraphs) {
+        // Replace single returns after blockquotes ("> TEXT\n") with a double return for separation
+        paragraph = paragraph.replace(/>[^>].*\n(?!>)/g, match => match + '\n');
+    
         // Break paragraph into segments: either image matches or plain text
         const tokens = paragraph.split(ImageTokenSplit);
         for (const token of tokens) {
@@ -32,11 +35,12 @@ export function CreateContentHtml(entry:DayOneEntry):string{
             if (imgMatch) {
                 htmlResult += CreateImageHtml(entry, imgMatch[1]);
             } else if (token.trim()) {
-                // Replace single newlines with <br> and parse with marked
-                const withBreaks = token.replace(/\n/g, '<br>\n');
+                // Replace single newlines (no newline before or after them) with <br> and parse with marked
+                const withBreaks = token.replace(/(?<!\n)\n(?!\n)/g, '<br>\n');
                 htmlResult += marked.parse(withBreaks);
             }
         }
     }
+    
     return htmlResult;
 }
