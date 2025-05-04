@@ -5,5 +5,5 @@
     "PHOTOS_DIR": "photos",
     "OUTPUT_DOCX": "journal.docx",
     "OUTPUT_HTML": "journal.html",
-    "STYLE_FILE": "./style.css"
+    "STYLESHEET": "style.css"
 }
