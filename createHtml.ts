@@ -12,6 +12,7 @@ import CONFIG from "./config.json";
 // TODO: Do actual styling once the base stuff is dealt with
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
 // TODO: Double-check timezone crossing and lack of timezone
+// TODO: Break this up into smaller files
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const photosDir = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
