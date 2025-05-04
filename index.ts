@@ -12,7 +12,7 @@ import { ResizeImages } from './src/resizeImages';
 // TODO: Do actual styling once the base stuff is dealt with
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one)
 // TODO: Double-check timezone crossing and lack of timezone
-// TODO: Day of the week in dates
+// TODO: Headers for current month? Is that even possible?
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
@@ -30,9 +30,10 @@ for(const e in entries){
     const entryIndex = Number(e);
     const entry = entries[entryIndex];
 
-    if(entryIndex > 0){
+    const isSameDay = (()=>{
+        if(entryIndex === 0) return false;
         const prevEntry = entries[entryIndex - 1];
-        const isSameDay = isSameLocalDay(
+        return isSameLocalDay(
             { 
                 "iso": prevEntry.creationDate, 
                 "timeZone": prevEntry.location.timeZoneName 
@@ -41,9 +42,9 @@ for(const e in entries){
                 "timeZone": entry.location.timeZoneName 
             }
         );
-        if(!isSameDay){
-            entriesHtml.push(`<div class="new-day"><h2>${formatDate(entry.creationDate, entry.location.timeZoneName)}</h2></div>`);
-        }
+    })();
+    if(!isSameDay){
+        entriesHtml.push(`<div class="new-day"><h2>${formatDate(entry.creationDate, entry.location.timeZoneName)}</h2></div>`);
     }
 
     const entryHtml = convertEntryToHTML(entry);
