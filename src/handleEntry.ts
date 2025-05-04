@@ -5,8 +5,12 @@ import { CreateContentHtml } from "./handleEntryContent";
 export function convertEntryToHTML(entry: DayOneEntry): string {
     return `
 <article class="entry">
-    ${CreateMetadataHtml(entry)}
-    ${CreateContentHtml(entry)}
+    <div class="entry-metadata">
+        ${CreateMetadataHtml(entry)}
+    </div>
+    <div class="entry-content">
+        ${CreateContentHtml(entry)}
+    </div>
 </article>
     `.trim();
 }

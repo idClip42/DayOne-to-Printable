@@ -63,7 +63,7 @@ function CreateLocationWeatherHtml(entry: DayOneEntry):string{
     const metaLine = [location, weather, latLon].filter(Boolean).join(' — ');
     if (metaLine) {
         return `
-<p class="entry-meta">
+<p class="entry-location">
     <em>
         ${escapeHTML(metaLine)}
     </em>
@@ -78,7 +78,7 @@ function CreateTagsHtml(entry: DayOneEntry):string {
         return "";
     const tagsList = entry.tags.join(", ");
     return `
-<p class="entry-meta">
+<p class="entry-tags">
 <em>
     Tags: ${tagsList}
 </em>

@@ -44,7 +44,22 @@ body {
     font-size: 1.2em;
 }
 
-.entry-meta {
+.entry-content {
+    padding: 0.25em 1em;
+}
+
+.entry-metadata {
+    background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+    padding: 0.25em 1em;
+    border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
+}
+
+.entry-location {
+    margin-bottom: 0.5em;
+    color: #555;
+}
+
+.entry-tags {
     margin-bottom: 0.5em;
     color: #555;
 }
