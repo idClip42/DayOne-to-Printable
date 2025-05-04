@@ -7,6 +7,7 @@ export interface DayOneEntry {
     location?: {
         localityName?: string;
         administrativeArea?: string;
+        timeZoneName?: string;
         country?: string;
         latitude?: number;
         longitude?: number;

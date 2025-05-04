@@ -22,9 +22,10 @@ function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
 }
 
-function formatDateTime(iso: string): string {
+function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
     return d.toLocaleString('en-US', {
+        timeZone: timeZone,
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -64,7 +65,7 @@ function preprocessEntryText(text: string): string {
 
 function convertEntryToHTML(entry: DayOneEntry): string {
     let html = `<article class="entry">`;
-    html += `<h2 class="entry-date">${formatDateTime(entry.creationDate)}</h2>`;
+    html += `<h2 class="entry-date">${formatDateTime(entry.creationDate, entry.location.timeZoneName)}</h2>`;
 
     const locParts = [
         entry.location?.localityName,
