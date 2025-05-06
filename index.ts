@@ -17,6 +17,7 @@ import { ResizeImages } from './src/resizeImages';
 // TODO: Tag colors - Do the unique color rotation math and mix in opacity/saturation based on frequency
 // TODO: Consolidate the date/time styling to deemphasize repeat info and save space
 // TODO: Test with all types of headers - what do they all look like?
+// TODO: Page numbers!
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
