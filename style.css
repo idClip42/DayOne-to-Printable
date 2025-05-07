@@ -83,3 +83,12 @@ body {
     margin-bottom: 0.5em;
     border-radius: 0.5em 0.5em; /* Optional */
 }
+
+.tag-item {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-style: normal;
+}

@@ -1,5 +1,5 @@
 {
-    "RUN_RESIZE": true,
+    "RUN_RESIZE": false,
     "IMG_MAX_WIDTH": 600,
     "INPUT_DIR": "./input",
     "OUTPUT_DIR": "./output",
@@ -7,5 +7,8 @@
     "PHOTOS_DIR": "photos",
     "OUTPUT_HTML": "journal.html",
     "STYLESHEET": "style.css",
-    "LOREM_IPSUM_MODE": false
+    "LOREM_IPSUM_MODE": false,
+    "TAG_COLOR_MIN_ALPHA": 0.5,
+    "TAG_COLOR_SATURATION": "75%",
+    "TAG_COLOR_LIGHTNESS": "50%"
 }

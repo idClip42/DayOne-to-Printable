@@ -6,6 +6,7 @@ import CONFIG from "./config.json";
 import { formatDate, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
+import { InitializeTags } from './src/organizeTags';
 
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Do actual styling once the base stuff is dealt with.
@@ -13,10 +14,10 @@ import { ResizeImages } from './src/resizeImages';
 // TODO: Double-check timezone crossing and lack of timezone.
 // TODO: Check that all file attachments exist when building file.
 // TODO: How do tables end up looking?
-// TODO: Tag colors - Do the unique color rotation math and mix in opacity/saturation based on frequency
 // TODO: Consolidate the date/time styling to deemphasize repeat info and save space
 // TODO: Test with all types of headers - what do they all look like?
 // TODO: Page numbers!
+// TODO: Tags index page at start should count up all the tags, with their colors, show what was on my mind this year
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
@@ -28,6 +29,7 @@ if(CONFIG.RUN_RESIZE)
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
+InitializeTags(entries);
 
 const entriesHtml:string[] = [];
 for(const e in entries){

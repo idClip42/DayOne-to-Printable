@@ -1,5 +1,6 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import { formatDateTime } from "./dateUtilities";
+import { GetColorForTag } from "./organizeTags";
 
 function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
@@ -76,7 +77,14 @@ function CreateLocationWeatherHtml(entry: DayOneEntry):string{
 function CreateTagsHtml(entry: DayOneEntry):string {
     if(!entry.tags || entry.tags.length === 0)
         return "";
-    const tagsList = entry.tags.join(", ");
+    const tagsList = entry.tags.map(tag=>{
+        const color = GetColorForTag(tag);
+        return `
+<span class="tag-item" style="background-color: ${color}">
+    ${tag}
+</span>
+        `.trim();
+    }).join(" ");
     return `
 <p class="entry-tags">
 <em>
