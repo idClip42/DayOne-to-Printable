@@ -7,7 +7,7 @@
     #entries {
         column-count: 3;
         column-gap: auto;
-        column-fill: balance;
+        column-fill:auto;
     }
 
     .entry-photo img {
@@ -53,6 +53,7 @@ body {
 .entry-date {
     /* margin-bottom: 0.2em; */
     font-size: 1.2em;
+    margin: 0;
 }
 
 .entry-content {
@@ -68,11 +69,15 @@ body {
 .entry-location {
     /* margin-bottom: 0.5em; */
     color: #555;
+    font-size: 0.8em;
+    margin: 0;
 }
 
 .entry-tags {
     /* margin-bottom: 0.5em; */
     color: #555;
+    font-size: 0.8em;
+    margin: 0;
 }
 
 .entry-photo {
@@ -90,10 +95,15 @@ body {
 }
 
 .tag-item {
-    padding: 5px;
-    margin: 2px;
+    padding: 2px;
+    margin: 0;
     border-radius: 10px;
     font-weight: bold;
     color: white;
     font-style: normal;
+}
+
+h1 {
+    font-size: 1.2em;
+    margin: 1em 0em;
 }
