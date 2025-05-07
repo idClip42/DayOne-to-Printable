@@ -1,12 +1,12 @@
 @media print{
     @page {
         size: 8.5in 11in;
-        margin: 0.75in 0.5in;
+        margin: 0.5in 0.5in;
     }
 
     #entries {
-        column-count: 2;
-        column-gap: 2em;
+        column-count: 3;
+        column-gap: auto;
         column-fill: balance;
     }
 
@@ -42,7 +42,7 @@
 
 body {
     font-family: "Avenir";
-    font-size: 9pt;
+    font-size: 10pt;
 }
 
 .entry {
