@@ -49,7 +49,7 @@ for(const e in entries){
             }
         );
     })();
-    if(!isSameDay){
+    if(!isSameDay && CONFIG.INCLUDE_NEW_DAY_HEADER){
         entriesHtml.push(`<div class="new-day"><h2>${formatDate(entry.creationDate, entry.location.timeZoneName)}</h2></div>`);
     }
 
