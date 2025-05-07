@@ -3,6 +3,8 @@ import { DayOneEntry } from "../types/DayOneEntry";
 import { CreateImageHtml, ImageTokenMatch, ImageTokenSplit } from "./handleEntryContentImage";
 import CONFIG from "./../config.json";
 
+let loremIpsumPosition = 0;
+
 function preprocessEntryText(text: string): string {
     // Trim leading/trailing whitespace
     const trimmed = text.trim();
@@ -42,9 +44,12 @@ export function CreateContentHtml(entry:DayOneEntry):string{
                 if(CONFIG.LOREM_IPSUM_MODE){
                     htmlResult += marked.parse(
                         withBreaks.split(BREAK).map(text=>{
-                            if(text.length > LOREM_IPSUM.length)
-                                return LOREM_IPSUM;
-                            return LOREM_IPSUM.substring(0, text.length);
+                            const localLoremIpsum = LOREM_IPSUM.substring(loremIpsumPosition) + LOREM_IPSUM.substring(0, loremIpsumPosition);
+                            if(text.length > localLoremIpsum.length)
+                                return localLoremIpsum;
+                            const result = localLoremIpsum.substring(0, text.length);
+                            loremIpsumPosition = (loremIpsumPosition + text.length) % LOREM_IPSUM.length;
+                            return result;
                         }).join(BREAK)
                     );
                 }
