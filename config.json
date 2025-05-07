@@ -10,7 +10,7 @@
     "LOREM_IPSUM_MODE": false,
     "INCLUDE_IMAGES": true,
     "INCLUDE_TAG_INDEX": true,
-    "INCLUDE_NEW_DAY_HEADER": true,
+    "INCLUDE_NEW_DAY_HEADER": false,
     "TAG_COLOR_MIN_ALPHA": 0.5,
     "TAG_COLOR_SATURATION": "75%",
     "TAG_COLOR_LIGHTNESS": "50%"
