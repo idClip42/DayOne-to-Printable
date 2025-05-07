@@ -51,11 +51,7 @@ export function GetTagHtml(tag:string):string {
     const info = tagsLibrary.find(test=>test.tag===tag);
     if(!info) throw new Error(`Unrecognized tag: ${tag}`);
     const color = info.color;
-    return `
-<span class="tag-item" style="background-color: ${color}">
-    ${tag}
-</span>
-    `.trim();
+    return `<span class="tag-item" style="background-color: ${color}">${tag}</span>`;
 }
 
 export function GetTagsListHtml():string {
