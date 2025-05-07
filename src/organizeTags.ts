@@ -47,8 +47,37 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>):void{
     tagsLibrary.push(...augmentedTags);
 }
 
-export function GetColorForTag(tag:string):string{
+export function GetTagHtml(tag:string):string {
     const info = tagsLibrary.find(test=>test.tag===tag);
     if(!info) throw new Error(`Unrecognized tag: ${tag}`);
-    return info.color;
+    const color = info.color;
+    return `
+<span class="tag-item" style="background-color: ${color}">
+    ${tag}
+</span>
+    `.trim();
+}
+
+export function GetTagsListHtml():string {
+
+    const tagItems = tagsLibrary.map(tagItem => {
+        return `
+<li>
+    ${GetTagHtml(tagItem.tag)}
+    :
+    ${tagItem.count}
+</li>
+        `.trim();
+    }).reverse();
+
+    return `
+<div id="tag-index">
+    <h2>
+        Tags
+    </h2>
+    <ul>
+        ${tagItems.join("\n")}
+    </ul>
+</div>
+    `.trim();
 }

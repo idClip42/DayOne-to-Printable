@@ -27,6 +27,10 @@
         page-break-inside: avoid;
         /* break-after: avoid; */
     }
+
+    #tag-index {
+        break-after: always;
+    }
 }
 
 @media screen {

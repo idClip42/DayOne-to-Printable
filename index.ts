@@ -6,7 +6,7 @@ import CONFIG from "./config.json";
 import { formatDate, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
-import { InitializeTags } from './src/organizeTags';
+import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Do actual styling once the base stuff is dealt with.
@@ -17,7 +17,6 @@ import { InitializeTags } from './src/organizeTags';
 // TODO: Consolidate the date/time styling to deemphasize repeat info and save space
 // TODO: Test with all types of headers - what do they all look like?
 // TODO: Page numbers!
-// TODO: Tags index page at start should count up all the tags, with their colors, show what was on my mind this year
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
@@ -66,6 +65,7 @@ const fullHTML = `
         <link rel="stylesheet" type="text/css" href="../${CONFIG.STYLESHEET}">
     </head>
     <body>
+        ${GetTagsListHtml()}    
         <div id="entries">
             ${entriesHtml.join('\n')}
         </div>
