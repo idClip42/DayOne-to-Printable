@@ -51,32 +51,32 @@ body {
 }
 
 .entry-date {
-    margin-bottom: 0.2em;
+    /* margin-bottom: 0.2em; */
     font-size: 1.2em;
 }
 
 .entry-content {
-    padding: 0.25em 1em;
+    /* padding: 0.25em 1em; */
 }
 
 .entry-metadata {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff);
-    padding: 0.25em 1em;
+    /* padding: 0.25em 1em; */
     border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
 }
 
 .entry-location {
-    margin-bottom: 0.5em;
+    /* margin-bottom: 0.5em; */
     color: #555;
 }
 
 .entry-tags {
-    margin-bottom: 0.5em;
+    /* margin-bottom: 0.5em; */
     color: #555;
 }
 
 .entry-photo {
-    margin: 1em 0;
+    /* margin: 1em 0; */
     text-align: center;
     break-inside: avoid;
     page-break-inside: avoid; /* fallback for older engines */
@@ -84,8 +84,8 @@ body {
 
 .new-day {
     background: linear-gradient(to right, #e6f2ff, #ffffff);
-    padding: 0.5em 1em;
-    margin-bottom: 0.5em;
+    /* padding: 0.5em 1em; */
+    /* margin-bottom: 0.5em; */
     border-radius: 0.5em 0.5em; /* Optional */
 }
 
