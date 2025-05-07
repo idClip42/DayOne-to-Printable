@@ -66,7 +66,7 @@ const fullHTML = `
         <link rel="stylesheet" type="text/css" href="../${CONFIG.STYLESHEET}">
     </head>
     <body>
-        ${GetTagsListHtml()}    
+        ${CONFIG.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
         <div id="entries">
             ${entriesHtml.join('\n')}
         </div>

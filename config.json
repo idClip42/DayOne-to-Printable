@@ -8,6 +8,7 @@
     "OUTPUT_HTML": "journal.html",
     "STYLESHEET": "style.css",
     "LOREM_IPSUM_MODE": false,
+    "INCLUDE_TAG_INDEX": true,
     "TAG_COLOR_MIN_ALPHA": 0.5,
     "TAG_COLOR_SATURATION": "75%",
     "TAG_COLOR_LIGHTNESS": "50%"
