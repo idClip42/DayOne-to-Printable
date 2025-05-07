@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../types/DayOneEntry";
 import { CreateImageHtml, ImageTokenMatch, ImageTokenSplit } from "./handleEntryContentImage";
+import CONFIG from "./../config.json";
 
 function preprocessEntryText(text: string): string {
     // Trim leading/trailing whitespace
@@ -35,9 +36,14 @@ export function CreateContentHtml(entry:DayOneEntry):string{
             if (imgMatch) {
                 htmlResult += CreateImageHtml(entry, imgMatch[1]);
             } else if (token.trim()) {
-                // Replace single newlines (no newline before or after them) with <br> and parse with marked
-                const withBreaks = token.replace(/(?<!\n)\n(?!\n)/g, '<br>\n');
-                htmlResult += marked.parse(withBreaks);
+                if(CONFIG.LOREM_IPSUM_MODE){
+                    htmlResult += marked.parse("Lorem ipsum dolor");
+                }
+                else {
+                    // Replace single newlines (no newline before or after them) with <br> and parse with marked
+                    const withBreaks = token.replace(/(?<!\n)\n(?!\n)/g, '<br>\n');
+                    htmlResult += marked.parse(withBreaks);
+                }
             }
         }
     }

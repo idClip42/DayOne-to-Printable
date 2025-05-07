@@ -6,5 +6,6 @@
     "DATA_FILE": "Journal.json",
     "PHOTOS_DIR": "photos",
     "OUTPUT_HTML": "journal.html",
-    "STYLESHEET": "style.css"
+    "STYLESHEET": "style.css",
+    "LOREM_IPSUM_MODE": false
 }
