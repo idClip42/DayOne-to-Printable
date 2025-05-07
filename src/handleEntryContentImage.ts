@@ -13,6 +13,9 @@ function findPhoto(entry: DayOneEntry, id: string) {
 }
 
 export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
+    if(!CONFIG.INCLUDE_IMAGES)
+        return "";
+    
     const photo = findPhoto(entry, photoId);
     if (photo) {
         // const filename = `${photo.md5}.${photo.type}`;
