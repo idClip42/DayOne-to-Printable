@@ -17,7 +17,7 @@ export function ReplaceHtmlTextWithLoremIpsum(htmlText:string){
       
           if (len > 0 && text.trim()) {
             const localLoremIpsum = LOREM_IPSUM.substring(loremIpsumPosition) + LOREM_IPSUM.substring(0, loremIpsumPosition);
-            node.nodeValue = localLoremIpsum.substring(0, text.length);
+            node.nodeValue = localLoremIpsum.substring(0, text.length).trim();
             node.nodeValue = node.nodeValue.charAt(0).toUpperCase() + node.nodeValue.slice(1);
             loremIpsumPosition = (loremIpsumPosition + len) % LOREM_IPSUM.length;
           }
