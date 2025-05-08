@@ -48,10 +48,17 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>):void{
 }
 
 export function GetTagHtml(tag:string):string {
-    const info = tagsLibrary.find(test=>test.tag===tag);
+    const infoIndex = tagsLibrary.findIndex(test=>test.tag===tag);
+    if(infoIndex < 0) throw new Error(`Unrecognized tag: ${tag}`);
+    const info = tagsLibrary[infoIndex]
     if(!info) throw new Error(`Unrecognized tag: ${tag}`);
-    const color = info.color;
-    return `<span class="tag-item" style="background-color: ${color}">${tag}</span>`;
+
+    const LOREM_IPSUM_TAGS = ["Lorem", "Ipsum", "Dolor", "Sit Amet"];
+    const text = CONFIG.LOREM_IPSUM_MODE ?
+        LOREM_IPSUM_TAGS[info.count % LOREM_IPSUM_TAGS.length] :
+        tag;
+
+    return `<span class="tag-item" style="background-color: ${info.color}">${text}</span>`;
 }
 
 export function GetTagsListHtml():string {
