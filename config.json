@@ -9,6 +9,7 @@
     "STYLESHEET": "style.css",
     "LOREM_IPSUM_MODE": false,
     "INCLUDE_IMAGES": true,
+    "ONLY_IMAGE_BORDERS": false,
     "INCLUDE_TAG_INDEX": true,
     "INCLUDE_NEW_DAY_HEADER": false,
     "TAG_COLOR_MIN_ALPHA": 0.5,
