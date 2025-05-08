@@ -27,13 +27,15 @@ export function CreateContentHtml(entry:DayOneEntry):string{
     const preprocessedText = preprocessEntryText(entry.text);
     const paragraphs = preprocessedText.split(/\n{2,}/);
 
-    for (let paragraph of paragraphs) {
+    for(let p = 0; p < paragraphs.length; ++p) {
+        let paragraph = paragraphs[p];
         // Replace single returns after blockquotes ("> TEXT\n") with a double return for separation
         paragraph = paragraph.replace(/>[^>].*\n(?!>)/g, match => match + '\n');
     
         // Break paragraph into segments: either image matches or plain text
         const tokens = paragraph.split(ImageTokenSplit);
-        for (const token of tokens) {
+        for(let t = 0; t < tokens.length; ++t) {
+            const token = tokens[t];
             const imgMatch = token.match(ImageTokenMatch);
             if (imgMatch) {
                 htmlResult += CreateImageHtml(entry, imgMatch[1]);
@@ -43,14 +45,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
                 const withBreaks = token.replace(/(?<!\n)\n(?!\n)/g, BREAK);
                 if(CONFIG.LOREM_IPSUM_MODE){
                     htmlResult += marked.parse(
-                        withBreaks.split(BREAK).map(text=>{
+                        withBreaks.split(BREAK).map((text, textIndex)=>{
                             const localLoremIpsum = LOREM_IPSUM.substring(loremIpsumPosition) + LOREM_IPSUM.substring(0, loremIpsumPosition);
                             if(text.length > localLoremIpsum.length)
                                 return localLoremIpsum;
-                            const result = localLoremIpsum.substring(0, text.length);
+                            let result = localLoremIpsum.substring(0, text.length);
                             loremIpsumPosition = (loremIpsumPosition + text.length) % LOREM_IPSUM.length;
-                            return result;
-                        }).join(BREAK)
+                            if(p === 0 && t === 0 && textIndex === 0)
+                                result = `# ${result}`; 
+                            return result.trim();
+                        }).join(BREAK).trim()
                     );
                 }
                 else {
