@@ -105,5 +105,11 @@ body {
 
 h1 {
     font-size: 1.2em;
-    margin: 1em 0em;
+    margin: 0.5em 0em;
+    line-height: 1.25;
+}
+
+p {
+    line-height: 1.25;
+    margin-top: 0.5em;
 }
