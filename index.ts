@@ -20,7 +20,6 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Color-code the date dividers by month
 // TODO: Check what happens to PDF file size if I make all of the images zero opacity
-// TODO: Add extra margins near the binding (According to MChat, I can do this with CSS rules for “@page :left” and “@page :right”)
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);

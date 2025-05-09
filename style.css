@@ -4,6 +4,14 @@
         margin: 0.5in 0.5in;
     }
 
+    @page :right {
+        margin-left: 1.25in;
+    }
+
+    @page :left {
+        margin-right: 1.25in;
+    }
+
     #entries {
         column-count: 3;
         column-gap: auto;
