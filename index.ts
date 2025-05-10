@@ -15,10 +15,9 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Check that all file attachments exist when building file.
 // TODO: How do tables end up looking?
 // TODO: Consolidate the date/time styling to deemphasize repeat info and save space
-// TODO: Test with all types of headers - what do they all look like?
+// TODO: Test with all types of MD headers - what do they all look like?
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
-// TODO: Color-code the date dividers by month
 // TODO: Send a month to work to print
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
