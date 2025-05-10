@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { formatDateTime } from "./dateUtilities";
+import { formatDateTime, GetDayOfWeek } from "./dateUtilities";
 import { GetTagHtml } from "./organizeTags";
 import CONFIG from "./../config.json";
 
@@ -26,6 +26,19 @@ function CreateDateTimeHtml(entry: DayOneEntry):string{
 <h2 class="entry-date">
     ${formattedDateTime}
 </h2>
+    `.trim();
+}
+
+function CreateDayOfWeekHtml(entry: DayOneEntry):string {
+    const weekday = GetDayOfWeek(
+        entry.creationDate, 
+        entry.location.timeZoneName
+    );
+
+    return `
+<p class="entry-weekday">
+    ${weekday}
+</p>
     `.trim();
 }
 
@@ -74,9 +87,7 @@ function CreateLocationWeatherHtml(entry: DayOneEntry):string{
     if (metaLine) {
         return `
 <p class="entry-location">
-    <em>
-        ${metaLine}
-    </em>
+    ${metaLine}
 </p>
         `.trim();
     }
@@ -89,15 +100,14 @@ function CreateTagsHtml(entry: DayOneEntry):string {
     const tagsList = entry.tags.map(GetTagHtml).join(" ");
     return `
 <p class="entry-tags">
-<em>
     Tags: ${tagsList}
-</em>
 </p>
     `.trim();
 }
 
 export function CreateMetadataHtml(entry: DayOneEntry):string{
     const parts = [
+        CreateDayOfWeekHtml(entry),
         CreateDateTimeHtml(entry),
         CreateLocationWeatherHtml(entry),
         CreateTagsHtml(entry)

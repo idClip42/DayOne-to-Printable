@@ -74,11 +74,20 @@ body {
     border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
 }
 
+.entry-weekday {
+    /* margin-bottom: 0.5em; */
+    color: #555;
+    font-size: 0.8em;
+    margin: 0;
+    font-style: italic;
+}
+
 .entry-location {
     /* margin-bottom: 0.5em; */
     color: #555;
     font-size: 0.8em;
     margin: 0;
+    font-style: italic;
 }
 
 .entry-tags {
@@ -103,12 +112,13 @@ body {
 }
 
 .tag-item {
-    padding: 2px;
+    padding: 1px 3px;
     margin: 0;
     border-radius: 10px;
     font-weight: bold;
     color: white;
     font-style: normal;
+    font-size: 0.8em;
 }
 
 h1 {

@@ -13,7 +13,7 @@ export function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
     const datePart = d.toLocaleDateString('en-US', {
         timeZone,
-        weekday: 'long',
+        // weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -24,6 +24,14 @@ export function formatDateTime(iso: string, timeZone: string): string {
         minute: '2-digit',
     });
     return `${datePart}, ${timePart}`;
+}
+
+export function GetDayOfWeek(iso: string, timeZone: string): string {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', {
+        timeZone,
+        weekday: 'long'
+    });
 }
 
 interface DateConfig {
