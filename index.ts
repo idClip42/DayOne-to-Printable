@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { DayOneEntry } from './types/DayOneEntry';
 import CONFIG from "./config.json";
-import { formatDate, isSameLocalDay } from './src/dateUtilities';
+import { formatDate, GetDateColorTestHtml, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
@@ -68,6 +68,8 @@ const fullHTML = `
         <link rel="stylesheet" type="text/css" href="../${CONFIG.FILES.STYLESHEET}">
     </head>
     <body>
+        <!-- <div>${GetDateColorTestHtml()}</div> -->
+
         ${CONFIG.OTHER_CONTENT.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
         <div id="entries">
             ${entriesHtml.join('\n')}

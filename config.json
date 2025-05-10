@@ -16,6 +16,12 @@
                     "LIGHTNESS": "50%"
                 }
             },
+            "DATE_TIME": {
+                "COLOR": {
+                    "BASE_HUE": 180,
+                    "HUE_INCREMENT": -30
+                }
+            },
             "LOCATIONS": {
                 "INCLUDE_COORDINATES": false,
                 "SKIP_COUNTRY": "United States"

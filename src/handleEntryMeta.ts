@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { formatDateTime, GetDayOfWeek } from "./dateUtilities";
+import { formatDateTime, GetDateColor, GetDayOfWeek } from "./dateUtilities";
 import { GetTagHtml } from "./organizeTags";
 import CONFIG from "./../config.json";
 
@@ -108,20 +108,28 @@ function CreateTagsHtml(entry: DayOneEntry):string {
 }
 
 export function CreateMetadataHtml(entry: DayOneEntry):string{
+    const monthColor = GetDateColor(
+        entry.creationDate, 
+        entry.location.timeZoneName
+    );
+    const style = `background: linear-gradient(to bottom, ${monthColor}, #ffffff)`;
+
     return `
-<p class="pre-date-time">
-    <span class="entry-weekday">${CreateDayOfWeekHtml(entry)}</span>
-    <span class="entry-weather">${GetWeatherString(entry)}</span>
-</p>
+<div class="entry-metadata" style="${style}">
+    <p class="pre-date-time">
+        <span class="entry-weekday">${CreateDayOfWeekHtml(entry)}</span>
+        <span class="entry-weather">${GetWeatherString(entry)}</span>
+    </p>
 
-<h2 class="entry-date">
-    ${CreateDateTimeHtml(entry)}
-</h2>
+    <h2 class="entry-date">
+        ${CreateDateTimeHtml(entry)}
+    </h2>
 
-<p class="post-date-time">
-    <span class="entry-location">${GetLocationString(entry)}</span>
-</p>
+    <p class="post-date-time">
+        <span class="entry-location">${GetLocationString(entry)}</span>
+    </p>
 
-${CreateTagsHtml(entry)}
+    ${CreateTagsHtml(entry)}
+</div>
     `.trim();
 }
