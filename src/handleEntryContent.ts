@@ -43,7 +43,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
                 const BREAK = '<br>\n';
                 const withBreaks = token.replace(/(?<!\n)\n(?!\n)/g, BREAK);
                 let html = marked.parse(withBreaks, {"async": false});
-                if(CONFIG.LOREM_IPSUM_MODE){
+                if(CONFIG.ENTRIES.CONTENT.LOREM_IPSUM_MODE){
                     html = ReplaceHtmlTextWithLoremIpsum(html);
                 }
                 htmlResult += html;

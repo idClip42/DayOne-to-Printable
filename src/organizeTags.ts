@@ -33,10 +33,10 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>):void{
 
     const augmentedTags = sortedTags.map((item, index) => {
         const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
-        const alpha = ((1 - CONFIG.TAG_COLOR_MIN_ALPHA) * perc) + CONFIG.TAG_COLOR_MIN_ALPHA;
+        const alpha = ((1 - CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA) * perc) + CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA;
         /** Use golden angle approximation to always get a different hue. */
         const hue = index * 137.508;
-        const color = `hsla(${hue},${CONFIG.TAG_COLOR_SATURATION},${CONFIG.TAG_COLOR_LIGHTNESS},${alpha})`;
+        const color = `hsla(${hue},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.SATURATION},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.LIGHTNESS},${alpha})`;
         return {
             ...item,
             "percentage": perc,
@@ -54,7 +54,7 @@ export function GetTagHtml(tag:string):string {
     if(!info) throw new Error(`Unrecognized tag: ${tag}`);
 
     const LOREM_IPSUM_TAGS = ["Lorem", "Ipsum", "Dolor", "Sit Amet"];
-    const text = CONFIG.LOREM_IPSUM_MODE ?
+    const text = CONFIG.ENTRIES.CONTENT.LOREM_IPSUM_MODE ?
         LOREM_IPSUM_TAGS[info.count % LOREM_IPSUM_TAGS.length] :
         tag;
 

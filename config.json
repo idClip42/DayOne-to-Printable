@@ -1,20 +1,38 @@
 {
-    "RUN_RESIZE": false,
-    "IMG_MAX_WIDTH": 600,
-    "INPUT_DIR": "./input",
-    "OUTPUT_DIR": "./output",
-    "DATA_FILE": "Journal.json",
-    "PHOTOS_DIR": "photos",
-    "OUTPUT_HTML": "journal.html",
-    "STYLESHEET": "style.css",
-    "LOREM_IPSUM_MODE": false,
-    "INCLUDE_IMAGES": true,
-    "ONLY_IMAGE_BORDERS": false,
-    "INCLUDE_TAG_INDEX": true,
-    "INCLUDE_NEW_DAY_HEADER": false,
-    "TAG_COLOR_MIN_ALPHA": 0.5,
-    "TAG_COLOR_SATURATION": "75%",
-    "TAG_COLOR_LIGHTNESS": "50%",
-    "INCLUDE_COORDINATES": false,
-    "COUNTRY_TO_SKIP": "United States"
+    "FILES": {
+        "INPUT_DIR": "./input",
+        "OUTPUT_DIR": "./output",
+        "DATA_FILE": "Journal.json",
+        "PHOTOS_DIR": "photos",
+        "OUTPUT_HTML": "journal.html",
+        "STYLESHEET": "style.css"
+    },
+    "ENTRIES": {
+        "METADATA": {
+            "TAGS": {
+                "COLOR": {
+                    "MIN_ALPHA": 0.5,
+                    "SATURATION": "75%",
+                    "LIGHTNESS": "50%"
+                }
+            },
+            "LOCATIONS": {
+                "INCLUDE_COORDINATES": false,
+                "SKIP_COUNTRY": "United States"
+            }
+        },
+        "CONTENT": {
+            "LOREM_IPSUM_MODE": false
+        },
+        "IMAGES": {
+            "ENABLED": true,
+            "RUN_RESIZE": false,
+            "MAX_WIDTH": 600,
+            "ONLY_BORDERS": false
+        }
+    },
+    "OTHER_CONTENT": {
+        "INCLUDE_TAG_INDEX": true,
+        "INCLUDE_NEW_DAY_HEADER": false
+    }
 }

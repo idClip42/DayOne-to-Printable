@@ -4,8 +4,8 @@ import path from "path";
 
 export const RESIZED_IMAGES_EXT = "jpg";
 
-const inputPhotosFolder = path.join(CONFIG.INPUT_DIR, CONFIG.PHOTOS_DIR);
-const outputPhotosFolder = path.join(CONFIG.OUTPUT_DIR, CONFIG.PHOTOS_DIR);
+const inputPhotosFolder = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.PHOTOS_DIR);
+const outputPhotosFolder = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR);
 
 if(!fs.existsSync(outputPhotosFolder))
     fs.mkdirSync(outputPhotosFolder);
@@ -17,9 +17,9 @@ async function resizeImage(inputPath: string, outputDir: string) {
     const image = sharp(inputPath);
     const metadata = await image.metadata();
 
-    if ((metadata.width || 0) > CONFIG.IMG_MAX_WIDTH) {
+    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH) {
         await image
-            .resize({ width: CONFIG.IMG_MAX_WIDTH })
+            .resize({ width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH })
             .jpeg({ quality: 80 }) // adjust quality if desired
             .toFile(outputPath);
     } else {

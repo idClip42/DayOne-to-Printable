@@ -19,15 +19,14 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Color-code the date dividers by month
-// TODO: Organize/nest the config file
 // TODO: Figure out how to reduce date/time (and location) consistently to one line.
 
-const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
-const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
-if(!fs.existsSync(CONFIG.OUTPUT_DIR))
-    fs.mkdirSync(CONFIG.OUTPUT_DIR);
+const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
+const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
+if(!fs.existsSync(CONFIG.FILES.OUTPUT_DIR))
+    fs.mkdirSync(CONFIG.FILES.OUTPUT_DIR);
 
-if(CONFIG.RUN_RESIZE)
+if(CONFIG.ENTRIES.IMAGES.RUN_RESIZE)
     await ResizeImages();
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
@@ -52,7 +51,7 @@ for(const e in entries){
             }
         );
     })();
-    if(!isSameDay && CONFIG.INCLUDE_NEW_DAY_HEADER){
+    if(!isSameDay && CONFIG.OTHER_CONTENT.INCLUDE_NEW_DAY_HEADER){
         entriesHtml.push(`<div class="new-day"><h2>${formatDate(entry.creationDate, entry.location.timeZoneName)}</h2></div>`);
     }
 
@@ -66,10 +65,10 @@ const fullHTML = `
     <head>
         <meta charset="UTF-8">
         <title>Journal Export</title>
-        <link rel="stylesheet" type="text/css" href="../${CONFIG.STYLESHEET}">
+        <link rel="stylesheet" type="text/css" href="../${CONFIG.FILES.STYLESHEET}">
     </head>
     <body>
-        ${CONFIG.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
+        ${CONFIG.OTHER_CONTENT.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
         <div id="entries">
             ${entriesHtml.join('\n')}
         </div>

@@ -6,21 +6,21 @@ import { RESIZED_IMAGES_EXT } from "./resizeImages";
 export const ImageTokenSplit = /(!\[]\(dayone-moment:\/\/.*?\))/g;
 export const ImageTokenMatch = /!\[]\(dayone-moment:\/\/(.*?)\)/;
 
-const divStyle = CONFIG.ONLY_IMAGE_BORDERS ?
+const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
     "border-style: solid; border-color: lightgray;" :
     "";
-const imgStyle = CONFIG.ONLY_IMAGE_BORDERS ?
+const imgStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
     "opacity: 0" :
     "";
 
-const photosDir = path.join(CONFIG.OUTPUT_DIR, CONFIG.PHOTOS_DIR); // Directory where your images are stored
+const photosDir = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR); // Directory where your images are stored
 
 function findPhoto(entry: DayOneEntry, id: string) {
     return entry.photos?.find(photo => photo.identifier === id);
 }
 
 export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
-    if(!CONFIG.INCLUDE_IMAGES)
+    if(!CONFIG.ENTRIES.IMAGES.ENABLED)
         return "";
     
     const photo = findPhoto(entry, photoId);

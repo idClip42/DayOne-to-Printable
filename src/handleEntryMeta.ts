@@ -34,7 +34,7 @@ function GetLocationString(entry: DayOneEntry):string{
         entry.location?.placeName,
         entry.location?.localityName,
         entry.location?.administrativeArea,
-        (entry.location?.country === CONFIG.COUNTRY_TO_SKIP) ? 
+        (entry.location?.country === CONFIG.ENTRIES.METADATA.LOCATIONS.SKIP_COUNTRY) ? 
             undefined : 
             entry.location?.country,
     ].filter(Boolean);
@@ -62,7 +62,7 @@ function GetLatLonString(entry: DayOneEntry):string{
 function CreateLocationWeatherHtml(entry: DayOneEntry):string{
     const location = GetLocationString(entry);
     const weather = GetWeatherString(entry);
-    const latLon = CONFIG.INCLUDE_COORDINATES ? GetLatLonString(entry) : "";
+    const latLon = CONFIG.ENTRIES.METADATA.LOCATIONS.INCLUDE_COORDINATES ? GetLatLonString(entry) : "";
 
     const metaLine = [
         (location + " " + latLon).trim(), 
