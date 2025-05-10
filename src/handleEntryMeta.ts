@@ -1,6 +1,7 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import { formatDateTime } from "./dateUtilities";
 import { GetTagHtml } from "./organizeTags";
+import CONFIG from "./../config.json";
 
 function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
@@ -59,7 +60,7 @@ function GetLatLonString(entry: DayOneEntry):string{
 function CreateLocationWeatherHtml(entry: DayOneEntry):string{
     const location = GetLocationString(entry);
     const weather = GetWeatherString(entry);
-    const latLon = GetLatLonString(entry);
+    const latLon = CONFIG.INCLUDE_COORDINATES ? GetLatLonString(entry) : undefined;
 
     const metaLine = [location, weather, latLon].filter(Boolean).join(' — ');
     if (metaLine) {

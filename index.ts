@@ -19,6 +19,8 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Color-code the date dividers by month
+// TODO: Address (and option coors) on one line, weather on next
+// TODO: Organize/nest the config file
 
 const dataPath = path.join(CONFIG.INPUT_DIR, CONFIG.DATA_FILE);
 const outputPath = path.join(CONFIG.OUTPUT_DIR, CONFIG.OUTPUT_HTML);
