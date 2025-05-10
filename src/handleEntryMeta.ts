@@ -60,14 +60,20 @@ function GetLatLonString(entry: DayOneEntry):string{
 function CreateLocationWeatherHtml(entry: DayOneEntry):string{
     const location = GetLocationString(entry);
     const weather = GetWeatherString(entry);
-    const latLon = CONFIG.INCLUDE_COORDINATES ? GetLatLonString(entry) : undefined;
+    const latLon = CONFIG.INCLUDE_COORDINATES ? GetLatLonString(entry) : "";
 
-    const metaLine = [location, weather, latLon].filter(Boolean).join(' — ');
+    const metaLine = [
+        (location + " " + latLon).trim(), 
+        weather
+    ].filter(Boolean).map(
+        text => escapeHTML(text)
+    ).join("<br>");
+
     if (metaLine) {
         return `
 <p class="entry-location">
     <em>
-        ${escapeHTML(metaLine)}
+        ${metaLine}
     </em>
 </p>
         `.trim();
