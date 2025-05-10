@@ -74,8 +74,23 @@ body {
     border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
 }
 
+.pre-date-time, .post-date-time{
+    color: #555;
+    font-size: 0.8em;
+    margin: 0;
+    font-style: italic;
+    display: block;
+}
+
 .entry-weekday {
-    /* margin-bottom: 0.5em; */
+    display: inline-block;
+}
+
+.entry-weather {
+    float: right;
+}
+
+/* .entry-weekday {
     color: #555;
     font-size: 0.8em;
     margin: 0;
@@ -83,15 +98,13 @@ body {
 }
 
 .entry-location {
-    /* margin-bottom: 0.5em; */
     color: #555;
     font-size: 0.8em;
     margin: 0;
     font-style: italic;
-}
+} */
 
 .entry-tags {
-    /* margin-bottom: 0.5em; */
     color: #555;
     font-size: 0.8em;
     margin: 0;

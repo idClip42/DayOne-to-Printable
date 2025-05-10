@@ -21,12 +21,13 @@ function CreateDateTimeHtml(entry: DayOneEntry):string{
         entry.creationDate, 
         entry.location.timeZoneName
     );
+    return formattedDateTime;
 
-    return `
-<h2 class="entry-date">
-    ${formattedDateTime}
-</h2>
-    `.trim();
+//     return `
+// <h2 class="entry-date">
+//     ${formattedDateTime}
+// </h2>
+//     `.trim();
 }
 
 function CreateDayOfWeekHtml(entry: DayOneEntry):string {
@@ -34,12 +35,13 @@ function CreateDayOfWeekHtml(entry: DayOneEntry):string {
         entry.creationDate, 
         entry.location.timeZoneName
     );
+    return weekday;
 
-    return `
-<p class="entry-weekday">
-    ${weekday}
-</p>
-    `.trim();
+//     return `
+// <p class="entry-weekday">
+//     ${weekday}
+// </p>
+//     `.trim();
 }
 
 function GetLocationString(entry: DayOneEntry):string{
@@ -106,11 +108,20 @@ function CreateTagsHtml(entry: DayOneEntry):string {
 }
 
 export function CreateMetadataHtml(entry: DayOneEntry):string{
-    const parts = [
-        CreateDayOfWeekHtml(entry),
-        CreateDateTimeHtml(entry),
-        CreateLocationWeatherHtml(entry),
-        CreateTagsHtml(entry)
-    ].filter(Boolean);
-    return parts.join("\n");
+    return `
+<p class="pre-date-time">
+    <span class="entry-weekday">${CreateDayOfWeekHtml(entry)}</span>
+    <span class="entry-weather">${GetWeatherString(entry)}</span>
+</p>
+
+<h2 class="entry-date">
+    ${CreateDateTimeHtml(entry)}
+</h2>
+
+<p class="post-date-time">
+    <span class="entry-location">${GetLocationString(entry)}</span>
+</p>
+
+${CreateTagsHtml(entry)}
+    `.trim();
 }
