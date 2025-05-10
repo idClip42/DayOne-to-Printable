@@ -15,5 +15,6 @@
     "TAG_COLOR_MIN_ALPHA": 0.5,
     "TAG_COLOR_SATURATION": "75%",
     "TAG_COLOR_LIGHTNESS": "50%",
-    "INCLUDE_COORDINATES": false
+    "INCLUDE_COORDINATES": false,
+    "COUNTRY_TO_SKIP": "United States"
 }

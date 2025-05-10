@@ -34,7 +34,9 @@ function GetLocationString(entry: DayOneEntry):string{
         entry.location?.placeName,
         entry.location?.localityName,
         entry.location?.administrativeArea,
-        entry.location?.country,
+        (entry.location?.country === CONFIG.COUNTRY_TO_SKIP) ? 
+            undefined : 
+            entry.location?.country,
     ].filter(Boolean);
     return locParts.join(', ');
 }
