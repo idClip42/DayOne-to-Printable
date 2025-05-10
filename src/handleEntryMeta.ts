@@ -19,7 +19,7 @@ function escapeHTML(text: string): string {
 function CreateDateTimeHtml(entry: DayOneEntry):string{
     const formattedDateTime = formatDateTime(
         entry.creationDate, 
-        entry.location.timeZoneName
+        entry.location?.timeZoneName
     );
     return formattedDateTime;
 
@@ -33,7 +33,7 @@ function CreateDateTimeHtml(entry: DayOneEntry):string{
 function CreateDayOfWeekHtml(entry: DayOneEntry):string {
     const weekday = GetDayOfWeek(
         entry.creationDate, 
-        entry.location.timeZoneName
+        entry.location?.timeZoneName
     );
     return weekday;
 
@@ -110,7 +110,7 @@ function CreateTagsHtml(entry: DayOneEntry):string {
 export function CreateMetadataHtml(entry: DayOneEntry):string{
     const monthColor = GetDateColor(
         entry.creationDate, 
-        entry.location.timeZoneName
+        entry.location?.timeZoneName
     );
     const style = `background: linear-gradient(to bottom, ${monthColor}, #ffffff)`;
 
