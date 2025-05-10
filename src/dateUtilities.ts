@@ -11,15 +11,19 @@ export function formatDate(iso: string, timeZone: string): string {
 
 export function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
-    return d.toLocaleString('en-US', {
-        timeZone: timeZone,
+    const datePart = d.toLocaleDateString('en-US', {
+        timeZone,
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+    });
+    const timePart = d.toLocaleTimeString('en-US', {
+        timeZone,
         hour: 'numeric',
         minute: '2-digit',
     });
+    return `${datePart} ${timePart}`;
 }
 
 interface DateConfig {
