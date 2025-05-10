@@ -69,7 +69,7 @@ function CreateLocationWeatherHtml(entry: DayOneEntry):string{
         weather
     ].filter(Boolean).map(
         text => escapeHTML(text)
-    ).join("<br>");
+    ).join(' — ');
 
     if (metaLine) {
         return `
