@@ -3,82 +3,46 @@ import CONFIG from "../config.json";
 import path from 'path';
 import { RESIZED_IMAGES_EXT } from "./resizeImages";
 
-export const ImageTokenSplit = /(!\[]\(dayone-moment:\/\/.*?\))/g;
-export const ImageTokenMatch = /!\[]\(dayone-moment:\/\/(.*?)\)/;
 export const ImageTokenMatchAll = /!\[]\(dayone-moment:\/\/(.*?)\)/g;
 
 const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
-    "border-style: solid; border-color: lightgray;" :
+    'style="border-style: solid; border-color: lightgray;"' :
     "";
 const imgStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
-    "opacity: 0" :
+    'style="opacity: 0"' :
     "";
 
-const photosDir = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR); // Directory where your images are stored
-
-function findPhoto(entry: DayOneEntry, id: string) {
-    return entry.photos?.find(photo => photo.identifier === id);
-}
+/** Directory where your images are stored */
+const photosDir = path.join(
+    CONFIG.FILES.OUTPUT_DIR, 
+    CONFIG.FILES.PHOTOS_DIR
+);
 
 export function GetImageFilePath(entry:DayOneEntry, photoId: string){
     if(!CONFIG.ENTRIES.IMAGES.ENABLED)
         return "";
 
-    const photo = findPhoto(entry, photoId);
+    const photo = entry.photos?.find(
+        photo => photo.identifier === photoId
+    );
+
     if (photo) {
-        // const filename = `${photo.md5}.${photo.type}`;
         const filename = `${photo.md5}.${RESIZED_IMAGES_EXT}`;
         const srcFilePath = path.join("..", photosDir, filename);
-
-        const divStyleString = divStyle ? `style="${divStyle}"` : "";
-        const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
-
         return srcFilePath;
     }
-    else {
-        return "";
-    }
-}
-
-export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
-    if(!CONFIG.ENTRIES.IMAGES.ENABLED)
-        return "";
-
-    const srcFilePath = GetImageFilePath(entry, photoId);
-    if(srcFilePath){
-        const divStyleString = divStyle ? `style="${divStyle}"` : "";
-        const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
-
-        return `
-<div class="entry-photo" ${divStyleString}>
-    <img src="${srcFilePath}" alt="Photo" ${imgStyleString} />
-</div>
-        `.trim();
-    }
-
+    
     return "";
 }
 
-// export function WrapImgHtml(entry:DayOneEntry, imgHtml:string){
-//     const divStyleString = divStyle ? `style="${divStyle}"` : "";
-//     const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
-//     return `
-// <div class="entry-photo" ${divStyleString}>
-//     <img src="${srcFilePath}" alt="Photo" ${imgStyleString} />
-// </div>
-//         `.trim();
-// }
-
 export function ProcessHtmlImages(entry:DayOneEntry, html:string){
-    const divStyleString = divStyle ? `style="${divStyle}"` : "";
-    const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
         if(!CONFIG.ENTRIES.IMAGES.ENABLED)
             return "";
         
         return `
-<div class="entry-photo" ${divStyleString}>
-    <img${p1} ${imgStyleString}>
+<div class="entry-photo" ${divStyle}>
+    <img${p1} ${imgStyle}>
 </div>
         `.trim();
     });
