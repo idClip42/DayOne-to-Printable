@@ -4,6 +4,7 @@
 export interface DayOneEntry {
     creationDate: string; // ISO date string
     text: string; // Markdown-ish text with ![](dayone-moment://ID)
+    richText: string; // JSON-stringified rich-text object
     location?: {
         placeName?: string;
         localityName?: string;

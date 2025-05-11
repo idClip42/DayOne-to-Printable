@@ -5,6 +5,7 @@ import { RESIZED_IMAGES_EXT } from "./resizeImages";
 
 export const ImageTokenSplit = /(!\[]\(dayone-moment:\/\/.*?\))/g;
 export const ImageTokenMatch = /!\[]\(dayone-moment:\/\/(.*?)\)/;
+export const ImageTokenMatchAll = /!\[]\(dayone-moment:\/\/(.*?)\)/g;
 
 const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
     "border-style: solid; border-color: lightgray;" :
@@ -19,10 +20,10 @@ function findPhoto(entry: DayOneEntry, id: string) {
     return entry.photos?.find(photo => photo.identifier === id);
 }
 
-export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
+export function GetImageFilePath(entry:DayOneEntry, photoId: string){
     if(!CONFIG.ENTRIES.IMAGES.ENABLED)
         return "";
-    
+
     const photo = findPhoto(entry, photoId);
     if (photo) {
         // const filename = `${photo.md5}.${photo.type}`;
@@ -32,10 +33,28 @@ export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
         const divStyleString = divStyle ? `style="${divStyle}"` : "";
         const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
 
+        return srcFilePath;
+    }
+    else {
+        return "";
+    }
+}
+
+export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
+    if(!CONFIG.ENTRIES.IMAGES.ENABLED)
+        return "";
+
+    const srcFilePath = GetImageFilePath(entry, photoId);
+    if(srcFilePath){
+        const divStyleString = divStyle ? `style="${divStyle}"` : "";
+        const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
+
         return `
 <div class="entry-photo" ${divStyleString}>
     <img src="${srcFilePath}" alt="Photo" ${imgStyleString} />
 </div>
         `.trim();
     }
+
+    return "";
 }

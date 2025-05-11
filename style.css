@@ -23,6 +23,18 @@
         height: auto;
     }
 
+    /* img {
+        width: 100%;
+        height: auto;
+    } */
+
+    /* ul {
+        width: 100%;
+    } */
+    /* ul img {
+        width: 100%;
+    } */
+
     .new-day {
         display: block;
         break-before: page;
@@ -46,6 +58,10 @@
         width: 300px;
         height: auto;
     }
+    /* img {
+        width: 300px;
+        height: auto;
+    } */
 }
 
 body {
@@ -113,11 +129,19 @@ body {
 }
 
 .entry-photo {
-    /* margin: 1em 0; */
     text-align: center;
     break-inside: avoid;
-    page-break-inside: avoid; /* fallback for older engines */
+    page-break-inside: avoid;
 }
+
+/* img {
+    margin: 5px auto;
+    text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid;
+
+    display: block;
+} */
 
 .new-day {
     background: linear-gradient(to right, #e6f2ff, #ffffff);
@@ -145,4 +169,22 @@ h1 {
 p {
     line-height: 1.25;
     margin-top: 0.5em;
+}
+
+ul {
+    padding-left: 15px;
+}
+
+pre, code {
+    /* Allows wrapping of text */
+    /* white-space: pre-wrap;  */
+    /* Breaks long words to fit within the container */
+    /* word-wrap: break-word; */
+    overflow-x: hidden;
+    font-size: 6pt;
+    line-height: 1;
+}
+
+table {
+    font-size: 8pt;
 }
