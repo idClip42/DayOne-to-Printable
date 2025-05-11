@@ -3,8 +3,6 @@ import CONFIG from "../config.json";
 import path from 'path';
 import { RESIZED_IMAGES_EXT } from "./resizeImages";
 
-export const ImageTokenMatchAll = /!\[]\(dayone-moment:\/\/(.*?)\)/g;
-
 const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
     'style="border-style: solid; border-color: lightgray;"' :
     "";

@@ -1,6 +1,6 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../types/DayOneEntry";
-import { GetImageFilePath, ImageTokenMatchAll, ProcessHtmlImages } from "./handleEntryContentImage";
+import { GetImageFilePath, ProcessHtmlImages } from "./handleEntryContentImage";
 import CONFIG from "./../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
 
@@ -56,7 +56,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
     ).replace(
         // Replaces all DayOne image links with the link
         // to the actual relevant image.
-        ImageTokenMatchAll,
+        /!\[]\(dayone-moment:\/\/(.*?)\)/g,
         (_, match) => `![](${GetImageFilePath(entry, match)})`
     );
 
