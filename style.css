@@ -212,7 +212,7 @@ pre, code {
     word-wrap: break-word;
     /* overflow-x: hidden; */
     font-size: 8pt;
-    line-height: 1;
+    line-height: 1.2;
     background-color: lightgray;
     color: darkslategray
 }
