@@ -79,6 +79,12 @@ export function CreateContentHtml(entry:DayOneEntry):string{
             const final = `\`\`\`${normalized}\`\`\``;
             return final;
         }
+    ).replace(
+        // There's at least one copy-pasted list with
+        // actual unicode bullets that isn't interpreted
+        // as a list and becomes one line in the HTML.
+        /\n•/g,
+        "\n-"
     );
 
     // Parse the modified Markdown into HTML.
