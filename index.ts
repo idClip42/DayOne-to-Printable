@@ -15,10 +15,7 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Check that all file attachments exist when building file.
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
-// TODO: Don't put <br> between triple backticks/in "pre". (March 1, 2025, 7:13 PM) (March 22, 2025, 1:20 PM)
-// TODO: Looks like <pre> doesn't do line-breaks. (March 27, 2025, 11:28 PM)
 // TODO: Image processing is rotating (unrotating?) some images. (February 2, 2025, 4:50 PM) (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)
-// TODO: Better style for <code>
 // TODO: Replace bullets "•" with dashes? Maybe? (March 26, 2025, 11:54 AM)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
