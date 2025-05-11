@@ -20,7 +20,6 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Bulleted lists broken up by images just break entirely.
 // TODO: Console logs that track percentage of entries processed.
-// TODO: Why are the header font sizes smaller in the print version of the one with actual content?
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
