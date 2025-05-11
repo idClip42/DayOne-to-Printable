@@ -28,9 +28,13 @@ export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
         // const filename = `${photo.md5}.${photo.type}`;
         const filename = `${photo.md5}.${RESIZED_IMAGES_EXT}`;
         const srcFilePath = path.join("..", photosDir, filename);
+
+        const divStyleString = divStyle ? `style="${divStyle}"` : "";
+        const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
+
         return `
-<div class="entry-photo" style="${divStyle}">
-    <img src="${srcFilePath}" alt="Photo" style="${imgStyle}" />
+<div class="entry-photo" ${divStyleString}>
+    <img src="${srcFilePath}" alt="Photo" ${imgStyleString} />
 </div>
         `.trim();
     }
