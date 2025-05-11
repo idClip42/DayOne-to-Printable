@@ -58,3 +58,28 @@ export function CreateImageHtml(entry:DayOneEntry, photoId: string) {
 
     return "";
 }
+
+// export function WrapImgHtml(entry:DayOneEntry, imgHtml:string){
+//     const divStyleString = divStyle ? `style="${divStyle}"` : "";
+//     const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
+//     return `
+// <div class="entry-photo" ${divStyleString}>
+//     <img src="${srcFilePath}" alt="Photo" ${imgStyleString} />
+// </div>
+//         `.trim();
+// }
+
+export function ProcessHtmlImages(entry:DayOneEntry, html:string){
+    const divStyleString = divStyle ? `style="${divStyle}"` : "";
+    const imgStyleString = imgStyle ? `style="${imgStyle}"` : "";
+    return html.replace(/<img([^>]*)>/g, (match, p1) => {
+        if(!CONFIG.ENTRIES.IMAGES.ENABLED)
+            return "";
+        
+        return `
+<div class="entry-photo" ${divStyleString}>
+    <img${p1} ${imgStyleString}>
+</div>
+        `.trim();
+    });
+}

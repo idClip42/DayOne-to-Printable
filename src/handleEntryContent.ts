@@ -1,6 +1,6 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../types/DayOneEntry";
-import { CreateImageHtml, GetImageFilePath, ImageTokenMatch, ImageTokenSplit, ImageTokenMatchAll } from "./handleEntryContentImage";
+import { CreateImageHtml, GetImageFilePath, ImageTokenMatch, ImageTokenSplit, ImageTokenMatchAll, ProcessHtmlImages } from "./handleEntryContentImage";
 import CONFIG from "./../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
 
@@ -65,9 +65,12 @@ export function CreateContentHtml(entry:DayOneEntry):string{
 
     let html = marked.parse(
         processedText, {"async": false}
-    ).replace(/<img([^>]*)>/g, (match, p1) => {
-        return `<div class="entry-photo"><img${p1}></div>`;
-    });
+    ); //.replace(/<img([^>]*)>/g, (match, p1) => {
+        // return `<div class="entry-photo"><img${p1}></div>`;
+    // });
+
+    html = ProcessHtmlImages(entry, html);
+
     // console.log(html);
     // htmlResult += html;
 
