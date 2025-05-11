@@ -13,13 +13,15 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one).
 // TODO: Double-check timezone crossing and lack of timezone.
 // TODO: Check that all file attachments exist when building file.
-// TODO: How do tables end up looking?
+// TODO: How do tables end up looking? (March 1, 2025, 7:13 PM suggests they're not handled?)
 // TODO: Consolidate the date/time styling to deemphasize repeat info and save space
 // TODO: Test with all types of MD headers - what do they all look like?
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
-// TODO: Bulleted lists broken up by images just break entirely.
-// TODO: Console logs that track percentage of entries processed.
+// TODO: Bulleted lists broken up by images just break entirely. (February 10, 2025, 9:33 PM)
+// TODO: What do we do about bulleted lists so nested that everything just goes to hell in the columns? (March 1, 2025, 4:21 PM)
+// TODO: Don't put <br> between triple backticks/in "pre". (March 1, 2025, 7:13 PM) (March 22, 2025, 1:20 PM)
+// TODO: Looks like <pre> doesn't do line-breaks. (March 27, 2025, 11:28 PM)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
