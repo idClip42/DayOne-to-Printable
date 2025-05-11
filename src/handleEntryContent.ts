@@ -55,6 +55,30 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // to the actual relevant image.
         /!\[]\(dayone-moment:\/\/(.*?)\)/g,
         (_, match) => `![](${GetImageFilePath(entry, match)})`
+    ).replace(
+        // For some reason, DayOne separates each code block line
+        // into separate blocks with separate triple-backticks.
+        // So this re-merges them.
+        /```[\n\r]+```/g,
+        ''
+    ).replace(
+        // This removes backslashes,
+        // puts back single quotes,
+        // and replaces anything more than
+        // two newlines with just two newlines.
+        /```([\s\S]*?)```/g,
+        (match, codeBlock) => {
+            const normalized = codeBlock.replace(
+                /\\/g, ''
+            ).replace(
+                /<br>/g, '\n'
+            ).replace(
+                /\n{2,}/g, 
+                '\n\n'
+            );
+            const final = `\`\`\`${normalized}\`\`\``;
+            return final;
+        }
     );
 
     // Parse the modified Markdown into HTML.
