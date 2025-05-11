@@ -38,6 +38,11 @@ for(const e in entries){
     const entryIndex = Number(e);
     const entry = entries[entryIndex];
 
+    if(entryIndex % 100 === 0){
+        const perc = entryIndex/entries.length;
+        console.log(`Entries processed: ${(perc * 100).toFixed(2)}%`);
+    }
+
     const isSameDay = (()=>{
         if(entryIndex === 0) return false;
         const prevEntry = entries[entryIndex - 1];
