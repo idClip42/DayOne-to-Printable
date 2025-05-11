@@ -227,3 +227,8 @@ blockquote {
     color: gray;
     padding-left: 10px;
 }
+
+code {
+    background-color: lightgray;
+    color: darkslategray
+}
