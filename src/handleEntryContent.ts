@@ -4,26 +4,23 @@ import { GetImageFilePath, ProcessHtmlImages } from "./handleEntryContentImage";
 import CONFIG from "./../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
 
-function preprocessEntryText(text: string): string {
-    // Trim leading/trailing whitespace
-    const trimmed = text.trim();
-
-    // Find first line break
-    const firstNewlineIndex = trimmed.indexOf('\n');
-    const firstLine = firstNewlineIndex === -1 ? trimmed : trimmed.slice(0, firstNewlineIndex);
-
-    // If the first line doesn't start with a markdown header but is short enough, prepend "# "
-    if (! firstLine.startsWith('#') && firstLine.length <= 100) {
-        return `# ${firstLine}\n\n${trimmed.slice(firstNewlineIndex)}`;
-    }
-
-    return trimmed;
-}
-
 export function CreateContentHtml(entry:DayOneEntry):string{
     let htmlResult = "";
 
-    const preprocessedText = preprocessEntryText(entry.text);
+    const preprocessedText = (()=>{
+        // Trim leading/trailing whitespace.
+        const trimmed = entry.text.trim();
+        // Find first line break.
+        const firstNewlineIndex = trimmed.indexOf('\n');
+        const firstLine = firstNewlineIndex === -1 ? trimmed : trimmed.slice(0, firstNewlineIndex);
+        // If the first line doesn't start with a markdown
+        // header but is short enough, prepend "# ".
+        if (! firstLine.startsWith('#') && firstLine.length <= 100) {
+            return `# ${firstLine}\n\n${trimmed.slice(firstNewlineIndex)}`;
+        }
+        // Otherwise, just return it as is.
+        return trimmed;
+    })();
 
     const processedText = preprocessedText.replace(
         // Add an extra return after every header line of any level.
@@ -60,12 +57,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         (_, match) => `![](${GetImageFilePath(entry, match)})`
     );
 
+    // Parse the modified Markdown into HTML.
     htmlResult = marked.parse(
         processedText, {"async": false}
     );
 
+    // Update all image tags.
     htmlResult = ProcessHtmlImages(entry, htmlResult);
     
+    // Replace all text content with Lorem Ipsum,
+    // if configured to do so.
     if(CONFIG.ENTRIES.CONTENT.LOREM_IPSUM_MODE){
         htmlResult = ReplaceHtmlTextWithLoremIpsum(htmlResult);
     }
