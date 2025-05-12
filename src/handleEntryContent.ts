@@ -52,6 +52,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // quotes.
         // TODO: Only do this when the previous line starts
         // TODO: With 0 or more "\t"s and a hyphen or asterisk.
+        // TODO: Reference March 1, 2025, 9:07 AM
         /\n\n!?\[\]\((.*?)\)\n\n/g,
         (_, url) => ` ![](${url})\n`
     ).replace(

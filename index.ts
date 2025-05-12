@@ -16,7 +16,7 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Image processing is rotating (unrotating?) some images. (February 2, 2025, 4:50 PM) (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)
-// TODO: Update the "image after list" thing to just be after a list.
+// TODO: Update the "image after list" thing to just be after a list. (March 1, 2025, 9:07 AM)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
