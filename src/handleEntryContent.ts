@@ -48,6 +48,10 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // bulleted lists to not interrupt those lists,
         // and shouldn't affect any images that aren't
         // in bulleted lists.
+        // Update: But it does - images end up as part of
+        // quotes.
+        // TODO: Only do this when the previous line starts
+        // TODO: With 0 or more "\t"s and a hyphen or asterisk.
         /\n\n!?\[\]\((.*?)\)\n\n/g,
         (_, url) => ` ![](${url})\n`
     ).replace(
