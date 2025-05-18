@@ -26,5 +26,24 @@ export interface DayOneEntry {
         /** This is the stored photo type */
         "type": string;
     }[];
+    audios?: {
+        "title": string,
+        "duration": number,
+        "format": string,
+        "identifier": string,
+        "md5": string
+    }[];
+    videos?: {
+        "type" : string,
+        "identifier" : string,
+        "md5": string,
+        "duration": number
+    }[];
+    pdfAttachments?: {
+      "type" : string,
+      "identifier" : string,
+      "md5" : string,
+      "pdfName" : string
+    }[];
     tags?: string[];
 }

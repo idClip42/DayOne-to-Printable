@@ -10,7 +10,6 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Do actual styling once the base stuff is dealt with.
-// TODO: Handle video, audio, pdf (and gif?) attachments (just add a note that there was one).
 // TODO: Double-check timezone crossing and lack of timezone.
 // TODO: Check that all file attachments exist when building file.
 // TODO: Page numbers!

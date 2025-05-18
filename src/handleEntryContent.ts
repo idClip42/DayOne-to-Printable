@@ -3,6 +3,7 @@ import { DayOneEntry } from "../types/DayOneEntry";
 import { GetImageFilePath, ProcessHtmlImages } from "./handleEntryContentImage";
 import CONFIG from "./../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
+import { GetAttachmentInfo, GetAttachmentMarkdown, GetAttachmentText, UpdateHtmlAttachments } from "./handleEntryContentAttachment";
 
 export function CreateContentHtml(entry:DayOneEntry):string{
     let htmlResult = "";
@@ -58,8 +59,20 @@ export function CreateContentHtml(entry:DayOneEntry):string{
     ).replace(
         // Replaces all DayOne image links with the link
         // to the actual relevant image.
-        /!\[]\(dayone-moment:\/\/(.*?)\)/g,
-        (_, match) => `![](${GetImageFilePath(entry, match)})`
+        /!\[]\(dayone-moment:(.*?)\)/g,
+        (_, match) => {
+            // console.log(match);
+            const attachmentInfo = GetAttachmentInfo(entry, match);
+            if(attachmentInfo.type === "Photo"){
+                const imageFilePath = GetImageFilePath(entry, match.replace("//", ""));
+                if(!imageFilePath)
+                    throw new Error(`No image file path after processing ${match}.`);
+                return `![](${imageFilePath})`;
+            }
+            else {
+                return GetAttachmentMarkdown(GetAttachmentText(attachmentInfo));
+            }
+        }
     ).replace(
         // For some reason, DayOne separates each code block line
         // into separate blocks with separate triple-backticks.
@@ -99,6 +112,9 @@ export function CreateContentHtml(entry:DayOneEntry):string{
 
     // Update all image tags.
     htmlResult = ProcessHtmlImages(entry, htmlResult);
+
+    // Update attachments.
+    htmlResult = UpdateHtmlAttachments(htmlResult);
     
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
