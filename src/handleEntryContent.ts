@@ -44,18 +44,17 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         />[^>].*\n(?!>)/g, 
         match => match + '\n'
     ).replace(
-        // Remove extra newlines from around images.
-        // This allows images dropped in the middle of
-        // bulleted lists to not interrupt those lists,
-        // and shouldn't affect any images that aren't
-        // in bulleted lists.
-        // Update: But it does - images end up as part of
-        // quotes.
-        // TODO: Only do this when the previous line starts
-        // TODO: With 0 or more "\t"s and a hyphen or asterisk.
-        // TODO: Reference March 1, 2025, 9:07 AM
-        /\n\n!?\[\]\((.*?)\)\n\n/g,
-        (_, url) => ` ![](${url})\n`
+        // All images are surrounded by "\n\n" double newlines.
+        // TODO: Add a check to ensure this assumption is correct.
+        // When an image is inserted mid-list, 
+        // at one of the nested levels instead of the top level,
+        // this line break breaks the list entirely.
+        // We fix this by:
+        // - Finding images that come after list items
+        // - Removing both line breaks from the start
+        // - Removing one of the two line breaks from the finish.
+        /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
+        (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
     ).replace(
         // Replaces all DayOne image links with the link
         // to the actual relevant image.
