@@ -7,12 +7,11 @@ type AttachVideo = { "type": "Video", "data": DayOneEntry["videos"][number] };
 type AttachAudio = { "type": "Audio", "data": DayOneEntry["audios"][number] };
 type AttachPdf = { "type": "PDF", "data": DayOneEntry["pdfAttachments"][number] }
 
-type AttachInfoMinusPhoto = 
+type AttachInfo = 
     | AttachVideo
     | AttachAudio
-    | AttachPdf;
-
-type AttachInfo = AttachInfoMinusPhoto|AttachPhoto;
+    | AttachPdf
+    | AttachPhoto;
 
 export function GetAttachmentInfo(entry:DayOneEntry, pathString:string):AttachInfo{
     if(pathString.startsWith("//")){
@@ -48,8 +47,11 @@ export function GetAttachmentInfo(entry:DayOneEntry, pathString:string):AttachIn
     }
 }
 
-export function GetAttachmentText(info:AttachInfoMinusPhoto):string {
-    if(info.type === "Audio"){
+export function GetAttachmentText(info:AttachInfo):string {
+    if(info.type === "Photo"){
+        return `${info.type}: Missing ${info.data.type} '${info.data.identifier}'`;
+    }
+    else if(info.type === "Audio"){
         return `${info.type}: ${info.data.title}, ${secondsToTimeString(info.data.duration)}`;
     }
     else if(info.type === "Video"){

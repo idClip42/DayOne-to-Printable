@@ -9,9 +9,7 @@ import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
-// TODO: Do actual styling once the base stuff is dealt with.
 // TODO: Double-check timezone crossing and lack of timezone.
-// TODO: Check that all file attachments exist when building file.
 // TODO: Page numbers!
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Image processing is rotating (unrotating?) some images. (February 2, 2025, 4:50 PM) (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)

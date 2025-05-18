@@ -61,17 +61,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // to the actual relevant image.
         /!\[]\(dayone-moment:(.*?)\)/g,
         (_, match) => {
-            // console.log(match);
             const attachmentInfo = GetAttachmentInfo(entry, match);
             if(attachmentInfo.type === "Photo"){
                 const imageFilePath = GetImageFilePath(entry, match.replace("//", ""));
-                if(!imageFilePath)
-                    throw new Error(`No image file path after processing ${match}.`);
-                return `![](${imageFilePath})`;
+                if(imageFilePath)
+                    return `![](${imageFilePath})`;
             }
-            else {
-                return GetAttachmentMarkdown(GetAttachmentText(attachmentInfo));
-            }
+            
+            // If it's not an image, or we couldn't find the image,
+            // default to this.
+            return GetAttachmentMarkdown(GetAttachmentText(attachmentInfo));
         }
     ).replace(
         // For some reason, DayOne separates each code block line

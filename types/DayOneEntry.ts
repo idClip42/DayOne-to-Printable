@@ -22,9 +22,10 @@ export interface DayOneEntry {
         identifier: string;
         // filename: string;
         /** This is the stored photo name */
-        "md5": string;
+        "md5"?: string;
         /** This is the stored photo type */
         "type": string;
+        date: string;
     }[];
     audios?: {
         "title": string,

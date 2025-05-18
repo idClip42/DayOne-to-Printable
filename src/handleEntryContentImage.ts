@@ -2,6 +2,7 @@ import { DayOneEntry } from "../types/DayOneEntry";
 import CONFIG from "../config.json";
 import path from 'path';
 import { RESIZED_IMAGES_EXT } from "./resizeImages";
+import fs from "fs";
 
 const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ?
     'style="border-style: solid; border-color: lightgray;"' :
@@ -25,8 +26,20 @@ export function GetImageFilePath(entry:DayOneEntry, photoId: string){
     );
 
     if (photo) {
+        if(!photo.md5){
+            console.warn(`WARNING: Missing photo file name for ID '${photo.identifier}' ('${photo.type}') on ${photo.date}.`);
+            return "";
+        }
+
         const filename = `${photo.md5}.${RESIZED_IMAGES_EXT}`;
         const srcFilePath = path.join("..", photosDir, filename);
+
+        const pathToCheck = path.join(CONFIG.FILES.OUTPUT_DIR, srcFilePath)
+        if(!fs.existsSync(pathToCheck)){
+            console.error(photo);
+            throw new Error(`'${pathToCheck}' doesn't exist.`);
+        }
+
         return srcFilePath;
     }
     
