@@ -23,6 +23,15 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         return trimmed;
     })();
 
+    // Right now, all attachments are surrounded by double-newlines
+    // This check is here in case this changes.
+    const totalAttachmentCount = (preprocessedText.match(/!?\[\]\(.*?\)/g) || []).length;
+    const surroundedAttachmentCount = (preprocessedText.match(/(?<=^|\n\n)!?\[\]\(.*?\)(?=\n\n|$)/g) || []).length;
+    if(totalAttachmentCount !== surroundedAttachmentCount){
+        console.error(preprocessedText);
+        throw new Error(`${totalAttachmentCount} total attachments, but ${surroundedAttachmentCount} images with double newlines.`);
+    }
+
     const processedText = preprocessedText.replace(
         // Add an extra return after every header line of any level.
         // This makes absolutely sure that no body text is also formatted
@@ -45,7 +54,6 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         match => match + '\n'
     ).replace(
         // All images are surrounded by "\n\n" double newlines.
-        // TODO: Add a check to ensure this assumption is correct.
         // When an image is inserted mid-list, 
         // at one of the nested levels instead of the top level,
         // this line break breaks the list entirely.
