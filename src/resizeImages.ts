@@ -28,9 +28,16 @@ async function resizeImage(inputPath: string, outputDir: string) {
 }
 
 export async function ResizeImages(){
-    for (const file of fs.readdirSync(inputPhotosFolder)) {
+    const PERC_INTERVAL = 20;
+    const files = fs.readdirSync(inputPhotosFolder)
+    for (let f = 0; f < files.length; ++f) {
+        const file = files[f];
         const input = path.join(inputPhotosFolder, file);
+
+        if(f % PERC_INTERVAL === 0)
+            console.log(`${Math.round((f / files.length) * 100)}%`);
         console.log(`Resizing '${file}'...`);
+
         await resizeImage(input, outputPhotosFolder);
     }
 }
