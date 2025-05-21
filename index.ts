@@ -25,6 +25,7 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Some early entries start with bullets - don't add "header" tags to those. (May 9, 2022, 12:05 PM) (May 9, 2022, 9:52 PM)
 // TODO: Sometimes the top level bullets are weirdly far apart? (Is there some overlap with the above?) (May 13, 2022, 10:27 PM) (June 6, 2022, 10:02 AM) (July 2, 2022, 7:41 PM) (October 13, 2022, 7:54 AM)
 // TODO: October (with a two-digit date) doesn't fit on one line. (November too, of course, and with only one-digit dates)
+// TODO: "•" bullets in entry not handled (is it whitespace, perhaps? Oh, no, it's the quote block). (November 11, 2022,10:51 PM)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
