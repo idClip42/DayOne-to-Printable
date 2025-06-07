@@ -107,8 +107,11 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // There's at least one copy-pasted list with
         // actual unicode bullets that isn't interpreted
         // as a list and becomes one line in the HTML.
-        /\n•/g,
-        "\n-"
+        // Of note:
+        // - Sometimes these lists will be in block quotes
+        // - Sometimes there will be indentation whitespace
+        /(?<=\n\s*>?\s*)•/g,
+        "-"
     );
 
     // Parse the modified Markdown into HTML.
