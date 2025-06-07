@@ -62,9 +62,9 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(?<!\n)\n(?!\n)(?= *(?![*\-+>] )\S)/g,
         "<br>"
     ).replace(
-        // Insert <br> before each new blockquote line ("> ") to preserve line breaks in quoted text.
-        // Markdown doesn't preserve hard breaks in blockquotes unless <br> is explicitly added.
-        /\n(?=> )/g,
+        // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
+        // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
+        /(?<=^>.*)\n(?=> )/gm,
         "<br>\n"
     ).replace(
         // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
@@ -167,10 +167,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         "> "
     );
 
+    if(processedText.includes("Limerence"))
+        console.log(processedText);
+
     // Parse the modified Markdown into HTML.
     htmlResult = marked.parse(
         processedText, {"async": false}
     );
+
+    if(processedText.includes("Limerence"))
+        console.log(htmlResult);
 
     // Update all image tags.
     htmlResult = ProcessHtmlImages(entry, htmlResult);
