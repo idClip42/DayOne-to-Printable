@@ -21,7 +21,6 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 // TODO: Words being broken up by hyphens needlessly. (What will fixing this do to the page count?) (January 4, 2025, 9:54 PM)
 // TODO: Single line-breaks not working right always. (January 21, 2025, 8:20 PM - is it the italics?) (July 6, 2022, 9:38 PM)
 // TODO: Surrounding text with "=="s ("==6 Optional Files==") indicates it's highlighted. (February 1, 2025, 8:36 PM) (February 9, 2025, 7:53 PM)
-// TODO: Some early entries start with bullets - don't add "header" tags to those. (May 9, 2022, 12:05 PM) (May 9, 2022, 9:52 PM)
 // TODO: Sometimes the top level bullets are weirdly far apart? (Is there some overlap with the above?) (May 13, 2022, 10:27 PM) (June 6, 2022, 10:02 AM) (July 2, 2022, 7:41 PM) (October 13, 2022, 7:54 AM)
 // TODO: October (with a two-digit date) doesn't fit on one line. (November too, of course, and with only one-digit dates)
 
