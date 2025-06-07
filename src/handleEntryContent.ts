@@ -45,10 +45,20 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(^#{1,}.*\n)/gm, 
         (match) => match + '\n'
     ).replace(
-        // Replace single `\n` (with a letter after it) with <br>.
+        // Replace single `\n` (that isn't followed by a list) with <br>.
         // This makes sure every single newline that's part of a paragraph
         // is treated as a simple newline and not a paragraph break
         // when everything is parsed into HTML.
+        /*
+            Breakdown of the Lookahead
+            * `(?<!\n)` — ensures we are not in a blank-line context (not preceded by another newline).
+            * `\n` — matches the single newline we want to possibly replace.
+            * `(?!\n)` — ensures the next character is not another newline (again avoiding blank lines).
+            * `(?= *(?![*\-+] )\S)` — this is the core refinement:
+                * ` *` — allow optional leading spaces.
+                * `(?![*\-+] )` — negative lookahead: ensure the next non-whitespace characters **are not** one of `*`, `-`, or `+` **followed by a space** (a list item).
+                * `\S` — ensures the line isn’t blank or just spaces.
+        */
         /(?<!\n)\n(?!\n)(?= *(?![*\-+] )\S)/g,
         "<br>"
     ).replace(
