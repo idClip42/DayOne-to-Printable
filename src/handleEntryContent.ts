@@ -130,11 +130,13 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         "-"
     ).replace(
         //If there are multiple newlines before a line that looks like `[-] stuff`,
-        // then replace the extra newlines (just the extras!) with `<br>` —
-        // but leave the final newline intact, so that the list item still starts on its own line.
-        // (The extra `<br>` is because the formatting seems to ignore the first one.)
+        // // then replace the extra newlines (just the extras!) with `<br>` —
+        // // but leave the final newline intact, so that the list item still starts on its own line.
+        // // (The extra `<br>` is because the formatting seems to ignore the first one.)
+        // Actually let's just get rid of the extra newlines altogether.
         /\n{2,}(?=\s*- )/g,
-        match => "<br>".repeat(match.length - 1) + "<br>\n"
+        // match => "<br>".repeat(match.length - 1) + "<br>\n"
+        match => "\n"
     ).replace(
         // Convert "**==highlighted text==**" into HTML bold + highlight.
         // Some exported Markdown uses "==text==" to indicate highlights, but this syntax
