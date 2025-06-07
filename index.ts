@@ -10,6 +10,7 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
 // TODO: Page breaks for each day - we're trying, but the CSS isn't working.
 // TODO: Page numbers!
+// TODO: Header on all pages with the year
 // TODO: Once we're in a good place with this, we should look into what libraries we can bring in to augment all of this. How should one be laying out a book in HTML/JS?
 // TODO: Image processing is rotating (unrotating?) some images.
 //  - August 18, 2022, 9:57 AM

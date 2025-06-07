@@ -17,6 +17,7 @@
                 }
             },
             "DATE_TIME": {
+                "INCLUDE_YEAR": false,
                 "COLOR": {
                     "BASE_HUE": 180,
                     "HUE_INCREMENT": -30

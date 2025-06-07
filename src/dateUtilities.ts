@@ -16,7 +16,9 @@ export function formatDateTime(iso: string, timeZone: string): string {
     const datePart = d.toLocaleDateString('en-US', {
         timeZone,
         // weekday: 'long',
-        year: 'numeric',
+        year: CONFIG.ENTRIES.METADATA.DATE_TIME.INCLUDE_YEAR ?
+            'numeric' :
+            undefined,
         month: 'long',
         day: 'numeric',
     });
