@@ -27,7 +27,7 @@ export function formatDateTime(iso: string, timeZone: string): string {
         hour: 'numeric',
         minute: '2-digit',
     });
-    return `${datePart}, ${timePart}`;
+    return `${datePart} · ${timePart}`;
 }
 
 export function GetDayOfWeek(iso: string, timeZone: string): string {
