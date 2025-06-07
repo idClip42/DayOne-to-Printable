@@ -49,7 +49,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // This makes sure every single newline that's part of a paragraph
         // is treated as a simple newline and not a paragraph break
         // when everything is parsed into HTML.
-        /(?<!\n)\n(?!\n)(?=[A-Za-z])/g, 
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+] )\S)/g,
         "<br>"
     ).replace(
         // Add extra newlines at end of ">" block quotes.
