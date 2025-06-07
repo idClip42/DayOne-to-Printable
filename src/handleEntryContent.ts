@@ -135,6 +135,19 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // (The extra `<br>` is because the formatting seems to ignore the first one.)
         /\n{2,}(?=\s*- )/g,
         match => "<br>".repeat(match.length - 1) + "<br>\n"
+    ).replace(
+        // Convert "**==highlighted text==**" into HTML bold + highlight.
+        // Some exported Markdown uses "==text==" to indicate highlights, but this syntax
+        // isn't supported by all Markdown parsers. To preserve formatting in HTML,
+        // we convert these to <strong><mark>text</mark></strong>.
+        /\*\*==(.+?)==\*\*/g, 
+        '<strong><mark>$1</mark></strong>'
+    ).replace(
+        // Convert "==highlighted text==" into HTML <mark> tags.
+        // This handles highlight syntax not supported by standard Markdown.
+        // Run this *after* the bold-highlight rule to avoid nested replacements.
+        /==(.+?)==/g, 
+        '<mark>$1</mark>'
     );
 
     // Parse the modified Markdown into HTML.

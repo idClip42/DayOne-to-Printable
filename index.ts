@@ -19,7 +19,6 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 //  - (Check to make sure that some of these weren't just originally oriented wrong.)
 // TODO: Block quotes still not excluding everything. (March 13, 2025, 8:43 PM) (February 9, 2025, 7:43 PM) (March 2, 2025, 8:15 AM)
 // TODO: Words being broken up by hyphens needlessly. (What will fixing this do to the page count?) (January 4, 2025, 9:54 PM)
-// TODO: Surrounding text with "=="s ("==6 Optional Files==") indicates it's highlighted. (February 1, 2025, 8:36 PM) (February 9, 2025, 7:53 PM)
 // TODO: October (with a two-digit date) doesn't fit on one line. (November too, of course, and with only one-digit dates)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
