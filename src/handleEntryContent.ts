@@ -54,12 +54,12 @@ export function CreateContentHtml(entry:DayOneEntry):string{
             * `(?<!\n)` — ensures we are not in a blank-line context (not preceded by another newline).
             * `\n` — matches the single newline we want to possibly replace.
             * `(?!\n)` — ensures the next character is not another newline (again avoiding blank lines).
-            * `(?= *(?![*\-+] )\S)` — this is the core refinement:
+            * `(?= *(?![*\-+>] )\S)` — this is the core refinement:
                 * ` *` — allow optional leading spaces.
-                * `(?![*\-+] )` — negative lookahead: ensure the next non-whitespace characters **are not** one of `*`, `-`, or `+` **followed by a space** (a list item).
+                * `(?![*\-+>] )` — negative lookahead: ensure the next non-whitespace characters **are not** one of `*`, `-`, `+`, or `>` **followed by a space** (a list item).
                 * `\S` — ensures the line isn’t blank or just spaces.
         */
-        /(?<!\n)\n(?!\n)(?= *(?![*\-+] )\S)/g,
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+>] )\S)/g,
         "<br>"
     ).replace(
         // Add extra newlines at end of ">" block quotes.
