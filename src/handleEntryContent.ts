@@ -160,6 +160,11 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // Run this *after* the bold-highlight rule to avoid nested replacements.
         /==(.+?)==/g, 
         '<mark>$1</mark>'
+    ).replace(
+        // No multi-tiered quote blocks.
+        // They don't show up in the journal, so they shouldn't show up here.
+        /^(\s*>){2,}\s?/gm, 
+        "> "
     );
 
     // Parse the modified Markdown into HTML.

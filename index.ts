@@ -20,6 +20,7 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 //  - (Check to make sure that some of these weren't just originally oriented wrong.)
 // TODO: Block quotes still not excluding everything. (March 13, 2025, 8:43 PM) (February 9, 2025, 7:43 PM) (March 2, 2025, 8:15 AM)
 // TODO: Words being broken up by hyphens needlessly. (What will fixing this do to the page count?) (January 4, 2025, 9:54 PM)
+// TODO: January 2025 is broken in some way that's breaking the datetime header font sizes
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
