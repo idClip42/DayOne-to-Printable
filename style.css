@@ -238,3 +238,9 @@ blockquote {
     color: gray;
     padding-left: 10px;
 }
+
+.am-pm {
+    font-size: 0.6em;
+    vertical-align: baseline; /* or tweak as needed */
+    letter-spacing: 0.02em; /* optional for breathing room */
+}

@@ -13,6 +13,7 @@ export function formatDate(iso: string, timeZone: string): string {
 
 export function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
+    
     const datePart = d.toLocaleDateString('en-US', {
         timeZone,
         // weekday: 'long',
@@ -22,11 +23,19 @@ export function formatDateTime(iso: string, timeZone: string): string {
         month: 'long',
         day: 'numeric',
     });
-    const timePart = d.toLocaleTimeString('en-US', {
+
+    let timePart = d.toLocaleTimeString('en-US', {
         timeZone,
         hour: 'numeric',
         minute: '2-digit',
     });
+    if(!timePart.endsWith("AM") && !timePart.endsWith("PM"))
+        throw new Error("Time string not ending as expected.");
+    timePart = timePart.replace(
+        /\s?(AM|PM)$/, 
+        '<span class="am-pm"> $1</span>'
+    );
+
     return `${datePart} · ${timePart}`;
 }
 
