@@ -62,6 +62,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(?<!\n)\n(?!\n)(?= *(?![*\-+>] )\S)/g,
         "<br>"
     ).replace(
+        // Insert <br> before each new blockquote line ("> ") to preserve line breaks in quoted text.
+        // Markdown doesn't preserve hard breaks in blockquotes unless <br> is explicitly added.
+        /\n(?=> )/g,
+        "<br>\n"
+    ).replace(
+        // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
+        // Replace it with a <br>.
+        /\u2028/g,
+        "<br>"
+    ).replace(
         // Add extra newlines at end of ">" block quotes.
         // This makes sure commentary after block quotes
         // (without an extra newline to separate it out)
