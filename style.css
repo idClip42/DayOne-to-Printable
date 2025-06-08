@@ -229,7 +229,11 @@ pre, code {
 }
 
 table {
-    font-size: 8pt;
+    font-size: 6pt;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
 }
 
 blockquote {

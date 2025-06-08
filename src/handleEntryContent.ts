@@ -70,13 +70,14 @@ export function CreateContentHtml(entry:DayOneEntry):string{
             - `(?<!\n)` — Not preceded by another newline (we're not in a blank line).
             - `\n` — The newline we might want to replace.
             - `(?!\n)` — Not followed by another newline (avoiding paragraph breaks).
-            - `(?= *(?![*\-+>] |\d+\. )\S)` — Lookahead ensures:
+            - `(?= *(?![*\-+>|] |\d+\. )\S)` — Lookahead ensures:
                 - Optional leading spaces
                 - Not a list marker (`*`, `-`, `+`, or `>`) followed by a space
+                - Not a table, whose rows begin and end with a vertical bar `|`
                 - Not a numbered list like `1. ` or `23. `
                 - Line begins with a non-whitespace character
         */
-        /(?<!\n)\n(?!\n)(?= *(?![*\-+>] |\d+\. )\S)/g,
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. )\S)/g,
         "<br>"
     ).replace(
         // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
@@ -209,16 +210,22 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         "> "
     );
 
-    // if(processedText.includes("Back to Angel of Darkness, then"))
-    //     console.log(processedText);
-
     // Parse the modified Markdown into HTML.
     htmlResult = marked.parse(
         processedText, {"async": false}
     );
 
-    // if(processedText.includes("Back to Angel of Darkness, then"))
+    // if(processedText.includes("Do I even remember?")){
+    //     console.log("################################");
+    //     console.log("PRE-PROCESSED MARKDOWN:");
+    //     console.log(preprocessedText);
+    //     console.log("################################");
+    //     console.log("POST-PROCESSED MARKDOWN:");
+    //     console.log(processedText);
+    //     console.log("################################");
+    //     console.log("HTML:");
     //     console.log(htmlResult);
+    // }
 
     // Update all image tags.
     htmlResult = ProcessHtmlImages(entry, htmlResult);
