@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { formatDateTime, GetDateColor, GetDayOfWeek } from "./dateUtilities";
+import { formatDate, formatDateTime, GetDateColor, GetDayOfWeek } from "./dateUtilities";
 import { GetTagHtml } from "./organizeTags";
 import CONFIG from "./../config.json";
 
@@ -14,6 +14,14 @@ function escapeHTML(text: string): string {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+}
+
+function CreateDateHtml(entry: DayOneEntry):string{
+    const formattedDateTime = formatDate(
+        entry.creationDate, 
+        entry.location?.timeZoneName
+    );
+    return formattedDateTime;
 }
 
 function CreateDateTimeHtml(entry: DayOneEntry):string{
@@ -124,6 +132,10 @@ export function CreateMetadataHtml(entry: DayOneEntry):string{
     <h2 class="entry-date">
         ${CreateDateTimeHtml(entry)}
     </h2>
+
+    <div class="hidden-date">
+        ${CreateDateHtml(entry)}
+    </div>
 
     <p class="post-date-time">
         <span class="entry-location">${GetLocationString(entry)}</span>
