@@ -8,6 +8,8 @@ import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
+// TODO: *NOW* can we make it so that the bottom of a header never breaks before the start of its content?
+
 // TODO: Image processing is rotating (unrotating?) some images. (This may be a lost cause)
 //  - August 18, 2022, 9:57 AM
 //  - July 15, 2023 · 1:35 PM
