@@ -27,7 +27,7 @@ export function GetImageFilePath(entry:DayOneEntry, photoId: string){
 
     if (photo) {
         if(!photo.md5){
-            console.warn(`WARNING: Missing photo file name for ID '${photo.identifier}' ('${photo.type}') on ${photo.date}.`);
+            console.warn(`WARNING: Missing photo file name for ID '${photo.identifier}' ('${photo.type}') on ${(new Date(entry.creationDate)).toLocaleString()}.`);
             return "";
         }
 
