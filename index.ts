@@ -19,6 +19,8 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 //  - March 22, 2025, 5:43 PM (Bike)
 //  - (Check to make sure that some of these weren't just originally oriented wrong.)
 // TODO: Words being broken up by hyphens needlessly. (What will fixing this do to the page count?) (January 4, 2025, 9:54 PM)
+// TODO: List items and single returns - can we differentiate between "part of the li" and "after the li"? (January 8, 2025 · 8:21 PM)
+// TODO: Something wrong with numbered lists. (January 13, 2025 · 6:13 PM)
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
