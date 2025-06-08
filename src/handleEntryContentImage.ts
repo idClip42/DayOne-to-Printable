@@ -17,6 +17,11 @@ const photosDir = path.join(
     CONFIG.FILES.PHOTOS_DIR
 );
 
+const originalPhotosDir = path.join(
+    CONFIG.FILES.INPUT_DIR,
+    CONFIG.FILES.PHOTOS_DIR
+)
+
 export function GetImageFilePath(entry:DayOneEntry, photoId: string){
     if(!CONFIG.ENTRIES.IMAGES.ENABLED)
         return "";
@@ -34,10 +39,16 @@ export function GetImageFilePath(entry:DayOneEntry, photoId: string){
         const filename = `${photo.md5}.${RESIZED_IMAGES_EXT}`;
         const srcFilePath = path.join("..", photosDir, filename);
 
+        const originalFilePath = path.join(originalPhotosDir, `${photo.md5}.${photo.type}`)
+        if(!fs.existsSync(originalFilePath)){
+            console.warn(`No original path: '${originalFilePath}'`);
+        }
+
         const pathToCheck = path.join(CONFIG.FILES.OUTPUT_DIR, srcFilePath)
         if(!fs.existsSync(pathToCheck)){
             console.error(photo);
-            throw new Error(`'${pathToCheck}' doesn't exist.`);
+            console.error(`'${pathToCheck}' doesn't exist.`);
+            return "";
         }
 
         return srcFilePath;
