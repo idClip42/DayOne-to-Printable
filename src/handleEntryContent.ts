@@ -45,6 +45,13 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(^#{1,}.*\n)/gm, 
         (match) => match + '\n'
     ).replace(
+        // Add extra newlines at end of ">" block quotes.
+        // This makes sure commentary after block quotes
+        // (without an extra newline to separate it out)
+        // doesn't get merged in with the block quotes.
+        />[^>].*\n(?!>)/g, 
+        match => match + '\n'
+    ).replace(
         // Replace single `\n` (that isn't followed by a list) with <br>.
         // This makes sure every single newline that's part of a paragraph
         // is treated as a simple newline and not a paragraph break
@@ -71,13 +78,6 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // Replace it with a <br>.
         /\u2028/g,
         "<br>"
-    ).replace(
-        // Add extra newlines at end of ">" block quotes.
-        // This makes sure commentary after block quotes
-        // (without an extra newline to separate it out)
-        // doesn't get merged in with the block quotes.
-        />[^>].*\n(?!>)/g, 
-        match => match + '\n'
     ).replace(
         // All images are surrounded by "\n\n" double newlines.
         // When an image is inserted mid-list, 
