@@ -2,6 +2,10 @@
     @page {
         size: 8.5in 11in;
         margin: 0.5in 0.5in;
+
+        @bottom-center {
+            content: counter(page);
+        }
     }
 
     @page :right {
@@ -131,8 +135,8 @@ body {
 
 .entry-photo {
     text-align: center;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    /* break-inside: avoid; */
+    /* page-break-inside: avoid; */
 }
 
 /* img {

@@ -20,6 +20,8 @@ import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 //  - March 22, 2025, 5:43 PM (Bike)
 //  - (Check to make sure that some of these weren't just originally oriented wrong.)
 
+const stylesheet = fs.readFileSync("style.css");
+
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
 const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
 if(!fs.existsSync(CONFIG.FILES.OUTPUT_DIR))
@@ -69,7 +71,15 @@ const fullHTML = `
     <head>
         <meta charset="UTF-8">
         <title>Journal Export</title>
-        <link rel="stylesheet" type="text/css" href="../${CONFIG.FILES.STYLESHEET}">
+
+        <!-- <link rel="stylesheet" type="text/css" href="../${CONFIG.FILES.STYLESHEET}"> -->
+        <style>
+            ${stylesheet}
+        </style>
+
+        <!-- Bringing in "pagedjs" package -->
+        <!-- <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script> -->
+        <script src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
     </head>
     <body>
         <!-- <div>${GetDateColorTestHtml()}</div> -->
