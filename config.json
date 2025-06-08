@@ -1,6 +1,6 @@
 {
     "FILES": {
-        "INPUT_DIR": "./input",
+        "INPUT_DIR": "./input/2022",
         "OUTPUT_DIR": "./output",
         "DATA_FILE": "Journal.json",
         "PHOTOS_DIR": "photos",
