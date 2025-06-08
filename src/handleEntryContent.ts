@@ -52,6 +52,26 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         />[^>].*\n(?!>)/g, 
         match => match + '\n'
     ).replace(
+        // Insert an extra newline after list items when the next line starts with text.
+        // This ensures that any paragraph-like content following a list item is not treated
+        // as part of the same list item by Markdown parsers.
+        /*
+            Breakdown of the pattern:
+            - `(?<=^[-*+] .+)` — Positive lookbehind:
+                - Ensures the preceding line starts with a list item (`-`, `*`, or `+` followed by a space),
+                and has at least one character after the marker.
+            - `\n` — Matches the single newline after that list item.
+            - `(?=[^\s\-*+>\d])` — Positive lookahead:
+                - Ensures the next line starts with a non-whitespace character
+                that is NOT another list marker (`-`, `*`, `+`), a blockquote (`>`), or a number (like `1.`).
+                - In other words, the line begins with a plain text character.
+            - `gm` flags:
+                - `g` (global): apply the replacement throughout the string.
+                - `m` (multiline): so `^` and `$` apply to each line, not just the whole string.
+        */
+        /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
+        "\n\n"
+    ).replace(
         // Replace single `\n` (that isn't followed by a list) with <br>.
         // This makes sure every single newline that's part of a paragraph
         // is treated as a simple newline and not a paragraph break
