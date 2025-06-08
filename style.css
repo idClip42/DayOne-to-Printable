@@ -6,6 +6,10 @@
         @bottom-center {
             content: counter(page);
         }
+
+        @top-center {
+            content: string(headerDate);
+        }
     }
 
     @page :right {
@@ -253,4 +257,9 @@ blockquote {
     font-size: 0.6em;
     vertical-align: baseline; /* or tweak as needed */
     letter-spacing: 0.02em; /* optional for breathing room */
+}
+
+.hidden-date {
+    display: none;
+    string-set: headerDate content(text);
 }

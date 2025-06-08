@@ -8,7 +8,8 @@ import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 
-// TODO: Header on all pages with the year
+// TODO: Try instead putting the full date of the page's entries in the header
+
 // TODO: Image processing is rotating (unrotating?) some images.
 //  - August 18, 2022, 9:57 AM
 //  - July 15, 2023 · 1:35 PM
@@ -30,6 +31,15 @@ if(CONFIG.ENTRIES.IMAGES.RUN_RESIZE)
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 InitializeTags(entries);
+
+const year = (()=>{
+    const getYear = (entry:DayOneEntry) => (new Date(entry.creationDate)).getFullYear();
+    const year = getYear(entries[0]);
+    console.log(year);
+    if(entries.some(e => getYear(e) !== year))
+        throw new Error("We do not currently handle more than one year.");
+    return year;
+})();
 
 const entriesHtml:string[] = [];
 for(const e in entries){
@@ -80,6 +90,8 @@ const fullHTML = `
     </head>
     <body>
         <!-- <div>${GetDateColorTestHtml()}</div> -->
+
+        <div class="hidden-date">${year}</div>
 
         ${CONFIG.OTHER_CONTENT.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
         <div id="entries">
