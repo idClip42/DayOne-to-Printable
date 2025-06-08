@@ -100,8 +100,8 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         */
         /([^\n\s][^\n]*?)\n([ \t]*!?\[.*?\]\(.*?\))/g,
         (_, before, image) => {
-            console.log("before");
-            console.log(_);
+            // console.log("before");
+            // console.log(_);
             return `${before}\n\n${image}`;
         }
     ).replace(
@@ -116,8 +116,8 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         */
         /(!?\[.*?\]\(.*?\))\n(?=\S)/g,
         (_, image) => {
-            console.log("after");
-            console.log(_);
+            // console.log("after");
+            // console.log(_);
             return `${image}\n\n`;
         }
     ).replace(
