@@ -46,7 +46,7 @@ export function GetImageFilePath(entry:DayOneEntry, photoId: string){
 
         const pathToCheck = path.join(CONFIG.FILES.OUTPUT_DIR, srcFilePath)
         if(!fs.existsSync(pathToCheck)){
-            console.error(photo);
+            // console.error(photo);
             console.error(`'${pathToCheck}' doesn't exist.`);
             return "";
         }
@@ -54,6 +54,7 @@ export function GetImageFilePath(entry:DayOneEntry, photoId: string){
         return srcFilePath;
     }
     
+    console.warn(`No photo found in entry '${(new Date(entry.creationDate)).toLocaleString()}' with ID: '${photoId}'`);
     return "";
 }
 
