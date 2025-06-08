@@ -26,6 +26,8 @@ export interface DayOneEntry {
         /** This is the stored photo type */
         "type": string;
         date: string;
+        /** Original filename, if available */
+        "filename"?: string
     }[];
     audios?: {
         "title": string,

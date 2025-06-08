@@ -49,7 +49,10 @@ export function GetAttachmentInfo(entry:DayOneEntry, pathString:string):AttachIn
 
 export function GetAttachmentText(info:AttachInfo):string {
     if(info.type === "Photo"){
-        return `${info.type}: Missing ${info.data.type} '${info.data.identifier}'`;
+        let value = `${info.type}: Missing ${info.data.type} '${info.data.identifier}'`;
+        if(info.data.filename)
+            value += ` ('${info.data.filename}')`
+        return value;
     }
     else if(info.type === "Audio"){
         return `${info.type}: ${info.data.title}, ${secondsToTimeString(info.data.duration)}`;
