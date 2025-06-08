@@ -167,16 +167,16 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         "> "
     );
 
-    if(processedText.includes("Limerence"))
-        console.log(processedText);
+    // if(processedText.includes("Back to Angel of Darkness, then"))
+    //     console.log(processedText);
 
     // Parse the modified Markdown into HTML.
     htmlResult = marked.parse(
         processedText, {"async": false}
     );
 
-    if(processedText.includes("Limerence"))
-        console.log(htmlResult);
+    // if(processedText.includes("Back to Angel of Darkness, then"))
+    //     console.log(htmlResult);
 
     // Update all image tags.
     htmlResult = ProcessHtmlImages(entry, htmlResult);
