@@ -74,6 +74,7 @@ body {
     overflow-wrap: break-word;
     hyphens: manual;
     text-align: left;
+    line-height: 1.25;
 }
 
 .entry {
@@ -212,7 +213,6 @@ h6 {
 }
 
 p {
-    line-height: 1.25;
     margin-top: 0.5em;
 }
 
