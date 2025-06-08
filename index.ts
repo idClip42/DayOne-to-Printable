@@ -40,7 +40,7 @@ for(const e in entries){
 
     if(entryIndex % 100 === 0){
         const perc = entryIndex/entries.length;
-        console.log(`Entries processed: ${(perc * 100).toFixed(2)}%`);
+        console.log(`Entries processed: ${(perc * 100).toFixed(2)}% (${(new Date(entry.creationDate)).toDateString()})`);
     }
 
     const isSameDay = (()=>{
