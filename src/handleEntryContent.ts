@@ -29,15 +29,6 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         return trimmed;
     })();
 
-    // Right now, all attachments are surrounded by double-newlines
-    // This check is here in case this changes.
-    const totalAttachmentCount = (preprocessedText.match(/!?\[\]\(.*?\)/g) || []).length;
-    const surroundedAttachmentCount = (preprocessedText.match(/(?<=^|\n\n)!?\[\]\(.*?\)(?=\n\n|$)/g) || []).length;
-    if(totalAttachmentCount !== surroundedAttachmentCount){
-        console.error(preprocessedText);
-        throw new Error(`${totalAttachmentCount} total attachments, but ${surroundedAttachmentCount} images with double newlines.`);
-    }
-
     const processedText = preprocessedText.replace(
         // Add an extra return after every header line of any level.
         // This makes absolutely sure that no body text is also formatted
@@ -97,6 +88,38 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // Replace it with a <br>.
         /\u2028/g,
         "<br>"
+    ).replace(
+        // Ensure at least two newlines before an image — but only if there’s real content above.
+        /*
+            Matches:
+            - Any non-whitespace, non-newline content ending in a single `\n` (group 1)
+            - Followed by an optional space and an image tag (group 2)
+            - Only if it's not already preceded by two `\n` or at the very start
+
+            We replace the single `\n` with `\n\n` to ensure a proper paragraph break.
+        */
+        /([^\n\s][^\n]*?)\n([ \t]*!?\[.*?\]\(.*?\))/g,
+        (_, before, image) => {
+            console.log("before");
+            console.log(_);
+            return `${before}\n\n${image}`;
+        }
+    ).replace(
+        // Ensure at least two newlines after an image — but only if there’s real content below.
+        /*
+            Matches:
+            - An image tag followed by a single `\n` (group 1)
+            - Only if what follows is a line that starts with a non-whitespace character (group 2)
+            - This implies it's not the end, and we want the image to be more cleanly separated.
+
+            We replace the single newline with a double.
+        */
+        /(!?\[.*?\]\(.*?\))\n(?=\S)/g,
+        (_, image) => {
+            console.log("after");
+            console.log(_);
+            return `${image}\n\n`;
+        }
     ).replace(
         // All images are surrounded by "\n\n" double newlines.
         // When an image is inserted mid-list, 
