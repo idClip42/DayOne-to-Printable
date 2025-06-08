@@ -68,7 +68,8 @@ body {
     font-family: "Avenir";
     font-size: 10pt;
     overflow-wrap: break-word;
-    hyphens: auto;
+    hyphens: manual;
+    text-align: left;
 }
 
 .entry {
