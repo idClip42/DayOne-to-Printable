@@ -72,21 +72,20 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
         "\n\n"
     ).replace(
-        // Replace single `\n` (that isn't followed by a list) with <br>.
-        // This makes sure every single newline that's part of a paragraph
-        // is treated as a simple newline and not a paragraph break
-        // when everything is parsed into HTML.
+        // Replace single `\n` (not followed by a list item or blockquote) with <br>.
+        // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
         /*
-            Breakdown of the Lookahead
-            * `(?<!\n)` — ensures we are not in a blank-line context (not preceded by another newline).
-            * `\n` — matches the single newline we want to possibly replace.
-            * `(?!\n)` — ensures the next character is not another newline (again avoiding blank lines).
-            * `(?= *(?![*\-+>] )\S)` — this is the core refinement:
-                * ` *` — allow optional leading spaces.
-                * `(?![*\-+>] )` — negative lookahead: ensure the next non-whitespace characters **are not** one of `*`, `-`, `+`, or `>` **followed by a space** (a list item).
-                * `\S` — ensures the line isn’t blank or just spaces.
+            Breakdown:
+            - `(?<!\n)` — Not preceded by another newline (we're not in a blank line).
+            - `\n` — The newline we might want to replace.
+            - `(?!\n)` — Not followed by another newline (avoiding paragraph breaks).
+            - `(?= *(?![*\-+>] |\d+\. )\S)` — Lookahead ensures:
+                - Optional leading spaces
+                - Not a list marker (`*`, `-`, `+`, or `>`) followed by a space
+                - Not a numbered list like `1. ` or `23. `
+                - Line begins with a non-whitespace character
         */
-        /(?<!\n)\n(?!\n)(?= *(?![*\-+>] )\S)/g,
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+>] |\d+\. )\S)/g,
         "<br>"
     ).replace(
         // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
