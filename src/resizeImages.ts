@@ -18,14 +18,12 @@ async function resizeImage(inputPath: string, outputDir: string) {
     const image = sharp(inputPath);
     const metadata = await image.metadata();
 
-    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH) {
-        await image
-            .resize({ width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH })
-            .jpeg({ quality: 80 }) // adjust quality if desired
-            .toFile(outputPath);
-    } else {
-        fs.copyFileSync(inputPath, outputPath); // no need to resize
-    }
+    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH)
+        await image.resize({ width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH });
+
+    await image
+        .jpeg({ quality: 80 }) // adjust quality if desired
+        .toFile(outputPath);
 }
 
 export async function ResizeImages(){
