@@ -16,30 +16,55 @@ type AttachInfo =
 export function GetAttachmentInfo(entry:DayOneEntry, pathString:string):AttachInfo{
     if(pathString.startsWith("//")){
         const testStr = pathString.replace("//", "");
+        const data = findData(entry.photos, pathString, p => p.identifier === testStr);
         return {
             "type": "Photo",
-            "data": findData(entry.photos, pathString, p => p.identifier === testStr)
+            "data": data || {
+                "date": entry.creationDate,
+                "identifier": pathString,
+                "md5": "???",
+                "type": "???"
+            }
         };
     }
     else if(pathString.startsWith("/video/")){
         const testStr = pathString.replace("/video/", "");
+        const data = findData(entry.videos, pathString, p => p.identifier === testStr);
         return {
             "type": "Video",
-            "data": findData(entry.videos, pathString, p => p.identifier === testStr)
+            "data": data || {
+                "duration": 0,
+                "identifier": pathString,
+                "md5": "???",
+                "type": "???"
+            }
         };
     }
     else if(pathString.startsWith("/audio/")){
         const testStr = pathString.replace("/audio/", "");
+        const data = findData(entry.audios, pathString, p => p.identifier === testStr);
         return {
             "type": "Audio",
-            "data": findData(entry.audios, pathString, p => p.identifier === testStr)
+            "data": data || {
+                "duration": 0,
+                "format": "???",
+                "identifier": pathString,
+                "md5": "???",
+                "title": "???"
+            }
         };
     }
     else if(pathString.startsWith("/pdfAttachment/")){
         const testStr = pathString.replace("/pdfAttachment/", "");
+        const data = findData(entry.pdfAttachments, pathString, p => p.identifier === testStr);
         return {
             "type": "PDF",
-            "data": findData(entry.pdfAttachments, pathString, p => p.identifier === testStr)
+            "data": data || {
+                "identifier": pathString,
+                "md5": "???",
+                "pdfName": "???",
+                "type": "???"
+            }
         };
     }
     else {
@@ -85,10 +110,13 @@ export function UpdateHtmlAttachments(htmlText:string):string{
     return resultString;
 }
 
-function findData<T>(set:T[], pathString:string, predicate:(test:T)=>boolean):T{
+function findData<T>(set:T[], pathString:string, predicate:(test:T)=>boolean):T|null{
     if(!set) throw new Error(`Missing photos in entry, cannot find '${pathString}'.`);
     const photoInfo = set.find(predicate);
-    if(!photoInfo) throw new Error(`No photo info for path '${pathString}'.`);
+    if(!photoInfo) {
+        console.warn(`No photo info for path '${pathString}'.`);
+        return null;
+    }
     return photoInfo;
 }
 
