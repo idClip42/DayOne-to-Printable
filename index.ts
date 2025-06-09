@@ -30,6 +30,9 @@ if(CONFIG.ENTRIES.IMAGES.RUN_RESIZE)
 
 const rawJson = fs.readFileSync(dataPath, 'utf-8');
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
+
+console.log(entries.length, "entries");
+
 InitializeTags(entries);
 
 const entriesHtml:string[] = [];
