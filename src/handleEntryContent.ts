@@ -29,6 +29,10 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         return trimmed;
     })();
 
+    if (/```[\s\n]*\|.*\|.*\n.*```/.test(preprocessedText)) {
+        console.log(`⚠️ Possible table-in-code-block found in '${(new Date(entry.creationDate)).toLocaleString()}'`);
+    }
+
     const processedText = preprocessedText.replace(
         // Add an extra return after every header line of any level.
         // This makes absolutely sure that no body text is also formatted
@@ -63,21 +67,24 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
         "\n\n"
     ).replace(
-        // Replace single `\n` (not followed by a list item or blockquote) with <br>.
+        // Replace single `\n` (not followed by a list item, blockquote, or table line) with <br>.
         // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
         /*
             Breakdown:
             - `(?<!\n)` — Not preceded by another newline (we're not in a blank line).
             - `\n` — The newline we might want to replace.
             - `(?!\n)` — Not followed by another newline (avoiding paragraph breaks).
-            - `(?= *(?![*\-+>|] |\d+\. )\S)` — Lookahead ensures:
+            - `(?= *(?![*\-+>|] |\d+\. )` — Lookahead ensures:
                 - Optional leading spaces
-                - Not a list marker (`*`, `-`, `+`, or `>`) followed by a space
-                - Not a table, whose rows begin and end with a vertical bar `|`
-                - Not a numbered list like `1. ` or `23. `
-                - Line begins with a non-whitespace character
+                - NOT:
+                    - a bullet list item (*, -, + followed by space)
+                    - a blockquote (`> `)
+                    - a numbered list (`1. `)
+                    - a table row (starting with `|`)
+                    - a table alignment row (like `|:---|:---|`)
+                - `\S` — Next character must be non-whitespace
         */
-        /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. )\S)/g,
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
         "<br>"
     ).replace(
         // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
@@ -215,7 +222,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         processedText, {"async": false}
     );
 
-    // if(processedText.includes("Do I even remember?")){
+    // if(processedText.includes("Black Mirror: USS Callister")){
     //     console.log("################################");
     //     console.log("PRE-PROCESSED MARKDOWN:");
     //     console.log(preprocessedText);
