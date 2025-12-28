@@ -51,7 +51,7 @@
             "bleedIn": 0.125
         },
         "typography": {
-            "fontFamily": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+            "fontFamily": "\"Avenir\", \"Avenir Next\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
             "titleSizePt": 42,
             "authorSizePt": 18,
             "spineSizePt": 14,
