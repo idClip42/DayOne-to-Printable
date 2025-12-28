@@ -5,6 +5,7 @@
         "DATA_FILE": "Journal.json",
         "PHOTOS_DIR": "photos",
         "OUTPUT_HTML": "journal.html",
+        "OUTPUT_COVER_HTML": "cover.html",
         "STYLESHEET": "style.css"
     },
     "ENTRIES": {
@@ -41,5 +42,29 @@
     "OTHER_CONTENT": {
         "INCLUDE_TAG_INDEX": true,
         "INCLUDE_NEW_DAY_HEADER": false
+    },
+    "cover": {
+        "dimensions": {
+            "totalWidthIn": 18.56,
+            "heightIn": 11.25,
+            "spineWidthIn": 1.31,
+            "bleedIn": 0.125
+        },
+        "typography": {
+            "fontFamily": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+            "titleSizePt": 42,
+            "authorSizePt": 18,
+            "spineSizePt": 14,
+            "letterSpacingEm": 0.04
+        },
+        "colors": {
+            "background": "#ffffff",
+            "text": "#000000",
+            "accent": "#e6e6e6"
+        },
+        "content": {
+            "showSubtitle": true,
+            "subtitle": "Journal"
+        }
     }
 }

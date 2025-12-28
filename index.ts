@@ -7,6 +7,7 @@ import { formatDate, GetDateColorTestHtml, isSameLocalDay } from './src/dateUtil
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
+import { generateCoverHtml } from './src/generateColorHtml';
 
 // TODO: Image processing is rotating (unrotating?) some images. (This may be a lost cause)
 //  - August 18, 2022, 9:57 AM
@@ -93,3 +94,11 @@ const fullHTML = `
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
+
+const coverOutputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_COVER_HTML);
+const coverHtml = generateCoverHtml({
+    "start": new Date(entries[0].creationDate),
+    "end": new Date(entries[entries.length - 1].creationDate)
+});
+fs.writeFileSync(coverOutputPath, coverHtml);
+console.log(`✅ Exported HTML cover to ${coverOutputPath}`);
