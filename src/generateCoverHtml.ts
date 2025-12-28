@@ -1,19 +1,28 @@
 import { format } from "date-fns";
 import config from "../config.json";
 
-function formatCoverDateRange(start: Date, end: Date): {
-    front: string;
-    spine: string;
-} {
+function formatCoverDate(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
     const sameYear = start.getFullYear() === end.getFullYear();
 
-    const spine = `${format(start, "MMMM yyyy")} – ${format(end, "MMMM yyyy")}`;
+    const monthFormatter = new Intl.DateTimeFormat("en-US", {
+        month: "long"
+    });
 
-    const front = sameYear
-        ? `${format(start, "MMMM")} – ${format(end, "MMMM yyyy")}`
-        : spine;
+    const startMonth = monthFormatter.format(start);
+    const endMonth = monthFormatter.format(end);
 
-    return { front, spine };
+    return {
+        yearLine: sameYear
+            ? String(start.getFullYear())
+            : `${start.getFullYear()}–${end.getFullYear()}`,
+
+        monthLine: sameYear
+            ? `${startMonth} – ${endMonth}`
+            : `${startMonth} ${start.getFullYear()} – ${endMonth} ${end.getFullYear()}`
+    };
 }
 
 interface CoverDates {
@@ -32,12 +41,7 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 
     const frontBackWidthIn = (totalWidthIn - spineWidthIn) / 2;
 
-    const { front: frontDateRange, spine: spineDateRange } =
-        formatCoverDateRange(start, end);
-        
-    const titleLine = cover.content.showSubtitle
-        ? `${frontDateRange}`
-        : frontDateRange;
+    const { yearLine, monthLine } = formatCoverDate(start, end);
 
     const subtitle = cover.content.subtitle;
     const author = "Alex Earley";
@@ -91,7 +95,7 @@ section {
 .spine {
   background: ${cover.colors.accent};
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  /* transform: rotate(180deg); */ /* Rotated the wrong way */
   text-align: center;
   font-size: ${cover.typography.spineSizePt}pt;
   letter-spacing: ${cover.typography.letterSpacingEm}em;
@@ -103,17 +107,24 @@ section {
   text-align: center;
 }
 
-.front h1 {
-  font-size: ${cover.typography.titleSizePt}pt;
-  font-weight: 600;
-  margin: 0 0 0.4em 0;
+.year {
+    font-size: ${cover.typography.dateTypography.year.fontSize};
+    font-weight: ${cover.typography.dateTypography.year.fontWeight};
+    letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+    margin-bottom: ${cover.typography.dateTypography.year.marginBottom};
 }
 
-.front h2 {
-  font-size: ${cover.typography.authorSizePt}pt;
-  font-weight: 400;
-  margin: 0;
-  letter-spacing: ${cover.typography.letterSpacingEm}em;
+.months {
+    font-size: ${cover.typography.dateTypography.months.fontSize};
+    font-weight: ${cover.typography.dateTypography.months.fontWeight};
+    letter-spacing: ${cover.typography.dateTypography.months.letterSpacing};
+    margin-bottom: ${cover.typography.dateTypography.months.marginBottom};
+}
+
+.author {
+    font-size: ${cover.typography.authorTypography.fontSize};
+    font-weight: ${cover.typography.authorTypography.fontWeight};
+    letter-spacing: ${cover.typography.authorTypography.letterSpacing};
 }
 
 .front .subtitle {
@@ -133,13 +144,15 @@ section {
     <section class="spine">
       <div>
         ${author}<br />
-        ${spineDateRange}
+        ${monthLine}
+        ${yearLine}
       </div>
     </section>
 
     <section class="front">
-      <h1>${titleLine}</h1>
-      <h2>${author}</h2>
+      <div class="year">${yearLine}</div>
+      <div class="months">${monthLine}</div>
+      <div class="author">${author}</div>
       ${cover.content.showSubtitle ? `<div class="subtitle">${subtitle}</div>` : ""}
     </section>
   </div>

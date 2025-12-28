@@ -52,8 +52,25 @@
         },
         "typography": {
             "fontFamily": "\"Avenir\", \"Avenir Next\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
-            "titleSizePt": 42,
-            "authorSizePt": 18,
+            "dateTypography": {
+                "year": {
+                    "fontSize": "48pt",
+                    "fontWeight": 600,
+                    "letterSpacing": "0em",
+                    "marginBottom": "0.2em"
+                },
+                "months": {
+                    "fontSize": "22pt",
+                    "fontWeight": 400,
+                    "letterSpacing": "0.06em",
+                    "marginBottom": "1.2em"
+                }
+            },
+            "authorTypography": {
+                "fontSize": "16pt",
+                "fontWeight": 400,
+                "letterSpacing": "0.08em"
+            },
             "spineSizePt": 14,
             "letterSpacingEm": 0.04
         },
@@ -63,8 +80,8 @@
             "accent": "#ffffff"
         },
         "content": {
-            "showSubtitle": false,
-            "subtitle": "Journal"
+            "showSubtitle": true,
+            "subtitle": "Proof of Concept"
         }
     }
 }
