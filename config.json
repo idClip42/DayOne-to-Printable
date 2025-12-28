@@ -60,10 +60,10 @@
         "colors": {
             "background": "#ffffff",
             "text": "#000000",
-            "accent": "#e6e6e6"
+            "accent": "#ffffff"
         },
         "content": {
-            "showSubtitle": true,
+            "showSubtitle": false,
             "subtitle": "Journal"
         }
     }

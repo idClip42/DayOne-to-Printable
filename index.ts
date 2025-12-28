@@ -7,7 +7,7 @@ import { formatDate, GetDateColorTestHtml, isSameLocalDay } from './src/dateUtil
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
-import { generateCoverHtml } from './src/generateColorHtml';
+import { generateCoverHtml } from './src/generateCoverHtml';
 
 // TODO: Image processing is rotating (unrotating?) some images. (This may be a lost cause)
 //  - August 18, 2022, 9:57 AM

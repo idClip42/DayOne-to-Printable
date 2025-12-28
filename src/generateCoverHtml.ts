@@ -1,6 +1,21 @@
 import { format } from "date-fns";
 import config from "../config.json";
 
+function formatCoverDateRange(start: Date, end: Date): {
+    front: string;
+    spine: string;
+} {
+    const sameYear = start.getFullYear() === end.getFullYear();
+
+    const spine = `${format(start, "MMMM yyyy")} – ${format(end, "MMMM yyyy")}`;
+
+    const front = sameYear
+        ? `${format(start, "MMMM")} – ${format(end, "MMMM yyyy")}`
+        : spine;
+
+    return { front, spine };
+}
+
 interface CoverDates {
     start: Date;
     end: Date;
@@ -17,10 +32,12 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 
     const frontBackWidthIn = (totalWidthIn - spineWidthIn) / 2;
 
-    const dateRange = `${format(start, "MMMM yyyy")} – ${format(end, "MMMM yyyy")}`;
+    const { front: frontDateRange, spine: spineDateRange } =
+        formatCoverDateRange(start, end);
+        
     const titleLine = cover.content.showSubtitle
-        ? `${dateRange}`
-        : dateRange;
+        ? `${frontDateRange}`
+        : frontDateRange;
 
     const subtitle = cover.content.subtitle;
     const author = "Alex Earley";
@@ -116,7 +133,7 @@ section {
     <section class="spine">
       <div>
         ${author}<br />
-        ${dateRange}
+        ${spineDateRange}
       </div>
     </section>
 
