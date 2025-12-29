@@ -104,6 +104,8 @@ section {
 .front {
   flex-direction: column;
   text-align: center;
+  justify-content: flex-start; /* move items toward the top */
+  padding-top: 2in; /* adjust as needed to hit the top-third visually */
 }
 
 .year {

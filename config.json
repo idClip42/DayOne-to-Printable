@@ -54,13 +54,13 @@
             "fontFamily": "\"Avenir\", \"Avenir Next\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
             "dateTypography": {
                 "year": {
-                    "fontSize": "48pt",
+                    "fontSize": "60pt",
                     "fontWeight": 600,
                     "letterSpacing": "0em",
                     "marginBottom": "0.2em"
                 },
                 "months": {
-                    "fontSize": "22pt",
+                    "fontSize": "28pt",
                     "fontWeight": 400,
                     "letterSpacing": "0.06em",
                     "marginBottom": "1.2em"
@@ -71,7 +71,7 @@
                 "fontWeight": 400,
                 "letterSpacing": "0.08em"
             },
-            "spineSizePt": 14,
+            "spineSizePt": 16,
             "letterSpacingEm": 0.04
         },
         "colors": {
