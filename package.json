@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "date-fns": "^4.1.0",
     "docx": "^9.4.1",
     "jimp": "^1.6.0",
     "jsdom": "^26.1.0",

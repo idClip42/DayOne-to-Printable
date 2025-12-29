@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import config from "../config.json";
 
 function formatCoverDate(startDate, endDate) {
