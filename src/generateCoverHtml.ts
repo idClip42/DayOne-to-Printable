@@ -114,6 +114,11 @@ section {
     margin-bottom: ${cover.typography.dateTypography.year.marginBottom};
 }
 
+.year-spine {
+    font-weight: ${cover.typography.dateTypography.year.fontWeight};
+    letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+}
+
 .months {
     font-size: ${cover.typography.dateTypography.months.fontSize};
     font-weight: ${cover.typography.dateTypography.months.fontWeight};
@@ -143,9 +148,9 @@ section {
 
     <section class="spine">
       <div>
-        ${author}<br />
+        <span class="year-spine">${yearLine}</span>
+        :
         ${monthLine}
-        ${yearLine}
       </div>
     </section>
 
