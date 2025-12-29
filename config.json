@@ -71,13 +71,16 @@
                 "fontWeight": 400,
                 "letterSpacing": "0.08em"
             },
-            "spineSizePt": 16,
+            "spineSize": {
+                "yearPt": 24,
+                "monthsPt": 20
+            },
             "letterSpacingEm": 0.04
         },
         "colors": {
-            "background": "#ffffff",
-            "text": "#000000",
-            "accent": "#ffffff"
+            "background": "#2b3a50",
+            "text": "#d4d8e0",
+            "accent": "#141d28"
         },
         "content": {
             "showSubtitle": true,

@@ -96,7 +96,6 @@ section {
   writing-mode: vertical-rl;
   /* transform: rotate(180deg); */ /* Rotated the wrong way */
   text-align: center;
-  font-size: ${cover.typography.spineSizePt}pt;
   letter-spacing: ${cover.typography.letterSpacingEm}em;
 }
 
@@ -109,28 +108,34 @@ section {
 }
 
 .year {
-    font-size: ${cover.typography.dateTypography.year.fontSize};
-    font-weight: ${cover.typography.dateTypography.year.fontWeight};
-    letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
-    margin-bottom: ${cover.typography.dateTypography.year.marginBottom};
+  font-size: ${cover.typography.dateTypography.year.fontSize};
+  font-weight: ${cover.typography.dateTypography.year.fontWeight};
+  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+  margin-bottom: ${cover.typography.dateTypography.year.marginBottom};
 }
 
 .year-spine {
-    font-weight: ${cover.typography.dateTypography.year.fontWeight};
-    letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+  font-size: ${cover.typography.spineSize.yearPt}pt;
+  font-weight: ${cover.typography.dateTypography.year.fontWeight};
+  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+}
+
+.month-spine {
+  font-size: ${cover.typography.spineSize.monthsPt}pt;
+  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
 }
 
 .months {
-    font-size: ${cover.typography.dateTypography.months.fontSize};
-    font-weight: ${cover.typography.dateTypography.months.fontWeight};
-    letter-spacing: ${cover.typography.dateTypography.months.letterSpacing};
-    margin-bottom: ${cover.typography.dateTypography.months.marginBottom};
+  font-size: ${cover.typography.dateTypography.months.fontSize};
+  font-weight: ${cover.typography.dateTypography.months.fontWeight};
+  letter-spacing: ${cover.typography.dateTypography.months.letterSpacing};
+  margin-bottom: ${cover.typography.dateTypography.months.marginBottom};
 }
 
 .author {
-    font-size: ${cover.typography.authorTypography.fontSize};
-    font-weight: ${cover.typography.authorTypography.fontWeight};
-    letter-spacing: ${cover.typography.authorTypography.letterSpacing};
+  font-size: ${cover.typography.authorTypography.fontSize};
+  font-weight: ${cover.typography.authorTypography.fontWeight};
+  letter-spacing: ${cover.typography.authorTypography.letterSpacing};
 }
 
 .front .subtitle {
@@ -150,8 +155,7 @@ section {
     <section class="spine">
       <div>
         <span class="year-spine">${yearLine}</span>
-        :
-        ${monthLine}
+        <span class="month-spine">: ${monthLine}</span>
       </div>
     </section>
 
