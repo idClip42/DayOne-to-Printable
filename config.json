@@ -1,6 +1,6 @@
 {
     "FILES": {
-        "INPUT_DIR": "./input/2022",
+        "INPUT_DIR": "./input/2022-12-31-DayOne",
         "OUTPUT_DIR": "./output",
         "DATA_FILE": "Journal.json",
         "PHOTOS_DIR": "photos",
@@ -83,7 +83,7 @@
             "accent": "#141d28"
         },
         "content": {
-            "showSubtitle": true,
+            "showSubtitle": false,
             "subtitle": "Proof of Concept"
         }
     }
