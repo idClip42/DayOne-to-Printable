@@ -2,41 +2,47 @@
 
 TODOs that came about from printing the book.
 
-- [ ] Fix spine color alignment.
-  - [ ] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it.
-- [ ] Add statistics to the tags page.
-  - [ ] Entry count
-  - [ ] Word count
-  - [ ] Media count
-- [ ] Add volume numbers to the spine.
-  - [ ] Set via config. (Don't ever forget to update!)
-  - [ ] Add to bottom of the spine.
-  - [ ] Max 3 digits (this is optimistic).
-  - [ ] So I guess "Vol." text in small (and consistent) font above number in big (and consistent) font.
-- [ ] Year color accent on spine
-  - [ ] Like the binders I put together for the archives.
-  - [ ] Some kind of colored line horizontally across the spine? (Or perhaps a small circle?)
-  - [ ] Colored by year, so that each year gets a visually distinct color.
-  - [ ] Use the color degree math I like - it's already being used for the tags.
-- [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
-  - [ ] Card drawing for mom.
-  - [ ] Is this an "all day" entry without a timestamp?
-    - [ ] No, there's a timestamp.
-- [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
-- [ ] Media marker box color should be a darker gray.
-- [ ] Emojis are replaced with bullets in the final print
-  - [ ] July 6th, "Veggie Pot Pie"
-- [ ] July 22nd "Shower Man": Is there cut off/missing text in there?
-  - [ ] Yes - some text is missing here.
-  - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
-- [ ] We need a visual way of marking when a new day starts.
-  - [ ] It's easy to miss the day change when reading straight through
-  - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
-- [ ] Sept 5: More missing text at page break.
-  - [ ] "His family also hosted a couple foreign exchange students."
-- [ ] Quote blocks should be a darker gray.
-- [ ] Some "---" don't show up as horizontal rules.
-  - [ ] November 11 - "It's time"
-- [ ] Some quote blocks have weird backslashes
-  - [ ] Dec 8 "Instead of working this morning" - backslash period
-  - [ ] Dec 12 "Kevin finally responded - backslash parentheses
+- [ ] Cover
+  - [ ] Fix spine color alignment.
+    - [ ] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it.
+  - [ ] Add volume numbers to the spine.
+    - [ ] Set via config. (Don't ever forget to update!)
+    - [ ] Add to bottom of the spine.
+    - [ ] Max 3 digits (this is optimistic).
+    - [ ] So I guess "Vol." text in small (and consistent) font above number in big (and consistent) font.
+  - [ ] Year color accent on spine
+    - [ ] Like the binders I put together for the archives.
+    - [ ] Some kind of colored line horizontally across the spine? (Or perhaps a small circle?)
+    - [ ] Colored by year, so that each year gets a visually distinct color.
+    - [ ] Use the color degree math I like - it's already being used for the tags.
+- [ ] First Page
+  - [ ] Add statistics to the tags page.
+    - [ ] Entry count
+    - [ ] Word count
+    - [ ] Media count
+- [ ] Color
+  - [ ] Media marker box color should be a darker gray.
+  - [ ] Quote blocks should be a darker gray.
+- [ ] Date Headers
+  - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
+    - [ ] Card drawing for mom.
+    - [ ] Is this an "all day" entry without a timestamp?
+      - [ ] No, there's a timestamp.
+  - [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
+  - [ ] We need a visual way of marking when a new day starts.
+    - [ ] It's easy to miss the day change when reading straight through
+    - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
+- [ ] Formatting
+  - [ ] Some "---" don't show up as horizontal rules.
+    - [ ] November 11 - "It's time"
+  - [ ] Some quote blocks have weird backslashes
+    - [ ] Dec 8 "Instead of working this morning" - backslash period
+    - [ ] Dec 12 "Kevin finally responded - backslash parentheses
+- [ ] Missing Content
+  - [ ] Emojis are replaced with bullets in the final print
+    - [ ] July 6th, "Veggie Pot Pie"
+  - [ ] July 22nd "Shower Man": Is there cut off/missing text in there?
+    - [ ] Yes - some text is missing here.
+    - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
+  - [ ] Sept 5: More missing text at page break.
+    - [ ] "His family also hosted a couple foreign exchange students."
