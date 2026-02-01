@@ -223,6 +223,13 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // Get rid of stray backslashes around punctuation in quote blocks.
         /^>\s*.*$/gm,
         line => line.replace(/\\([().\-.,:;!?*])/g, "$1")
+    ).replace(
+        // For some reason, I've got "---" horizontal rules with images
+        // on the same line.
+        // This adds a couple line breaks so that the horizontal rule
+        // renders correctly.
+        /---\s+!/g,
+        '---\n\n!'
     );
 
     // Parse the modified Markdown into HTML.

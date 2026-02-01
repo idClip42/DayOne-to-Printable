@@ -48,17 +48,18 @@ TODOs that came about from printing the book.
           - [ ] Volume 1 is more like eight months, but it's still fine.
 - [ ] Formatting
   - [ ] Some "---" don't show up as horizontal rules.
-    - [ ] Example Entry: November 11, "It's time"
-    - [ ] I suspect I'll find backslashes or something in the JSON data I'm pulling from...
-      - [ ] Nope.
-    - [ ] Broken:
-      - [ ] ...`I think?\n\n---\n\n![](dayone-moment:`...
-    - [ ] Works:
-      - [ ] ...`desert\\. \n\n---\n\nMonday`...
-    - [ ] Aha! It's every horizontal rule that's before an image!
-      - [ ] So I bet I'm accidentally breaking it with my formatting rules.
+    - [x] Example Entry: November 11, "It's time"
+    - [x] I suspect I'll find backslashes or something in the JSON data I'm pulling from...
+      - [x] Nope.
+    - [x] Broken:
+      - [x] ...`I think?\n\n---\n\n![](dayone-moment:`...
+    - [x] Works:
+      - [x] ...`desert\\. \n\n---\n\nMonday`...
+    - [x] Aha! It's every horizontal rule that's before an image!
+      - [x] So I bet I'm accidentally breaking it with my formatting rules.
     - [ ] Also horizontal rules in quote blocks... maybe we have to leave those.
       - [ ] Example: May 29, "History: Atheism, Peer-Review and Fucking Philosophy"
+    - [ ] October 16, "Wisdom Teeth Part 4" - a weird unexplained one.
   - [x] Some quote blocks have weird backslashes around punctuation and symbols
     - [x] Backslash period
       - [x] Example Entry: Dec 8, "Instead of working this morning"
