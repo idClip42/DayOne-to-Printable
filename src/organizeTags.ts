@@ -1,5 +1,6 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import CONFIG from "./../config.json";
+import { RenderStatsTable } from "./statsTable";
 
 const tagsLibrary:{
     "tag": string,
@@ -62,25 +63,21 @@ export function GetTagHtml(tag:string):string {
 }
 
 export function GetTagsListHtml():string {
+    // Make a copy of the array and reverse it.
+    // Highest numbers are now first.
+    const tagItems = tagsLibrary.map(a=>a).reverse();
 
-    const tagItems = tagsLibrary.map(tagItem => {
-        return `
-<li>
-    ${GetTagHtml(tagItem.tag)}
-    :
-    ${tagItem.count}
-</li>
-        `.trim();
-    }).reverse();
+    const statItems:{[statName:string]:number} = {};
+    for(const item of tagItems){
+        statItems[GetTagHtml(item.tag)] = item.count
+    }
 
     return `
 <div id="tag-index">
     <h2>
         Tags
     </h2>
-    <ul>
-        ${tagItems.join("\n")}
-    </ul>
+    ${RenderStatsTable(statItems)}
 </div>
     `.trim();
 }
