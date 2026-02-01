@@ -44,10 +44,10 @@
     } */
 
     .new-day {
-        background: linear-gradient(to right, #e6f2ff, #ffffff);
+        /* background: linear-gradient(to right, #e6f2ff, #ffffff); */
         /* padding: 0.5em 1em; */
         /* margin-bottom: 0.5em; */
-        border-radius: 0.5em 0.5em; /* Optional */
+        /* border-radius: 0.5em 0.5em; */
 
         display: block;
         /* break-before: page; */
@@ -55,6 +55,11 @@
         /* background-color: yellow; */
         page-break-after: avoid;
         page-break-before: auto;
+
+        padding: 9px 2px 9px 2px;
+        margin-bottom: 0.5em;
+        text-align: center;
+        font-size: 1.1em;
     }
 
     .entry-metadata {
@@ -63,6 +68,8 @@
         /* break-after: avoid; */
         break-after: avoid;
         page-break-after: avoid;
+
+        padding: 2px;
     }
 
     #tag-index {

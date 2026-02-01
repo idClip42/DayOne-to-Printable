@@ -18,7 +18,8 @@ TODOs that came about from printing the book.
     - [ ] Some kind of thin colored line horizontally across the (lower?) spine?
       - [ ] (Or perhaps a small circle?)
     - [ ] Colored by year, so that each year gets a visually distinct color.
-    - [ ] Use the color degree math that's already being used for the tags.
+    - [ ] ~~Use the color degree math that's already being used for the tags.~~
+      - [ ] Correction - we are not using that for the tags, we're just using a 30 degree iterval.
       - [ ] Input a number, output a unique color that's visually distinct from the previous one (via a special number of degrees).
 - [ ] First Page
   - [ ] Add statistics to the tags page.

@@ -41,7 +41,7 @@
     },
     "OTHER_CONTENT": {
         "INCLUDE_TAG_INDEX": true,
-        "INCLUDE_NEW_DAY_HEADER": false
+        "INCLUDE_NEW_DAY_HEADER": true
     },
     "cover": {
         "dimensions": {

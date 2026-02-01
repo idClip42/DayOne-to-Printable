@@ -1,11 +1,11 @@
 import CONFIG from "./../config.json";
 
-export function formatDate(iso: string, timeZone: string): string {
+export function formatDate(iso: string, timeZone: string, includeYear:boolean): string {
     const d = new Date(iso);
     return d.toLocaleString('en-US', {
         timeZone: timeZone,
         weekday: 'long',
-        year: 'numeric',
+        year: includeYear ? 'numeric' : undefined,
         month: 'long',
         day: 'numeric'
     });
@@ -73,7 +73,7 @@ export function isSameLocalDay(config1: DateConfig, config2: DateConfig): boolea
     return date1 === date2;
 }
 
-export function GetDateColor(iso: string, timeZone: string):string{
+export function GetDateColor(iso: string, timeZone: string, lightness: number):string{
     /** starting hue for January */
     const BASE_HUE = CONFIG.ENTRIES.METADATA.DATE_TIME.COLOR.BASE_HUE;
     /** 12 months => 30° step */
@@ -88,7 +88,7 @@ export function GetDateColor(iso: string, timeZone: string):string{
     if(isNaN(monthIndex) || monthIndex < 0) throw new Error(`Invalid month: '${month}'`);
 
     const hue = (BASE_HUE + monthIndex * HUE_INCREMENT) % 360;
-    return `hsl(${hue}, 70%, 75%)`;
+    return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 
 export function GetDateColorTestHtml():string{
@@ -110,7 +110,7 @@ export function GetDateColorTestHtml():string{
     const htmlDates = dates.map(dStr => {
         const d = new Date(dStr);
         return `
-<div style="background-color: ${GetDateColor(d.toISOString(), "America/New_York")}">
+<div style="background-color: ${GetDateColor(d.toISOString(), "America/New_York", 0.75)}">
     ${dStr}
 </div>
         `.trim();

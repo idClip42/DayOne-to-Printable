@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { DayOneEntry } from './types/DayOneEntry';
 import CONFIG from "./config.json";
-import { formatDate, GetDateColorTestHtml, isSameLocalDay } from './src/dateUtilities';
+import { formatDate, GetDateColor, GetDateColorTestHtml, isSameLocalDay } from './src/dateUtilities';
 import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
@@ -63,7 +63,12 @@ for(const e in entries){
         );
     })();
     if(!isSameDay && CONFIG.OTHER_CONTENT.INCLUDE_NEW_DAY_HEADER){
-        entriesHtml.push(`<div class="new-day"><h2>${formatDate(entry.creationDate, entry.location?.timeZoneName)}</h2></div>`);
+        const monthColor = GetDateColor(
+                entry.creationDate, 
+                entry.location?.timeZoneName,
+                0.85
+            );
+        entriesHtml.push(`<div class="new-day" style="background-color: ${monthColor}"><span>${formatDate(entry.creationDate, entry.location?.timeZoneName, false)}</span></div>`);
     }
 
     const entryHtml = convertEntryToHTML(entry);
