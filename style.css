@@ -176,7 +176,7 @@ body {
     margin: 0 auto;
     padding: 5px;
     border: 2px solid lightgray;
-    color: gray;
+    color: rgb(96,96,96);
     hyphens: auto; /* The IDs get too long for the columns */
 }
 
@@ -249,7 +249,7 @@ blockquote {
     border-left-color: lightgray;
     border-left-style: solid;
     border-left-width: 3px;
-    color: gray;
+    color: rgb(96,96,96);;
     padding-left: 10px;
 }
 

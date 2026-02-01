@@ -20,15 +20,16 @@ TODOs that came about from printing the book.
     - [ ] Entry count
     - [ ] Word count
     - [ ] Media count
-- [ ] Color
-  - [ ] Media marker box color should be a darker gray.
-  - [ ] Quote blocks should be a darker gray.
+- [x] Color
+  - [x] Media marker box color should be a darker gray.
+  - [x] Quote blocks should be a darker gray.
 - [ ] Date Headers
   - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
     - [ ] Card drawing for mom.
     - [ ] Is this an "all day" entry without a timestamp?
       - [ ] No, there's a timestamp.
   - [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
+    - [ ] More precisely - flag when `isAllDay` is set.
   - [ ] We need a visual way of marking when a new day starts.
     - [ ] It's easy to miss the day change when reading straight through
     - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
