@@ -260,6 +260,22 @@ tr:nth-child(even) {
     background-color: lightgray;
 }
 
+#stats-table {
+    font-size: 1em;
+}
+
+.stat-label {
+    text-align: left;
+}
+
+.stat-value {
+    text-align: right;
+}
+
+#stats-table tr:nth-child(even) {
+    background-color: initial;
+}
+
 blockquote {
     margin: 0;
     border-left-color: lightgray;

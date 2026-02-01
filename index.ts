@@ -8,6 +8,7 @@ import { convertEntryToHTML } from './src/handleEntry';
 import { ResizeImages } from './src/resizeImages';
 import { GetTagsListHtml, InitializeTags } from './src/organizeTags';
 import { generateCoverHtml } from './src/generateCoverHtml';
+import { GetEntriesStatsHtml } from './src/counter';
 
 // TODO: Image processing is rotating (unrotating?) some images. (This may be a lost cause)
 //  - August 18, 2022, 9:57 AM
@@ -94,6 +95,7 @@ const fullHTML = `
     <body>
         <!-- <div>${GetDateColorTestHtml()}</div> -->
 
+        ${GetEntriesStatsHtml(entries)}
         ${CONFIG.OTHER_CONTENT.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ''}    
         <div id="entries">
             ${entriesHtml.join('\n')}

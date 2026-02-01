@@ -1,36 +1,54 @@
 import { DayOneEntry } from "../types/DayOneEntry";
+import { RenderStatsTable } from "./statsTable";
 
 type Counter = {
-    "entries": number,
-    "words": number,
-    "images": number,
-    "audios": number,
-    "videos": number,
-    "pdfs": number,
+    "Entries": number,
+    "Words": number,
+    "Images": number,
+    "Audio Clips": number,
+    "Videos": number,
+    "PDFs": number,
 };
 
-export function CountEntryContents(entry:DayOneEntry): Counter{
+function CountEntryContents(entry:DayOneEntry): Counter{
     return {
-        "entries": 1,
-        "words": 0,
-        "images": entry.photos?.length || 0,
-        "audios": entry.audios?.length || 0,
-        "videos": entry.videos?.length || 0,
-        "pdfs": entry.pdfAttachments?.length || 0,
+        "Entries": 1,
+        "Words": 0,
+        "Images": entry.photos?.length || 0,
+        "Audio Clips": entry.audios?.length || 0,
+        "Videos": entry.videos?.length || 0,
+        "PDFs": entry.pdfAttachments?.length || 0,
     }
 }
 
-export function SumUpEntryContents(data: Counter[]){
+function SumUpEntryContents(data: Counter[]):Counter{
     return data.reduce<Counter>((accumulator, nextVal) => {
         for(const key in accumulator)
             accumulator[key] += nextVal[key];
         return accumulator;
     }, {
-        "entries": 0,
-        "words": 0,
-        "images": 0,
-        "audios": 0,
-        "videos": 0,
-        "pdfs": 0,
+        "Entries": 0,
+        "Words": 0,
+        "Images": 0,
+        "Audio Clips": 0,
+        "Videos": 0,
+        "PDFs": 0,
     })
+}
+
+export function GetEntriesStatsHtml(entries:DayOneEntry[]):string{
+    const stats = SumUpEntryContents(
+        entries.map(CountEntryContents)
+    );
+
+    const fullHTML = `
+<div>
+    <h2>
+        Stats
+    </h2>
+    ${RenderStatsTable(stats)}
+</div>
+    `.trim();
+
+    return fullHTML;
 }
