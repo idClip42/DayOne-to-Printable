@@ -84,13 +84,13 @@ TODOs that came about from printing the book.
     - [ ] Robot proposed solution: Explicitly define an emoji-capable fallback
       - [ ] `font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";`
       - [ ] Verify Preview export does not substitute fonts
-  - [ ] Missing text content at page breaks
-    - [ ] Example: July 22nd, "Shower Man": A line of text is missing entirely at a page break.
-      - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
-    - [ ] Example: Sept 5: More missing text at page break.
-      - [ ] "His family also hosted a couple foreign exchange students."
-    - [ ] Example: May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
-    - [ ] In my more recent renders, where slight content and formatting changes have slightly shifted the layout, all of these bits of missing content are visible.
-      - [ ] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
-      - [ ] Could this be as simple as preventing HTML <p> paragraphs and date header blocks from being interrupted by a page break? No paragraphs stretched across pages unless absolutely necessary?
-      - [ ] It may have something to do with my single line-break "<br>" tags too?
+  - [x] Missing text content at page breaks
+    - [x] Example: July 22nd, "Shower Man": A line of text is missing entirely at a page break.
+      - [x] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
+    - [x] Example: Sept 5: More missing text at page break.
+      - [x] "His family also hosted a couple foreign exchange students."
+    - [x] Example: May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
+    - [x] In my more recent renders, where slight content and formatting changes have slightly shifted the layout, all of these bits of missing content are visible.
+      - [x] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
+      - [x] Could this be as simple as preventing HTML <p> paragraphs and date header blocks from being interrupted by a page break? No paragraphs stretched across pages unless absolutely necessary?
+      - [x] It may have something to do with my single line-break "<br>" tags too?

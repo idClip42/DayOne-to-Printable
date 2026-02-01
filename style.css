@@ -61,6 +61,8 @@
         break-inside: avoid;
         page-break-inside: avoid;
         /* break-after: avoid; */
+        break-after: avoid;
+        page-break-after: avoid;
     }
 
     #tag-index {
@@ -218,6 +220,8 @@ h6 {
 
 p {
     margin-top: 0.5em;
+    break-inside: avoid;
+    page-break-inside: avoid; /* legacy but still useful */
 }
 
 ul, ol {
