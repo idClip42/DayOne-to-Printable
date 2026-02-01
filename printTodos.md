@@ -24,10 +24,6 @@ TODOs that came about from printing the book.
   - [x] Media marker box color should be a darker gray.
   - [x] Quote blocks should be a darker gray.
 - [ ] Date Headers
-  - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
-    - [ ] Card drawing for mom.
-    - [ ] Is this an "all day" entry without a timestamp?
-      - [ ] No, there's a timestamp.
   - [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
     - [ ] More precisely - flag when `isAllDay` is set.
   - [ ] We need a visual way of marking when a new day starts.
@@ -47,3 +43,5 @@ TODOs that came about from printing the book.
     - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
   - [ ] Sept 5: More missing text at page break.
     - [ ] "His family also hosted a couple foreign exchange students."
+  - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
+    - [ ] Card drawing for mom.
