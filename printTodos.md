@@ -104,5 +104,5 @@ TODOs that came about from printing the book.
     - [ ] Emojis
     - [ ] Text content
     - [ ] Backslashes
-  - [ ] Go through everything with Prettier
-    - [ ] Clean up as best as you can.
+  - [ ] Go through the code with Prettier
+    - [ ] Clean up the code as best as you can.
