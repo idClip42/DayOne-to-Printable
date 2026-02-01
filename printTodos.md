@@ -33,7 +33,7 @@ TODOs that came about from printing the book.
 - [x] Color
   - [x] Media marker box color should be a darker gray.
   - [x] Quote blocks should be a darker gray.
-- [ ] Date Headers
+- [x] Date Headers
   - [x] At least throw an error when we're missing a timestamp so we can deal with it later.
     - [x] More precisely - flag when `isAllDay` is set. We'll deal with it later.
   - [x] We need a visual way of marking when a new day starts.
