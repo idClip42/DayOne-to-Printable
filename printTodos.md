@@ -33,8 +33,8 @@ TODOs that came about from printing the book.
   - [x] Media marker box color should be a darker gray.
   - [x] Quote blocks should be a darker gray.
 - [ ] Date Headers
-  - [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
-    - [ ] More precisely - flag when `isAllDay` is set. We'll deal with it later.
+  - [x] At least throw an error when we're missing a timestamp so we can deal with it later.
+    - [x] More precisely - flag when `isAllDay` is set. We'll deal with it later.
   - [ ] We need a visual way of marking when a new day starts.
     - [ ] It's easy to miss the day change when reading straight through.
     - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
@@ -50,11 +50,11 @@ TODOs that came about from printing the book.
     - [ ] Example Entry: July 6th, "Veggie Pot Pie"
     - [ ] Visible in the initial HTML.
     - [ ] Does this disappear in the initial print-to-PDF, or is it when I re-export the PDF for upload compatibility?
-  - [ ] Missing text content
-    - [ ] July 22nd, "Shower Man": A line of text is missing entirely at a page break.
+  - [ ] Missing text content at page breaks
+    - [ ] Example: July 22nd, "Shower Man": A line of text is missing entirely at a page break.
       - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
-    - [ ] Sept 5: More missing text at page break.
+    - [ ] Example: Sept 5: More missing text at page break.
       - [ ] "His family also hosted a couple foreign exchange students."
-    - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
+    - [ ] Example: May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
     - [ ] In my more recent renders, where slight content and formatting changes have slightly shifted the layout, all of these bits of missing content are visible.
       - [ ] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.

@@ -49,4 +49,5 @@ export interface DayOneEntry {
       "pdfName" : string
     }[];
     tags?: string[];
+    isAllDay : boolean;
 }

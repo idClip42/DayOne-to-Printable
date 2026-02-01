@@ -44,6 +44,11 @@ for(const e in entries){
         console.log(`Entries processed: ${(perc * 100).toFixed(2)}% (${(new Date(entry.creationDate)).toDateString()})`);
     }
 
+    if(entry.isAllDay){
+        console.log(entry);
+        throw new Error("Hit an 'all day' entry - figure out what to do with it.");
+    }
+
     const isSameDay = (()=>{
         if(entryIndex === 0) return false;
         const prevEntry = entries[entryIndex - 1];
