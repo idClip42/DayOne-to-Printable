@@ -72,18 +72,18 @@ TODOs that came about from printing the book.
           - [ ] `> \\(Beats the hell out of Skype, anyway\\)\n`
     - [ ] There's no apparent distinction - their content and formatting are the same, and their contexts (quote block, line break, etc.) are the same.
       - [ ] Perhaps this is another formatting rules side effect.
-    - [ ] Robot proposed simple solution - In quote blocks, find and replace:
+    - [ ] Robot proposed simple, blanket solution - In quote blocks, find and replace:
       - [ ] Replace `\\.` → `.`
       - [ ] Replace `\\(` → `(`
       - [ ] Replace `\\)` → `)`
-- [ ] Missing Content
-  - [ ] Emojis are replaced with bullets in the final print
-    - [ ] Example Entry: July 6th, "Veggie Pot Pie"
-    - [ ] Visible in the initial HTML.
-    - [ ] Does this disappear in the initial print-to-PDF, or is it when I re-export the PDF for upload compatibility?
-    - [ ] Robot proposed solution: Explicitly define an emoji-capable fallback
-      - [ ] `font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";`
-      - [ ] Verify Preview export does not substitute fonts
+- [x] Missing Content
+  - [x] Emojis are replaced with bullets in the final print
+    - [x] Example Entry: July 6th, "Veggie Pot Pie"
+    - [x] Visible in the initial HTML.
+    - [x] Does this disappear in the initial print-to-PDF, or is it when I re-export the PDF for upload compatibility?
+    - [x] Robot proposed solution: Explicitly define an emoji-capable fallback
+      - [x] `font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";`
+      - [x] Verify Preview export does not substitute fonts
   - [x] Missing text content at page breaks
     - [x] Example: July 22nd, "Shower Man": A line of text is missing entirely at a page break.
       - [x] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
@@ -94,3 +94,9 @@ TODOs that came about from printing the book.
       - [x] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
       - [x] Could this be as simple as preventing HTML <p> paragraphs and date header blocks from being interrupted by a page break? No paragraphs stretched across pages unless absolutely necessary?
       - [x] It may have something to do with my single line-break "<br>" tags too?
+- [ ] Last steps
+  - [ ] Write a readme that explains the process needed to prepare a PDF for final upload - all that export stuff.
+  - [ ] Verify everything in final PDF pre upload
+    - [ ] Emojis
+    - [ ] Text content
+    - [ ] Backslashes

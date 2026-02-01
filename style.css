@@ -82,7 +82,7 @@
 }
 
 body {
-    font-family: "Avenir";
+    font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";
     font-size: 10pt;
     overflow-wrap: break-word;
     hyphens: manual;
