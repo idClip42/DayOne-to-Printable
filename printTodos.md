@@ -57,25 +57,25 @@ TODOs that came about from printing the book.
       - [ ] ...`desert\\. \n\n---\n\nMonday`...
     - [ ] Aha! It's every horizontal rule that's before an image!
       - [ ] So I bet I'm accidentally breaking it with my formatting rules.
-  - [ ] Some quote blocks have weird backslashes around punctuation and symbols
-    - [ ] Backslash period
-      - [ ] Example Entry: Dec 8, "Instead of working this morning"
-        - [ ] Text in final: `All your arguments have the same problem: the logistics of who knew what, when\.`
-        - [ ] Text in original JSON data: `> All your arguments have the same problem: the logistics of who knew what, when\\.\n`
-        - [ ] Example of JSON data text that produces normal periods:
-          - [ ] `but I’m sure her home world takes precedence\\.\n`
-    - [ ] Backslash parentheses
-      - [ ] Example Entry: Dec 12, "Kevin finally responded"
-        - [ ] Text in final: `\(Or if we played other games online\)`
-        - [ ] Text in originalJSON data: `> \\(Or if we played other games online\\)\n`
-        - [ ] Example of JSON data text from same entry that produces normal parentheses:
-          - [ ] `> \\(Beats the hell out of Skype, anyway\\)\n`
-    - [ ] There's no apparent distinction - their content and formatting are the same, and their contexts (quote block, line break, etc.) are the same.
-      - [ ] Perhaps this is another formatting rules side effect.
-    - [ ] Robot proposed simple, blanket solution - In quote blocks, find and replace:
-      - [ ] Replace `\\.` → `.`
-      - [ ] Replace `\\(` → `(`
-      - [ ] Replace `\\)` → `)`
+  - [x] Some quote blocks have weird backslashes around punctuation and symbols
+    - [x] Backslash period
+      - [x] Example Entry: Dec 8, "Instead of working this morning"
+        - [x] Text in final: `All your arguments have the same problem: the logistics of who knew what, when\.`
+        - [x] Text in original JSON data: `> All your arguments have the same problem: the logistics of who knew what, when\\.\n`
+        - [x] Example of JSON data text that produces normal periods:
+          - [x] `but I’m sure her home world takes precedence\\.\n`
+    - [x] Backslash parentheses
+      - [x] Example Entry: Dec 12, "Kevin finally responded"
+        - [x] Text in final: `\(Or if we played other games online\)`
+        - [x] Text in originalJSON data: `> \\(Or if we played other games online\\)\n`
+        - [x] Example of JSON data text from same entry that produces normal parentheses:
+          - [x] `> \\(Beats the hell out of Skype, anyway\\)\n`
+    - [x] There's no apparent distinction - their content and formatting are the same, and their contexts (quote block, line break, etc.) are the same.
+      - [x] Perhaps this is another formatting rules side effect.
+    - [x] Robot proposed simple, blanket solution - In quote blocks, find and replace:
+      - [x] Replace `\\.` → `.`
+      - [x] Replace `\\(` → `(`
+      - [x] Replace `\\)` → `)`
 - [x] Missing Content
   - [x] Emojis are replaced with bullets in the final print
     - [x] Example Entry: July 6th, "Veggie Pot Pie"
