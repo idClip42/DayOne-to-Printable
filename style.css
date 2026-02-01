@@ -50,8 +50,8 @@
         border-radius: 0.5em 0.5em; /* Optional */
 
         display: block;
-        break-before: page;
-        page-break-before: always;
+        /* break-before: page; */
+        /* page-break-before: always; */
         /* background-color: yellow; */
     }
 
