@@ -216,27 +216,13 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /^(\s*>){2,}\s?/gm, 
         "> "
     ).replace(
-        // Sometimes quote block raw text `\\.` renders in final page as `\.` instead of `.`.
-        // So we need to find those escaped slash-periods in quote blocks and fix them.
-        /(^>\s*.*)\\\./gm,
-        "$1."
+        // Get rid of stray backslashes around punctuation in URLs.
+        /^(https?:\/\/.*)$/gm,
+        line => line.replace(/\\([\\() .\-_:/?=&%#])/g, "$1")
     ).replace(
-        // Same for open parentheses.
-        /(^>\s*.*)\\\(/gm,
-        "$1("
-    ).replace(
-        // Same for closed parentheses.
-        /(^>\s*.*)\\\)/gm,
-        "$1)"
-    ).replace(
-        // Same for hyphens.
-        /(^>\s*.*)\\-/gm, 
-        "$1-"
-    ).replace(
-        // Links also need to remove backslashes from periods.
-        // TODO: And from spaces.
-        /(https?:\/\/.*)$/gm,
-        line => line.replace(/\\([./:-])/g, "$1")
+        // Get rid of stray backslashes around punctuation in quote blocks.
+        /^>\s*.*$/gm,
+        line => line.replace(/\\([().\-.,:;!?])/g, "$1")
     );
 
     // Parse the modified Markdown into HTML.
