@@ -1,5 +1,8 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import { RenderStatsTable } from "./statsTable";
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import { visit } from 'unist-util-visit';
 
 type Counter = {
     "Entries": number,
@@ -10,10 +13,26 @@ type Counter = {
     "PDFs": number,
 };
 
+export function countMarkdownWords(markdown: string): number {
+  const tree = unified().use(remarkParse).parse(markdown);
+
+  let text = '';
+
+  visit(tree, 'text', (node: any) => {
+    text += ' ' + node.value;
+  });
+
+  return text
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length;
+}
+
 function CountEntryContents(entry:DayOneEntry): Counter{
     return {
         "Entries": 1,
-        "Words": 0,
+        "Words": countMarkdownWords(entry.text),
         "Images": entry.photos?.length || 0,
         "Audio Clips": entry.audios?.length || 0,
         "Videos": entry.videos?.length || 0,
