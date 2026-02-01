@@ -1,6 +1,7 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 
 type Counter = {
+    "entries": number,
     "words": number,
     "images": number,
     "audios": number,
@@ -10,6 +11,7 @@ type Counter = {
 
 export function CountEntryContents(entry:DayOneEntry): Counter{
     return {
+        "entries": 1,
         "words": 0,
         "images": entry.photos?.length || 0,
         "audios": entry.audios?.length || 0,
@@ -24,6 +26,7 @@ export function SumUpEntryContents(data: Counter[]){
             accumulator[key] += nextVal[key];
         return accumulator;
     }, {
+        "entries": 0,
         "words": 0,
         "images": 0,
         "audios": 0,
