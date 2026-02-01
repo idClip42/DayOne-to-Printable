@@ -53,6 +53,8 @@
         /* break-before: page; */
         /* page-break-before: always; */
         /* background-color: yellow; */
+        page-break-after: avoid;
+        page-break-before: auto;
     }
 
     .entry-metadata {

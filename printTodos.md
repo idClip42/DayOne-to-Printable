@@ -72,11 +72,18 @@ TODOs that came about from printing the book.
           - [ ] `> \\(Beats the hell out of Skype, anyway\\)\n`
     - [ ] There's no apparent distinction - their content and formatting are the same, and their contexts (quote block, line break, etc.) are the same.
       - [ ] Perhaps this is another formatting rules side effect.
+    - [ ] Robot proposed simple solution - In quote blocks, find and replace:
+      - [ ] Replace `\\.` → `.`
+      - [ ] Replace `\\(` → `(`
+      - [ ] Replace `\\)` → `)`
 - [ ] Missing Content
   - [ ] Emojis are replaced with bullets in the final print
     - [ ] Example Entry: July 6th, "Veggie Pot Pie"
     - [ ] Visible in the initial HTML.
     - [ ] Does this disappear in the initial print-to-PDF, or is it when I re-export the PDF for upload compatibility?
+    - [ ] Robot proposed solution: Explicitly define an emoji-capable fallback
+      - [ ] `font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";`
+      - [ ] Verify Preview export does not substitute fonts
   - [ ] Missing text content at page breaks
     - [ ] Example: July 22nd, "Shower Man": A line of text is missing entirely at a page break.
       - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
@@ -85,3 +92,5 @@ TODOs that came about from printing the book.
     - [ ] Example: May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
     - [ ] In my more recent renders, where slight content and formatting changes have slightly shifted the layout, all of these bits of missing content are visible.
       - [ ] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
+      - [ ] Could this be as simple as preventing HTML <p> paragraphs and date header blocks from being interrupted by a page break? No paragraphs stretched across pages unless absolutely necessary?
+      - [ ] It may have something to do with my single line-break "<br>" tags too?
