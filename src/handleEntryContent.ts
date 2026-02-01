@@ -230,6 +230,10 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // renders correctly.
         /---\s+!/g,
         '---\n\n!'
+    ).replace(
+        // Some horizontal rules are in quote blocks. This fixes those entirely.
+        /> ---/g,
+        "> <hr>"
     );
 
     // Parse the modified Markdown into HTML.

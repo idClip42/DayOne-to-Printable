@@ -57,8 +57,8 @@ TODOs that came about from printing the book.
       - [x] ...`desert\\. \n\n---\n\nMonday`...
     - [x] Aha! It's every horizontal rule that's before an image!
       - [x] So I bet I'm accidentally breaking it with my formatting rules.
-    - [ ] Also horizontal rules in quote blocks... maybe we have to leave those.
-      - [ ] Example: May 29, "History: Atheism, Peer-Review and Fucking Philosophy"
+    - [x] Also horizontal rules in quote blocks... maybe we have to leave those.
+      - [x] Example: May 29, "History: Atheism, Peer-Review and Fucking Philosophy"
     - [ ] October 16, "Wisdom Teeth Part 4" - a weird unexplained one.
   - [x] Some quote blocks have weird backslashes around punctuation and symbols
     - [x] Backslash period
