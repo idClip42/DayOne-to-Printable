@@ -36,17 +36,17 @@ TODOs that came about from printing the book.
 - [ ] Date Headers
   - [x] At least throw an error when we're missing a timestamp so we can deal with it later.
     - [x] More precisely - flag when `isAllDay` is set. We'll deal with it later.
-  - [ ] We need a visual way of marking when a new day starts.
-    - [ ] It's easy to miss the day change when reading straight through.
-    - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
-    - [ ] There's something in there that's currently disabled we could check, see how that looks...
-      - [ ] I have one
-      - [ ] It's thin padding-less and gray and ugly
-      - [ ] The text content format is fine: "Friday, May 13, 2022"
-      - [ ] I think it needs to share the color of the date that the other date references are using
-      - [ ] I think it needs to be larger and more prominent
-        - [ ] If most volumes represent 4 months, then there will only be 365/3 of these blocks, and that won't add too many pages of length.
-          - [ ] Volume 1 is more like eight months, but it's still fine.
+  - [x] We need a visual way of marking when a new day starts.
+    - [x] It's easy to miss the day change when reading straight through.
+    - [x] If this is an extra block of content, make it a thin one to minimize addition to book content.
+    - [x] There's something in there that's currently disabled we could check, see how that looks...
+      - [x] I have one
+      - [x] It's thin padding-less and gray and ugly
+      - [x] The text content format is fine: "Friday, May 13, 2022"
+      - [x] I think it needs to share the color of the date that the other date references are using
+      - [x] I think it needs to be larger and more prominent
+        - [x] If most volumes represent 4 months, then there will only be 365/3 of these blocks, and that won't add too many pages of length.
+          - [x] Volume 1 is more like eight months, but it's still fine.
 - [x] Formatting
   - [x] Some "---" don't show up as horizontal rules.
     - [x] Example Entry: November 11, "It's time"
@@ -104,3 +104,5 @@ TODOs that came about from printing the book.
     - [ ] Emojis
     - [ ] Text content
     - [ ] Backslashes
+  - [ ] Go through everything with Prettier
+    - [ ] Clean up as best as you can.

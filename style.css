@@ -59,7 +59,12 @@
         padding: 9px 2px 9px 2px;
         margin-bottom: 0.5em;
         text-align: center;
-        font-size: 1.1em;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+
+        break-after: avoid-column;
+        /* page-break-after: avoid; */
+        break-inside: avoid-column;
     }
 
     .entry-metadata {

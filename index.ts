@@ -66,9 +66,9 @@ for(const e in entries){
         const monthColor = GetDateColor(
                 entry.creationDate, 
                 entry.location?.timeZoneName,
-                0.85
+                0.4
             );
-        entriesHtml.push(`<div class="new-day" style="background-color: ${monthColor}"><span>${formatDate(entry.creationDate, entry.location?.timeZoneName, false)}</span></div>`);
+        entriesHtml.push(`<div class="new-day" style="color: ${monthColor}"><span>${formatDate(entry.creationDate, entry.location?.timeZoneName, false)}</span></div>`);
     }
 
     const entryHtml = convertEntryToHTML(entry);
