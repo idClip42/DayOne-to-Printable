@@ -44,6 +44,11 @@
     } */
 
     .new-day {
+        background: linear-gradient(to right, #e6f2ff, #ffffff);
+        /* padding: 0.5em 1em; */
+        /* margin-bottom: 0.5em; */
+        border-radius: 0.5em 0.5em; /* Optional */
+
         display: block;
         break-before: page;
         page-break-before: always;
@@ -152,13 +157,6 @@ body {
 
     display: block;
 } */
-
-.new-day {
-    background: linear-gradient(to right, #e6f2ff, #ffffff);
-    /* padding: 0.5em 1em; */
-    /* margin-bottom: 0.5em; */
-    border-radius: 0.5em 0.5em; /* Optional */
-}
 
 .tag-item {
     padding: 1px 3px;
