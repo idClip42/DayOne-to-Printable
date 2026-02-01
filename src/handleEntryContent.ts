@@ -215,6 +215,23 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // They don't show up in the journal, so they shouldn't show up here.
         /^(\s*>){2,}\s?/gm, 
         "> "
+    ).replace(
+        // Sometimes quote block raw text `\\.` renders in final page as `\.` instead of `.`.
+        // So we need to find those escaped slash-periods in quote blocks and fix them.
+        /(^>\s*.*)\\\./gm,
+        "$1."
+    ).replace(
+        // Same for open parentheses.
+        /(^>\s*.*)\\\(/gm,
+        "$1("
+    ).replace(
+        // Same for closed parentheses.
+        /(^>\s*.*)\\\)/gm,
+        "$1)"
+    ).replace(
+        // Same for hyphens.
+        /(^>\s*.*)\\-/gm, 
+        "$1-"
     );
 
     // Parse the modified Markdown into HTML.
