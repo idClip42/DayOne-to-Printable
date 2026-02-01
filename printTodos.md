@@ -49,9 +49,29 @@ TODOs that came about from printing the book.
 - [ ] Formatting
   - [ ] Some "---" don't show up as horizontal rules.
     - [ ] Example Entry: November 11, "It's time"
-  - [ ] Some quote blocks have weird backslashes
-    - [ ] Example Entry: Dec 8, "Instead of working this morning" - backslash period
-    - [ ] Example Entry: Dec 12, "Kevin finally responded - backslash parentheses
+    - [ ] I suspect I'll find backslashes or something in the JSON data I'm pulling from...
+      - [ ] Nope.
+    - [ ] Broken:
+      - [ ] ...`I think?\n\n---\n\n![](dayone-moment:`...
+    - [ ] Works:
+      - [ ] ...`desert\\. \n\n---\n\nMonday`...
+    - [ ] Aha! It's every horizontal rule that's before an image!
+      - [ ] So I bet I'm accidentally breaking it with my formatting rules.
+  - [ ] Some quote blocks have weird backslashes around punctuation and symbols
+    - [ ] Backslash period
+      - [ ] Example Entry: Dec 8, "Instead of working this morning"
+        - [ ] Text in final: `All your arguments have the same problem: the logistics of who knew what, when\.`
+        - [ ] Text in original JSON data: `> All your arguments have the same problem: the logistics of who knew what, when\\.\n`
+        - [ ] Example of JSON data text that produces normal periods:
+          - [ ] `but I’m sure her home world takes precedence\\.\n`
+    - [ ] Backslash parentheses
+      - [ ] Example Entry: Dec 12, "Kevin finally responded"
+        - [ ] Text in final: `\(Or if we played other games online\)`
+        - [ ] Text in originalJSON data: `> \\(Or if we played other games online\\)\n`
+        - [ ] Example of JSON data text from same entry that produces normal parentheses:
+          - [ ] `> \\(Beats the hell out of Skype, anyway\\)\n`
+    - [ ] There's no apparent distinction - their content and formatting are the same, and their contexts (quote block, line break, etc.) are the same.
+      - [ ] Perhaps this is another formatting rules side effect.
 - [ ] Missing Content
   - [ ] Emojis are replaced with bullets in the final print
     - [ ] Example Entry: July 6th, "Veggie Pot Pie"
