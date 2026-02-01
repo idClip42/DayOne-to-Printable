@@ -222,7 +222,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
     ).replace(
         // Get rid of stray backslashes around punctuation in quote blocks.
         /^>\s*.*$/gm,
-        line => line.replace(/\\([().\-.,:;!?])/g, "$1")
+        line => line.replace(/\\([().\-.,:;!?*])/g, "$1")
     );
 
     // Parse the modified Markdown into HTML.
