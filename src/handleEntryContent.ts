@@ -217,7 +217,7 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         "> "
     ).replace(
         // Get rid of stray backslashes around punctuation in URLs.
-        /^(https?:\/\/.*)$/gm,
+        /(https?:\/\/.*)$/gm,
         line => line.replace(/\\([\\() .\-_:/?=&%#])/g, "$1")
     ).replace(
         // Get rid of stray backslashes around punctuation in quote blocks.
