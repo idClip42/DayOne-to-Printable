@@ -9,7 +9,7 @@ export function RenderStatsTable(stats:StatEntries):string{
                 ${statName}
             </td>
             <td class="stat-value">
-                ${stats[statName]}
+                ${stats[statName].toLocaleString()}
             </td>
         </tr>
         `.trim();

@@ -42,7 +42,7 @@ export function GetEntriesStatsHtml(entries:DayOneEntry[]):string{
     );
 
     const fullHTML = `
-<div>
+<div id="stats-index" class="stats-group">
     <h2>
         Stats
     </h2>

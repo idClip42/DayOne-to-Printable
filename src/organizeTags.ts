@@ -73,7 +73,7 @@ export function GetTagsListHtml():string {
     }
 
     return `
-<div id="tag-index">
+<div id="tag-index" class="stats-group">
     <h2>
         Tags
     </h2>
