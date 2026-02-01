@@ -4,44 +4,57 @@ TODOs that came about from printing the book.
 
 - [ ] Cover
   - [ ] Fix spine color alignment.
-    - [ ] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it.
+    - [ ] The separately-colored spine is wider than the book's spine. Left edge is perfectly aligned, but right edge spills onto the cover.
+      - [ ] (And it seems to align almost exactly with that little quarter-inch crease that I guess marks where the pages are glued to the cover and where the page actually turns from.)
+    - [ ] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it, design wise, and I think I've seen plenty of books that do that.
   - [ ] Add volume numbers to the spine.
     - [ ] Set via config. (Don't ever forget to update!)
-    - [ ] Add to bottom of the spine.
     - [ ] Max 3 digits (this is optimistic).
-    - [ ] So I guess "Vol." text in small (and consistent) font above number in big (and consistent) font.
+    - [ ] Add to bottom of the spine.
+    - [ ] "Vol." text in small (and consistent) font, above...
+    - [ ] Number in big (and consistent) font.
   - [ ] Year color accent on spine
     - [ ] Like the binders I put together for the archives.
-    - [ ] Some kind of colored line horizontally across the spine? (Or perhaps a small circle?)
+    - [ ] Some kind of thin colored line horizontally across the (lower?) spine?
+      - [ ] (Or perhaps a small circle?)
     - [ ] Colored by year, so that each year gets a visually distinct color.
-    - [ ] Use the color degree math I like - it's already being used for the tags.
+    - [ ] Use the color degree math that's already being used for the tags.
+      - [ ] Input a number, output a unique color that's visually distinct from the previous one (via a special number of degrees).
 - [ ] First Page
   - [ ] Add statistics to the tags page.
     - [ ] Entry count
     - [ ] Word count
+      - [ ] Perhaps there's a markdown-specific word counter somewhere?
+      - [ ] Or perhaps being markdown-specific is not necessary
     - [ ] Media count
+      - [ ] How many images
+      - [ ] How many other media types - video, audio.
 - [x] Color
   - [x] Media marker box color should be a darker gray.
   - [x] Quote blocks should be a darker gray.
 - [ ] Date Headers
   - [ ] At least throw an error when we're missing a timestamp so we can deal with it later.
-    - [ ] More precisely - flag when `isAllDay` is set.
+    - [ ] More precisely - flag when `isAllDay` is set. We'll deal with it later.
   - [ ] We need a visual way of marking when a new day starts.
-    - [ ] It's easy to miss the day change when reading straight through
+    - [ ] It's easy to miss the day change when reading straight through.
     - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
+    - [ ] There's something in there that's currently disabled we could check, see how that looks.
 - [ ] Formatting
   - [ ] Some "---" don't show up as horizontal rules.
-    - [ ] November 11 - "It's time"
+    - [ ] Example Entry: November 11, "It's time"
   - [ ] Some quote blocks have weird backslashes
-    - [ ] Dec 8 "Instead of working this morning" - backslash period
-    - [ ] Dec 12 "Kevin finally responded - backslash parentheses
+    - [ ] Example Entry: Dec 8, "Instead of working this morning" - backslash period
+    - [ ] Example Entry: Dec 12, "Kevin finally responded - backslash parentheses
 - [ ] Missing Content
   - [ ] Emojis are replaced with bullets in the final print
-    - [ ] July 6th, "Veggie Pot Pie"
-  - [ ] July 22nd "Shower Man": Is there cut off/missing text in there?
-    - [ ] Yes - some text is missing here.
-    - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
-  - [ ] Sept 5: More missing text at page break.
-    - [ ] "His family also hosted a couple foreign exchange students."
-  - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
-    - [ ] Card drawing for mom.
+    - [ ] Example Entry: July 6th, "Veggie Pot Pie"
+    - [ ] Visible in the initial HTML.
+    - [ ] Does this disappear in the initial print-to-PDF, or is it when I re-export the PDF for upload compatibility?
+  - [ ] Missing text content
+    - [ ] July 22nd, "Shower Man": A line of text is missing entirely at a page break.
+      - [ ] "Apparently the friend from VOH (?) who didn’t want to do the shower In Our bathroom is interested in fixing in the shower in theres."
+    - [ ] Sept 5: More missing text at page break.
+      - [ ] "His family also hosted a couple foreign exchange students."
+    - [ ] May 8th or May 9th has a "Photos Added Retroactively" entry without a date header.
+    - [ ] In my more recent renders, where slight content and formatting changes have slightly shifted the layout, all of these bits of missing content are visible.
+      - [ ] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
