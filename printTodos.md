@@ -38,7 +38,14 @@ TODOs that came about from printing the book.
   - [ ] We need a visual way of marking when a new day starts.
     - [ ] It's easy to miss the day change when reading straight through.
     - [ ] If this is an extra block of content, make it a thin one to minimize addition to book content.
-    - [ ] There's something in there that's currently disabled we could check, see how that looks.
+    - [ ] There's something in there that's currently disabled we could check, see how that looks...
+      - [ ] I have one
+      - [ ] It's thin padding-less and gray and ugly
+      - [ ] The text content format is fine: "Friday, May 13, 2022"
+      - [ ] I think it needs to share the color of the date that the other date references are using
+      - [ ] I think it needs to be larger and more prominent
+        - [ ] If most volumes represent 4 months, then there will only be 365/3 of these blocks, and that won't add too many pages of length.
+          - [ ] Volume 1 is more like eight months, but it's still fine.
 - [ ] Formatting
   - [ ] Some "---" don't show up as horizontal rules.
     - [ ] Example Entry: November 11, "It's time"
