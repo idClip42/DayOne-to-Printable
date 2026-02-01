@@ -46,8 +46,8 @@ TODOs that came about from printing the book.
       - [ ] I think it needs to be larger and more prominent
         - [ ] If most volumes represent 4 months, then there will only be 365/3 of these blocks, and that won't add too many pages of length.
           - [ ] Volume 1 is more like eight months, but it's still fine.
-- [ ] Formatting
-  - [ ] Some "---" don't show up as horizontal rules.
+- [x] Formatting
+  - [x] Some "---" don't show up as horizontal rules.
     - [x] Example Entry: November 11, "It's time"
     - [x] I suspect I'll find backslashes or something in the JSON data I'm pulling from...
       - [x] Nope.
