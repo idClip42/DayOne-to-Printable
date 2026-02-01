@@ -21,15 +21,15 @@ TODOs that came about from printing the book.
     - [ ] ~~Use the color degree math that's already being used for the tags.~~
       - [ ] Correction - we are not using that for the tags, we're just using a 30 degree iterval.
       - [ ] Input a number, output a unique color that's visually distinct from the previous one (via a special number of degrees).
-- [ ] First Page
-  - [ ] Add statistics to the tags page.
-    - [ ] Entry count
-    - [ ] Word count
-      - [ ] Perhaps there's a markdown-specific word counter somewhere?
-      - [ ] Or perhaps being markdown-specific is not necessary
-    - [ ] Media count
-      - [ ] How many images
-      - [ ] How many other media types - video, audio.
+- [x] First Page
+  - [x] Add statistics to the tags page.
+    - [x] Entry count
+    - [x] Word count
+      - [x] Perhaps there's a markdown-specific word counter somewhere?
+      - [x] Or perhaps being markdown-specific is not necessary
+    - [x] Media count
+      - [x] How many images
+      - [x] How many other media types - video, audio.
 - [x] Color
   - [x] Media marker box color should be a darker gray.
   - [x] Quote blocks should be a darker gray.
