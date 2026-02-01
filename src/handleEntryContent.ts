@@ -232,6 +232,11 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         // Same for hyphens.
         /(^>\s*.*)\\-/gm, 
         "$1-"
+    ).replace(
+        // Links also need to remove backslashes from periods.
+        // TODO: And from spaces.
+        /(https?:\/\/.*)$/gm,
+        line => line.replace(/\\([./:-])/g, "$1")
     );
 
     // Parse the modified Markdown into HTML.
