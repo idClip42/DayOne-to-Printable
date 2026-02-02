@@ -2,7 +2,7 @@
 
 TODOs that came about from printing the book.
 
-- [ ] Cover
+- [x] Cover
   - [x] Fix spine color alignment.
     - [x] The separately-colored spine is wider than the book's spine. Left edge is perfectly aligned, but right edge spills onto the cover.
       - [x] (And it seems to align almost exactly with that little quarter-inch crease that I guess marks where the pages are glued to the cover and where the page actually turns from.)
@@ -13,14 +13,14 @@ TODOs that came about from printing the book.
     - [x] Add to bottom of the spine.
     - [x] "Vol." text in small (and consistent) font, above...
     - [x] Number in big (and consistent) font.
-  - [ ] Year color accent on spine
-    - [ ] Like the binders I put together for the archives.
-    - [ ] Some kind of thin colored line horizontally across the (lower?) spine?
-      - [ ] (Or perhaps a small circle?)
-    - [ ] Colored by year, so that each year gets a visually distinct color.
-    - [ ] ~~Use the color degree math that's already being used for the tags.~~
-      - [ ] Correction - we are not using that for the tags, we're just using a 30 degree iterval.
-      - [ ] Input a number, output a unique color that's visually distinct from the previous one (via a special number of degrees).
+  - [x] Year color accent on spine
+    - [x] Like the binders I put together for the archives.
+    - [x] Some kind of thin colored line horizontally across the (lower?) spine?
+      - [x] (Or perhaps a small circle?)
+    - [x] Colored by year, so that each year gets a visually distinct color.
+    - [x] ~~Use the color degree math that's already being used for the tags.~~
+      - [x] Correction - we are not using that for the tags, we're just using a 30 degree iterval.
+      - [x] Input a number, output a unique color that's visually distinct from the previous one (via a special number of degrees).
 - [x] First Page
   - [x] Add statistics to the tags page.
     - [x] Entry count

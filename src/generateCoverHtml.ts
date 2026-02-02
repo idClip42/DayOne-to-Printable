@@ -1,4 +1,5 @@
 import config from "../config.json";
+import { GetYearAccentColor } from "./dateUtilities";
 
 function formatCoverDate(startDate, endDate) {
     const start = new Date(startDate);
@@ -93,6 +94,7 @@ section {
 
 /* Spine */
 .spine {
+  position: relative;
   background: ${cover.colors.accent};
   writing-mode: vertical-rl;
   text-align: center;
@@ -156,6 +158,15 @@ section {
   letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
 }
 
+.spine-accent {
+  position: absolute;
+  bottom: 2in;
+  left: 0;
+  width: 100%;
+  height: 3pt;
+  background: ${GetYearAccentColor(start.getFullYear())};
+}
+
 .months {
   font-size: ${cover.typography.dateTypography.months.fontSize};
   font-weight: ${cover.typography.dateTypography.months.fontWeight};
@@ -188,6 +199,8 @@ section {
         <span class="year-spine">${yearLine}</span>
         <span class="month-spine">: ${monthLine}</span>
       </div>
+
+      <div class="spine-accent"></div>
 
       <div class="spine-volume">
         <div class="vol-label">VOL.</div>
