@@ -76,7 +76,12 @@
                 "yearPt": 24,
                 "monthsPt": 20
             },
-            "letterSpacingEm": 0.04
+            "letterSpacingEm": 0.04,
+            "spineVolumeTypography": {
+                "labelSizePt": 8,
+                "numberSizePt": 18,
+                "letterSpacingEm": 0.08
+            }
         },
         "colors": {
             "background": "#2b3a50",
@@ -85,7 +90,10 @@
         },
         "content": {
             "showSubtitle": false,
-            "subtitle": "Proof of Concept"
+            "subtitle": "Proof of Concept",
+            "volume": {
+                "number": 1
+            }
         }
     }
 }

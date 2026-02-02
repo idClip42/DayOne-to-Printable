@@ -107,6 +107,29 @@ section {
   padding-right: ${hingeIn}in;
 }
 
+.spine-main {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.spine-volume {
+  margin-top: auto;
+  padding-bottom: 0.25in;
+  text-align: center;
+  writing-mode: initial;
+}
+
+.vol-label {
+  font-size: ${cover.typography.spineVolumeTypography.labelSizePt}pt;
+  letter-spacing: ${cover.typography.spineVolumeTypography.letterSpacingEm}em;
+  opacity: 0.8;
+}
+
+.vol-number {
+  font-size: ${cover.typography.spineVolumeTypography.numberSizePt}pt;
+  font-weight: 600;
+}
+
 /* Front cover */
 .front {
   flex-direction: column;
@@ -161,11 +184,16 @@ section {
     </section>
 
     <section class="spine">
-      <div>
+      <div class="spine-main">
         <span class="year-spine">${yearLine}</span>
         <span class="month-spine">: ${monthLine}</span>
       </div>
-    </section>
+
+      <div class="spine-volume">
+        <div class="vol-label">VOL.</div>
+        <div class="vol-number">${cover.content.volume.number}</div>
+      </div>
+  </section>
 
     <section class="front">
       <div class="year">${yearLine}</div>

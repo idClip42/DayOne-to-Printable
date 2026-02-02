@@ -3,16 +3,16 @@
 TODOs that came about from printing the book.
 
 - [ ] Cover
-  - [ ] Fix spine color alignment.
-    - [ ] The separately-colored spine is wider than the book's spine. Left edge is perfectly aligned, but right edge spills onto the cover.
-      - [ ] (And it seems to align almost exactly with that little quarter-inch crease that I guess marks where the pages are glued to the cover and where the page actually turns from.)
-    - [ ] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it, design wise, and I think I've seen plenty of books that do that.
-  - [ ] Add volume numbers to the spine.
-    - [ ] Set via config. (Don't ever forget to update!)
-    - [ ] Max 3 digits (this is optimistic).
-    - [ ] Add to bottom of the spine.
-    - [ ] "Vol." text in small (and consistent) font, above...
-    - [ ] Number in big (and consistent) font.
+  - [x] Fix spine color alignment.
+    - [x] The separately-colored spine is wider than the book's spine. Left edge is perfectly aligned, but right edge spills onto the cover.
+      - [x] (And it seems to align almost exactly with that little quarter-inch crease that I guess marks where the pages are glued to the cover and where the page actually turns from.)
+    - [x] Is bleeding/spilling onto the front and back covers good or bad? I kinda like it, design wise, and I think I've seen plenty of books that do that.
+  - [x] Add volume numbers to the spine.
+    - [x] Set via config. (Don't ever forget to update!)
+    - [x] Max 3 digits (this is optimistic).
+    - [x] Add to bottom of the spine.
+    - [x] "Vol." text in small (and consistent) font, above...
+    - [x] Number in big (and consistent) font.
   - [ ] Year color accent on spine
     - [ ] Like the binders I put together for the archives.
     - [ ] Some kind of thin colored line horizontally across the (lower?) spine?
@@ -100,10 +100,11 @@ TODOs that came about from printing the book.
       - [x] It may have something to do with my single line-break "<br>" tags too?
 - [ ] Last steps
   - [ ] Write a readme that explains the process needed to prepare a PDF for final upload - all that export stuff.
-  - [ ] Verify everything in final PDF pre upload
+  - [ ] Verify everything in final PDF pre upload.
     - [ ] Emojis
     - [ ] Text content
     - [ ] Backslashes
-  - [ ] Go through the code with Prettier
+  - [ ] Confirm spine alignment with uploader.
+  - [ ] Go through the code with Prettier.
     - [ ] Clean up the code as best as you can.
     - [ ] We want something that is really, really organized and readable and usable.
