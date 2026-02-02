@@ -106,3 +106,4 @@ TODOs that came about from printing the book.
     - [ ] Backslashes
   - [ ] Go through the code with Prettier
     - [ ] Clean up the code as best as you can.
+    - [ ] We want something that is really, really organized and readable and usable.
