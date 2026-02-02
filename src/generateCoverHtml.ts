@@ -115,8 +115,10 @@ section {
 }
 
 .spine-volume {
-  margin-top: auto;
-  padding-bottom: 0.25in;
+  position: absolute;
+  bottom: 0.35in;   /* deliberate, physical margin */
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
   writing-mode: initial;
 }
@@ -160,10 +162,10 @@ section {
 
 .spine-accent {
   position: absolute;
-  bottom: 2in;
+  bottom: calc(0.35in + 1.2in); /* volume offset + volume block height */
   left: 0;
   width: 100%;
-  height: 3pt;
+  height: 5pt;
   background: ${GetYearAccentColor(start.getFullYear())};
 }
 
