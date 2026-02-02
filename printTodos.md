@@ -100,11 +100,28 @@ TODOs that came about from printing the book.
       - [x] It may have something to do with my single line-break "<br>" tags too?
 - [ ] Last steps
   - [ ] Write a readme that explains the process needed to prepare a PDF for final upload - all that export stuff.
+    - [ ] Needed to open the saved PDF in Preview and export it for the upload to work.
+      - [ ] When exporting PDFs from Preview (to get them to work)
+        - [ ] Do not export as PDF/A — standard PDF is safer for print; PDF/A is for archival and can interfere with gradients, layers, or transparencies.
+        - [ ] Do not optimize images for screen — keep full-resolution images for print quality.
+    - [ ] Also regarding PDFs
+      - [ ] Flatten transparencies before upload — gradients or semi-transparent elements can trigger errors; flattening ensures they’re baked in safely.
+      - [ ] We’ll see if this seems necessary, but there’s a warning.
+    - [ ] Cover
+      - [ ] Matte finish (better for readability, fewer glare issues, more “book-like”)
+    - [ ] Keep an eye on the horizontal rules in print - there might be an issue with line thickness.
+      - [ ] `Images: Your file contains images with line thickness less than 0.14 points. This may be too thin to print. Please review your file.`
   - [ ] Verify everything in final PDF pre upload.
-    - [ ] Emojis
+    - [x] Emojis
+      - [x] Present in initial PDF export.
+      - [x] Present in final PDF export.
+      - [x] Oh... but it's also in the PDF I uploaded to be printed...
+      - [x] So it's the Lulu upload process where it's lost?
     - [ ] Text content
     - [ ] Backslashes
-  - [ ] Confirm spine alignment with uploader.
+  - [x] Confirm spine alignment with uploader.
+  - [ ] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
+    - [ ] Is there anything we can do about this?
   - [ ] Go through the code with Prettier.
     - [ ] Clean up the code as best as you can.
     - [ ] We want something that is really, really organized and readable and usable.
