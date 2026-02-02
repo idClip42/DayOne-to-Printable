@@ -163,8 +163,8 @@ section {
 .spine-accent {
   position: absolute;
   bottom: calc(0.35in + 1.2in); /* volume offset + volume block height */
-  left: 0;
-  width: 100%;
+  left: ${hingeIn};
+  width: calc(100% - ${hingeIn * 2}in);
   height: 5pt;
   background: ${GetYearAccentColor(start.getFullYear())};
 }
