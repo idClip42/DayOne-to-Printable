@@ -33,9 +33,10 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
     const cover = config.cover;
 
     const {
-        totalWidthIn,
-        heightIn,
-        spineWidthIn,
+      totalWidthIn,
+      heightIn,
+      spineWidthIn,
+      hingeIn
     } = cover.dimensions;
 
     const frontBackWidthIn = (totalWidthIn - spineWidthIn) / 2;
@@ -94,9 +95,16 @@ section {
 .spine {
   background: ${cover.colors.accent};
   writing-mode: vertical-rl;
-  /* transform: rotate(180deg); */ /* Rotated the wrong way */
   text-align: center;
   letter-spacing: ${cover.typography.letterSpacingEm}em;
+
+  /* Bleed background outward into hinges */
+  margin-left: -${hingeIn}in;
+  margin-right: -${hingeIn}in;
+
+  /* Reclaim space so text stays centered */
+  padding-left: ${hingeIn}in;
+  padding-right: ${hingeIn}in;
 }
 
 /* Front cover */
