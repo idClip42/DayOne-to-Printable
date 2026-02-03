@@ -1,6 +1,6 @@
 {
     "FILES": {
-        "INPUT_DIR": "./input/2022-12-31-DayOne",
+        "INPUT_DIR": "./input/2023-4-30-DayOne",
         "OUTPUT_DIR": "./output",
         "DATA_FILE": "Journal.json",
         "PHOTOS_DIR": "photos",
@@ -92,7 +92,7 @@
             "showSubtitle": false,
             "subtitle": "Proof of Concept",
             "volume": {
-                "number": 1
+                "number": 2
             }
         }
     }
