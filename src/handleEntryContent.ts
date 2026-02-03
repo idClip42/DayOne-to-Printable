@@ -40,6 +40,13 @@ export function CreateContentHtml(entry:DayOneEntry):string{
         /(^#{1,}.*\n)/gm, 
         (match) => match + '\n'
     ).replace(
+        // Fixes blank blockquote lines followed by content where the line endings are \r.
+        // Ensures that text immediately following a "> " line stays part of the quote block
+        // by prepending a "> " to it. This preserves proper Markdown blockquote structure
+        // when the source text contains legacy or inconsistent line endings.
+        /^> \r([^\r]+?\n\n)/gm,
+        '> \n> $1'
+    ).replace(
         // Add extra newlines at end of ">" block quotes.
         // This makes sure commentary after block quotes
         // (without an extra newline to separate it out)
