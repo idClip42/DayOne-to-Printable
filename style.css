@@ -283,6 +283,7 @@ blockquote {
     border-left-width: 3px;
     color: rgb(96,96,96);
     padding-left: 10px;
+    break-inside: auto; /* This doesn't do what I want it to, but I'll leave it in. */
 }
 
 .am-pm {
