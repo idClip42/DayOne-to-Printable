@@ -111,6 +111,8 @@ TODOs that came about from printing the book.
       - [ ] Matte finish (better for readability, fewer glare issues, more “book-like”)
     - [ ] Keep an eye on the horizontal rules in print - there might be an issue with line thickness.
       - [ ] `Images: Your file contains images with line thickness less than 0.14 points. This may be too thin to print. Please review your file.`
+    - [ ] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
+    - [ ] And give a general explanation of how to configure and run this - `npm install` and all.
   - [ ] Verify everything in final PDF pre upload.
     - [x] Emojis
       - [x] Present in initial PDF export.
@@ -122,6 +124,16 @@ TODOs that came about from printing the book.
   - [x] Confirm spine alignment with uploader.
   - [ ] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
     - [ ] Is there anything we can do about this?
-  - [ ] Go through the code with Prettier.
+  - [ ] Tag the commit where we printed the proof of concept
+    - [ ] Add a description explaining that this was the code state for the proof of concept.
+  - [ ] Merge this branch into the main branch
+  - [ ] Tag this as `v1`
+    - [ ] Add a description explaining...
+      - [ ] ...that Vol 1 and Vol 2 are being printed with it.
+      - [ ] ...the remaining issues and concerns.
+  - [ ] Print vols 1 and 2 before starting the refactor
+  - [ ] Refactor
+    - [ ] Go through the code with Prettier.
     - [ ] Clean up the code as best as you can.
     - [ ] We want something that is really, really organized and readable and usable.
+    - [ ] Bring in "Handlebars" for HTML templating, per the conversation with ChatGPT.
