@@ -137,3 +137,5 @@ TODOs that came about from printing the book.
     - [ ] Clean up the code as best as you can.
     - [ ] We want something that is really, really organized and readable and usable.
     - [ ] Bring in "Handlebars" for HTML templating, per the conversation with ChatGPT.
+    - [ ] Some of the `config.json` stuff is about design, and should probably be separate from general configuration
+      - [ ] Stuff that isn't going to change once decided upon.
