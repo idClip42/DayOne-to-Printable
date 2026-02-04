@@ -129,15 +129,15 @@ TODOs that came about from printing the book.
   - [x] Tag the commit where we printed the proof of concept
     - [x] Add a description explaining that this was the code state for the proof of concept.
   - [x] Merge this branch into the main branch
-  - [ ] Tag this as `v1`
-    - [ ] Add a description explaining...
-      - [ ] ...that Vol 1 and Vol 2 are being printed with it.
-      - [ ] ...the remaining issues and concerns.
-        - [ ] Quote blocks avoiding breaking inside when they shouldn't
-          - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
-        - [ ] The possibility of the single-newline things getting their own elements
-        - [ ] New day markers and date-time metadata not reliably "break-after"-ing (we'd also want to do this with headers).
-        - [ ] Emojis don't make it through the Lulu upload process
+  - [x] Tag this as `v1`
+    - [x] Add a description explaining...
+      - [x] ...that Vol 1 and Vol 2 are being printed with it.
+      - [x] ...the remaining issues and concerns.
+        - [x] Quote blocks avoiding breaking inside when they shouldn't
+          - [x] What if we added the CSS rule directly on the elements instead of via the stylesheet?
+        - [x] The possibility of the single-newline things getting their own elements
+        - [x] New day markers and date-time metadata not reliably "break-after"-ing (we'd also want to do this with headers).
+        - [x] Emojis don't make it through the Lulu upload process
   - [x] Print vols 1 and 2 before starting the refactor
   - [ ] Refactor
     - [ ] Go through the code with Prettier.
