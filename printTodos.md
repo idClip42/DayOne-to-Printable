@@ -114,6 +114,7 @@ TODOs that came about from printing the book.
     - [ ] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
     - [ ] And give a general explanation of how to configure and run this - `npm install` and all.
     - [ ] And keep an eye out for when `pagedjs` screws up the formatting and you need to refresh and re-export to PDF.
+    - [ ] Don't think I've written this down here yet - the basic process is brower => Print to PDF, Preview => Export to PDF.
   - [x] Verify everything in final PDF pre upload.
     - [x] Emojis
       - [x] Present in initial PDF export.
@@ -123,8 +124,8 @@ TODOs that came about from printing the book.
     - [x] Text content
     - [x] Backslashes
   - [x] Confirm spine alignment with uploader.
-  - [ ] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
-    - [ ] Is there anything we can do about this?
+  - [x] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
+    - [x] Is there anything we can do about this?
   - [ ] Tag the commit where we printed the proof of concept
     - [ ] Add a description explaining that this was the code state for the proof of concept.
   - [ ] Merge this branch into the main branch
@@ -136,9 +137,8 @@ TODOs that came about from printing the book.
           - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
         - [ ] The possibility of the single-newline things getting their own elements
         - [ ] New day markers and date-time metadata not reliably "break-after"-ing (we'd also want to do this with headers).
-        - [ ] Emojis don't make it through the Lulu upload process (?)
-          - [ ] This may be fixed through the process I have to go thru to get the damn thing to upload.
-  - [ ] Print vols 1 and 2 before starting the refactor
+        - [ ] Emojis don't make it through the Lulu upload process
+  - [x] Print vols 1 and 2 before starting the refactor
   - [ ] Refactor
     - [ ] Go through the code with Prettier.
     - [ ] Clean up the code as best as you can.
@@ -146,3 +146,4 @@ TODOs that came about from printing the book.
     - [ ] Bring in "Handlebars" for HTML templating, per the conversation with ChatGPT.
     - [ ] Some of the `config.json` stuff is about design, and should probably be separate from general configuration
       - [ ] Stuff that isn't going to change once decided upon.
+    - [ ] Is there a way to force `pagedjs` to error out or something if it screws up formatting?

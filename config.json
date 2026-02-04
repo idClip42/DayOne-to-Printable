@@ -13,8 +13,8 @@
             "TAGS": {
                 "COLOR": {
                     "MIN_ALPHA": 0.5,
-                    "SATURATION": "75%",
-                    "LIGHTNESS": "50%"
+                    "SATURATION": 0.75,
+                    "LIGHTNESS": 0.50
                 }
             },
             "DATE_TIME": {

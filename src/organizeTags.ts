@@ -34,10 +34,22 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>):void{
 
     const augmentedTags = sortedTags.map((item, index) => {
         const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
-        const alpha = ((1 - CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA) * perc) + CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA;
+        // const alpha = ((1 - CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA) * perc) + CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA;
         /** Use golden angle approximation to always get a different hue. */
         const hue = index * 137.508;
-        const color = `hsla(${hue},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.SATURATION},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.LIGHTNESS},${alpha})`;
+
+        // We're adjusting the lightness instead of setting an alpha
+        // in order to try and eliminate any transparency.
+        const lightnessAdjusted = (()=>{
+            const baseLightness = CONFIG.ENTRIES.METADATA.TAGS.COLOR.LIGHTNESS;
+            const maxLightness = baseLightness + ((1 - baseLightness) * CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA);
+            const a = baseLightness;
+            const b = maxLightness;
+            const alpha = 1 - perc;
+            return a + alpha * (b - a);
+        })();
+
+        const color = `hsl(${hue},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.SATURATION * 100}%,${lightnessAdjusted * 100}%)`;
         return {
             ...item,
             "percentage": perc,
