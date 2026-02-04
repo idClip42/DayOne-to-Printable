@@ -114,14 +114,14 @@ TODOs that came about from printing the book.
     - [ ] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
     - [ ] And give a general explanation of how to configure and run this - `npm install` and all.
     - [ ] And keep an eye out for when `pagedjs` screws up the formatting and you need to refresh and re-export to PDF.
-  - [ ] Verify everything in final PDF pre upload.
+  - [x] Verify everything in final PDF pre upload.
     - [x] Emojis
       - [x] Present in initial PDF export.
       - [x] Present in final PDF export.
       - [x] Oh... but it's also in the PDF I uploaded to be printed...
       - [x] So it's the Lulu upload process where it's lost?
-    - [ ] Text content
-    - [ ] Backslashes
+    - [x] Text content
+    - [x] Backslashes
   - [x] Confirm spine alignment with uploader.
   - [ ] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
     - [ ] Is there anything we can do about this?
@@ -132,6 +132,12 @@ TODOs that came about from printing the book.
     - [ ] Add a description explaining...
       - [ ] ...that Vol 1 and Vol 2 are being printed with it.
       - [ ] ...the remaining issues and concerns.
+        - [ ] Quote blocks avoiding breaking inside when they shouldn't
+          - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
+        - [ ] The possibility of the single-newline things getting their own elements
+        - [ ] New day markers and date-time metadata not reliably "break-after"-ing (we'd also want to do this with headers).
+        - [ ] Emojis don't make it through the Lulu upload process (?)
+          - [ ] This may be fixed through the process I have to go thru to get the damn thing to upload.
   - [ ] Print vols 1 and 2 before starting the refactor
   - [ ] Refactor
     - [ ] Go through the code with Prettier.
