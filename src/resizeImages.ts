@@ -12,17 +12,64 @@ if(!fs.existsSync(outputPhotosFolder))
     fs.mkdirSync(outputPhotosFolder);
 
 async function resizeImage(inputPath: string, outputDir: string) {
+    // Extract the base filename (no extension)
     const { name } = path.parse(inputPath);
+
+    // Output path will always be a normalized JPEG
     const outputPath = path.join(outputDir, `${name}.jpg`);
 
-    const image = sharp(inputPath);
+    // Create a Sharp instance from the input image
+    // `failOn: "none"` prevents Sharp from throwing on
+    // minor corruption or unusual metadata
+    const image = sharp(inputPath, { failOn: "none" });
+
+    // Read metadata so we can decide whether resizing is needed
     const metadata = await image.metadata();
 
-    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH)
-        await image.resize({ width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH });
+    /**
+     * Start building a normalized processing pipeline.
+     * We do this even if we don't resize, so that *every*
+     * image passes through the same normalization steps.
+     */
+    let pipeline = image
+        // Applies EXIF orientation directly to pixels
+        // and removes orientation metadata afterward.
+        // This is critical for print reliability.
+        .rotate()
 
-    await image
-        .jpeg({ quality: 80 }) // adjust quality if desired
+        // Forces the image into the sRGB colorspace.
+        // Prevents CMYK / AdobeRGB / malformed ICC issues
+        // that Chrome print often fails on.
+        .toColorspace("srgb");
+
+    // Resize only if the image exceeds the maximum width
+    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH) {
+        pipeline = pipeline.resize({
+            width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH,
+
+            // Prevents upscaling smaller images
+            withoutEnlargement: true
+        });
+    }
+
+    // Encode as a baseline JPEG that Chrome's print
+    // rasterizer is known to handle reliably
+    await pipeline
+        .jpeg({
+            quality: 80,
+
+            // Disable progressive JPEG encoding.
+            // Chrome screen rendering handles it fine,
+            // but the print pipeline can silently drop images.
+            progressive: false,
+
+            // Use full chroma resolution.
+            // Avoids edge-case decoder bugs in print.
+            chromaSubsampling: "4:4:4"
+        })
+
+        // Write the final normalized image to disk
+        // Metadata is stripped by default (EXIF, ICC, DPI, etc.)
         .toFile(outputPath);
 }
 
