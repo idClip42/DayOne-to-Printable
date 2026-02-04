@@ -113,6 +113,7 @@ TODOs that came about from printing the book.
       - [ ] `Images: Your file contains images with line thickness less than 0.14 points. This may be too thin to print. Please review your file.`
     - [ ] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
     - [ ] And give a general explanation of how to configure and run this - `npm install` and all.
+    - [ ] And keep an eye out for when `pagedjs` screws up the formatting and you need to refresh and re-export to PDF.
   - [ ] Verify everything in final PDF pre upload.
     - [x] Emojis
       - [x] Present in initial PDF export.
