@@ -126,9 +126,9 @@ TODOs that came about from printing the book.
   - [x] Confirm spine alignment with uploader.
   - [x] Confirm emoji's present or not present in "Veggie Pot Pie" entry with uploader.
     - [x] Is there anything we can do about this?
-  - [ ] Tag the commit where we printed the proof of concept
-    - [ ] Add a description explaining that this was the code state for the proof of concept.
-  - [ ] Merge this branch into the main branch
+  - [x] Tag the commit where we printed the proof of concept
+    - [x] Add a description explaining that this was the code state for the proof of concept.
+  - [x] Merge this branch into the main branch
   - [ ] Tag this as `v1`
     - [ ] Add a description explaining...
       - [ ] ...that Vol 1 and Vol 2 are being printed with it.
