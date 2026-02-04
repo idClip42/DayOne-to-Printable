@@ -98,23 +98,23 @@ TODOs that came about from printing the book.
       - [x] Which means I no longer have examples of it happening, which is a problem because it's an issue that does need to be tracked down.
       - [x] Could this be as simple as preventing HTML <p> paragraphs and date header blocks from being interrupted by a page break? No paragraphs stretched across pages unless absolutely necessary?
       - [x] It may have something to do with my single line-break "<br>" tags too?
-- [ ] Last steps
-  - [ ] Write a readme that explains the process needed to prepare a PDF for final upload - all that export stuff.
-    - [ ] Needed to open the saved PDF in Preview and export it for the upload to work.
-      - [ ] When exporting PDFs from Preview (to get them to work)
-        - [ ] Do not export as PDF/A — standard PDF is safer for print; PDF/A is for archival and can interfere with gradients, layers, or transparencies.
-        - [ ] Do not optimize images for screen — keep full-resolution images for print quality.
-    - [ ] Also regarding PDFs
-      - [ ] Flatten transparencies before upload — gradients or semi-transparent elements can trigger errors; flattening ensures they’re baked in safely.
-      - [ ] We’ll see if this seems necessary, but there’s a warning.
-    - [ ] Cover
-      - [ ] Matte finish (better for readability, fewer glare issues, more “book-like”)
-    - [ ] Keep an eye on the horizontal rules in print - there might be an issue with line thickness.
-      - [ ] `Images: Your file contains images with line thickness less than 0.14 points. This may be too thin to print. Please review your file.`
-    - [ ] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
-    - [ ] And give a general explanation of how to configure and run this - `npm install` and all.
-    - [ ] And keep an eye out for when `pagedjs` screws up the formatting and you need to refresh and re-export to PDF.
-    - [ ] Don't think I've written this down here yet - the basic process is brower => Print to PDF, Preview => Export to PDF.
+- [x] Last steps
+  - [x] Write a readme that explains the process needed to prepare a PDF for final upload - all that export stuff.
+    - [x] Needed to open the saved PDF in Preview and export it for the upload to work.
+      - [x] When exporting PDFs from Preview (to get them to work)
+        - [x] Do not export as PDF/A — standard PDF is safer for print; PDF/A is for archival and can interfere with gradients, layers, or transparencies.
+        - [x] Do not optimize images for screen — keep full-resolution images for print quality.
+    - [x] Also regarding PDFs
+      - [x] Flatten transparencies before upload — gradients or semi-transparent elements can trigger errors; flattening ensures they’re baked in safely.
+      - [x] We’ll see if this seems necessary, but there’s a warning.
+    - [x] Cover
+      - [x] Matte finish (better for readability, fewer glare issues, more “book-like”)
+    - [x] Keep an eye on the horizontal rules in print - there might be an issue with line thickness.
+      - [x] `Images: Your file contains images with line thickness less than 0.14 points. This may be too thin to print. Please review your file.`
+    - [x] Actually, write all the book printing stats too - matte cover, #60 white uncoated paper, standard color, etc.
+    - [x] And give a general explanation of how to configure and run this - `npm install` and all.
+    - [x] And keep an eye out for when `pagedjs` screws up the formatting and you need to refresh and re-export to PDF.
+    - [x] Don't think I've written this down here yet - the basic process is brower => Print to PDF, Preview => Export to PDF.
   - [x] Verify everything in final PDF pre upload.
     - [x] Emojis
       - [x] Present in initial PDF export.
