@@ -14,7 +14,7 @@
                 "COLOR": {
                     "MIN_ALPHA": 0.5,
                     "SATURATION": 0.75,
-                    "LIGHTNESS": 0.50
+                    "LIGHTNESS": 0.5
                 }
             },
             "DATE_TIME": {

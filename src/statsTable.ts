@@ -1,7 +1,6 @@
-type StatEntries = {[statName:string]:number};
+type StatEntries = { [statName: string]: number };
 
-export function RenderStatsTable(stats:StatEntries):string{
-    
+export function RenderStatsTable(stats: StatEntries): string {
     const statBlocks = Object.keys(stats).map(statName => {
         return `
         <tr>

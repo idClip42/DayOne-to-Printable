@@ -1,0 +1,8 @@
+{
+    "tabWidth": 4,
+    "arrowParens": "avoid",
+    "singleAttributePerLine": true,
+    "experimentalTernaries": false,
+    "endOfLine": "auto",
+    "trailingComma": "es5"
+}

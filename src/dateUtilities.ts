@@ -1,38 +1,42 @@
 import CONFIG from "./../config.json";
 
-export function formatDate(iso: string, timeZone: string, includeYear:boolean): string {
+export function formatDate(
+    iso: string,
+    timeZone: string,
+    includeYear: boolean
+): string {
     const d = new Date(iso);
-    return d.toLocaleString('en-US', {
+    return d.toLocaleString("en-US", {
         timeZone: timeZone,
-        weekday: 'long',
-        year: includeYear ? 'numeric' : undefined,
-        month: 'long',
-        day: 'numeric'
+        weekday: "long",
+        year: includeYear ? "numeric" : undefined,
+        month: "long",
+        day: "numeric",
     });
 }
 
 export function formatDateTime(iso: string, timeZone: string): string {
     const d = new Date(iso);
-    
-    const datePart = d.toLocaleDateString('en-US', {
+
+    const datePart = d.toLocaleDateString("en-US", {
         timeZone,
         // weekday: 'long',
-        year: CONFIG.ENTRIES.METADATA.DATE_TIME.INCLUDE_YEAR ?
-            'numeric' :
-            undefined,
-        month: 'long',
-        day: 'numeric',
+        year: CONFIG.ENTRIES.METADATA.DATE_TIME.INCLUDE_YEAR
+            ? "numeric"
+            : undefined,
+        month: "long",
+        day: "numeric",
     });
 
-    let timePart = d.toLocaleTimeString('en-US', {
+    let timePart = d.toLocaleTimeString("en-US", {
         timeZone,
-        hour: 'numeric',
-        minute: '2-digit',
+        hour: "numeric",
+        minute: "2-digit",
     });
-    if(!timePart.endsWith("AM") && !timePart.endsWith("PM"))
+    if (!timePart.endsWith("AM") && !timePart.endsWith("PM"))
         throw new Error("Time string not ending as expected.");
     timePart = timePart.replace(
-        /\s?(AM|PM)$/, 
+        /\s?(AM|PM)$/,
         '<span class="am-pm"> $1</span>'
     );
 
@@ -41,9 +45,9 @@ export function formatDateTime(iso: string, timeZone: string): string {
 
 export function GetDayOfWeek(iso: string, timeZone: string): string {
     const d = new Date(iso);
-    return d.toLocaleDateString('en-US', {
+    return d.toLocaleDateString("en-US", {
         timeZone,
-        weekday: 'long'
+        weekday: "long",
     });
 }
 
@@ -52,19 +56,22 @@ interface DateConfig {
     timeZone: string;
 }
 
-export function isSameLocalDay(config1: DateConfig, config2: DateConfig): boolean {
-    const formatter1 = new Intl.DateTimeFormat('en-CA', {
+export function isSameLocalDay(
+    config1: DateConfig,
+    config2: DateConfig
+): boolean {
+    const formatter1 = new Intl.DateTimeFormat("en-CA", {
         timeZone: config1.timeZone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
     });
 
-    const formatter2 = new Intl.DateTimeFormat('en-CA', {
+    const formatter2 = new Intl.DateTimeFormat("en-CA", {
         timeZone: config2.timeZone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
     });
 
     const date1 = formatter1.format(new Date(config1.iso));
@@ -73,25 +80,30 @@ export function isSameLocalDay(config1: DateConfig, config2: DateConfig): boolea
     return date1 === date2;
 }
 
-export function GetDateColor(iso: string, timeZone: string, lightness: number):string{
+export function GetDateColor(
+    iso: string,
+    timeZone: string,
+    lightness: number
+): string {
     /** starting hue for January */
     const BASE_HUE = CONFIG.ENTRIES.METADATA.DATE_TIME.COLOR.BASE_HUE;
     /** 12 months => 30° step */
     const HUE_INCREMENT = CONFIG.ENTRIES.METADATA.DATE_TIME.COLOR.HUE_INCREMENT;
 
     const d = new Date(iso);
-    const month = d.toLocaleDateString('en-US', {
+    const month = d.toLocaleDateString("en-US", {
         timeZone,
-        month: 'numeric'
+        month: "numeric",
     });
     const monthIndex = Number(month) - 1;
-    if(isNaN(monthIndex) || monthIndex < 0) throw new Error(`Invalid month: '${month}'`);
+    if (isNaN(monthIndex) || monthIndex < 0)
+        throw new Error(`Invalid month: '${month}'`);
 
     const hue = (BASE_HUE + monthIndex * HUE_INCREMENT) % 360;
     return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 
-export function GetDateColorTestHtml():string{
+export function GetDateColorTestHtml(): string {
     const dates = [
         "1/2/25",
         "2/2/25",
@@ -104,7 +116,7 @@ export function GetDateColorTestHtml():string{
         "9/2/25",
         "10/2/25",
         "11/2/25",
-        "12/2/25"
+        "12/2/25",
     ];
 
     const htmlDates = dates.map(dStr => {
@@ -120,12 +132,12 @@ export function GetDateColorTestHtml():string{
 }
 
 function NumberToHue(year: number): number {
-  const GOLDEN_ANGLE = 137.50776405003785;
-  const baseHue = 210; // your cool-blue starting point
-  return (baseHue + (year * GOLDEN_ANGLE)) % 360;
+    const GOLDEN_ANGLE = 137.50776405003785;
+    const baseHue = 210; // your cool-blue starting point
+    return (baseHue + year * GOLDEN_ANGLE) % 360;
 }
 
 export function GetYearAccentColor(year: number): string {
-  const hue = NumberToHue(year);
-  return `hsl(${hue}, 70%, 55%)`;
+    const hue = NumberToHue(year);
+    return `hsl(${hue}, 70%, 55%)`;
 }

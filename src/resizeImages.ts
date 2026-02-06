@@ -5,11 +5,16 @@ import path from "path";
 
 export const RESIZED_IMAGES_EXT = "jpg";
 
-const inputPhotosFolder = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.PHOTOS_DIR);
-const outputPhotosFolder = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR);
+const inputPhotosFolder = path.join(
+    CONFIG.FILES.INPUT_DIR,
+    CONFIG.FILES.PHOTOS_DIR
+);
+const outputPhotosFolder = path.join(
+    CONFIG.FILES.OUTPUT_DIR,
+    CONFIG.FILES.PHOTOS_DIR
+);
 
-if(!fs.existsSync(outputPhotosFolder))
-    fs.mkdirSync(outputPhotosFolder);
+if (!fs.existsSync(outputPhotosFolder)) fs.mkdirSync(outputPhotosFolder);
 
 async function resizeImage(inputPath: string, outputDir: string) {
     // Extract the base filename (no extension)
@@ -48,7 +53,7 @@ async function resizeImage(inputPath: string, outputDir: string) {
             width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH,
 
             // Prevents upscaling smaller images
-            withoutEnlargement: true
+            withoutEnlargement: true,
         });
     }
 
@@ -65,7 +70,7 @@ async function resizeImage(inputPath: string, outputDir: string) {
 
             // Use full chroma resolution.
             // Avoids edge-case decoder bugs in print.
-            chromaSubsampling: "4:4:4"
+            chromaSubsampling: "4:4:4",
         })
 
         // Write the final normalized image to disk
@@ -73,14 +78,14 @@ async function resizeImage(inputPath: string, outputDir: string) {
         .toFile(outputPath);
 }
 
-export async function ResizeImages(){
+export async function ResizeImages() {
     const PERC_INTERVAL = 20;
-    const files = fs.readdirSync(inputPhotosFolder)
+    const files = fs.readdirSync(inputPhotosFolder);
     for (let f = 0; f < files.length; ++f) {
         const file = files[f];
         const input = path.join(inputPhotosFolder, file);
 
-        if(f % PERC_INTERVAL === 0)
+        if (f % PERC_INTERVAL === 0)
             console.log(`${Math.round((f / files.length) * 100)}%`);
         console.log(`Resizing '${file}'...`);
 

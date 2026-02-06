@@ -1,4 +1,4 @@
-@media print{
+@media print {
     @page {
         size: 8.5in 11in;
         margin: 0.5in 0.5in;
@@ -23,7 +23,7 @@
     #entries {
         column-count: 3;
         column-gap: auto;
-        column-fill:auto;
+        column-fill: auto;
     }
 
     .entry-photo img {
@@ -94,7 +94,13 @@
 }
 
 body {
-    font-family: Avenir, system-ui, -apple-system, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji";
+    font-family:
+        Avenir,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        "Apple Color Emoji",
+        "Segoe UI Emoji";
     font-size: 10pt;
     overflow-wrap: break-word;
     hyphens: manual;
@@ -123,7 +129,8 @@ body {
     border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
 }
 
-.pre-date-time, .post-date-time{
+.pre-date-time,
+.post-date-time {
     color: #555;
     font-size: 8pt;
     margin: 0;
@@ -190,7 +197,7 @@ body {
     margin: 0 auto;
     padding: 5px;
     border: 2px solid lightgray;
-    color: rgb(96,96,96);
+    color: rgb(96, 96, 96);
     hyphens: auto; /* The IDs get too long for the columns */
 }
 
@@ -215,13 +222,13 @@ h3 {
 h4 {
     font-size: 10pt;
     margin: 0.25em 0em;
-    line-height: 1.20;
+    line-height: 1.2;
 }
 
 h5 {
     font-size: 10pt;
     margin: 0em 0em;
-    line-height: 1.10;
+    line-height: 1.1;
 }
 
 h6 {
@@ -236,20 +243,22 @@ p {
     page-break-inside: avoid; /* legacy but still useful */
 }
 
-ul, ol {
+ul,
+ol {
     padding-left: 15px;
 }
 
-pre, code {
+pre,
+code {
     /* Allows wrapping of text */
-    white-space: pre-wrap; 
+    white-space: pre-wrap;
     /* Breaks long words to fit within the container */
     word-wrap: break-word;
     /* overflow-x: hidden; */
     font-size: 8pt;
     line-height: 1.2;
     background-color: lightgray;
-    color: darkslategray
+    color: darkslategray;
 }
 
 table {
@@ -281,7 +290,7 @@ blockquote {
     border-left-color: lightgray;
     border-left-style: solid;
     border-left-width: 3px;
-    color: rgb(96,96,96);
+    color: rgb(96, 96, 96);
     padding-left: 10px;
     break-inside: auto; /* This doesn't do what I want it to, but I'll leave it in. */
 }

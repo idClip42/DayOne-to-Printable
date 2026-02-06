@@ -8,7 +8,7 @@ function formatCoverDate(startDate, endDate) {
     const sameYear = start.getFullYear() === end.getFullYear();
 
     const monthFormatter = new Intl.DateTimeFormat("en-US", {
-        month: "long"
+        month: "long",
     });
 
     const startMonth = monthFormatter.format(start);
@@ -21,7 +21,7 @@ function formatCoverDate(startDate, endDate) {
 
         monthLine: sameYear
             ? `${startMonth} – ${endMonth}`
-            : `${startMonth} ${start.getFullYear()} – ${endMonth} ${end.getFullYear()}`
+            : `${startMonth} ${start.getFullYear()} – ${endMonth} ${end.getFullYear()}`,
     };
 }
 
@@ -33,12 +33,7 @@ interface CoverDates {
 export function generateCoverHtml({ start, end }: CoverDates): string {
     const cover = config.cover;
 
-    const {
-      totalWidthIn,
-      heightIn,
-      spineWidthIn,
-      hingeIn
-    } = cover.dimensions;
+    const { totalWidthIn, heightIn, spineWidthIn, hingeIn } = cover.dimensions;
 
     const frontBackWidthIn = (totalWidthIn - spineWidthIn) / 2;
 

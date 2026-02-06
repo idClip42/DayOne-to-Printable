@@ -22,32 +22,32 @@ export interface DayOneEntry {
         identifier: string;
         // filename: string;
         /** This is the stored photo name */
-        "md5"?: string;
+        md5?: string;
         /** This is the stored photo type */
-        "type": string;
+        type: string;
         date: string;
         /** Original filename, if available */
-        "filename"?: string
+        filename?: string;
     }[];
     audios?: {
-        "title": string,
-        "duration": number,
-        "format": string,
-        "identifier": string,
-        "md5": string
+        title: string;
+        duration: number;
+        format: string;
+        identifier: string;
+        md5: string;
     }[];
     videos?: {
-        "type" : string,
-        "identifier" : string,
-        "md5": string,
-        "duration": number
+        type: string;
+        identifier: string;
+        md5: string;
+        duration: number;
     }[];
     pdfAttachments?: {
-      "type" : string,
-      "identifier" : string,
-      "md5" : string,
-      "pdfName" : string
+        type: string;
+        identifier: string;
+        md5: string;
+        pdfName: string;
     }[];
     tags?: string[];
-    isAllDay : boolean;
+    isAllDay: boolean;
 }
