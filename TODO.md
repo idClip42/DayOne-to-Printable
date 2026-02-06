@@ -1,0 +1,33 @@
+# TODO
+
+## Refactor
+
+- [x] Go through the code with Prettier.
+- [ ] Clean up the code as best as you can.
+- [ ] We want something that is really, really organized and readable and usable.
+- [ ] Bring in "Handlebars" for HTML templating, per the conversation with ChatGPT.
+- [ ] Some of the `config.json` stuff is about design, and should probably be separate from general configuration
+  - [ ] Stuff that isn't going to change once decided upon.
+- [ ] Some things in `config.json` might be worth combining.
+  - [ ] Changing the text to lorem ipsum and making images invisible are part of the same process of obfuscation.
+- [ ] Is there a way to force `pagedjs` to error out or something if it screws up formatting?
+
+## Issues
+
+- [ ] Image processing is rotating (unrotating?) some images. (This may be a lost cause)
+  - [ ] August 18, 2022, 9:57 AM
+  - [ ] July 15, 2023 · 1:35 PM
+  - [ ] January 1, 2025, 1:05 PM (Hannibal Lecter)
+  - [ ] February 2, 2025, 4:50 PM (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)
+  - [ ] March 22, 2025, 5:43 PM (Bike)
+  - [ ] (Check to make sure that some of these weren't just originally oriented wrong.)
+- [ ] Quote blocks avoid breaking inside when they shouldn't
+  - [ ] Even though paragraphs shouldn't break, quote blocks should be able to break (between paragraphs).
+  - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
+- [ ] What if we gave those single newline lines (which are treated as part of the `<p>` elements of the text above them) their own `<p>` elements?
+  - [ ] Figure out how to distinguish between the two, and add a class that sets `top-margin: 0`.
+  - [ ] This would let the column break on those as well, which would really help with avoiding big blank spaces.
+- [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
+  - [ ] We'd also want to do this with headers, right below date-time metadata.
+- [ ] Emojis don't make it through the Lulu upload process.
+  - [ ] Once uploaded, they are replaced with bullets.

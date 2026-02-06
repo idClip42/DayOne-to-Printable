@@ -15,14 +15,6 @@ import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
 import { generateCoverHtml } from "./src/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/counter";
 
-// TODO: Image processing is rotating (unrotating?) some images. (This may be a lost cause)
-//  - August 18, 2022, 9:57 AM
-//  - July 15, 2023 · 1:35 PM
-//  - January 1, 2025, 1:05 PM (Hannibal Lecter)
-//  - February 2, 2025, 4:50 PM (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)
-//  - March 22, 2025, 5:43 PM (Bike)
-//  - (Check to make sure that some of these weren't just originally oriented wrong.)
-
 const stylesheet = fs.readFileSync("style.css");
 
 const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
