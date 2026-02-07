@@ -8,7 +8,7 @@ import { convertEntryToHTML } from "./src/entries";
 import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
-import { GetEntriesStatsHtml } from "./src/counter";
+import { GetEntriesStatsHtml } from "./src/stats/counter";
 import { formatDate } from "./src/date/format";
 import { isSameLocalDay } from "./src/date/compare";
 
