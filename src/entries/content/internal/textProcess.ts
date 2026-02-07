@@ -1,10 +1,10 @@
 import { GetImageFilePath } from "./images";
 import {
-    GetAttachmentInfo,
     GetAttachmentMarkdown,
     GetAttachmentText,
-} from "./attachments";
+} from "./attachments/textProcess";
 import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { GetAttachmentInfo } from "./attachments/info";
 
 export function ProcessText(inputText: string, entry: DayOneEntry): string {
     return inputText
