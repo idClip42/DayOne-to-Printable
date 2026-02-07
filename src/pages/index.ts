@@ -73,7 +73,7 @@ export function BuildFullHtml(
             <script src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
         </head>
         <body>
-            <!-- <div>${GetDateColorTestHtml()}</div> -->
+            <div style="display: none">${GetDateColorTestHtml()}</div>
     
             ${GetEntriesStatsHtml(entries)}
             ${GetTagsListHtml()}    
