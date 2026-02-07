@@ -12,6 +12,7 @@
             "photosDirectory": "photos"
         },
         "stylesheets": {
+            "cover": "styleCover.css",
             "interior": "styleInterior.css"
         }
     },
