@@ -1,12 +1,12 @@
 {
     "files": {
         "input": {
-            "directory": "./input/2023-4-30-DayOne",
+            "directory": "input/2023-4-30-DayOne",
             "dataFile": "Journal.json",
             "photosDirectory": "photos"
         },
         "output": {
-            "directory": "./output",
+            "directory": "output",
             "interiorHtmlFile": "journal.html",
             "coverHtmlFile": "cover.html",
             "photosDirectory": "photos"
