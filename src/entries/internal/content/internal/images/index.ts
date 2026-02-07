@@ -10,11 +10,14 @@ const divStyle = CONFIG.CONTENT.OBFUSCATE
 const imgStyle = CONFIG.CONTENT.OBFUSCATE ? 'style="opacity: 0"' : "";
 
 /** Directory where your images are stored */
-const photosDir = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR);
+const photosDir = path.join(
+    CONFIG.files.outputDirectory,
+    CONFIG.files.outputPhotosDirectory
+);
 
 const originalPhotosDir = path.join(
-    CONFIG.FILES.INPUT_DIR,
-    CONFIG.FILES.PHOTOS_DIR
+    CONFIG.files.inputDirectory,
+    CONFIG.files.inputPhotosDirectory
 );
 
 export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
@@ -39,7 +42,10 @@ export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
             console.warn(`No original path: '${originalFilePath}'`);
         }
 
-        const pathToCheck = path.join(CONFIG.FILES.OUTPUT_DIR, srcFilePath);
+        const pathToCheck = path.join(
+            CONFIG.files.outputDirectory,
+            srcFilePath
+        );
         if (!fs.existsSync(pathToCheck)) {
             // console.error(photo);
             console.error(`'${pathToCheck}' doesn't exist.`);

@@ -1,12 +1,13 @@
 {
-    "FILES": {
-        "INPUT_DIR": "./input/2023-4-30-DayOne",
-        "OUTPUT_DIR": "./output",
-        "DATA_FILE": "Journal.json",
-        "PHOTOS_DIR": "photos",
-        "OUTPUT_HTML": "journal.html",
-        "OUTPUT_COVER_HTML": "cover.html",
-        "STYLESHEET": "style.css"
+    "files": {
+        "inputDirectory": "./input/2023-4-30-DayOne",
+        "inputDataFile": "Journal.json",
+        "inputPhotosDirectory": "photos",
+        "outputDirectory": "./output",
+        "outputInteriorHtmlFile": "journal.html",
+        "outputCoverHtmlFile": "cover.html",
+        "outputPhotosDirectory": "photos",
+        "stylesheet": "style.css"
     },
     "CONTENT": {
         "OBFUSCATE": false,

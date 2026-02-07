@@ -14,10 +14,16 @@ import { isSameLocalDay } from "./src/date/compare";
 
 const stylesheet = fs.readFileSync("style.css");
 
-const dataPath = path.join(CONFIG.FILES.INPUT_DIR, CONFIG.FILES.DATA_FILE);
-const outputPath = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.OUTPUT_HTML);
-if (!fs.existsSync(CONFIG.FILES.OUTPUT_DIR))
-    fs.mkdirSync(CONFIG.FILES.OUTPUT_DIR);
+const dataPath = path.join(
+    CONFIG.files.inputDirectory,
+    CONFIG.files.inputDataFile
+);
+const outputPath = path.join(
+    CONFIG.files.outputDirectory,
+    CONFIG.files.outputInteriorHtmlFile
+);
+if (!fs.existsSync(CONFIG.files.outputDirectory))
+    fs.mkdirSync(CONFIG.files.outputDirectory);
 
 if (CONFIG.CONTENT.IMAGES.RUN_RESIZE) await ResizeImages();
 
@@ -83,7 +89,7 @@ const fullHTML = `
         <meta charset="UTF-8">
         <title>Journal Export</title>
 
-        <!-- <link rel="stylesheet" type="text/css" href="../${CONFIG.FILES.STYLESHEET}"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../${CONFIG.files.stylesheet}"> -->
         <style>
             ${stylesheet}
         </style>
@@ -108,8 +114,8 @@ fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
 
 const coverOutputPath = path.join(
-    CONFIG.FILES.OUTPUT_DIR,
-    CONFIG.FILES.OUTPUT_COVER_HTML
+    CONFIG.files.outputDirectory,
+    CONFIG.files.outputCoverHtmlFile
 );
 const coverHtml = generateCoverHtml({
     start: new Date(entries[0].creationDate),
