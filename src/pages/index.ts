@@ -6,7 +6,10 @@ import { GetEntriesStatsHtml } from "../stats";
 import { GetTagsListHtml } from "../tags";
 import { DayOneEntry } from "../types/DayOneEntry";
 
-export function BuildHtml(entries: DayOneEntry[], styleCss: string): string {
+export function BuildFullHtml(
+    entries: DayOneEntry[],
+    styleCss: string
+): string {
     const entriesHtml: string[] = [];
     for (const e in entries) {
         const entryIndex = Number(e);

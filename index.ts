@@ -5,7 +5,7 @@ import config from "./config.json";
 import { ResizeImages } from "./src/preprocess/resizeImages";
 import { InitializeTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
-import { BuildHtml } from "./src/pages";
+import { BuildFullHtml } from "./src/pages";
 
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
 
@@ -27,7 +27,7 @@ const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
 InitializeTags(entries);
-const fullHTML = BuildHtml(entries, stylesheet);
+const fullHTML = BuildFullHtml(entries, stylesheet);
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
