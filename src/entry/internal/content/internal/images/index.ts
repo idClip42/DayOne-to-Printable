@@ -3,11 +3,10 @@ import config from "../../../../../../config.json";
 import path from "path";
 import { RESIZED_IMAGES_EXT } from "../../../../../preprocess/resizeImages";
 import fs from "fs";
+import { renderTemplate } from "../../../../../utilities/template";
+import { ImageTemplateVars } from "../../../../../templates/image.hbs";
 
-const divStyle = config.content.obfuscate
-    ? 'style="border-style: solid; border-color: lightgray;"'
-    : "";
-const imgStyle = config.content.obfuscate ? 'style="opacity: 0"' : "";
+const TEMPLATE_PATH = "src/templates/image.hbs";
 
 /** Directory where your images are stored */
 const photosDir = path.join(
@@ -47,7 +46,6 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
             srcFilePath
         );
         if (!fs.existsSync(pathToCheck)) {
-            // console.error(photo);
             console.error(`'${pathToCheck}' doesn't exist.`);
             return "";
         }
@@ -61,13 +59,11 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
     return "";
 }
 
-// TODO: Template!
 export function processHtmlImages(entry: DayOneEntry, html: string) {
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
-        return `
-<div class="entry-photo" ${divStyle}>
-    <img${p1} ${imgStyle}>
-</div>
-        `.trim();
+        return renderTemplate<ImageTemplateVars>(TEMPLATE_PATH, {
+            imgSrcAttr: p1,
+            obfuscate: config.content.obfuscate,
+        });
     });
 }

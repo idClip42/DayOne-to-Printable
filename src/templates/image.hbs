@@ -1,0 +1,14 @@
+{{#if obfuscate}}
+    {{! Hides image }}
+    <div
+        class="entry-photo"
+        style="border-style: solid; border-color: lightgray;"
+    >
+        <img {{imgSrcAttr}} style="opacity: 0" />
+    </div>
+{{else}}
+    {{! Shows image }}
+    <div class="entry-photo">
+        <img {{imgSrcAttr}} />
+    </div>
+{{/if}}
