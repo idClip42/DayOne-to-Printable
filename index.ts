@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { DayOneEntry } from "./types/DayOneEntry";
 import CONFIG from "./config.json";
-import { GetDateColor, GetDateColorTestHtml } from "./src/dateUtilities";
+import { GetDateColor, GetDateColorTestHtml } from "./src/date/color";
 import { convertEntryToHTML } from "./src/entries";
 import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";

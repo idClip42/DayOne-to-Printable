@@ -1,4 +1,4 @@
-import CONFIG from "./../config.json";
+import CONFIG from "../../config.json";
 
 export function GetDateColor(
     iso: string,
