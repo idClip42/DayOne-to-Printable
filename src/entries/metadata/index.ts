@@ -12,15 +12,6 @@ function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);
 }
 
-function escapeHTML(text: string): string {
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
 function CreateDateHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDate(
         entry.creationDate,
@@ -36,12 +27,6 @@ function CreateDateTimeHtml(entry: DayOneEntry): string {
         entry.location?.timeZoneName
     );
     return formattedDateTime;
-
-    //     return `
-    // <h2 class="entry-date">
-    //     ${formattedDateTime}
-    // </h2>
-    //     `.trim();
 }
 
 function CreateDayOfWeekHtml(entry: DayOneEntry): string {
@@ -50,12 +35,6 @@ function CreateDayOfWeekHtml(entry: DayOneEntry): string {
         entry.location?.timeZoneName
     );
     return weekday;
-
-    //     return `
-    // <p class="entry-weekday">
-    //     ${weekday}
-    // </p>
-    //     `.trim();
 }
 
 function GetLocationString(entry: DayOneEntry): string {
@@ -75,39 +54,6 @@ function GetWeatherString(entry: DayOneEntry): string {
     if (!entry.weather?.conditionsDescription) return "";
     const fTemp = celsiusToFahrenheit(entry.weather.temperatureCelsius ?? 0);
     return `${entry.weather.conditionsDescription}, ${fTemp}°F`;
-}
-
-function GetLatLonString(entry: DayOneEntry): string {
-    const lat = entry.location?.latitude;
-    const lon = entry.location?.longitude;
-    if (lat === undefined) return "";
-    if (lon === undefined) return "";
-
-    const ns = lat >= 0 ? "N" : "S";
-    const ew = lon >= 0 ? "E" : "W";
-    return `(${Math.abs(lat).toFixed(4)}°${ns}, ${Math.abs(lon).toFixed(4)}°${ew})`;
-}
-
-function CreateLocationWeatherHtml(entry: DayOneEntry): string {
-    const location = GetLocationString(entry);
-    const weather = GetWeatherString(entry);
-    const latLon = CONFIG.ENTRIES.METADATA.LOCATIONS.INCLUDE_COORDINATES
-        ? GetLatLonString(entry)
-        : "";
-
-    const metaLine = [(location + " " + latLon).trim(), weather]
-        .filter(Boolean)
-        .map(text => escapeHTML(text))
-        .join(" — ");
-
-    if (metaLine) {
-        return `
-<p class="entry-location">
-    ${metaLine}
-</p>
-        `.trim();
-    }
-    return "";
 }
 
 function CreateTagsHtml(entry: DayOneEntry): string {
