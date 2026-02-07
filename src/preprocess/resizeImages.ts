@@ -6,12 +6,12 @@ import path from "path";
 export const RESIZED_IMAGES_EXT = "jpg";
 
 const inputPhotosFolder = path.join(
-    CONFIG.files.inputDirectory,
-    CONFIG.files.inputPhotosDirectory
+    CONFIG.files.input.directory,
+    CONFIG.files.input.photosDirectory
 );
 const outputPhotosFolder = path.join(
-    CONFIG.files.outputDirectory,
-    CONFIG.files.outputPhotosDirectory
+    CONFIG.files.output.directory,
+    CONFIG.files.output.photosDirectory
 );
 
 if (!fs.existsSync(outputPhotosFolder))

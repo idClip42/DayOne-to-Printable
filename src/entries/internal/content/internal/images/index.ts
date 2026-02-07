@@ -11,13 +11,13 @@ const imgStyle = CONFIG.content.obfuscate ? 'style="opacity: 0"' : "";
 
 /** Directory where your images are stored */
 const photosDir = path.join(
-    CONFIG.files.outputDirectory,
-    CONFIG.files.outputPhotosDirectory
+    CONFIG.files.output.directory,
+    CONFIG.files.output.photosDirectory
 );
 
 const originalPhotosDir = path.join(
-    CONFIG.files.inputDirectory,
-    CONFIG.files.inputPhotosDirectory
+    CONFIG.files.input.directory,
+    CONFIG.files.input.photosDirectory
 );
 
 export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
@@ -43,7 +43,7 @@ export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
         }
 
         const pathToCheck = path.join(
-            CONFIG.files.outputDirectory,
+            CONFIG.files.output.directory,
             srcFilePath
         );
         if (!fs.existsSync(pathToCheck)) {

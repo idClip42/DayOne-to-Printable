@@ -15,15 +15,15 @@ import { isSameLocalDay } from "./src/date/compare";
 const stylesheet = fs.readFileSync("style.css");
 
 const dataPath = path.join(
-    CONFIG.files.inputDirectory,
-    CONFIG.files.inputDataFile
+    CONFIG.files.input.directory,
+    CONFIG.files.input.dataFile
 );
 const outputPath = path.join(
-    CONFIG.files.outputDirectory,
-    CONFIG.files.outputInteriorHtmlFile
+    CONFIG.files.output.directory,
+    CONFIG.files.output.interiorHtmlFile
 );
-if (!fs.existsSync(CONFIG.files.outputDirectory))
-    fs.mkdirSync(CONFIG.files.outputDirectory);
+if (!fs.existsSync(CONFIG.files.output.directory))
+    fs.mkdirSync(CONFIG.files.output.directory);
 
 if (CONFIG.content.images.runResize) await ResizeImages();
 
@@ -114,8 +114,8 @@ fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
 
 const coverOutputPath = path.join(
-    CONFIG.files.outputDirectory,
-    CONFIG.files.outputCoverHtmlFile
+    CONFIG.files.output.directory,
+    CONFIG.files.output.coverHtmlFile
 );
 const coverHtml = generateCoverHtml({
     start: new Date(entries[0].creationDate),
