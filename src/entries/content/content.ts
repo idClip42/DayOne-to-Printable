@@ -1,14 +1,14 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../../../types/DayOneEntry";
-import { GetImageFilePath, ProcessHtmlImages } from "./handleEntryContentImage";
+import { GetImageFilePath, ProcessHtmlImages } from "./images";
 import CONFIG from "../../../config.json";
-import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
+import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsum";
 import {
     GetAttachmentInfo,
     GetAttachmentMarkdown,
     GetAttachmentText,
     UpdateHtmlAttachments,
-} from "./handleEntryContentAttachment";
+} from "./attachments";
 
 export function CreateContentHtml(entry: DayOneEntry): string {
     let htmlResult = "";

@@ -9,7 +9,7 @@ import {
     GetDateColorTestHtml,
     isSameLocalDay,
 } from "./src/dateUtilities";
-import { convertEntryToHTML } from "./src/entries/handleEntry";
+import { convertEntryToHTML } from "./src/entries/entry";
 import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
