@@ -269,19 +269,19 @@ tr:nth-child(even) {
     background-color: lightgray;
 }
 
-#stats-table {
+#info-table {
     font-size: 1em;
 }
 
-.stat-label {
+.info-table-label {
     text-align: left;
 }
 
-.stat-value {
+.info-table-value {
     text-align: right;
 }
 
-#stats-table tr:nth-child(even) {
+#info-table tr:nth-child(even) {
     background-color: initial;
 }
 

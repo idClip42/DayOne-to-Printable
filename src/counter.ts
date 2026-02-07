@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { RenderStatsTable } from "./statsTable";
+import { RenderInfoTable } from "./statsTable";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
@@ -61,7 +61,7 @@ export function GetEntriesStatsHtml(entries: DayOneEntry[]): string {
     <h2>
         Stats
     </h2>
-    ${RenderStatsTable(stats)}
+    ${RenderInfoTable(stats)}
 </div>
     `.trim();
 

@@ -1,22 +1,22 @@
-type StatEntries = { [statName: string]: number };
+type InfoTableEntries = { [statName: string]: number };
 
-export function RenderStatsTable(stats: StatEntries): string {
-    const statBlocks = Object.keys(stats).map(statName => {
+export function RenderInfoTable(info: InfoTableEntries): string {
+    const infoBlocks = Object.keys(info).map(infoName => {
         return `
         <tr>
-            <td class="stat-label">
-                ${statName}
+            <td class="info-table-label">
+                ${infoName}
             </td>
-            <td class="stat-value">
-                ${stats[statName].toLocaleString()}
+            <td class="info-table-value">
+                ${info[infoName].toLocaleString()}
             </td>
         </tr>
         `.trim();
     });
 
     const fullHTML = `
-<table id="stats-table">
-    ${statBlocks.join("\n")}
+<table id="info-table">
+    ${infoBlocks.join("\n")}
 </table>
     `.trim();
 

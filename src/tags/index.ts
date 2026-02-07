@@ -1,6 +1,6 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
 import CONFIG from "../../config.json";
-import { RenderStatsTable } from "../statsTable";
+import { RenderInfoTable } from "../statsTable";
 import type { TagInfo } from "./internal/TagInfo";
 import { ProcessTags } from "./internal/process";
 
@@ -40,7 +40,7 @@ export function GetTagsListHtml(): string {
     <h2>
         Tags
     </h2>
-    ${RenderStatsTable(statItems)}
+    ${RenderInfoTable(statItems)}
 </div>
     `.trim();
 }
