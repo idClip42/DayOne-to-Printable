@@ -6,7 +6,7 @@ import CONFIG from "./config.json";
 import { GetDateColor, GetDateColorTestHtml } from "./src/date/color";
 import { convertEntryToHTML } from "./src/entries";
 import { ResizeImages } from "./src/resizeImages";
-import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
+import { GetTagsListHtml, InitializeTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/counter";
 import { formatDate } from "./src/date/format";

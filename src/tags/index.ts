@@ -1,7 +1,7 @@
-import { DayOneEntry } from "../types/DayOneEntry";
-import CONFIG from "./../config.json";
-import { RenderStatsTable } from "./statsTable";
-import { NumberToHue } from "./utilities/color";
+import { DayOneEntry } from "../../types/DayOneEntry";
+import CONFIG from "../../config.json";
+import { RenderStatsTable } from "../statsTable";
+import { NumberToHue } from "../utilities/color";
 
 const tagsLibrary: {
     tag: string;

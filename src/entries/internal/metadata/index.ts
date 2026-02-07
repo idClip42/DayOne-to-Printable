@@ -1,6 +1,6 @@
 import { DayOneEntry } from "../../../../types/DayOneEntry";
 import { GetDateColor } from "../../../date/color";
-import { GetTagHtml } from "../../../organizeTags";
+import { GetTagHtml } from "../../../tags";
 import { GetWeatherString } from "./internal/weather";
 import { GetLocationString } from "./internal/location";
 import {
