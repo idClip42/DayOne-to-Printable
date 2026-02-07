@@ -25,7 +25,7 @@ const outputPath = path.join(
 if (!fs.existsSync(CONFIG.files.outputDirectory))
     fs.mkdirSync(CONFIG.files.outputDirectory);
 
-if (CONFIG.CONTENT.IMAGES.RUN_RESIZE) await ResizeImages();
+if (CONFIG.content.images.runResize) await ResizeImages();
 
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;

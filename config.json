@@ -9,11 +9,11 @@
         "outputPhotosDirectory": "photos",
         "stylesheet": "style.css"
     },
-    "CONTENT": {
-        "OBFUSCATE": false,
-        "IMAGES": {
-            "RUN_RESIZE": false,
-            "MAX_WIDTH": 600
+    "content": {
+        "obfuscate": false,
+        "images": {
+            "runResize": false,
+            "maxWidth": 600
         }
     },
     "cover": {
