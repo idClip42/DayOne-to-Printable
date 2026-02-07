@@ -208,7 +208,7 @@ section {
 
       <div class="spine-volume">
         <div class="vol-label">VOL.</div>
-        <div class="vol-number">${cover.content.volume.number}</div>
+        <div class="vol-number">${cover.content.volume}</div>
       </div>
   </section>
 

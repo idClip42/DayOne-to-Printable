@@ -19,9 +19,7 @@
     "cover": {
         "content": {
             "subtitle": "",
-            "volume": {
-                "number": 2
-            }
+            "volume": 2
         },
         "dimensions": {
             "totalWidthIn": 20.688,
