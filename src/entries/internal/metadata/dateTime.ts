@@ -1,5 +1,5 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
-import { formatDate, formatDateTime } from "../../../../date/format";
+import { DayOneEntry } from "../../../types/DayOneEntry";
+import { formatDate, formatDateTime } from "../../../date/format";
 
 function GetDayOfWeek(iso: string, timeZone: string): string {
     const d = new Date(iso);

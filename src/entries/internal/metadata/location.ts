@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 
 const SKIP_COUNTRY = "United States";
 

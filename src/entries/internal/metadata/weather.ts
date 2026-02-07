@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 
 function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);

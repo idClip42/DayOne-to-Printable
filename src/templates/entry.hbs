@@ -1,0 +1,33 @@
+<article class="entry">
+    <div
+        class="entry-metadata"
+        style="background: linear-gradient(to bottom, {{monthColor}}, #ffffff)"
+    >
+        <p class="pre-date-time">
+            <span class="entry-weekday">{{weekday}}</span>
+            <span class="entry-weather">{{weather}}</span>
+        </p>
+
+        <h2 class="entry-date">
+            {{dateTime}}
+        </h2>
+
+        <div class="hidden-date">
+            {{pageHeaderFullDate}}
+        </div>
+
+        <p class="post-date-time">
+            <span class="entry-location">{{location}}</span>
+        </p>
+
+        <p class="entry-tags">
+            Tags:
+            {{#each tagHtmls}}
+                {{this}}
+            {{/each}}
+        </p>
+    </div>
+    <div class="entry-content">
+        {{{contentHtml}}}
+    </div>
+</article>
