@@ -1,4 +1,4 @@
-import CONFIG from "./../config.json";
+import CONFIG from "../../config.json";
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";

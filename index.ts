@@ -5,7 +5,7 @@ import { DayOneEntry } from "./types/DayOneEntry";
 import CONFIG from "./config.json";
 import { GetDateColor, GetDateColorTestHtml } from "./src/date/color";
 import { convertEntryToHTML } from "./src/entries";
-import { ResizeImages } from "./src/resizeImages";
+import { ResizeImages } from "./src/preprocess/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/stats";
