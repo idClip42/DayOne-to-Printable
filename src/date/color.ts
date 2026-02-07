@@ -1,7 +1,4 @@
-/** starting hue for January */
-const BASE_HUE = 180;
-/** 12 months => 30° step */
-const HUE_INCREMENT = -30;
+import config from "./color.json";
 
 export function GetDateColor(
     iso: string,
@@ -17,27 +14,12 @@ export function GetDateColor(
     if (isNaN(monthIndex) || monthIndex < 0)
         throw new Error(`Invalid month: '${month}'`);
 
-    const hue = (BASE_HUE + monthIndex * HUE_INCREMENT) % 360;
+    const hue = (config.baseHue + monthIndex * config.hueIncrement) % 360;
     return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 
 export function GetDateColorTestHtml(): string {
-    const dates = [
-        "1/2/25",
-        "2/2/25",
-        "3/2/25",
-        "4/2/25",
-        "5/2/25",
-        "6/2/25",
-        "7/2/25",
-        "8/2/25",
-        "9/2/25",
-        "10/2/25",
-        "11/2/25",
-        "12/2/25",
-    ];
-
-    const htmlDates = dates.map(dStr => {
+    const htmlDates = config.testDates.map(dStr => {
         const d = new Date(dStr);
         return `
 <div style="background-color: ${GetDateColor(d.toISOString(), "America/New_York", 0.75)}">
