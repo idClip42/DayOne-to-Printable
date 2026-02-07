@@ -7,6 +7,7 @@ import { GetOrderedStaticTagsInfo } from "../tags";
 import { InteriorTemplateVars } from "../templates/interior.hbs";
 import { DayOneEntry } from "../types/DayOneEntry";
 import { renderTemplate } from "../utilities/template";
+import { processEntries } from "./internal/processEntries";
 
 const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 
@@ -14,54 +15,6 @@ export function BuildFullHtml(
     entries: DayOneEntry[],
     styleCss: string
 ): string {
-    const entriesHtml: string[] = [];
-    for (const e in entries) {
-        const entryIndex = Number(e);
-        const entry = entries[entryIndex];
-
-        if (entryIndex % 100 === 0) {
-            const perc = entryIndex / entries.length;
-            console.log(
-                `Entries processed: ${(perc * 100).toFixed(2)}% (${new Date(entry.creationDate).toDateString()})`
-            );
-        }
-
-        if (entry.isAllDay) {
-            console.log(entry);
-            throw new Error(
-                "Hit an 'all day' entry - figure out what to do with it."
-            );
-        }
-
-        const isSameDay = (() => {
-            if (entryIndex === 0) return false;
-            const prevEntry = entries[entryIndex - 1];
-            return isSameLocalDay(
-                {
-                    iso: prevEntry.creationDate,
-                    timeZone: prevEntry.location?.timeZoneName,
-                },
-                {
-                    iso: entry.creationDate,
-                    timeZone: entry.location?.timeZoneName,
-                }
-            );
-        })();
-        if (!isSameDay) {
-            const monthColor = GetDateColor(
-                entry.creationDate,
-                entry.location?.timeZoneName,
-                0.4
-            );
-            entriesHtml.push(
-                `<div class="new-day" style="color: ${monthColor}"><span>${formatDate(entry.creationDate, entry.location?.timeZoneName, false)}</span></div>`
-            );
-        }
-
-        const entryHtml = convertEntryToHTML(entry);
-        entriesHtml.push(entryHtml);
-    }
-
     const fullHtml = renderTemplate<InteriorTemplateVars>(
         INTERIOR_TEMPLATE_PATH,
         {
@@ -78,7 +31,7 @@ export function BuildFullHtml(
                 label: t.html,
                 value: t.count.toLocaleString(),
             })),
-            entriesHtml: entriesHtml,
+            entriesHtml: processEntries(entries),
         }
     );
 
