@@ -3,8 +3,10 @@ import { getDateColor } from "../../date/color";
 import { isSameLocalDay } from "../../date/compare";
 import { formatDate } from "../../date/format";
 import { convertEntryToHTML } from "../../entry";
+import { renderTemplate } from "../../utilities/template";
+import { NewDayTemplateVars } from "../../templates/newDay.hbs";
 
-// TODO: Handlebars template.
+const TEMPLATE_PATH = "src/templates/newDay.hbs";
 
 export function processEntries(entries: DayOneEntry[]): string[] {
     const entriesHtml: string[] = [];
@@ -20,15 +22,20 @@ export function processEntries(entries: DayOneEntry[]): string[] {
             );
         }
 
-        const isSameDay = checkIsSameDay(entryIndex, entries);
-        if (!isSameDay) {
-            const monthColor = getDateColor(
-                entry.creationDate,
-                entry.location?.timeZoneName,
-                0.4
-            );
+        if (!checkIsSameDay(entryIndex, entries)) {
             entriesHtml.push(
-                `<div class="new-day" style="color: ${monthColor}"><span>${formatDate(entry.creationDate, entry.location?.timeZoneName, false)}</span></div>`
+                renderTemplate<NewDayTemplateVars>(TEMPLATE_PATH, {
+                    monthColor: getDateColor(
+                        entry.creationDate,
+                        entry.location?.timeZoneName,
+                        0.4
+                    ),
+                    dateText: formatDate(
+                        entry.creationDate,
+                        entry.location?.timeZoneName,
+                        false
+                    ),
+                })
             );
         }
 
