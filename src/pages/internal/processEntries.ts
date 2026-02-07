@@ -2,7 +2,7 @@ import { DayOneEntry } from "../../types/DayOneEntry";
 import { GetDateColor } from "../../date/color";
 import { isSameLocalDay } from "../../date/compare";
 import { formatDate } from "../../date/format";
-import { convertEntryToHTML } from "../../entries";
+import { convertEntryToHTML } from "../../entry";
 
 // TODO: Break this up a little, move the progress log into its own function.
 // TODO: Handlebars template.

@@ -1,7 +1,7 @@
 import { GetDateColor, GetDateColorTestData } from "../date/color";
 import { isSameLocalDay } from "../date/compare";
 import { formatDate } from "../date/format";
-import { convertEntryToHTML } from "../entries";
+import { convertEntryToHTML } from "../entry";
 import { GetEntriesStats } from "../stats";
 import { GetOrderedStaticTagsInfo } from "../tags";
 import { InteriorTemplateVars } from "../templates/interior.hbs";
