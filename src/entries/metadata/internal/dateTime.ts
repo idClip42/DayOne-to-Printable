@@ -1,0 +1,31 @@
+import { DayOneEntry } from "../../../../types/DayOneEntry";
+import {
+    formatDate,
+    formatDateTime,
+    GetDayOfWeek,
+} from "../../../dateUtilities";
+
+export function CreateDateHtml(entry: DayOneEntry): string {
+    const formattedDateTime = formatDate(
+        entry.creationDate,
+        entry.location?.timeZoneName,
+        true
+    );
+    return formattedDateTime;
+}
+
+export function CreateDateTimeHtml(entry: DayOneEntry): string {
+    const formattedDateTime = formatDateTime(
+        entry.creationDate,
+        entry.location?.timeZoneName
+    );
+    return formattedDateTime;
+}
+
+export function CreateDayOfWeekHtml(entry: DayOneEntry): string {
+    const weekday = GetDayOfWeek(
+        entry.creationDate,
+        entry.location?.timeZoneName
+    );
+    return weekday;
+}
