@@ -18,8 +18,6 @@ const originalPhotosDir = path.join(
 );
 
 export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
-    if (!CONFIG.ENTRIES.IMAGES.ENABLED) return "";
-
     const photo = entry.photos?.find(photo => photo.identifier === photoId);
 
     if (photo) {
@@ -59,8 +57,6 @@ export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
 
 export function ProcessHtmlImages(entry: DayOneEntry, html: string) {
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
-        if (!CONFIG.ENTRIES.IMAGES.ENABLED) return "";
-
         return `
 <div class="entry-photo" ${divStyle}>
     <img${p1} ${imgStyle}>

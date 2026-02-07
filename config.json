@@ -13,7 +13,6 @@
             "LOREM_IPSUM_MODE": false
         },
         "IMAGES": {
-            "ENABLED": true,
             "RUN_RESIZE": false,
             "MAX_WIDTH": 600,
             "ONLY_BORDERS": false
