@@ -1,17 +1,10 @@
 import fs from "fs";
 import config from "../../config.json";
-import { NumberToHue } from "../utilities/color";
 import { renderTemplate } from "../utilities/template";
 import { CoverTemplateVars } from "../templates/cover.hbs";
+import { GenerateCssVars } from "./internal/cssVars";
 
 const TEMPLATE_PATH = "src/templates/cover.hbs";
-
-function GetYearAccentColor(year: number): string {
-    /** cool-blue starting point */
-    const YEAR_ACCENT_START = 210;
-    const hue = NumberToHue(year, YEAR_ACCENT_START);
-    return `hsl(${hue}, 70%, 55%)`;
-}
 
 function formatCoverDate(startDate, endDate) {
     const start = new Date(startDate);
@@ -46,17 +39,7 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
     const cover = config.cover;
     const stylesheet = fs.readFileSync(config.files.stylesheets.cover, "utf8");
     const { yearLine, monthLine } = formatCoverDate(start, end);
-    const accentColor = GetYearAccentColor(start.getFullYear());
-
-    const cssVars = `
-:root {
-  --total-width: ${cover.dimensions.totalWidthIn}in;
-  --height: ${cover.dimensions.heightIn}in;
-  --spine-width: ${cover.dimensions.spineWidthIn}in;
-  --hinge-in: ${cover.dimensions.hingeIn}in;
-  --spine-accent-color: ${accentColor};
-}
-    `.trim();
+    const cssVars = GenerateCssVars(start.getFullYear());
 
     return renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
         css: {
