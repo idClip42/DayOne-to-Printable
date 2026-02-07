@@ -3,7 +3,7 @@ import CONFIG from "../../config.json";
 import { RenderStatsTable } from "../statsTable";
 import { NumberToHue } from "../utilities/color";
 
-const tagsLibrary: {
+const staticTagsLibrary: {
     tag: string;
     count: number;
     percentage: number;
@@ -60,13 +60,13 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>): void {
         };
     });
 
-    tagsLibrary.push(...augmentedTags);
+    staticTagsLibrary.push(...augmentedTags);
 }
 
 export function GetTagHtml(tag: string): string {
-    const infoIndex = tagsLibrary.findIndex(test => test.tag === tag);
+    const infoIndex = staticTagsLibrary.findIndex(test => test.tag === tag);
     if (infoIndex < 0) throw new Error(`Unrecognized tag: ${tag}`);
-    const info = tagsLibrary[infoIndex];
+    const info = staticTagsLibrary[infoIndex];
     if (!info) throw new Error(`Unrecognized tag: ${tag}`);
 
     const LOREM_IPSUM_TAGS = ["Lorem", "Ipsum", "Dolor", "Sit Amet"];
@@ -80,7 +80,7 @@ export function GetTagHtml(tag: string): string {
 export function GetTagsListHtml(): string {
     // Make a copy of the array and reverse it.
     // Highest numbers are now first.
-    const tagItems = tagsLibrary.map(a => a).reverse();
+    const tagItems = staticTagsLibrary.map(a => a).reverse();
 
     const statItems: { [statName: string]: number } = {};
     for (const item of tagItems) {
