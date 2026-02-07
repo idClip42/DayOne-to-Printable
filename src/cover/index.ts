@@ -1,6 +1,10 @@
 import fs from "fs";
 import config from "../../config.json";
 import { NumberToHue } from "../utilities/color";
+import { renderTemplate } from "../utilities/template";
+import { CoverTemplateVars } from "../templates/cover.hbs";
+
+const TEMPLATE_PATH = "src/templates/cover.hbs";
 
 function GetYearAccentColor(year: number): string {
     /** cool-blue starting point */
@@ -40,62 +44,29 @@ interface CoverDates {
 
 export function generateCoverHtml({ start, end }: CoverDates): string {
     const cover = config.cover;
-
-    const stylesheet = fs.readFileSync(config.files.stylesheets.cover);
-
-    const { totalWidthIn, heightIn, spineWidthIn, hingeIn } = cover.dimensions;
-
+    const stylesheet = fs.readFileSync(config.files.stylesheets.cover, "utf8");
     const { yearLine, monthLine } = formatCoverDate(start, end);
+    const accentColor = GetYearAccentColor(start.getFullYear());
 
-    const author = cover.content.author;
-    const subtitle = cover.content.subtitle;
-
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>Journal Cover</title>
-
-<style>
+    const cssVars = `
 :root {
-  --total-width: ${totalWidthIn}in;
-  --height: ${heightIn}in;
-  --spine-width: ${spineWidthIn}in;
-  --hinge-in: ${hingeIn}in;
-  --spine-accent-color: ${GetYearAccentColor(start.getFullYear())};
+  --total-width: ${cover.dimensions.totalWidthIn}in;
+  --height: ${cover.dimensions.heightIn}in;
+  --spine-width: ${cover.dimensions.spineWidthIn}in;
+  --hinge-in: ${cover.dimensions.hingeIn}in;
+  --spine-accent-color: ${accentColor};
 }
+    `.trim();
 
-${stylesheet}
-</style>
-</head>
-
-<body>
-  <div id="cover">
-    <section class="back">
-      <!-- intentionally blank for now -->
-    </section>
-
-    <section class="spine">
-      <div class="spine-main">
-        <span class="year-spine">${yearLine}</span>
-        <span class="month-spine">: ${monthLine}</span>
-      </div>
-
-      <div class="spine-accent"></div>
-
-      <div class="spine-volume">
-        <div class="vol-label">VOL.</div>
-        <div class="vol-number">${cover.content.volume}</div>
-      </div>
-  </section>
-
-    <section class="front">
-      <div class="year">${yearLine}</div>
-      <div class="months">${monthLine}</div>
-      <div class="author">${author}</div>
-      ${Boolean(subtitle) ? `<div class="subtitle">${subtitle}</div>` : ""}
-    </section>
-  </div>
-</body>
-</html>`;
+    return renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
+        css: {
+            vars: cssVars,
+            style: stylesheet,
+        },
+        yearText: yearLine,
+        monthText: monthLine,
+        volumeNumber: cover.content.volume,
+        author: cover.content.author,
+        subtitle: cover.content.subtitle,
+    });
 }
