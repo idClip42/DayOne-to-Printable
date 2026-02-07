@@ -14,7 +14,8 @@ const outputPhotosFolder = path.join(
     CONFIG.files.outputPhotosDirectory
 );
 
-if (!fs.existsSync(outputPhotosFolder)) fs.mkdirSync(outputPhotosFolder);
+if (!fs.existsSync(outputPhotosFolder))
+    fs.mkdirSync(outputPhotosFolder, { recursive: true });
 
 async function resizeImage(inputPath: string, outputDir: string) {
     // Extract the base filename (no extension)
