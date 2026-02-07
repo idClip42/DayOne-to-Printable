@@ -24,6 +24,7 @@ export function GetTagHtml(tag: string): string {
     return `<span class="tag-item" style="background-color: ${info.color}">${text}</span>`;
 }
 
+// TODO: This can probably be moved into the eventual HTML template.
 export function GetTagsListHtml(): string {
     // Make a copy of the array and reverse it.
     // Highest numbers are now first.
