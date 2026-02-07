@@ -14,6 +14,7 @@
   - [x] No, I'm not even working with it in code.
 - [x] I'm leaving TODOs around the code - find them and deal with them.
 - [ ] Try removing all the page vs screen stuff from the CSS.
+- [ ] Render both books and look over them to make sure everything looks right.
 
 ## Issues
 
