@@ -17,18 +17,18 @@
         }
     },
     "cover": {
+        "content": {
+            "subtitle": "",
+            "volume": {
+                "number": 2
+            }
+        },
         "dimensions": {
             "totalWidthIn": 20.688,
             "heightIn": 12.75,
             "spineWidthIn": 1.938,
             "hingeIn": 0.25,
             "bleedIn": 0.125
-        },
-        "content": {
-            "subtitle": "",
-            "volume": {
-                "number": 2
-            }
         }
     }
 }
