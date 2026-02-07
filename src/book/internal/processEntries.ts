@@ -1,12 +1,7 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
-import { getDateColor } from "../../date/color";
 import { isSameLocalDay } from "../../date/compare";
-import { formatDate } from "../../date/format";
 import { convertEntryToHTML } from "../../entry";
-import { renderTemplate } from "../../utilities/template";
-import { NewDayTemplateVars } from "../../templates/newDay.hbs";
-
-const TEMPLATE_PATH = "src/templates/newDay.hbs";
+import { makeNewDayElement } from "./newDay";
 
 export function processEntries(entries: DayOneEntry[]): string[] {
     const entriesHtml: string[] = [];
@@ -23,20 +18,7 @@ export function processEntries(entries: DayOneEntry[]): string[] {
         }
 
         if (!checkIsSameDay(entryIndex, entries)) {
-            entriesHtml.push(
-                renderTemplate<NewDayTemplateVars>(TEMPLATE_PATH, {
-                    monthColor: getDateColor(
-                        entry.creationDate,
-                        entry.location?.timeZoneName,
-                        0.4
-                    ),
-                    dateText: formatDate(
-                        entry.creationDate,
-                        entry.location?.timeZoneName,
-                        false
-                    ),
-                })
-            );
+            entriesHtml.push(makeNewDayElement(entry));
         }
 
         const entryHtml = convertEntryToHTML(entry);
