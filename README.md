@@ -2,12 +2,12 @@
 
 This Node-based project converts raw JSON exports from DayOne into a book‑formatted HTML document, which you then print to PDF and upload to Lulu for physical printing.
 
-This README is written primarily for **future me** (hi 👋), but also for anyone else who journals in DayOne and decides they want a sane, repeatable way to turn years of journaling into real, hold‑in‑your‑hands books.
+This README is written primarily for **future me**, but also for anyone else who journals in DayOne and decides they want a sane, content-dense, repeatable way to turn years of journaling into real, hold‑in‑your‑hands archival books.
 
 Assumptions:
 
 * You’re comfortable with Node, npm, and the command line.
-* You’re on **macOS**. (Other platforms could work, but PDF handling will likely differ.)
+* You’re on **macOS**. (Other platforms should work, but PDF handling will likely differ.)
 * You are patient. This pipeline works, but parts of it are slow and a little fragile.
 
 This is both a **reproducible pipeline** *and* a **battle‑tested guide**. Some steps exist not because they’re elegant, but because Lulu is extremely picky and opaque about PDFs.
@@ -28,9 +28,7 @@ This is both a **reproducible pipeline** *and* a **battle‑tested guide**. Some
 I’ve successfully printed:
 
 * A paperback proof‑of‑concept
-* Multiple hardcover volumes with different page counts
-
-Two more hardcover volumes are currently at the printer and *should* be fine.
+* Multiple hardcover volumes with different page counts (which are currently at the printer and *should* be fine)
 
 ---
 
@@ -58,6 +56,7 @@ Notes:
 * Use the **DayOne mobile app**. This produces the most reliable exports.
 * Export the date range you want **as JSON**.
 * Make sure you enable exporting **all media**.
+  * And make sure to download it all before exporting.
 * Transfer the resulting `.zip` file to your computer.
 * Unzip it.
 * Place the unzipped contents inside the project’s `input` directory.
@@ -66,6 +65,22 @@ Example layouts:
 
 * `input/` (unzipped directly)
 * `input/2022-2023-export/` (multiple exports kept side‑by‑side)
+
+### Missing or problematic media
+
+DayOne exports are imperfect:
+
+* Sometimes images simply fail to export
+* Sometimes images are rotated incorrectly
+
+When images are missing:
+
+* Warnings will appear in the console during rendering
+* The printed journal will show a placeholder box indicating missing media
+
+Rotation issues appear to be arbitrary DayOne bugs and cannot be fixed procedurally.
+
+Videos, audio files, and PDFs are **never printed** and will always appear as placeholder boxes indicating non‑printable media.
 
 ---
 
@@ -99,24 +114,9 @@ Open `config.json` and adjust the following sections.
 
 * `runResize`
 
-  * Resizes and normalizes all images used in the journal
+  * Creates resized and normalized copies of all images used in the journal in `output/photos`.
   * Safe to leave `true`, but **very slow**
   * Once you’ve run it successfully, you’ll probably want to set it back to `false`
-
-### Missing or problematic media
-
-DayOne exports are imperfect:
-
-* Sometimes images simply fail to export
-* Sometimes images are rotated incorrectly
-
-When this happens:
-
-* Warnings will appear in the console during rendering
-* The journal will show a placeholder box indicating missing or non‑printable media
-* Videos, audio files, and PDFs are **never printed** and will always appear as placeholders
-
-Some rotation issues appear to be arbitrary DayOne bugs and cannot be fixed procedurally.
 
 ### `cover.content`
 
@@ -193,14 +193,17 @@ Open the PDF in **Preview** (macOS).
 Things to check:
 
 * No completely empty columns anywhere
+* No missing text content
+* No missing images
 
 If you see empty columns:
 
 * This is almost certainly a pagedjs race condition
-* Don’t panic
 * Reload `journal.html`, let it fully rebuild, and print again
 
 This happens often enough that you should *always* check before moving on.
+
+(If expected text content or images are missing, we've got bigger problems and need to investigate the image processing and pagejs text layout.)
 
 ---
 
@@ -273,11 +276,15 @@ This will regenerate everything.
 
 Open `output/cover.html` in Chrome and print to PDF using the same print settings as before.
 
+(You do not need a second export step for the cover like you do for the interior.)
+
 ---
 
 ## Uploading to Lulu (cover)
 
-Upload the cover PDF.
+Upload the cover PDF you printed from Chrome.
+
+Once the cover is uploaded, the book as a whole will be processed further. This is where you can expect an ambiguous error to occur if Lulu doesn't like the PDF. Hopefully I've ironed out all the kinks and this won't happen, but if it does, you'll need to figure out how to export a PDF it can read.
 
 Once processing completes:
 
@@ -302,7 +309,3 @@ If everything looks right:
 
 * Complete the Lulu setup
 * Order a print copy
-
-Then wait nervously.
-
-When it arrives, you will be holding several years of your life in your hands.
