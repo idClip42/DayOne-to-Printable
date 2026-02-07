@@ -22,7 +22,7 @@ TODO: Once we've gotten enough precise detail, let the robot do a pass.
 - Open `config.json`.
 - Fill in the file info.
   - Specifically the input directory.
-- If this is your first time, set `ENTRIES.IMAGES.RUN_RESIZE` to `true`.
+- If this is your first time, set `CONTENT.IMAGES.RUN_RESIZE` to `true`.
   - This only needs to happen once, so once you've run this, set it back to false.
 
 ## Running the Renderer

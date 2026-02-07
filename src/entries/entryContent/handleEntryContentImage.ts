@@ -4,10 +4,10 @@ import path from "path";
 import { RESIZED_IMAGES_EXT } from "../../preprocess/resizeImages";
 import fs from "fs";
 
-const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS
+const divStyle = CONFIG.CONTENT.IMAGES.ONLY_BORDERS
     ? 'style="border-style: solid; border-color: lightgray;"'
     : "";
-const imgStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS ? 'style="opacity: 0"' : "";
+const imgStyle = CONFIG.CONTENT.IMAGES.ONLY_BORDERS ? 'style="opacity: 0"' : "";
 
 /** Directory where your images are stored */
 const photosDir = path.join(CONFIG.FILES.OUTPUT_DIR, CONFIG.FILES.PHOTOS_DIR);

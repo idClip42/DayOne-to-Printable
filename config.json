@@ -8,7 +8,7 @@
         "OUTPUT_COVER_HTML": "cover.html",
         "STYLESHEET": "style.css"
     },
-    "ENTRIES": {
+    "CONTENT": {
         "CONTENT": {
             "LOREM_IPSUM_MODE": false
         },

@@ -48,9 +48,9 @@ async function resizeImage(inputPath: string, outputDir: string) {
         .toColorspace("srgb");
 
     // Resize only if the image exceeds the maximum width
-    if ((metadata.width || 0) > CONFIG.ENTRIES.IMAGES.MAX_WIDTH) {
+    if ((metadata.width || 0) > CONFIG.CONTENT.IMAGES.MAX_WIDTH) {
         pipeline = pipeline.resize({
-            width: CONFIG.ENTRIES.IMAGES.MAX_WIDTH,
+            width: CONFIG.CONTENT.IMAGES.MAX_WIDTH,
 
             // Prevents upscaling smaller images
             withoutEnlargement: true,

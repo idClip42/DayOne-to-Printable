@@ -26,7 +26,7 @@ export function CreateContentHtml(entry: DayOneEntry): string {
     htmlResult = UpdateHtmlAttachments(htmlResult);
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
-    if (CONFIG.ENTRIES.CONTENT.LOREM_IPSUM_MODE) {
+    if (CONFIG.CONTENT.CONTENT.LOREM_IPSUM_MODE) {
         htmlResult = ReplaceHtmlTextWithLoremIpsum(htmlResult);
     }
 
