@@ -12,7 +12,7 @@ import { GetEntriesStatsHtml } from "./src/stats";
 import { formatDate } from "./src/date/format";
 import { isSameLocalDay } from "./src/date/compare";
 
-const stylesheet = fs.readFileSync("style.css");
+const stylesheet = fs.readFileSync(CONFIG.files.stylesheets.interior);
 
 const dataPath = path.join(
     CONFIG.files.input.directory,
@@ -89,13 +89,11 @@ const fullHTML = `
         <meta charset="UTF-8">
         <title>Journal Export</title>
 
-        <!-- <link rel="stylesheet" type="text/css" href="../${CONFIG.files.stylesheet}"> -->
         <style>
             ${stylesheet}
         </style>
 
         <!-- Bringing in "pagedjs" package -->
-        <!-- <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script> -->
         <script src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
     </head>
     <body>

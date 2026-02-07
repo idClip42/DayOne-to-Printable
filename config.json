@@ -11,7 +11,9 @@
             "coverHtmlFile": "cover.html",
             "photosDirectory": "photos"
         },
-        "stylesheet": "style.css"
+        "stylesheets": {
+            "interior": "styleInterior.css"
+        }
     },
     "content": {
         "obfuscate": false,
