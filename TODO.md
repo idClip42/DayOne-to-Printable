@@ -3,11 +3,11 @@
 ## Refactor
 
 - [x] Go through the code with Prettier.
-- [ ] Clean up the code as best as you can.
-- [ ] We want something that is really, really organized and readable and usable.
+- [x] Clean up the code as best as you can.
+- [x] We want something that is really, really organized and readable and usable.
 - [ ] Bring in "Handlebars" for HTML templating, per the conversation with ChatGPT.
-- [ ] Some of the `config.json` stuff is about design, and should probably be separate from general configuration
-  - [ ] Stuff that isn't going to change once decided upon.
+- [x] Some of the `config.json` stuff is about design, and should probably be separate from general configuration
+  - [x] Stuff that isn't going to change once decided upon.
 - [x] Some things in `config.json` might be worth combining.
   - [x] Changing the text to lorem ipsum and making images invisible are part of the same process of obfuscation.
 - [ ] Is there a way to force `pagedjs` to error out or something if it screws up formatting?
