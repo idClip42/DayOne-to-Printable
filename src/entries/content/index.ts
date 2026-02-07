@@ -3,9 +3,9 @@ import { DayOneEntry } from "../../../types/DayOneEntry";
 import { ProcessHtmlImages } from "./internal/images";
 import CONFIG from "../../../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
-import { UpdateHtmlAttachments } from "./internal/attachments";
-import { PreprocessText } from "./internal/textPreprocess";
-import { ProcessText } from "./internal/textProcess";
+import { UpdateHtmlAttachments } from "./internal/attachments/html";
+import { PreprocessText } from "./internal/text/preprocess";
+import { ProcessText } from "./internal/text/process";
 
 export function CreateContentHtml(entry: DayOneEntry): string {
     const preprocessedText = PreprocessText(entry.text);
