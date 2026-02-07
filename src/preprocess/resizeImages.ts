@@ -1,4 +1,4 @@
-import CONFIG from "../../config.json";
+import config from "../../config.json";
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";
@@ -6,12 +6,12 @@ import path from "path";
 export const RESIZED_IMAGES_EXT = "jpg";
 
 const inputPhotosFolder = path.join(
-    CONFIG.files.input.directory,
-    CONFIG.files.input.photosDirectory
+    config.files.input.directory,
+    config.files.input.photosDirectory
 );
 const outputPhotosFolder = path.join(
-    CONFIG.files.output.directory,
-    CONFIG.files.output.photosDirectory
+    config.files.output.directory,
+    config.files.output.photosDirectory
 );
 
 if (!fs.existsSync(outputPhotosFolder))
@@ -49,9 +49,9 @@ async function resizeImage(inputPath: string, outputDir: string) {
         .toColorspace("srgb");
 
     // Resize only if the image exceeds the maximum width
-    if ((metadata.width || 0) > CONFIG.content.images.maxWidth) {
+    if ((metadata.width || 0) > config.content.images.maxWidth) {
         pipeline = pipeline.resize({
-            width: CONFIG.content.images.maxWidth,
+            width: config.content.images.maxWidth,
 
             // Prevents upscaling smaller images
             withoutEnlargement: true,

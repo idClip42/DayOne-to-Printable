@@ -1,23 +1,23 @@
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
-import CONFIG from "../../../../../../config.json";
+import config from "../../../../../../config.json";
 import path from "path";
 import { RESIZED_IMAGES_EXT } from "../../../../../preprocess/resizeImages";
 import fs from "fs";
 
-const divStyle = CONFIG.content.obfuscate
+const divStyle = config.content.obfuscate
     ? 'style="border-style: solid; border-color: lightgray;"'
     : "";
-const imgStyle = CONFIG.content.obfuscate ? 'style="opacity: 0"' : "";
+const imgStyle = config.content.obfuscate ? 'style="opacity: 0"' : "";
 
 /** Directory where your images are stored */
 const photosDir = path.join(
-    CONFIG.files.output.directory,
-    CONFIG.files.output.photosDirectory
+    config.files.output.directory,
+    config.files.output.photosDirectory
 );
 
 const originalPhotosDir = path.join(
-    CONFIG.files.input.directory,
-    CONFIG.files.input.photosDirectory
+    config.files.input.directory,
+    config.files.input.photosDirectory
 );
 
 export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
@@ -43,7 +43,7 @@ export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
         }
 
         const pathToCheck = path.join(
-            CONFIG.files.output.directory,
+            config.files.output.directory,
             srcFilePath
         );
         if (!fs.existsSync(pathToCheck)) {

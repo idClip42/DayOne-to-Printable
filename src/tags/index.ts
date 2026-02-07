@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import CONFIG from "../../config.json";
+import config from "../../config.json";
 import { RenderInfoTable } from "../utilities/infoTable";
 import type { TagInfo } from "./internal/TagInfo";
 import { ProcessTags } from "./internal/process";
@@ -17,7 +17,7 @@ export function GetTagHtml(tag: string): string {
     if (!info) throw new Error(`Unrecognized tag: ${tag}`);
 
     const LOREM_IPSUM_TAGS = ["Lorem", "Ipsum", "Dolor", "Sit Amet"];
-    const text = CONFIG.content.obfuscate
+    const text = config.content.obfuscate
         ? LOREM_IPSUM_TAGS[info.count % LOREM_IPSUM_TAGS.length]
         : tag;
 

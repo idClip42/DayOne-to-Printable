@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { DayOneEntry } from "./src/types/DayOneEntry";
-import CONFIG from "./config.json";
+import config from "./config.json";
 import { GetDateColor, GetDateColorTestHtml } from "./src/date/color";
 import { convertEntryToHTML } from "./src/entries";
 import { ResizeImages } from "./src/preprocess/resizeImages";
@@ -12,20 +12,20 @@ import { GetEntriesStatsHtml } from "./src/stats";
 import { formatDate } from "./src/date/format";
 import { isSameLocalDay } from "./src/date/compare";
 
-const stylesheet = fs.readFileSync(CONFIG.files.stylesheets.interior);
+const stylesheet = fs.readFileSync(config.files.stylesheets.interior);
 
 const dataPath = path.join(
-    CONFIG.files.input.directory,
-    CONFIG.files.input.dataFile
+    config.files.input.directory,
+    config.files.input.dataFile
 );
 const outputPath = path.join(
-    CONFIG.files.output.directory,
-    CONFIG.files.output.interiorHtmlFile
+    config.files.output.directory,
+    config.files.output.interiorHtmlFile
 );
-if (!fs.existsSync(CONFIG.files.output.directory))
-    fs.mkdirSync(CONFIG.files.output.directory);
+if (!fs.existsSync(config.files.output.directory))
+    fs.mkdirSync(config.files.output.directory);
 
-if (CONFIG.content.images.runResize) await ResizeImages();
+if (config.content.images.runResize) await ResizeImages();
 
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
@@ -112,8 +112,8 @@ fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
 
 const coverOutputPath = path.join(
-    CONFIG.files.output.directory,
-    CONFIG.files.output.coverHtmlFile
+    config.files.output.directory,
+    config.files.output.coverHtmlFile
 );
 const coverHtml = generateCoverHtml({
     start: new Date(entries[0].creationDate),

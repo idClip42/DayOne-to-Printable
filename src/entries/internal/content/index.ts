@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../../../types/DayOneEntry";
 import { ProcessHtmlImages } from "./internal/images";
-import CONFIG from "../../../../config.json";
+import config from "../../../../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
 import { UpdateHtmlAttachments } from "./internal/attachments/html";
 import { PreprocessText } from "./internal/text/preprocess";
@@ -26,7 +26,7 @@ export function CreateContentHtml(entry: DayOneEntry): string {
     htmlResult = UpdateHtmlAttachments(htmlResult);
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
-    if (CONFIG.content.obfuscate) {
+    if (config.content.obfuscate) {
         htmlResult = ReplaceHtmlTextWithLoremIpsum(htmlResult);
     }
 
