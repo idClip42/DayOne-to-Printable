@@ -1,6 +1,7 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import CONFIG from "./../config.json";
 import { RenderStatsTable } from "./statsTable";
+import { NumberToHue } from "./utilities/color";
 
 const tagsLibrary: {
     tag: string;
@@ -35,9 +36,7 @@ export function InitializeTags(entries: ReadonlyArray<DayOneEntry>): void {
 
     const augmentedTags = sortedTags.map((item, index) => {
         const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
-        // const alpha = ((1 - CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA) * perc) + CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA;
-        /** Use golden angle approximation to always get a different hue. */
-        const hue = index * 137.508;
+        const hue = NumberToHue(index, 0);
 
         // We're adjusting the lightness instead of setting an alpha
         // in order to try and eliminate any transparency.
