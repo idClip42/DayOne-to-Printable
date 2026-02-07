@@ -1,6 +1,6 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
 import CONFIG from "../../config.json";
-import { RenderInfoTable } from "../statsTable";
+import { RenderInfoTable } from "../utilities/infoTable";
 import type { TagInfo } from "./internal/TagInfo";
 import { ProcessTags } from "./internal/process";
 
