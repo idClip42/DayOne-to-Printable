@@ -1,4 +1,5 @@
 import CONFIG from "./../config.json";
+import { NumberToHue } from "./utilities/color";
 
 export function GetDateColor(
     iso: string,
@@ -51,13 +52,9 @@ export function GetDateColorTestHtml(): string {
     return htmlDates.join("\n");
 }
 
-function NumberToHue(year: number): number {
-    const GOLDEN_ANGLE = 137.50776405003785;
-    const baseHue = 210; // your cool-blue starting point
-    return (baseHue + year * GOLDEN_ANGLE) % 360;
-}
-
 export function GetYearAccentColor(year: number): string {
-    const hue = NumberToHue(year);
+    /** cool-blue starting point */
+    const YEAR_ACCENT_START = 210;
+    const hue = NumberToHue(year, YEAR_ACCENT_START);
     return `hsl(${hue}, 70%, 55%)`;
 }
