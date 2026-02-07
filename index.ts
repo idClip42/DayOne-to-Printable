@@ -3,17 +3,14 @@ import fs from "fs";
 import path from "path";
 import { DayOneEntry } from "./types/DayOneEntry";
 import CONFIG from "./config.json";
-import {
-    GetDateColor,
-    GetDateColorTestHtml,
-    isSameLocalDay,
-} from "./src/dateUtilities";
+import { GetDateColor, GetDateColorTestHtml } from "./src/dateUtilities";
 import { convertEntryToHTML } from "./src/entries";
 import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/counter";
 import { formatDate } from "./src/date/format";
+import { isSameLocalDay } from "./src/date/compare";
 
 const stylesheet = fs.readFileSync("style.css");
 
