@@ -1,7 +1,10 @@
 import type { DayOneEntry } from "../../types/DayOneEntry";
 import type { TagInfo } from "./TagInfo";
-import CONFIG from "../../../config.json";
 import { NumberToHue } from "../../utilities/color";
+
+const MIN_ALPHA = 0.5;
+const SATURATION = 0.75;
+const BASE_LIGHTNESS = 0.5;
 
 export function ProcessTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     const tagCounter: Record<string, number> = {};
@@ -31,21 +34,21 @@ export function ProcessTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
         const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
         const hue = NumberToHue(index, 0);
 
+        // TODO: Clean up the mess you've made here. Simplify this.
+
         // We're adjusting the lightness instead of setting an alpha
         // in order to try and eliminate any transparency.
         const lightnessAdjusted = (() => {
-            const baseLightness = CONFIG.ENTRIES.METADATA.TAGS.COLOR.LIGHTNESS;
+            const baseLightness = BASE_LIGHTNESS;
             const maxLightness =
-                baseLightness +
-                (1 - baseLightness) *
-                    CONFIG.ENTRIES.METADATA.TAGS.COLOR.MIN_ALPHA;
+                baseLightness + (1 - baseLightness) * MIN_ALPHA;
             const a = baseLightness;
             const b = maxLightness;
             const alpha = 1 - perc;
             return a + alpha * (b - a);
         })();
 
-        const color = `hsl(${hue},${CONFIG.ENTRIES.METADATA.TAGS.COLOR.SATURATION * 100}%,${lightnessAdjusted * 100}%)`;
+        const color = `hsl(${hue},${SATURATION * 100}%,${lightnessAdjusted * 100}%)`;
         return {
             ...item,
             percentage: perc,

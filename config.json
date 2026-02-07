@@ -9,26 +9,6 @@
         "STYLESHEET": "style.css"
     },
     "ENTRIES": {
-        "METADATA": {
-            "TAGS": {
-                "COLOR": {
-                    "MIN_ALPHA": 0.5,
-                    "SATURATION": 0.75,
-                    "LIGHTNESS": 0.5
-                }
-            },
-            "DATE_TIME": {
-                "INCLUDE_YEAR": false,
-                "COLOR": {
-                    "BASE_HUE": 180,
-                    "HUE_INCREMENT": -30
-                }
-            },
-            "LOCATIONS": {
-                "INCLUDE_COORDINATES": false,
-                "SKIP_COUNTRY": "United States"
-            }
-        },
         "CONTENT": {
             "LOREM_IPSUM_MODE": false
         },
@@ -38,10 +18,6 @@
             "MAX_WIDTH": 600,
             "ONLY_BORDERS": false
         }
-    },
-    "OTHER_CONTENT": {
-        "INCLUDE_TAG_INDEX": true,
-        "INCLUDE_NEW_DAY_HEADER": true
     },
     "cover": {
         "dimensions": {

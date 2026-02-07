@@ -1,6 +1,5 @@
 import { DayOneEntry } from "../../../../types/DayOneEntry";
 import { formatDate, formatDateTime } from "../../../../date/format";
-import CONFIG from "./../../../../../config.json";
 
 function GetDayOfWeek(iso: string, timeZone: string): string {
     const d = new Date(iso);
@@ -23,7 +22,7 @@ export function CreateDateTimeHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDateTime(
         entry.creationDate,
         entry.location?.timeZoneName,
-        CONFIG.ENTRIES.METADATA.DATE_TIME.INCLUDE_YEAR
+        false
     );
     return formattedDateTime;
 }

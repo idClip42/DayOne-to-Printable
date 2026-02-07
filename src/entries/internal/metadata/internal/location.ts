@@ -1,13 +1,13 @@
 import { DayOneEntry } from "../../../../types/DayOneEntry";
-import CONFIG from "../../../../../config.json";
+
+const SKIP_COUNTRY = "United States";
 
 export function GetLocationString(entry: DayOneEntry): string {
     const locParts = [
         entry.location?.placeName,
         entry.location?.localityName,
         entry.location?.administrativeArea,
-        entry.location?.country ===
-        CONFIG.ENTRIES.METADATA.LOCATIONS.SKIP_COUNTRY
+        entry.location?.country === SKIP_COUNTRY
             ? undefined
             : entry.location?.country,
     ].filter(Boolean);

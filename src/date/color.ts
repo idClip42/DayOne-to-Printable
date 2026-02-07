@@ -1,15 +1,13 @@
-import CONFIG from "../../config.json";
+/** starting hue for January */
+const BASE_HUE = 180;
+/** 12 months => 30° step */
+const HUE_INCREMENT = -30;
 
 export function GetDateColor(
     iso: string,
     timeZone: string,
     lightness: number
 ): string {
-    /** starting hue for January */
-    const BASE_HUE = CONFIG.ENTRIES.METADATA.DATE_TIME.COLOR.BASE_HUE;
-    /** 12 months => 30° step */
-    const HUE_INCREMENT = CONFIG.ENTRIES.METADATA.DATE_TIME.COLOR.HUE_INCREMENT;
-
     const d = new Date(iso);
     const month = d.toLocaleDateString("en-US", {
         timeZone,

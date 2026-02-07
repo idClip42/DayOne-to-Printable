@@ -61,7 +61,7 @@ for (const e in entries) {
             }
         );
     })();
-    if (!isSameDay && CONFIG.OTHER_CONTENT.INCLUDE_NEW_DAY_HEADER) {
+    if (!isSameDay) {
         const monthColor = GetDateColor(
             entry.creationDate,
             entry.location?.timeZoneName,
@@ -96,7 +96,7 @@ const fullHTML = `
         <!-- <div>${GetDateColorTestHtml()}</div> -->
 
         ${GetEntriesStatsHtml(entries)}
-        ${CONFIG.OTHER_CONTENT.INCLUDE_TAG_INDEX ? GetTagsListHtml() : ""}    
+        ${GetTagsListHtml()}    
         <div id="entries">
             ${entriesHtml.join("\n")}
         </div>
