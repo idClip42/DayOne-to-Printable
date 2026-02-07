@@ -2,6 +2,10 @@ import { DayOneEntry } from "../types/DayOneEntry";
 import config from "../../config.json";
 import type { TagInfo } from "./internal/TagInfo";
 import { processTags } from "./internal/process";
+import { renderTemplate } from "../utilities/template";
+import { TagTemplateVars } from "../templates/tag.hbs";
+
+const TAG_TEMPLATE_PATH = "src/templates/tag.hbs";
 
 export class TagsLibrary {
     private _tagsLibrary: TagInfo[];
@@ -21,8 +25,10 @@ export class TagsLibrary {
             ? LOREM_IPSUM_TAGS[info.count % LOREM_IPSUM_TAGS.length]
             : tag;
 
-        // TODO: Template!
-        return `<span class="tag-item" style="background-color: ${info.color}">${text}</span>`;
+        return renderTemplate<TagTemplateVars>(TAG_TEMPLATE_PATH, {
+            tag: text,
+            color: info.color,
+        });
     }
 
     public getOrderedTagsInfo() {
