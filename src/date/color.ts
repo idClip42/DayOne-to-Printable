@@ -1,6 +1,6 @@
 import config from "./color.json";
 
-export function GetDateColor(
+export function getDateColor(
     iso: string,
     timeZone: string,
     lightness: number
@@ -18,13 +18,13 @@ export function GetDateColor(
     return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 
-export function GetDateColorTestData() {
+export function getDateColorTestData() {
     const htmlDates = config.testDates.map(dStr => {
         const d = new Date(dStr);
         return {
             date: d,
             dateText: dStr,
-            color: GetDateColor(d.toISOString(), "America/New_York", 0.75),
+            color: getDateColor(d.toISOString(), "America/New_York", 0.75),
         };
     });
 

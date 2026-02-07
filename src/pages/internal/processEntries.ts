@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
-import { GetDateColor } from "../../date/color";
+import { getDateColor } from "../../date/color";
 import { isSameLocalDay } from "../../date/compare";
 import { formatDate } from "../../date/format";
 import { convertEntryToHTML } from "../../entry";
@@ -42,7 +42,7 @@ export function processEntries(entries: DayOneEntry[]): string[] {
             );
         })();
         if (!isSameDay) {
-            const monthColor = GetDateColor(
+            const monthColor = getDateColor(
                 entry.creationDate,
                 entry.location?.timeZoneName,
                 0.4

@@ -5,7 +5,7 @@ const LOREM_IPSUM =
 
 let loremIpsumPosition = 0;
 
-export function ReplaceHtmlTextWithLoremIpsum(htmlText: string) {
+export function replaceHtmlTextWithLoremIpsum(htmlText: string) {
     // Parse HTML into a DOM
     const dom = new JSDOM(htmlText);
     const document = dom.window.document;

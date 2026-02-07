@@ -2,10 +2,10 @@ import fs from "fs";
 import path from "path";
 import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
-import { ResizeImages } from "./src/preprocess/resizeImages";
-import { InitializeStaticTags } from "./src/tags";
+import { resizeImages } from "./src/preprocess/resizeImages";
+import { initializeStaticTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover";
-import { BuildFullHtml } from "./src/pages";
+import { buildFullHtml } from "./src/pages";
 
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
 
@@ -20,14 +20,14 @@ const outputPath = path.join(
 if (!fs.existsSync(config.files.output.directory))
     fs.mkdirSync(config.files.output.directory);
 
-if (config.content.images.runResize) await ResizeImages();
+if (config.content.images.runResize) await resizeImages();
 
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
-InitializeStaticTags(entries);
-const fullHTML = BuildFullHtml(entries, stylesheet);
+initializeStaticTags(entries);
+const fullHTML = buildFullHtml(entries, stylesheet);
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);

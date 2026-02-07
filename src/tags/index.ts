@@ -1,17 +1,19 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import config from "../../config.json";
 import type { TagInfo } from "./internal/TagInfo";
-import { ProcessTags } from "./internal/process";
+import { processTags } from "./internal/process";
 
 const staticTagsLibrary: TagInfo[] = [];
 
-export function InitializeStaticTags(
+// TODO: Maybe we ought to rethink this,
+// TODO: make it something that's passed around...
+export function initializeStaticTags(
     entries: ReadonlyArray<DayOneEntry>
 ): void {
-    staticTagsLibrary.push(...ProcessTags(entries));
+    staticTagsLibrary.push(...processTags(entries));
 }
 
-export function GetTagHtml(tag: string): string {
+export function getTagHtml(tag: string): string {
     const infoIndex = staticTagsLibrary.findIndex(test => test.tag === tag);
     if (infoIndex < 0) throw new Error(`Unrecognized tag: ${tag}`);
     const info = staticTagsLibrary[infoIndex];
@@ -25,11 +27,11 @@ export function GetTagHtml(tag: string): string {
     return `<span class="tag-item" style="background-color: ${info.color}">${text}</span>`;
 }
 
-export function GetOrderedStaticTagsInfo() {
+export function getOrderedStaticTagsInfo() {
     return staticTagsLibrary
         .map(item => ({
             tag: item.tag,
-            html: GetTagHtml(item.tag),
+            html: getTagHtml(item.tag),
             count: item.count,
         }))
         .reverse(); // Reverse so highest counts are first

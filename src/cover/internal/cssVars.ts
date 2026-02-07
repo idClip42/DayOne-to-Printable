@@ -1,16 +1,16 @@
 import config from "../../../config.json";
-import { NumberToHue } from "../../utilities/color";
+import { numberToHue } from "../../utilities/color";
 
-function GetYearAccentColor(year: number): string {
+function getYearAccentColor(year: number): string {
     /** cool-blue starting point */
     const YEAR_ACCENT_START = 210;
-    const hue = NumberToHue(year, YEAR_ACCENT_START);
+    const hue = numberToHue(year, YEAR_ACCENT_START);
     return `hsl(${hue}, 70%, 55%)`;
 }
 
-export function GenerateCssVars(year: number) {
+export function generateCssVars(year: number) {
     const dimensions = config.cover.dimensions;
-    const accentColor = GetYearAccentColor(year);
+    const accentColor = getYearAccentColor(year);
 
     return `
 :root {

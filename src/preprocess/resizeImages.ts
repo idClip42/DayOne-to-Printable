@@ -79,7 +79,7 @@ async function resizeImage(inputPath: string, outputDir: string) {
         .toFile(outputPath);
 }
 
-export async function ResizeImages() {
+export async function resizeImages() {
     const PERC_INTERVAL = 20;
     const files = fs.readdirSync(inputPhotosFolder);
     for (let f = 0; f < files.length; ++f) {

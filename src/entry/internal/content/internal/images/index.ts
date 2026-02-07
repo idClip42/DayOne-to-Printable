@@ -20,7 +20,7 @@ const originalPhotosDir = path.join(
     config.files.input.photosDirectory
 );
 
-export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
+export function getImageFilePath(entry: DayOneEntry, photoId: string) {
     const photo = entry.photos?.find(photo => photo.identifier === photoId);
 
     if (photo) {
@@ -61,7 +61,7 @@ export function GetImageFilePath(entry: DayOneEntry, photoId: string) {
     return "";
 }
 
-export function ProcessHtmlImages(entry: DayOneEntry, html: string) {
+export function processHtmlImages(entry: DayOneEntry, html: string) {
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
         return `
 <div class="entry-photo" ${divStyle}>

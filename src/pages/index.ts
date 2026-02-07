@@ -1,9 +1,9 @@
-import { GetDateColor, GetDateColorTestData } from "../date/color";
+import { getDateColor, getDateColorTestData } from "../date/color";
 import { isSameLocalDay } from "../date/compare";
 import { formatDate } from "../date/format";
 import { convertEntryToHTML } from "../entry";
-import { GetEntriesStats } from "../stats";
-import { GetOrderedStaticTagsInfo } from "../tags";
+import { getEntriesStats } from "../stats";
+import { getOrderedStaticTagsInfo } from "../tags";
 import { InteriorTemplateVars } from "../templates/interior.hbs";
 import { DayOneEntry } from "../types/DayOneEntry";
 import { renderTemplate } from "../utilities/template";
@@ -11,7 +11,7 @@ import { processEntries } from "./internal/processEntries";
 
 const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 
-export function BuildFullHtml(
+export function buildFullHtml(
     entries: DayOneEntry[],
     styleCss: string
 ): string {
@@ -19,15 +19,15 @@ export function BuildFullHtml(
         INTERIOR_TEMPLATE_PATH,
         {
             style: styleCss,
-            colorTestDates: GetDateColorTestData().map(d => ({
+            colorTestDates: getDateColorTestData().map(d => ({
                 date: d.dateText,
                 color: d.color,
             })),
-            stats: GetEntriesStats(entries).map(d => ({
+            stats: getEntriesStats(entries).map(d => ({
                 label: d.name,
                 value: d.value.toLocaleString(),
             })),
-            tagStats: GetOrderedStaticTagsInfo().map(t => ({
+            tagStats: getOrderedStaticTagsInfo().map(t => ({
                 label: t.html,
                 value: t.count.toLocaleString(),
             })),

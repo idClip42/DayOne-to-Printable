@@ -1,6 +1,6 @@
 import config from "./config.json";
 
-export function UpdateHtmlAttachments(htmlText: string): string {
+export function updateHtmlAttachments(htmlText: string): string {
     let resultString = htmlText.replace(
         new RegExp(`<p>${config.attachmentTag}`, "g"),
         "<p class='attachment-block'>"

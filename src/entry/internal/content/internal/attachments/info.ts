@@ -6,7 +6,7 @@ type AttachAudio = { type: "Audio"; data: DayOneEntry["audios"][number] };
 type AttachPdf = { type: "PDF"; data: DayOneEntry["pdfAttachments"][number] };
 export type AttachInfo = AttachVideo | AttachAudio | AttachPdf | AttachPhoto;
 
-export function GetAttachmentInfo(
+export function getAttachmentInfo(
     entry: DayOneEntry,
     pathString: string
 ): AttachInfo {

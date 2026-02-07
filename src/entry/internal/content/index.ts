@@ -1,14 +1,14 @@
 import { marked } from "marked";
 import { DayOneEntry } from "../../../types/DayOneEntry";
-import { ProcessHtmlImages } from "./internal/images";
+import { processHtmlImages } from "./internal/images";
 import config from "../../../../config.json";
-import { ReplaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
-import { UpdateHtmlAttachments } from "./internal/attachments/html";
-import { PreprocessText } from "./internal/text/preprocess";
-import { ProcessText } from "./internal/text/process";
+import { replaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
+import { updateHtmlAttachments } from "./internal/attachments/html";
+import { preprocessText } from "./internal/text/preprocess";
+import { processText } from "./internal/text/process";
 
-export function CreateContentHtml(entry: DayOneEntry): string {
-    const preprocessedText = PreprocessText(entry.text);
+export function createContentHtml(entry: DayOneEntry): string {
+    const preprocessedText = preprocessText(entry.text);
 
     if (/```[\s\n]*\|.*\|.*\n.*```/.test(preprocessedText)) {
         console.log(
@@ -16,18 +16,18 @@ export function CreateContentHtml(entry: DayOneEntry): string {
         );
     }
 
-    const processedText = ProcessText(preprocessedText, entry);
+    const processedText = processText(preprocessedText, entry);
 
     // Parse the modified Markdown into HTML.
     let htmlResult = marked.parse(processedText, { async: false });
     // Update all image tags.
-    htmlResult = ProcessHtmlImages(entry, htmlResult);
+    htmlResult = processHtmlImages(entry, htmlResult);
     // Update attachments.
-    htmlResult = UpdateHtmlAttachments(htmlResult);
+    htmlResult = updateHtmlAttachments(htmlResult);
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
     if (config.content.obfuscate) {
-        htmlResult = ReplaceHtmlTextWithLoremIpsum(htmlResult);
+        htmlResult = replaceHtmlTextWithLoremIpsum(htmlResult);
     }
 
     return htmlResult;

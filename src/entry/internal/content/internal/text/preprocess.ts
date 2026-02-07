@@ -1,4 +1,4 @@
-export function PreprocessText(inputText: string): string {
+export function preprocessText(inputText: string): string {
     // Trim leading/trailing whitespace.
     const trimmed = inputText.trim();
     // Find first line break.

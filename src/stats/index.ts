@@ -24,7 +24,7 @@ export function countMarkdownWords(markdown: string): number {
     return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-function CountEntryContents(entry: DayOneEntry): StatsCounter {
+function countEntryContents(entry: DayOneEntry): StatsCounter {
     return {
         Entries: 1,
         Words: countMarkdownWords(entry.text),
@@ -35,7 +35,7 @@ function CountEntryContents(entry: DayOneEntry): StatsCounter {
     };
 }
 
-function SumUpEntryContents(data: StatsCounter[]): StatsCounter {
+function sumUpEntryContents(data: StatsCounter[]): StatsCounter {
     return data.reduce<StatsCounter>(
         (accumulator, nextVal) => {
             for (const key in accumulator) accumulator[key] += nextVal[key];
@@ -52,8 +52,8 @@ function SumUpEntryContents(data: StatsCounter[]): StatsCounter {
     );
 }
 
-export function GetEntriesStats(entries: DayOneEntry[]) {
-    const stats = SumUpEntryContents(entries.map(CountEntryContents));
+export function getEntriesStats(entries: DayOneEntry[]) {
+    const stats = sumUpEntryContents(entries.map(countEntryContents));
     return Object.keys(stats).map(statName => ({
         name: statName,
         value: stats[statName],

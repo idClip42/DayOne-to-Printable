@@ -1,32 +1,32 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { createContentHtml } from "./internal/content";
+import { CreateContentHtml } from "./internal/content";
 import { EntryTemplateVars } from "../templates/entry.hbs";
 import { renderTemplate } from "../utilities/template";
 import { getDateColor } from "../date/color";
 import {
-    createDateHtml,
-    createDateTimeHtml,
-    createDayOfWeekHtml,
+    CreateDateHtml,
+    CreateDateTimeHtml,
+    CreateDayOfWeekHtml,
 } from "./internal/metadata/dateTime";
-import { getWeatherString } from "./internal/metadata/weather";
-import { getLocationString } from "./internal/metadata/location";
+import { GetWeatherString } from "./internal/metadata/weather";
+import { GetLocationString } from "./internal/metadata/location";
 import { getTagHtml } from "../tags";
 
 const TEMPLATE_PATH = "src/templates/entry.hbs";
 
 export function convertEntryToHTML(entry: DayOneEntry): string {
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
-        contentHtml: createContentHtml(entry),
+        contentHtml: CreateContentHtml(entry),
         monthColor: getDateColor(
             entry.creationDate,
             entry.location?.timeZoneName,
             0.75
         ),
-        weekday: createDayOfWeekHtml(entry),
-        weather: getWeatherString(entry),
-        dateTime: createDateTimeHtml(entry),
-        pageHeaderFullDate: createDateHtml(entry),
-        location: getLocationString(entry),
+        weekday: CreateDayOfWeekHtml(entry),
+        weather: GetWeatherString(entry),
+        dateTime: CreateDateTimeHtml(entry),
+        pageHeaderFullDate: CreateDateHtml(entry),
+        location: GetLocationString(entry),
         tagHtmls: entry.tags?.map(getTagHtml) || [],
     });
 }

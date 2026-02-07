@@ -1,12 +1,12 @@
-import { GetImageFilePath } from "../images";
+import { getImageFilePath } from "../images";
 import {
-    GetAttachmentMarkdown,
-    GetAttachmentText,
+    getAttachmentMarkdown,
+    getAttachmentText,
 } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
-import { GetAttachmentInfo } from "../attachments/info";
+import { getAttachmentInfo } from "../attachments/info";
 
-export function ProcessText(inputText: string, entry: DayOneEntry): string {
+export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
         .replace(
             // Add an extra return after every header line of any level.
@@ -135,9 +135,9 @@ export function ProcessText(inputText: string, entry: DayOneEntry): string {
             // to the actual relevant image.
             /!\[]\(dayone-moment:(.*?)\)/g,
             (_, match) => {
-                const attachmentInfo = GetAttachmentInfo(entry, match);
+                const attachmentInfo = getAttachmentInfo(entry, match);
                 if (attachmentInfo.type === "Photo") {
-                    const imageFilePath = GetImageFilePath(
+                    const imageFilePath = getImageFilePath(
                         entry,
                         match.replace("//", "")
                     );
@@ -146,7 +146,7 @@ export function ProcessText(inputText: string, entry: DayOneEntry): string {
 
                 // If it's not an image, or we couldn't find the image,
                 // default to this.
-                return GetAttachmentMarkdown(GetAttachmentText(attachmentInfo));
+                return getAttachmentMarkdown(getAttachmentText(attachmentInfo));
             }
         )
         .replace(

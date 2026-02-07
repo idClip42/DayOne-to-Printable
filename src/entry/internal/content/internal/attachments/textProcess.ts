@@ -1,7 +1,7 @@
 import { AttachInfo } from "./info";
 import config from "./config.json";
 
-export function GetAttachmentText(info: AttachInfo): string {
+export function getAttachmentText(info: AttachInfo): string {
     if (info.type === "Photo") {
         let value = `${info.type}: Missing ${info.data.type} '${info.data.identifier}'`;
         if (info.data.filename) value += ` ('${info.data.filename}')`;
@@ -18,7 +18,7 @@ export function GetAttachmentText(info: AttachInfo): string {
     }
 }
 
-export function GetAttachmentMarkdown(text: string): string {
+export function getAttachmentMarkdown(text: string): string {
     return `\n\n${config.attachmentTag} ${text}\n\n`;
 }
 

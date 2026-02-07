@@ -2,7 +2,7 @@ import { DayOneEntry } from "../../../types/DayOneEntry";
 
 const SKIP_COUNTRY = "United States";
 
-export function GetLocationString(entry: DayOneEntry): string {
+export function getLocationString(entry: DayOneEntry): string {
     const locParts = [
         entry.location?.placeName,
         entry.location?.localityName,

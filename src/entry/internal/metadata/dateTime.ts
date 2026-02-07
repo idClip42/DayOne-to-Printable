@@ -1,7 +1,7 @@
 import { DayOneEntry } from "../../../types/DayOneEntry";
 import { formatDate, formatDateTime } from "../../../date/format";
 
-function GetDayOfWeek(iso: string, timeZone: string): string {
+function getDayOfWeek(iso: string, timeZone: string): string {
     const d = new Date(iso);
     return d.toLocaleDateString("en-US", {
         timeZone,
@@ -9,7 +9,7 @@ function GetDayOfWeek(iso: string, timeZone: string): string {
     });
 }
 
-export function CreateDateHtml(entry: DayOneEntry): string {
+export function createDateHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDate(
         entry.creationDate,
         entry.location?.timeZoneName,
@@ -18,7 +18,7 @@ export function CreateDateHtml(entry: DayOneEntry): string {
     return formattedDateTime;
 }
 
-export function CreateDateTimeHtml(entry: DayOneEntry): string {
+export function createDateTimeHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDateTime(
         entry.creationDate,
         entry.location?.timeZoneName,
@@ -27,8 +27,8 @@ export function CreateDateTimeHtml(entry: DayOneEntry): string {
     return formattedDateTime;
 }
 
-export function CreateDayOfWeekHtml(entry: DayOneEntry): string {
-    const weekday = GetDayOfWeek(
+export function createDayOfWeekHtml(entry: DayOneEntry): string {
+    const weekday = getDayOfWeek(
         entry.creationDate,
         entry.location?.timeZoneName
     );

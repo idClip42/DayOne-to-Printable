@@ -1,12 +1,12 @@
 import type { DayOneEntry } from "../../types/DayOneEntry";
 import type { TagInfo } from "./TagInfo";
-import { NumberToHue } from "../../utilities/color";
+import { numberToHue } from "../../utilities/color";
 
 const MIN_ALPHA = 0.5;
 const SATURATION = 0.75;
 const BASE_LIGHTNESS = 0.5;
 
-export function ProcessTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
+export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     const tagCounter: Record<string, number> = {};
     for (const entry of entries) {
         if (!entry.tags) continue;
@@ -32,7 +32,7 @@ export function ProcessTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
 
     const augmentedTags = sortedTags.map((item, index) => {
         const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
-        const hue = NumberToHue(index, 0);
+        const hue = numberToHue(index, 0);
 
         // TODO: Clean up the mess you've made here. Simplify this.
 
