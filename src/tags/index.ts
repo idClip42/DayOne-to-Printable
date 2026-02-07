@@ -17,7 +17,7 @@ export function GetTagHtml(tag: string): string {
     if (!info) throw new Error(`Unrecognized tag: ${tag}`);
 
     const LOREM_IPSUM_TAGS = ["Lorem", "Ipsum", "Dolor", "Sit Amet"];
-    const text = CONFIG.CONTENT.CONTENT.LOREM_IPSUM_MODE
+    const text = CONFIG.CONTENT.OBFUSCATE
         ? LOREM_IPSUM_TAGS[info.count % LOREM_IPSUM_TAGS.length]
         : tag;
 

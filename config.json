@@ -9,13 +9,10 @@
         "STYLESHEET": "style.css"
     },
     "CONTENT": {
-        "CONTENT": {
-            "LOREM_IPSUM_MODE": false
-        },
+        "OBFUSCATE": false,
         "IMAGES": {
             "RUN_RESIZE": false,
-            "MAX_WIDTH": 600,
-            "ONLY_BORDERS": false
+            "MAX_WIDTH": 600
         }
     },
     "cover": {
