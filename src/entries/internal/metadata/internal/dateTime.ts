@@ -1,7 +1,14 @@
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { formatDate, formatDateTime } from "../../../../date/format";
-import { GetDayOfWeek } from "../../../../dateUtilities";
 import CONFIG from "./../../../../../config.json";
+
+function GetDayOfWeek(iso: string, timeZone: string): string {
+    const d = new Date(iso);
+    return d.toLocaleDateString("en-US", {
+        timeZone,
+        weekday: "long",
+    });
+}
 
 export function CreateDateHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDate(

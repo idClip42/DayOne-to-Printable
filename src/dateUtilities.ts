@@ -1,13 +1,5 @@
 import CONFIG from "./../config.json";
 
-export function GetDayOfWeek(iso: string, timeZone: string): string {
-    const d = new Date(iso);
-    return d.toLocaleDateString("en-US", {
-        timeZone,
-        weekday: "long",
-    });
-}
-
 interface DateConfig {
     iso: string;
     timeZone: string;
