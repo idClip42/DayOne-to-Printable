@@ -11,6 +11,8 @@
     box-sizing: border-box;
 }
 
+/* TODO: Organize this one too. */
+
 body {
     width: var(--total-width);
     height: var(--height);
