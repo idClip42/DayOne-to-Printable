@@ -1,4 +1,9 @@
+:root {
+    --front-back-width-in: calc((var(--total-width) - var(--spine-width)) / 2);
+}
+
 @page {
+    size: var(--total-width) var(--height);
     margin: 0;
 }
 
@@ -7,6 +12,9 @@
 }
 
 body {
+    width: var(--total-width);
+    height: var(--height);
+
     margin: 0;
     font-family:
         "Avenir",
@@ -20,6 +28,10 @@ body {
 }
 
 #cover {
+    grid-template-columns: var(--front-back-width-in) var(--spine-width) var(
+            --front-back-width-in
+        );
+
     display: grid;
     width: 100%;
     height: 100%;
@@ -40,6 +52,14 @@ section {
 
 /* Spine */
 .spine {
+    /* Bleed background outward into hinges */
+    margin-left: calc(-1 * var(--hinge-in));
+    margin-right: calc(-1 * var(--hinge-in));
+
+    /* Reclaim space so text stays centered */
+    padding-left: var(--hinge-in);
+    padding-right: var(--hinge-in);
+
     position: relative;
     background: #141d28;
     writing-mode: vertical-rl;
@@ -99,6 +119,10 @@ section {
 }
 
 .spine-accent {
+    left: var(--hinge-in);
+    width: calc(100% - (var(--hinge-in) * 2));
+    background: var(--spine-accent-color);
+
     position: absolute;
     bottom: calc(0.35in + 1.2in); /* volume offset + volume block height */
     height: 5pt;

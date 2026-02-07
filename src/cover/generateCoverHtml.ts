@@ -45,8 +45,6 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 
     const { totalWidthIn, heightIn, spineWidthIn, hingeIn } = cover.dimensions;
 
-    const frontBackWidthIn = (totalWidthIn - spineWidthIn) / 2;
-
     const { yearLine, monthLine } = formatCoverDate(start, end);
 
     const subtitle = cover.content.subtitle;
@@ -59,36 +57,15 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 <title>Journal Cover</title>
 
 <style>
+:root {
+  --total-width: ${totalWidthIn}in;
+  --height: ${heightIn}in;
+  --spine-width: ${spineWidthIn}in;
+  --hinge-in: ${hingeIn}in;
+  --spine-accent-color: ${GetYearAccentColor(start.getFullYear())};
+}
+
 ${stylesheet}
-
-@page {
-  size: ${totalWidthIn}in ${heightIn}in;
-}
-
-body {
-  width: ${totalWidthIn}in;
-  height: ${heightIn}in;
-}
-
-#cover {
-  grid-template-columns: ${frontBackWidthIn}in ${spineWidthIn}in ${frontBackWidthIn}in;
-}
-
-.spine {
-  /* Bleed background outward into hinges */
-  margin-left: -${hingeIn}in;
-  margin-right: -${hingeIn}in;
-
-  /* Reclaim space so text stays centered */
-  padding-left: ${hingeIn}in;
-  padding-right: ${hingeIn}in;
-}
-
-.spine-accent {
-  left: ${hingeIn};
-  width: calc(100% - ${hingeIn * 2}in);
-  background: ${GetYearAccentColor(start.getFullYear())};
-}
 </style>
 </head>
 
