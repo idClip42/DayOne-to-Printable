@@ -51,46 +51,8 @@
             "hingeIn": 0.25,
             "bleedIn": 0.125
         },
-        "typography": {
-            "fontFamily": "\"Avenir\", \"Avenir Next\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
-            "dateTypography": {
-                "year": {
-                    "fontSize": "60pt",
-                    "fontWeight": 600,
-                    "letterSpacing": "0em",
-                    "marginBottom": "0.2em"
-                },
-                "months": {
-                    "fontSize": "28pt",
-                    "fontWeight": 400,
-                    "letterSpacing": "0.06em",
-                    "marginBottom": "1.2em"
-                }
-            },
-            "authorTypography": {
-                "fontSize": "16pt",
-                "fontWeight": 400,
-                "letterSpacing": "0.08em"
-            },
-            "spineSize": {
-                "yearPt": 24,
-                "monthsPt": 20
-            },
-            "letterSpacingEm": 0.04,
-            "spineVolumeTypography": {
-                "labelSizePt": 8,
-                "numberSizePt": 18,
-                "letterSpacingEm": 0.08
-            }
-        },
-        "colors": {
-            "background": "#2b3a50",
-            "text": "#d4d8e0",
-            "accent": "#141d28"
-        },
         "content": {
-            "showSubtitle": false,
-            "subtitle": "Proof of Concept",
+            "subtitle": "",
             "volume": {
                 "number": 2
             }

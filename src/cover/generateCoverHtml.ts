@@ -69,9 +69,9 @@ body {
   margin: 0;
   width: ${totalWidthIn}in;
   height: ${heightIn}in;
-  font-family: ${cover.typography.fontFamily};
-  background: ${cover.colors.background};
-  color: ${cover.colors.text};
+  font-family: "Avenir", "Avenir Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #2b3a50;
+  color: #d4d8e0;
 }
 
 #cover {
@@ -91,16 +91,16 @@ section {
 
 /* Back cover */
 .back {
-  background: ${cover.colors.background};
+  background: #2b3a50;
 }
 
 /* Spine */
 .spine {
   position: relative;
-  background: ${cover.colors.accent};
+  background: #141d28;
   writing-mode: vertical-rl;
   text-align: center;
-  letter-spacing: ${cover.typography.letterSpacingEm}em;
+  letter-spacing: 0.04em;
 
   /* Bleed background outward into hinges */
   margin-left: -${hingeIn}in;
@@ -126,13 +126,13 @@ section {
 }
 
 .vol-label {
-  font-size: ${cover.typography.spineVolumeTypography.labelSizePt}pt;
-  letter-spacing: ${cover.typography.spineVolumeTypography.letterSpacingEm}em;
+  font-size: 8pt;
+  letter-spacing: 0.08em;
   opacity: 0.8;
 }
 
 .vol-number {
-  font-size: ${cover.typography.spineVolumeTypography.numberSizePt}pt;
+  font-size: 18pt;
   font-weight: 600;
 }
 
@@ -145,21 +145,21 @@ section {
 }
 
 .year {
-  font-size: ${cover.typography.dateTypography.year.fontSize};
-  font-weight: ${cover.typography.dateTypography.year.fontWeight};
-  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
-  margin-bottom: ${cover.typography.dateTypography.year.marginBottom};
+  font-size: 60pt;
+  font-weight: 600;
+  letter-spacing: 0em;
+  margin-bottom: 0.2em;
 }
 
 .year-spine {
-  font-size: ${cover.typography.spineSize.yearPt}pt;
-  font-weight: ${cover.typography.dateTypography.year.fontWeight};
-  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+  font-size: 24pt;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
 .month-spine {
-  font-size: ${cover.typography.spineSize.monthsPt}pt;
-  letter-spacing: ${cover.typography.dateTypography.year.letterSpacing};
+  font-size: 20pt;
+  letter-spacing: 0em;
 }
 
 .spine-accent {
@@ -172,16 +172,16 @@ section {
 }
 
 .months {
-  font-size: ${cover.typography.dateTypography.months.fontSize};
-  font-weight: ${cover.typography.dateTypography.months.fontWeight};
-  letter-spacing: ${cover.typography.dateTypography.months.letterSpacing};
-  margin-bottom: ${cover.typography.dateTypography.months.marginBottom};
+  font-size: 28pt;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.2em;
 }
 
 .author {
-  font-size: ${cover.typography.authorTypography.fontSize};
-  font-weight: ${cover.typography.authorTypography.fontWeight};
-  letter-spacing: ${cover.typography.authorTypography.letterSpacing};
+  font-size: 16pt;
+  font-weight: 400;
+  letter-spacing: 0.08em;
 }
 
 .front .subtitle {
@@ -216,7 +216,7 @@ section {
       <div class="year">${yearLine}</div>
       <div class="months">${monthLine}</div>
       <div class="author">${author}</div>
-      ${cover.content.showSubtitle ? `<div class="subtitle">${subtitle}</div>` : ""}
+      ${Boolean(cover.content.subtitle) ? `<div class="subtitle">${subtitle}</div>` : ""}
     </section>
   </div>
 </body>
