@@ -1,5 +1,4 @@
 import { DayOneEntry } from "../../../types/DayOneEntry";
-import { formatDate, formatDateTime } from "../../../date/format";
 
 function getDayOfWeek(iso: string, timeZone: string): string {
     const d = new Date(iso);
@@ -10,21 +9,40 @@ function getDayOfWeek(iso: string, timeZone: string): string {
 }
 
 export function createDateHtml(entry: DayOneEntry): string {
-    const formattedDateTime = formatDate(
-        entry.creationDate,
-        entry.location?.timeZoneName,
-        true
-    );
-    return formattedDateTime;
+    const date = new Date(entry.creationDate);
+    return date.toLocaleString("en-US", {
+        timeZone: entry.location?.timeZoneName,
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
 }
 
 export function createDateTimeHtml(entry: DayOneEntry): string {
-    const formattedDateTime = formatDateTime(
-        entry.creationDate,
-        entry.location?.timeZoneName,
-        false
+    const d = new Date(entry.creationDate);
+
+    const datePart = d.toLocaleDateString("en-US", {
+        timeZone: entry.location?.timeZoneName,
+        year: undefined,
+        month: "long",
+        day: "numeric",
+    });
+
+    let timePart = d.toLocaleTimeString("en-US", {
+        timeZone: entry.location?.timeZoneName,
+        hour: "numeric",
+        minute: "2-digit",
+    });
+    if (!timePart.endsWith("AM") && !timePart.endsWith("PM"))
+        throw new Error("Time string not ending as expected.");
+    // TODO: Is it worth moving this into a template because it's HTML?
+    timePart = timePart.replace(
+        /\s?(AM|PM)$/,
+        '<span class="am-pm"> $1</span>'
     );
-    return formattedDateTime;
+
+    return `${datePart} · ${timePart}`;
 }
 
 export function createDayOfWeekHtml(entry: DayOneEntry): string {
