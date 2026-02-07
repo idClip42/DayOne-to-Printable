@@ -171,23 +171,25 @@ blockquote {
 
 /* #region Entry Metadata */
 
-.entry-date {
-    font-size: 12pt;
-    margin: 0;
-}
-
 .entry-metadata {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff);
     border-radius: 0.25em 0.25em 0 0;
-}
 
-.entry-metadata {
     break-inside: avoid;
     page-break-inside: avoid;
     break-after: avoid;
     page-break-after: avoid;
 
     padding: 2px;
+}
+
+.entry-date {
+    font-size: 12pt;
+    margin: 0;
+}
+
+.entry-weekday {
+    display: inline-block;
 }
 
 .pre-date-time,
@@ -197,10 +199,6 @@ blockquote {
     margin: 0;
     font-style: italic;
     display: block;
-}
-
-.entry-weekday {
-    display: inline-block;
 }
 
 .am-pm {
@@ -237,17 +235,17 @@ blockquote {
 
 /* #region Entries */
 
-.entry-photo img {
-    width: 100%;
-    height: auto;
-}
-
 .entry {
     margin-bottom: 2em;
 }
 
 .entry-photo {
     text-align: center;
+}
+
+.entry-photo img {
+    width: 100%;
+    height: auto;
 }
 
 .attachment-block {
