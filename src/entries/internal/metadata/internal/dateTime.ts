@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../../types/DayOneEntry";
 import { formatDate, formatDateTime } from "../../../../date/format";
 import CONFIG from "./../../../../../config.json";
 

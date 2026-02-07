@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../types/DayOneEntry";
+import { DayOneEntry } from "../types/DayOneEntry";
 import CONFIG from "../../config.json";
 import { RenderInfoTable } from "../utilities/infoTable";
 import type { TagInfo } from "./internal/TagInfo";

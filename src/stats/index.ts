@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../types/DayOneEntry";
+import { DayOneEntry } from "../types/DayOneEntry";
 import { RenderInfoTable } from "../utilities/infoTable";
 import { unified } from "unified";
 import remarkParse from "remark-parse";

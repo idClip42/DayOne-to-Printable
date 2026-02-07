@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 import { ProcessHtmlImages } from "./internal/images";
 import CONFIG from "../../../../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";

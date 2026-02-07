@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 import { GetDateColor } from "../../../date/color";
 import { GetTagHtml } from "../../../tags";
 import { GetWeatherString } from "./internal/weather";

@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../types/DayOneEntry";
+import { DayOneEntry } from "../../types/DayOneEntry";
 import CONFIG from "../../../config.json";
 import path from "path";
 import { RESIZED_IMAGES_EXT } from "../../preprocess/resizeImages";

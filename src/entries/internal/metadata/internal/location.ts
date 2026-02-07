@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../../types/DayOneEntry";
 import CONFIG from "../../../../../config.json";
 
 export function GetLocationString(entry: DayOneEntry): string {

@@ -1,4 +1,4 @@
-import type { DayOneEntry } from "../../../types/DayOneEntry";
+import type { DayOneEntry } from "../../types/DayOneEntry";
 import type { TagInfo } from "./TagInfo";
 import CONFIG from "../../../config.json";
 import { NumberToHue } from "../../utilities/color";

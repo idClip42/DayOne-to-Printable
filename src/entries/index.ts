@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../types/DayOneEntry";
+import { DayOneEntry } from "../types/DayOneEntry";
 import { CreateMetadataHtml } from "./internal/metadata";
 import { CreateContentHtml } from "./internal/content";
 
