@@ -1,5 +1,12 @@
 import config from "../../config.json";
-import { GetYearAccentColor } from "../dateUtilities";
+import { NumberToHue } from "../utilities/color";
+
+function GetYearAccentColor(year: number): string {
+    /** cool-blue starting point */
+    const YEAR_ACCENT_START = 210;
+    const hue = NumberToHue(year, YEAR_ACCENT_START);
+    return `hsl(${hue}, 70%, 55%)`;
+}
 
 function formatCoverDate(startDate, endDate) {
     const start = new Date(startDate);
