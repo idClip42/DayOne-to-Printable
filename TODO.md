@@ -11,6 +11,7 @@
 - [x] Some things in `config.json` might be worth combining.
   - [x] Changing the text to lorem ipsum and making images invisible are part of the same process of obfuscation.
 - [ ] Is there a way to force `pagedjs` to error out or something if it screws up formatting?
+- [ ] I'm leaving TODOs around the code - find them and deal with them.
 
 ## Issues
 
@@ -28,6 +29,7 @@
 - [ ] What if we gave those single newline lines (which are treated as part of the `<p>` elements of the text above them) their own `<p>` elements?
   - [ ] Figure out how to distinguish between the two, and add a class that sets `top-margin: 0`.
   - [ ] This would let the column break on those as well, which would really help with avoiding big blank spaces.
+  - [ ] You'd probably do it the same way as attachments - see: `getAttachmentMarkdown()`
 - [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
   - [ ] We'd also want to do this with headers, right below date-time metadata.
 - [ ] Emojis don't make it through the Lulu upload process.

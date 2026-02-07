@@ -22,7 +22,6 @@ export function formatDateTime(
 
     const datePart = d.toLocaleDateString("en-US", {
         timeZone,
-        // weekday: 'long',
         year: includeYear ? "numeric" : undefined,
         month: "long",
         day: "numeric",

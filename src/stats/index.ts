@@ -12,7 +12,7 @@ type StatsCounter = {
     PDFs: number;
 };
 
-export function countMarkdownWords(markdown: string): number {
+function countMarkdownWords(markdown: string): number {
     const tree = unified().use(remarkParse).parse(markdown);
 
     let text = "";

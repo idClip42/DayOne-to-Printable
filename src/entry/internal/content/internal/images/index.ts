@@ -61,6 +61,7 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
     return "";
 }
 
+// TODO: Template!
 export function processHtmlImages(entry: DayOneEntry, html: string) {
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
         return `

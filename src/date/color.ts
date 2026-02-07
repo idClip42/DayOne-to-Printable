@@ -10,6 +10,7 @@ export function getDateColor(
         timeZone,
         month: "numeric",
     });
+
     const monthIndex = Number(month) - 1;
     if (isNaN(monthIndex) || monthIndex < 0)
         throw new Error(`Invalid month: '${month}'`);
@@ -27,6 +28,5 @@ export function getDateColorTestData() {
             color: getDateColor(d.toISOString(), "America/New_York", 0.75),
         };
     });
-
     return htmlDates;
 }
