@@ -4,7 +4,6 @@ import path from "path";
 import { DayOneEntry } from "./types/DayOneEntry";
 import CONFIG from "./config.json";
 import {
-    formatDate,
     GetDateColor,
     GetDateColorTestHtml,
     isSameLocalDay,
@@ -14,6 +13,7 @@ import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
 import { generateCoverHtml } from "./src/cover/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/counter";
+import { formatDate } from "./src/date/format";
 
 const stylesheet = fs.readFileSync("style.css");
 
