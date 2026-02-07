@@ -47,8 +47,8 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 
     const { yearLine, monthLine } = formatCoverDate(start, end);
 
+    const author = cover.content.author;
     const subtitle = cover.content.subtitle;
-    const author = "Alex Earley";
 
     return `<!DOCTYPE html>
 <html lang="en">
