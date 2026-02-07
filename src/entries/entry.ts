@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
-import { CreateMetadataHtml } from "./entryMeta";
+import { CreateMetadataHtml } from "./metadata/entryMeta";
 import { CreateContentHtml } from "./content/content";
 
 export function convertEntryToHTML(entry: DayOneEntry): string {
