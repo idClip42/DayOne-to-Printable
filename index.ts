@@ -4,7 +4,7 @@ import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
 import { ResizeImages } from "./src/preprocess/resizeImages";
 import { InitializeTags } from "./src/tags";
-import { generateCoverHtml } from "./src/cover/generateCoverHtml";
+import { generateCoverHtml } from "./src/cover";
 import { BuildFullHtml } from "./src/pages";
 
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
