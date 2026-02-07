@@ -2,9 +2,9 @@ import type { DayOneEntry } from "../../types/DayOneEntry";
 import type { TagInfo } from "./TagInfo";
 import { numberToHue } from "../../utilities/color";
 
-const MIN_ALPHA = 0.5;
 const SATURATION = 0.75;
-const BASE_LIGHTNESS = 0.5;
+const MIN_LIGHTNESS = 0.5;
+const MAX_LIGHTNESS = 0.75;
 
 export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     const sortedTags = sortTags(countUpTags(entries));
@@ -12,27 +12,18 @@ export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     const MAX_TAGS = sortedTags[sortedTags.length - 1].count;
 
     const augmentedTags = sortedTags.map((item, index) => {
-        const perc = (item.count - MIN_TAGS) / (MAX_TAGS - MIN_TAGS);
         const hue = numberToHue(index, 0);
-
-        // TODO: Clean up the mess you've made here. Simplify this.
-
-        // We're adjusting the lightness instead of setting an alpha
-        // in order to try and eliminate any transparency.
-        const lightnessAdjusted = (() => {
-            const baseLightness = BASE_LIGHTNESS;
-            const maxLightness =
-                baseLightness + (1 - baseLightness) * MIN_ALPHA;
-            const a = baseLightness;
-            const b = maxLightness;
-            const alpha = 1 - perc;
-            return a + alpha * (b - a);
-        })();
-
-        const color = `hsl(${hue},${SATURATION * 100}%,${lightnessAdjusted * 100}%)`;
+        const sat = SATURATION * 100;
+        const value =
+            lerp(
+                MIN_LIGHTNESS,
+                MAX_LIGHTNESS,
+                inverseLerp(MAX_TAGS, MIN_TAGS, item.count)
+            ) * 100;
+        const color = `hsl(${hue},${sat}%,${value}%)`;
         return {
-            ...item,
-            percentage: perc,
+            tag: item.tag,
+            count: item.count,
             color: color,
         };
     });
@@ -65,4 +56,12 @@ function sortTags(tagCounter: ReturnType<typeof countUpTags>) {
         })
         .sort((a, b) => a.count - b.count);
     return sortedTags;
+}
+
+function lerp(a: number, b: number, t: number) {
+    return a + (b - a) * t;
+}
+
+function inverseLerp(a: number, b: number, value: number) {
+    return (value - a) / (b - a);
 }
