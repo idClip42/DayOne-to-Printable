@@ -1,7 +1,7 @@
-import { DayOneEntry } from "../../../../../types/DayOneEntry";
-import CONFIG from "../../../../../config.json";
+import { DayOneEntry } from "../../../../../../types/DayOneEntry";
+import CONFIG from "../../../../../../config.json";
 import path from "path";
-import { RESIZED_IMAGES_EXT } from "../../../../resizeImages";
+import { RESIZED_IMAGES_EXT } from "../../../../../resizeImages";
 import fs from "fs";
 
 const divStyle = CONFIG.ENTRIES.IMAGES.ONLY_BORDERS

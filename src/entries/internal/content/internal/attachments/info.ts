@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../../../../types/DayOneEntry";
 
 type AttachPhoto = { type: "Photo"; data: DayOneEntry["photos"][number] };
 type AttachVideo = { type: "Video"; data: DayOneEntry["videos"][number] };

@@ -1,9 +1,9 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
+import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import {
     formatDate,
     formatDateTime,
     GetDayOfWeek,
-} from "../../../dateUtilities";
+} from "../../../../dateUtilities";
 
 export function CreateDateHtml(entry: DayOneEntry): string {
     const formattedDateTime = formatDate(

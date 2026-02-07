@@ -1,5 +1,5 @@
-import { DayOneEntry } from "../../../../types/DayOneEntry";
-import CONFIG from "../../../../config.json";
+import { DayOneEntry } from "../../../../../types/DayOneEntry";
+import CONFIG from "../../../../../config.json";
 
 export function GetLocationString(entry: DayOneEntry): string {
     const locParts = [
