@@ -30,6 +30,13 @@ I’ve successfully printed:
 * A paperback proof‑of‑concept
 * Multiple hardcover volumes with different page counts (which are currently at the printer and *should* be fine)
 
+The produced print journal is:
+
+* 8.5" x 11"
+* 3 columns per page
+  
+The layout and print choices throughout this process prioritize maximum readable content per volume, while still aiming for a readable and aesthetically pleasing result.
+
 ---
 
 ## Initial project setup
@@ -55,6 +62,7 @@ Notes:
 
 * Use the **DayOne mobile app**. This produces the most reliable exports.
 * Export the date range you want **as JSON**.
+  * Personally, thus far I've found that **4 months** is the magic number for each volume. It tends to land between 600 and 800 pages and divides cleanly into the calendar year.
 * Make sure you enable exporting **all media**.
   * And make sure to download it all before exporting.
 * Transfer the resulting `.zip` file to your computer.
@@ -203,7 +211,7 @@ If you see empty columns:
 
 This happens often enough that you should *always* check before moving on.
 
-(If expected text content or images are missing, we've got bigger problems and need to investigate the image processing and pagejs text layout.)
+(If expected text content or images are missing, we've got bigger problems and need to investigate the image processing and pagedjs text layout.)
 
 ---
 
@@ -218,7 +226,7 @@ Important:
 * **Do not** export as PDF/A
 * **Do not** optimize for screen
 
-This step exists to make Lulu accept the file without vague, unhelpful errors.
+This step exists solely to make Lulu accept the file without vague, unhelpful errors.
 It likely flattens or embeds things slightly differently.
 
 Even after this, Lulu may still warn about transparency. I believe this is an artifact of HTML → PDF conversion and can be safely ignored.
