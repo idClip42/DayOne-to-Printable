@@ -1,5 +1,5 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
-import { RenderInfoTable } from "./infoTable";
+import { RenderInfoTable } from "../utilities/infoTable";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
