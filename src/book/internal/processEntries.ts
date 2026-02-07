@@ -2,8 +2,12 @@ import { DayOneEntry } from "../../types/DayOneEntry";
 import { isSameLocalDay } from "../../date/compare";
 import { convertEntryToHTML } from "../../entry";
 import { makeNewDayElement } from "./newDay";
+import { TagsLibrary } from "../../tags";
 
-export function processEntries(entries: DayOneEntry[]): string[] {
+export function processEntries(
+    entries: DayOneEntry[],
+    tagsLibrary: TagsLibrary
+): string[] {
     const entriesHtml: string[] = [];
     for (const e in entries) {
         const entryIndex = Number(e);
@@ -21,7 +25,7 @@ export function processEntries(entries: DayOneEntry[]): string[] {
             entriesHtml.push(makeNewDayElement(entry));
         }
 
-        const entryHtml = convertEntryToHTML(entry);
+        const entryHtml = convertEntryToHTML(entry, tagsLibrary);
         entriesHtml.push(entryHtml);
     }
     return entriesHtml;

@@ -3,7 +3,7 @@ import path from "path";
 import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
 import { resizeImages } from "./src/preprocess/resizeImages";
-import { initializeStaticTags } from "./src/tags";
+import { TagsLibrary } from "./src/tags";
 import { generateCoverHtml } from "./src/cover";
 import { buildFullHtml } from "./src/book";
 
@@ -26,8 +26,8 @@ const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
-initializeStaticTags(entries);
-const fullHTML = buildFullHtml(entries, stylesheet);
+const tagsLibrary = new TagsLibrary(entries);
+const fullHTML = buildFullHtml(entries, tagsLibrary, stylesheet);
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);

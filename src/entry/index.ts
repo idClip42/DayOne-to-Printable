@@ -10,11 +10,14 @@ import {
 } from "./internal/metadata/dateTime";
 import { getWeatherString } from "./internal/metadata/weather";
 import { getLocationString } from "./internal/metadata/location";
-import { getTagHtml } from "../tags";
+import type { TagsLibrary } from "../tags";
 
 const TEMPLATE_PATH = "src/templates/entry.hbs";
 
-export function convertEntryToHTML(entry: DayOneEntry): string {
+export function convertEntryToHTML(
+    entry: DayOneEntry,
+    tagsLibrary: TagsLibrary
+): string {
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
         contentHtml: createContentHtml(entry),
         monthColor: getDateColor(
@@ -27,6 +30,6 @@ export function convertEntryToHTML(entry: DayOneEntry): string {
         dateTime: createDateTimeHtml(entry),
         pageHeaderFullDate: createDateHtml(entry),
         location: getLocationString(entry),
-        tagHtmls: entry.tags?.map(getTagHtml) || [],
+        tagHtmls: entry.tags?.map(t => tagsLibrary.getTagHtml(t)) || [],
     });
 }

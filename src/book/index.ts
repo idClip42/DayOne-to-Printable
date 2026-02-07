@@ -1,6 +1,6 @@
 import { getDateColorTestData } from "../date/color";
 import { getEntriesStats } from "../stats";
-import { getOrderedStaticTagsInfo } from "../tags";
+import type { TagsLibrary } from "../tags";
 import { InteriorTemplateVars } from "../templates/interior.hbs";
 import { DayOneEntry } from "../types/DayOneEntry";
 import { renderTemplate } from "../utilities/template";
@@ -10,6 +10,7 @@ const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 
 export function buildFullHtml(
     entries: DayOneEntry[],
+    tagsLibrary: TagsLibrary,
     styleCss: string
 ): string {
     const fullHtml = renderTemplate<InteriorTemplateVars>(
@@ -24,11 +25,11 @@ export function buildFullHtml(
                 label: d.name,
                 value: d.value.toLocaleString(),
             })),
-            tagStats: getOrderedStaticTagsInfo().map(t => ({
+            tagStats: tagsLibrary.getOrderedTagsInfo().map(t => ({
                 label: t.html,
                 value: t.count.toLocaleString(),
             })),
-            entriesHtml: processEntries(entries),
+            entriesHtml: processEntries(entries, tagsLibrary),
         }
     );
 
