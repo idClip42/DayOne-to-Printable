@@ -9,10 +9,10 @@ import {
     GetDateColorTestHtml,
     isSameLocalDay,
 } from "./src/dateUtilities";
-import { convertEntryToHTML } from "./src/handleEntry";
+import { convertEntryToHTML } from "./src/entries/handleEntry";
 import { ResizeImages } from "./src/resizeImages";
 import { GetTagsListHtml, InitializeTags } from "./src/organizeTags";
-import { generateCoverHtml } from "./src/generateCoverHtml";
+import { generateCoverHtml } from "./src/cover/generateCoverHtml";
 import { GetEntriesStatsHtml } from "./src/counter";
 
 const stylesheet = fs.readFileSync("style.css");

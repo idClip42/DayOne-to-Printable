@@ -1,7 +1,7 @@
 import { marked } from "marked";
-import { DayOneEntry } from "../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 import { GetImageFilePath, ProcessHtmlImages } from "./handleEntryContentImage";
-import CONFIG from "./../config.json";
+import CONFIG from "../../../config.json";
 import { ReplaceHtmlTextWithLoremIpsum } from "./loremIpsumReplacer";
 import {
     GetAttachmentInfo,

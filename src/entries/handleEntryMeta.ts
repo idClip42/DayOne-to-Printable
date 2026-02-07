@@ -1,12 +1,12 @@
-import { DayOneEntry } from "../types/DayOneEntry";
+import { DayOneEntry } from "../../types/DayOneEntry";
 import {
     formatDate,
     formatDateTime,
     GetDateColor,
     GetDayOfWeek,
-} from "./dateUtilities";
-import { GetTagHtml } from "./organizeTags";
-import CONFIG from "./../config.json";
+} from "./../dateUtilities";
+import { GetTagHtml } from "./../organizeTags";
+import CONFIG from "./../../config.json";
 
 function celsiusToFahrenheit(c: number) {
     return Math.round((c * 9) / 5 + 32);

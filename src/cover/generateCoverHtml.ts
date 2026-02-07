@@ -1,5 +1,5 @@
-import config from "../config.json";
-import { GetYearAccentColor } from "./dateUtilities";
+import config from "../../config.json";
+import { GetYearAccentColor } from "../dateUtilities";
 
 function formatCoverDate(startDate, endDate) {
     const start = new Date(startDate);

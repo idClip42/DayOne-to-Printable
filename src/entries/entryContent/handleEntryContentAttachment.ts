@@ -1,4 +1,4 @@
-import { DayOneEntry } from "../types/DayOneEntry";
+import { DayOneEntry } from "../../../types/DayOneEntry";
 
 const ATTACHMENT_TAG = "THIS_IS_AN_ATTACHMENT";
 
