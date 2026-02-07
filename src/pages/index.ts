@@ -1,10 +1,14 @@
-import { GetDateColor, GetDateColorTestHtml } from "../date/color";
+import { GetDateColor, GetDateColorTestData } from "../date/color";
 import { isSameLocalDay } from "../date/compare";
 import { formatDate } from "../date/format";
 import { convertEntryToHTML } from "../entries";
-import { GetEntriesStatsHtml } from "../stats";
-import { GetTagsListHtml } from "../tags";
+import { GetEntriesStats } from "../stats";
+import { GetOrderedStaticTagsInfo } from "../tags";
+import { InteriorTemplateVars } from "../templates/interior.hbs";
 import { DayOneEntry } from "../types/DayOneEntry";
+import { renderTemplate } from "../utilities/template";
+
+const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 
 export function BuildFullHtml(
     entries: DayOneEntry[],
@@ -58,31 +62,25 @@ export function BuildFullHtml(
         entriesHtml.push(entryHtml);
     }
 
-    const fullHTML = `
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Journal Export</title>
-    
-            <style>
-                ${styleCss}
-            </style>
-    
-            <!-- Bringing in "pagedjs" package -->
-            <script src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
-        </head>
-        <body>
-            <div style="display: none">${GetDateColorTestHtml()}</div>
-    
-            ${GetEntriesStatsHtml(entries)}
-            ${GetTagsListHtml()}    
-            <div id="entries">
-                ${entriesHtml.join("\n")}
-            </div>
-        </body>
-    </html>
-    `.trim();
+    const fullHtml = renderTemplate<InteriorTemplateVars>(
+        INTERIOR_TEMPLATE_PATH,
+        {
+            style: styleCss,
+            colorTestDates: GetDateColorTestData().map(d => ({
+                date: d.dateText,
+                color: d.color,
+            })),
+            stats: GetEntriesStats(entries).map(d => ({
+                label: d.name,
+                value: d.value.toLocaleString(),
+            })),
+            tagStats: GetOrderedStaticTagsInfo().map(t => ({
+                label: t.html,
+                value: t.count.toLocaleString(),
+            })),
+            entriesHtml: entriesHtml,
+        }
+    );
 
-    return fullHTML;
+    return fullHtml;
 }

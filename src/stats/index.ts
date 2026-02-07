@@ -1,10 +1,9 @@
 import { DayOneEntry } from "../types/DayOneEntry";
-import { RenderInfoTable } from "../utilities/infoTable";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
 
-type Counter = {
+type StatsCounter = {
     Entries: number;
     Words: number;
     Images: number;
@@ -25,7 +24,7 @@ export function countMarkdownWords(markdown: string): number {
     return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-function CountEntryContents(entry: DayOneEntry): Counter {
+function CountEntryContents(entry: DayOneEntry): StatsCounter {
     return {
         Entries: 1,
         Words: countMarkdownWords(entry.text),
@@ -36,8 +35,8 @@ function CountEntryContents(entry: DayOneEntry): Counter {
     };
 }
 
-function SumUpEntryContents(data: Counter[]): Counter {
-    return data.reduce<Counter>(
+function SumUpEntryContents(data: StatsCounter[]): StatsCounter {
+    return data.reduce<StatsCounter>(
         (accumulator, nextVal) => {
             for (const key in accumulator) accumulator[key] += nextVal[key];
             return accumulator;
@@ -53,17 +52,10 @@ function SumUpEntryContents(data: Counter[]): Counter {
     );
 }
 
-export function GetEntriesStatsHtml(entries: DayOneEntry[]): string {
+export function GetEntriesStats(entries: DayOneEntry[]) {
     const stats = SumUpEntryContents(entries.map(CountEntryContents));
-
-    const fullHTML = `
-<div id="stats-index" class="stats-group">
-    <h2>
-        Stats
-    </h2>
-    ${RenderInfoTable(stats)}
-</div>
-    `.trim();
-
-    return fullHTML;
+    return Object.keys(stats).map(statName => ({
+        name: statName,
+        value: stats[statName],
+    }));
 }

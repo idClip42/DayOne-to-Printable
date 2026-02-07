@@ -18,15 +18,15 @@ export function GetDateColor(
     return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 
-export function GetDateColorTestHtml(): string {
+export function GetDateColorTestData() {
     const htmlDates = config.testDates.map(dStr => {
         const d = new Date(dStr);
-        return `
-<div style="background-color: ${GetDateColor(d.toISOString(), "America/New_York", 0.75)}">
-    ${dStr}
-</div>
-        `.trim();
+        return {
+            date: d,
+            dateText: dStr,
+            color: GetDateColor(d.toISOString(), "America/New_York", 0.75),
+        };
     });
 
-    return htmlDates.join("\n");
+    return htmlDates;
 }

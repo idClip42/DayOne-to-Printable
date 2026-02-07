@@ -269,7 +269,7 @@ tr:nth-child(even) {
     background-color: lightgray;
 }
 
-#info-table {
+.info-table {
     font-size: 1em;
 }
 
@@ -281,7 +281,7 @@ tr:nth-child(even) {
     text-align: right;
 }
 
-#info-table tr:nth-child(even) {
+.info-table tr:nth-child(even) {
     background-color: initial;
 }
 

@@ -3,7 +3,7 @@ import path from "path";
 import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
 import { ResizeImages } from "./src/preprocess/resizeImages";
-import { InitializeTags } from "./src/tags";
+import { InitializeStaticTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover";
 import { BuildFullHtml } from "./src/pages";
 
@@ -26,7 +26,7 @@ const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
-InitializeTags(entries);
+InitializeStaticTags(entries);
 const fullHTML = BuildFullHtml(entries, stylesheet);
 
 fs.writeFileSync(outputPath, fullHTML);
