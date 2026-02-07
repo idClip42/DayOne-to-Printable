@@ -7,26 +7,7 @@ const SATURATION = 0.75;
 const BASE_LIGHTNESS = 0.5;
 
 export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
-    const tagCounter: Record<string, number> = {};
-    for (const entry of entries) {
-        if (!entry.tags) continue;
-        for (const tag of entry.tags) {
-            if (tagCounter.hasOwnProperty(tag)) {
-                tagCounter[tag]++;
-            } else {
-                tagCounter[tag] = 1;
-            }
-        }
-    }
-
-    const sortedTags = Object.keys(tagCounter)
-        .map(key => {
-            return {
-                tag: key,
-                count: tagCounter[key],
-            };
-        })
-        .sort((a, b) => a.count - b.count);
+    const sortedTags = sortTags(countUpTags(entries));
     const MIN_TAGS = sortedTags[0].count;
     const MAX_TAGS = sortedTags[sortedTags.length - 1].count;
 
@@ -57,4 +38,31 @@ export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     });
 
     return augmentedTags;
+}
+
+function countUpTags(entries: ReadonlyArray<DayOneEntry>) {
+    const tagCounter: Record<string, number> = {};
+    for (const entry of entries) {
+        if (!entry.tags) continue;
+        for (const tag of entry.tags) {
+            if (tagCounter.hasOwnProperty(tag)) {
+                tagCounter[tag]++;
+            } else {
+                tagCounter[tag] = 1;
+            }
+        }
+    }
+    return tagCounter;
+}
+
+function sortTags(tagCounter: ReturnType<typeof countUpTags>) {
+    const sortedTags = Object.keys(tagCounter)
+        .map(key => {
+            return {
+                tag: key,
+                count: tagCounter[key],
+            };
+        })
+        .sort((a, b) => a.count - b.count);
+    return sortedTags;
 }
