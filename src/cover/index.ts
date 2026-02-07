@@ -18,15 +18,18 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
     const { yearLine, monthLine } = formatCoverDate(start, end);
     const cssVars = generateCssVars(start.getFullYear());
 
-    return renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
-        css: {
-            vars: cssVars,
-            style: stylesheet,
-        },
-        yearText: yearLine,
-        monthText: monthLine,
-        volumeNumber: cover.content.volume,
-        author: cover.content.author,
-        subtitle: cover.content.subtitle,
-    });
+    return (
+        "<!DOCTYPE html>\n" +
+        renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
+            css: {
+                vars: cssVars,
+                style: stylesheet,
+            },
+            yearText: yearLine,
+            monthText: monthLine,
+            volumeNumber: cover.content.volume,
+            author: cover.content.author,
+            subtitle: cover.content.subtitle,
+        })
+    );
 }

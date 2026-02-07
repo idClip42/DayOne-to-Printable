@@ -13,9 +13,9 @@ export function buildFullHtml(
     tagsLibrary: TagsLibrary,
     styleCss: string
 ): string {
-    const fullHtml = renderTemplate<InteriorTemplateVars>(
-        INTERIOR_TEMPLATE_PATH,
-        {
+    const fullHtml =
+        "<!DOCTYPE html>\n" +
+        renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
             style: styleCss,
             colorTestDates: getDateColorTestData().map(d => ({
                 date: d.dateText,
@@ -30,8 +30,7 @@ export function buildFullHtml(
                 value: t.count.toLocaleString(),
             })),
             entriesHtml: processEntries(entries, tagsLibrary),
-        }
-    );
+        });
 
     return fullHtml;
 }
