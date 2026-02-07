@@ -19,87 +19,54 @@
     @page :left {
         margin-right: 1.25in;
     }
-
-    #entries,
-    #first-page {
-        column-count: 3;
-        column-gap: auto;
-        column-fill: auto;
-    }
-
-    .entry-photo img {
-        width: 100%;
-        height: auto;
-    }
-
-    /* img {
-        width: 100%;
-        height: auto;
-    } */
-
-    /* ul {
-        width: 100%;
-    } */
-    /* ul img {
-        width: 100%;
-    } */
-
-    .new-day {
-        /* background: linear-gradient(to right, #e6f2ff, #ffffff); */
-        /* padding: 0.5em 1em; */
-        /* margin-bottom: 0.5em; */
-        /* border-radius: 0.5em 0.5em; */
-
-        display: block;
-        /* break-before: page; */
-        /* page-break-before: always; */
-        /* background-color: yellow; */
-        page-break-after: avoid;
-        page-break-before: auto;
-
-        padding: 9px 2px 9px 2px;
-        margin-bottom: 0.5em;
-        text-align: center;
-        font-size: 1em;
-        letter-spacing: 0.05em;
-
-        break-after: avoid-column;
-        /* page-break-after: avoid; */
-        break-inside: avoid-column;
-    }
-
-    .entry-metadata {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        /* break-after: avoid; */
-        break-after: avoid;
-        page-break-after: avoid;
-
-        padding: 2px;
-    }
-
-    .stats-group {
-        break-inside: avoid;
-    }
-
-    #entries {
-        break-before: always;
-    }
-
-    #first-page {
-        break-after: always;
-    }
 }
 
-@media screen {
-    .entry-photo img {
-        width: 300px;
-        height: auto;
-    }
-    /* img {
-        width: 300px;
-        height: auto;
-    } */
+#entries,
+#first-page {
+    column-count: 3;
+    column-gap: auto;
+    column-fill: auto;
+}
+
+.entry-photo img {
+    width: 100%;
+    height: auto;
+}
+
+.new-day {
+    display: block;
+    page-break-after: avoid;
+    page-break-before: auto;
+
+    padding: 9px 2px 9px 2px;
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+
+    break-after: avoid-column;
+    break-inside: avoid-column;
+}
+
+.entry-metadata {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    break-after: avoid;
+    page-break-after: avoid;
+
+    padding: 2px;
+}
+
+.stats-group {
+    break-inside: avoid;
+}
+
+#entries {
+    break-before: always;
+}
+
+#first-page {
+    break-after: always;
 }
 
 body {
@@ -119,23 +86,16 @@ body {
 
 .entry {
     margin-bottom: 2em;
-    /* break-inside: avoid;  */ /* This wastes a lot of space */
 }
 
 .entry-date {
-    /* margin-bottom: 0.2em; */
     font-size: 12pt;
     margin: 0;
 }
 
-.entry-content {
-    /* padding: 0.25em 1em; */
-}
-
 .entry-metadata {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff);
-    /* padding: 0.25em 1em; */
-    border-radius: 0.25em 0.25em 0 0; /* Optional: softens the top */
+    border-radius: 0.25em 0.25em 0 0;
 }
 
 .pre-date-time,
@@ -155,20 +115,6 @@ body {
     float: right;
 }
 
-/* .entry-weekday {
-    color: #555;
-    font-size: 0.8em;
-    margin: 0;
-    font-style: italic;
-}
-
-.entry-location {
-    color: #555;
-    font-size: 0.8em;
-    margin: 0;
-    font-style: italic;
-} */
-
 .entry-tags {
     color: #555;
     font-size: 8pt;
@@ -177,18 +123,7 @@ body {
 
 .entry-photo {
     text-align: center;
-    /* break-inside: avoid; */
-    /* page-break-inside: avoid; */
 }
-
-/* img {
-    margin: 5px auto;
-    text-align: center;
-    break-inside: avoid;
-    page-break-inside: avoid;
-
-    display: block;
-} */
 
 .tag-item {
     padding: 1px 3px;
@@ -257,13 +192,16 @@ ol {
     padding-left: 15px;
 }
 
+li {
+    break-inside: avoid;
+}
+
 pre,
 code {
     /* Allows wrapping of text */
     white-space: pre-wrap;
     /* Breaks long words to fit within the container */
     word-wrap: break-word;
-    /* overflow-x: hidden; */
     font-size: 8pt;
     line-height: 1.2;
     background-color: lightgray;
@@ -306,8 +244,8 @@ blockquote {
 
 .am-pm {
     font-size: 0.6em;
-    vertical-align: baseline; /* or tweak as needed */
-    letter-spacing: 0.02em; /* optional for breathing room */
+    vertical-align: baseline;
+    letter-spacing: 0.02em;
 }
 
 .hidden-date {
