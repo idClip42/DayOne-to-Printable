@@ -1,126 +1,308 @@
 # DayOne-to-Printable
 
-This Node application converts raw JSON data from DayOne journals into an HTML page formatted like a book, which can then be saved as a PDF and uploaded to [Lulu](https://www.lulu.com) publishing.
+This Node-based project converts raw JSON exports from DayOne into a book‑formatted HTML document, which you then print to PDF and upload to Lulu for physical printing.
 
-TODO: Once we've gotten enough precise detail, let the robot do a pass.
+This README is written primarily for **future me** (hi 👋), but also for anyone else who journals in DayOne and decides they want a sane, repeatable way to turn years of journaling into real, hold‑in‑your‑hands books.
 
-## Initial Project Setup
+Assumptions:
 
-- Clone the repo.
-- Run `npm install` in the root to install all dependencies.
+* You’re comfortable with Node, npm, and the command line.
+* You’re on **macOS**. (Other platforms could work, but PDF handling will likely differ.)
+* You are patient. This pipeline works, but parts of it are slow and a little fragile.
 
-## DayOne Export
+This is both a **reproducible pipeline** *and* a **battle‑tested guide**. Some steps exist not because they’re elegant, but because Lulu is extremely picky and opaque about PDFs.
 
-- Use the DayOne mobile app - this gives the best, most reliable export.
-- In the app, export the range of days you want in the JSON format. Be sure to download all media being exported.
-- Send the resulting `.zip` file to your computer.
-- Unzip, and add the contents to the `input` folder in this project.
+---
 
-## Configuration
+## What this project does
 
-- Open `config.json`.
-- Configure the system for your journal:
-  - `"files"`
-    - `"input"`
-      - `"directory"`: The directory where all your exported and unzipped journal data is.
-        - This will likely either be `"input"`, if you've unzipped directly into it, or `"input/your-unzipped-folder"`, if you're keeping multiple exports in the `input` folder.
-      - `"dataFile"`: The JSON file in the directory that holds all your journal content.
-        - This will likely be `"Journal.json"`, as that is DayOne's default.
-      - `"photosDirectory"`: The folder in the directory that holds all the exported photos from the journal.
-        - This will likely be `"photos"`, as that is DayOne's default.
-  - `"content"`
-    - `"obfuscated"`: Set this to `true` if you want to export a preview version of your journal where all text is replaced with placeholder "Lorem Ipsum" and all images are replaced by empty boxes of the correct dimensions.
-    - `"images"`
-      - `"runResize"`: Creates optimized versions of the input images, which will be used in the final journal.
-        - If this is your first time, set `content.images.runResize` to `true`.
-          - This only needs to happen once, so once you've run this, set it back to false.
-  - `"cover"`
-    - `"content"`
-      - `"author"`: Your name goes here.
-      - `"subtitle"`: If you want your journal cover to include a subtitle, add it here.
-      - `"volume"`: Set the volume number of the printed journal you're making here.
-    - `"dimensions"`: You will set these values later in the export process.
-  - Everything else you can ignore.
+* Takes a DayOne JSON export (plus media)
+* Normalizes and cleans the content
+* Lays it out as a multi‑column, book‑formatted HTML document using pagedjs
+* Generates:
 
-## Running the Renderer
+  * `journal.html` (interior pages)
+  * `cover.html` (full wrap hardcover)
+* Lets you print both to PDF and upload them to Lulu
 
-- Run `npm start` to run the image resize (if enabled) and the final HTML render.
-- Once it's done, there will be a new `journal.html` in your `output` folder.
+I’ve successfully printed:
 
-## The HTML
+* A paperback proof‑of‑concept
+* Multiple hardcover volumes with different page counts
 
-- Open `journal.html` in Google Chrome.
-- **NOTE: Google Chrome is the only browser I've successfully tested in. Safari does not work properly.**.
-- Let it load.
-  - It will slowly, page by page, construct the journal.
-  - Wait until the very last page is visible at the bottom and the vertical size of the page stops growing.
-- Print to PDF using the web page print dialog.
+Two more hardcover volumes are currently at the printer and *should* be fine.
 
-## The Initial PDF
+---
 
-- Review the PDF in Preview.
-  - (This README assumes you're using Mac.)
-- If there are any unexpected gaps - that is, if there are any completely empty columns anywhere - something screwed up with the `pagedjs` HTML render.
-  - Refresh the HTML page, let it build again, print to PDF again, and check if the issue is fixed.
+## Initial project setup
 
-## The Second PDF
+* Clone the repository.
+* Run:
 
-- Once you're satisfied with your initial PDF, use Preview to "Export" to a new PDF - this will be your final version.
-  - Do not export as PDF/A — standard PDF is safer for print; PDF/A is for archival and can interfere with gradients, layers, or transparencies.
-  - Do not optimize images for screen — keep full-resolution images for print quality.
+```bash
+npm install
+```
 
-## Uploading to Lulu, Part 1
+The repo includes a default `config.json`.
 
-- Create your new book project
-- Upload the second and final PDF
-  - This should give you no trouble. Hopefully.
-- Set up your book.
-  - 8.5" x 11"
-  - Standard Color
-    - Required due to images; sufficient quality for documentary photos and diagrams without excessive cost or ink density.
-  - #60 White Uncoated Paper
-    - Best balance of readability, image contrast, spine thickness, and long-term durability at high page counts.
-  - Hardcover Case Wrap
-  - Matte Cover
-    - Ages well, minimizes glare and fingerprints, suits archival/reference use.
-    - Better for readability, fewer glare issues, more “book-like”.
-  - AVOID
-    - Premium Color: Unnecessary cost and ink density for mostly-text journals
-    - Coated paper: Excess thickness, glare, and binding stress at ~600 pages
-    - Cream paper: Reduced contrast for images in multi-column layouts
-- Examine the "Cover" section
-  - Note:
-    - The width (in inches)
-    - The height (in inches)
-    - The spine width (in inches)
+Notes:
+
+* `input/` is **gitignored**. You must create it yourself.
+* `output/` is **gitignored** and will be created automatically.
+* The size of this repo is dominated by input media. It is normal for `input/` to be several gigabytes.
+
+---
+
+## Exporting from DayOne
+
+* Use the **DayOne mobile app**. This produces the most reliable exports.
+* Export the date range you want **as JSON**.
+* Make sure you enable exporting **all media**.
+* Transfer the resulting `.zip` file to your computer.
+* Unzip it.
+* Place the unzipped contents inside the project’s `input` directory.
+
+Example layouts:
+
+* `input/` (unzipped directly)
+* `input/2022-2023-export/` (multiple exports kept side‑by‑side)
+
+---
+
+## Configuration (`config.json`)
+
+Open `config.json` and adjust the following sections.
+
+### `files.input`
+
+* `directory`
+
+  * Path to the unzipped DayOne export
+  * Usually `"input"` or `"input/your-export-folder"`
+* `dataFile`
+
+  * The main DayOne JSON file
+  * Almost always `"Journal.json"`
+* `photosDirectory`
+
+  * Folder containing exported photos
+  * Almost always `"photos"`
+
+### `content`
+
+* `obfuscated`
+
+  * When `true`, all text is replaced with Lorem Ipsum and all images are replaced with empty boxes of the correct size
+  * Intended for **previewing layouts without exposing private content**
+
+#### `content.images`
+
+* `runResize`
+
+  * Resizes and normalizes all images used in the journal
+  * Safe to leave `true`, but **very slow**
+  * Once you’ve run it successfully, you’ll probably want to set it back to `false`
+
+### Missing or problematic media
+
+DayOne exports are imperfect:
+
+* Sometimes images simply fail to export
+* Sometimes images are rotated incorrectly
+
+When this happens:
+
+* Warnings will appear in the console during rendering
+* The journal will show a placeholder box indicating missing or non‑printable media
+* Videos, audio files, and PDFs are **never printed** and will always appear as placeholders
+
+Some rotation issues appear to be arbitrary DayOne bugs and cannot be fixed procedurally.
+
+### `cover.content`
+
+* `author` — your name
+* `subtitle` — optional; omitted if empty
+* `volume` — **required**
+
+  * This project assumes your journal spans multiple physical volumes
+  * Lulu’s limit is ~800 pages per 8.5" × 11" book
+
+### `cover.dimensions`
+
+You will fill these in later, after uploading the interior PDF to Lulu.
+
+Everything else in `config.json` can be ignored.
+
+---
+
+## Running the renderer
+
+Run:
+
+```bash
+npm start
+```
+
+This does all of the following:
+
+* Resizes images (if enabled)
+* Renders the journal interior
+* Renders the cover
+
+When finished, the `output/` directory will contain:
+
+* `journal.html`
+* `cover.html`
+* `photos/` (processed images used by the journal)
+
+---
+
+## Generating the interior PDF
+
+### Viewing the HTML
+
+* Open `output/journal.html` in **Google Chrome**.
+* Chrome is the only browser this has been tested with.
+
+  * Safari produces incorrect PDFs.
+  * Nothing here is intentionally Chrome‑specific, but Chrome works.
+
+Let the page fully load:
+
+* pagedjs builds the document page by page
+* The page will grow vertically
+* **Wait until the very last page is visible** and the page height stops changing
+
+### Printing from Chrome
+
+Open the print dialog and ensure:
+
+* Destination: **Save as PDF**
+* Scale: **100%**
+* Margins: **None**
+* Background graphics: **Enabled**
+
+Print to PDF.
+
+---
+
+## Checking the initial PDF
+
+Open the PDF in **Preview** (macOS).
+
+Things to check:
+
+* No completely empty columns anywhere
+
+If you see empty columns:
+
+* This is almost certainly a pagedjs race condition
+* Don’t panic
+* Reload `journal.html`, let it fully rebuild, and print again
+
+This happens often enough that you should *always* check before moving on.
+
+---
+
+## Creating the final interior PDF
+
+Once the initial PDF looks correct:
+
+* In Preview, use **File → Export** to create a second PDF
+
+Important:
+
+* **Do not** export as PDF/A
+* **Do not** optimize for screen
+
+This step exists to make Lulu accept the file without vague, unhelpful errors.
+It likely flattens or embeds things slightly differently.
+
+Even after this, Lulu may still warn about transparency. I believe this is an artifact of HTML → PDF conversion and can be safely ignored.
+
+---
+
+## Uploading to Lulu (interior)
+
+Create a new Lulu book project and upload the **final** interior PDF.
+
+Recommended setup:
+
+* Size: **8.5" × 11"** (maximum allowed; the content demands it)
+* Print type: **Standard Color**
+* Paper: **#60 White Uncoated**
+* Binding: **Hardcover Case Wrap**
+* Finish: **Matte**
+
+Avoid:
+
+* Premium Color (unnecessary cost and ink density)
+* Coated paper (glare, thickness, binding stress)
+* Cream paper (reduced contrast for images)
+
+In the Cover section, note:
+
+* Total width (inches)
+* Height (inches)
+* Spine width (inches)
+
+You’ll need these next.
+
+---
 
 ## Rendering the cover
 
-- TODO: Improve this section post-refactor.
-- Open `config.json`.
-  - Under `cover.dimensions`
-    - Use the values from the "Cover" section of the upload page to set:
-      - `"totalWidthIn"`
-      - `"heightIn"`
-      - `"spineWidthIn"`
-    - You should be able to ignore `"hingeIn"`
-      - This is a rough estimate of how wide the "hinge" of the front and back covers will be.
-- Run `npm start` to re-render everything.
-- There will be a new `cover.html` in your `output` folder.
-- Open `cover.html` in Google Chrome and print to PDF.
+Open `config.json` again.
 
-## Uploading to Lulu, Part 2
+Under `cover.dimensions`, set:
 
-- Upload the PDF version of the cover to Lulu.
-- Let everything load.
-- If there's going to be a problem with the big contents PDF, it'll be here.
-  - But hopefully I've resolved that.
-- If all goes well, a preview will appear of your book at the bottom.
-  - Check that the cover lines up properly.
-  - Check that the book's contents look correct.
-    - Note that, at this stage, all emojis will have been replaced by bullets.
+* `totalWidthIn`
+* `heightIn`
+* `spineWidthIn`
+
+You can usually ignore `hingeIn`.
+It appears to be roughly a quarter inch, but hardcover hinge behavior is somewhat opaque.
+
+Run again:
+
+```bash
+npm start
+```
+
+This will regenerate everything.
+
+Open `output/cover.html` in Chrome and print to PDF using the same print settings as before.
+
+---
+
+## Uploading to Lulu (cover)
+
+Upload the cover PDF.
+
+Once processing completes:
+
+* A full preview of the book should appear
+* Verify:
+
+  * Cover alignment
+  * Spine placement
+  * Interior layout
+
+Note:
+
+* Emojis appear correctly in the uploaded PDF
+* Lulu replaces them with bullets in the preview
+* This is unfortunate but currently acceptable
+
+---
 
 ## Finish
 
-- Finish setting up the book.
-- Buy a print copy.
+If everything looks right:
+
+* Complete the Lulu setup
+* Order a print copy
+
+Then wait nervously.
+
+When it arrives, you will be holding several years of your life in your hands.
