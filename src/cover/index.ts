@@ -93,7 +93,7 @@ ${stylesheet}
       <div class="year">${yearLine}</div>
       <div class="months">${monthLine}</div>
       <div class="author">${author}</div>
-      ${Boolean(cover.content.subtitle) ? `<div class="subtitle">${subtitle}</div>` : ""}
+      ${Boolean(subtitle) ? `<div class="subtitle">${subtitle}</div>` : ""}
     </section>
   </div>
 </body>
