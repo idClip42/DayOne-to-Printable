@@ -62,7 +62,7 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
 export function processHtmlImages(entry: DayOneEntry, html: string) {
     return html.replace(/<img([^>]*)>/g, (match, p1) => {
         return renderTemplate<ImageTemplateVars>(TEMPLATE_PATH, {
-            imgSrcAttr: p1,
+            imgAttributes: p1,
             obfuscate: config.content.obfuscate,
         });
     });

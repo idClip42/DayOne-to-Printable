@@ -1,4 +1,4 @@
 export interface ImageTemplateVars {
-    imgSrcAttr: string;
+    imgAttributes: string;
     obfuscate: boolean;
 }
