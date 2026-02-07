@@ -11,19 +11,36 @@ TODO: Once we've gotten enough precise detail, let the robot do a pass.
 
 ## DayOne Export
 
-- Use the mobile app - this gives the best, most reliable export.
+- Use the DayOne mobile app - this gives the best, most reliable export.
 - In the app, export the range of days you want in the JSON format. Be sure to download all media being exported.
 - Send the resulting `.zip` file to your computer.
 - Unzip, and add the contents to the `input` folder in this project.
 
 ## Configuration
 
-- TODO: Improve this section post-refactor.
 - Open `config.json`.
-- Fill in the file info.
-  - Specifically the input directory.
-- If this is your first time, set `content.images.runResize` to `true`.
-  - This only needs to happen once, so once you've run this, set it back to false.
+- Configure the system for your journal:
+  - `"files"`
+    - `"input"`
+      - `"directory"`: The directory where all your exported and unzipped journal data is.
+        - This will likely either be `"input"`, if you've unzipped directly into it, or `"input/your-unzipped-folder"`, if you're keeping multiple exports in the `input` folder.
+      - `"dataFile"`: The JSON file in the directory that holds all your journal content.
+        - This will likely be `"Journal.json"`, as that is DayOne's default.
+      - `"photosDirectory"`: The folder in the directory that holds all the exported photos from the journal.
+        - This will likely be `"photos"`, as that is DayOne's default.
+  - `"content"`
+    - `"obfuscated"`: Set this to `true` if you want to export a preview version of your journal where all text is replaced with placeholder "Lorem Ipsum" and all images are replaced by empty boxes of the correct dimensions.
+    - `"images"`
+      - `"runResize"`: Creates optimized versions of the input images, which will be used in the final journal.
+        - If this is your first time, set `content.images.runResize` to `true`.
+          - This only needs to happen once, so once you've run this, set it back to false.
+  - `"cover"`
+    - `"content"`
+      - `"author"`: Your name goes here.
+      - `"subtitle"`: If you want your journal cover to include a subtitle, add it here.
+      - `"volume"`: Set the volume number of the printed journal you're making here.
+    - `"dimensions"`: You will set these values later in the export process.
+  - Everything else you can ignore.
 
 ## Running the Renderer
 
@@ -32,12 +49,12 @@ TODO: Once we've gotten enough precise detail, let the robot do a pass.
 
 ## The HTML
 
-- Open `journal.html` in Google Chrome - this is the only browser I've successfully tested in.
-- Let it load
+- Open `journal.html` in Google Chrome.
+- **NOTE: Google Chrome is the only browser I've successfully tested in. Safari does not work properly.**.
+- Let it load.
   - It will slowly, page by page, construct the journal.
   - Wait until the very last page is visible at the bottom and the vertical size of the page stops growing.
-- Print to PDF
-  - Using the print dialog, save this web page as a PDF.
+- Print to PDF using the web page print dialog.
 
 ## The Initial PDF
 
@@ -75,13 +92,19 @@ TODO: Once we've gotten enough precise detail, let the robot do a pass.
   - Note:
     - The width (in inches)
     - The height (in inches)
-    - The spine witdth (in inches)
+    - The spine width (in inches)
 
 ## Rendering the cover
 
 - TODO: Improve this section post-refactor.
 - Open `config.json`.
-- Under `cover.dimensions`, set the width, height and spine width according to the values on the upload page.
+  - Under `cover.dimensions`
+    - Use the values from the "Cover" section of the upload page to set:
+      - `"totalWidthIn"`
+      - `"heightIn"`
+      - `"spineWidthIn"`
+    - You should be able to ignore `"hingeIn"`
+      - This is a rough estimate of how wide the "hinge" of the front and back covers will be.
 - Run `npm start` to re-render everything.
 - There will be a new `cover.html` in your `output` folder.
 - Open `cover.html` in Google Chrome and print to PDF.
