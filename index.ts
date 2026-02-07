@@ -5,7 +5,7 @@ import config from "./config.json";
 import { resizeImages } from "./src/preprocess/resizeImages";
 import { initializeStaticTags } from "./src/tags";
 import { generateCoverHtml } from "./src/cover";
-import { buildFullHtml } from "./src/pages";
+import { buildFullHtml } from "./src/book";
 
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
 
