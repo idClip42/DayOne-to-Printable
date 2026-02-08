@@ -36,6 +36,7 @@
   - [ ] Figure out how to distinguish between the two, and add a class that sets `top-margin: 0`.
   - [ ] This would let the column break on those as well, which would really help with avoiding big blank spaces.
   - [ ] You'd probably do it the same way as attachments - see: `getAttachmentMarkdown()`
+  - [ ] UPDATE: Create the HTML element within the Markdown itself?
 - [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
   - [ ] We'd also want to do this with headers, right below date-time metadata.
 - [ ] Emojis don't make it through the Lulu upload process.

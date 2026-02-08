@@ -1,5 +1,8 @@
+import { AttachmentTemplateVars } from "../../../../../templates/attachment.hbs";
+import { renderTemplate } from "../../../../../utilities/template";
 import { AttachInfo } from "./info";
-import config from "./config.json";
+
+const TEMPLATE_PATH = "src/templates/attachment.hbs";
 
 export function getAttachmentText(info: AttachInfo): string {
     if (info.type === "Photo") {
@@ -19,7 +22,10 @@ export function getAttachmentText(info: AttachInfo): string {
 }
 
 export function getAttachmentMarkdown(text: string): string {
-    return `\n\n${config.attachmentTag} ${text}\n\n`;
+    const htmlBlock = renderTemplate<AttachmentTemplateVars>(TEMPLATE_PATH, {
+        text: text,
+    });
+    return `\n\n${htmlBlock}\n\n`;
 }
 
 function secondsToTimeString(seconds: number): string {

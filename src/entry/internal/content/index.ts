@@ -3,7 +3,6 @@ import { DayOneEntry } from "../../../types/DayOneEntry";
 import { processHtmlImages } from "./internal/images";
 import config from "../../../../config.json";
 import { replaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
-import { updateHtmlAttachments } from "./internal/attachments/html";
 import { preprocessText } from "./internal/text/preprocess";
 import { processText } from "./internal/text/process";
 
@@ -22,8 +21,6 @@ export function createContentHtml(entry: DayOneEntry): string {
     let htmlResult = marked.parse(processedText, { async: false });
     // Update all image tags.
     htmlResult = processHtmlImages(entry, htmlResult);
-    // Update attachments.
-    htmlResult = updateHtmlAttachments(htmlResult);
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
     if (config.content.obfuscate) {
