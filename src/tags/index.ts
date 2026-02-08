@@ -1,6 +1,5 @@
 import { DayOneEntry } from "../types/DayOneEntry";
 import config from "../../config.json";
-import type { TagInfo } from "./internal/TagInfo";
 import { processTags } from "./internal/process";
 import { renderTemplate } from "../utilities/template";
 import { TagTemplateVars } from "../templates/tag.hbs";
@@ -8,7 +7,7 @@ import { TagTemplateVars } from "../templates/tag.hbs";
 const TAG_TEMPLATE_PATH = "src/templates/tag.hbs";
 
 export class TagsLibrary {
-    private _tagsLibrary: TagInfo[];
+    private _tagsLibrary: ReturnType<typeof processTags>;
 
     constructor(entries: ReadonlyArray<DayOneEntry>) {
         this._tagsLibrary = processTags(entries);
@@ -27,7 +26,8 @@ export class TagsLibrary {
 
         return renderTemplate<TagTemplateVars>(TAG_TEMPLATE_PATH, {
             tag: text,
-            color: info.color,
+            hue: info.hue,
+            valuePerc: info.value * 100,
         });
     }
 

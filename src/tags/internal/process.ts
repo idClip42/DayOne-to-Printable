@@ -1,31 +1,35 @@
 import type { DayOneEntry } from "../../types/DayOneEntry";
-import type { TagInfo } from "./TagInfo";
 import { numberToHue } from "../../utilities/color";
 
-const SATURATION = 0.75;
 const MIN_LIGHTNESS = 0.5;
 const MAX_LIGHTNESS = 0.75;
+
+type TagInfo = {
+    tag: string;
+    count: number;
+    /** In degrees. */
+    hue: number;
+    /** Between 0 and 1. */
+    value: number;
+};
 
 export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
     const sortedTags = sortTags(countUpTags(entries));
     const MIN_TAGS = sortedTags[0].count;
     const MAX_TAGS = sortedTags[sortedTags.length - 1].count;
 
-    const augmentedTags = sortedTags.map((item, index) => {
+    const augmentedTags = sortedTags.map<TagInfo>((item, index) => {
         const hue = numberToHue(index, 0);
-        const sat = SATURATION * 100;
-        const value =
-            lerp(
-                MIN_LIGHTNESS,
-                MAX_LIGHTNESS,
-                inverseLerp(MAX_TAGS, MIN_TAGS, item.count)
-            ) * 100;
-        // TODO: Move into Template?
-        const color = `hsl(${hue},${sat}%,${value}%)`;
+        const value = lerp(
+            MIN_LIGHTNESS,
+            MAX_LIGHTNESS,
+            inverseLerp(MAX_TAGS, MIN_TAGS, item.count)
+        );
         return {
             tag: item.tag,
             count: item.count,
-            color: color,
+            hue: hue,
+            value: value,
         };
     });
 
