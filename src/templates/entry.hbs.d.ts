@@ -2,9 +2,11 @@ export interface EntryTemplateVars {
     contentHtml: string;
     monthColor: string;
     weekday: string;
+    monthDay: string;
+    year: string;
+    time: string;
+    amPm: string;
     weather: string;
-    dateTime: string;
-    pageHeaderFullDate: string;
     location: string;
     tagHtmls: string[];
 }
