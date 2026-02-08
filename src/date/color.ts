@@ -1,12 +1,7 @@
 import config from "./color.json";
 
-export function getDateColor(
-    iso: string,
-    timeZone: string,
-    lightness: number
-): string {
-    const d = new Date(iso);
-    const month = d.toLocaleDateString("en-US", {
+export function getDateHue(date: Date, timeZone: string): number {
+    const month = date.toLocaleDateString("en-US", {
         timeZone,
         month: "numeric",
     });
@@ -16,17 +11,17 @@ export function getDateColor(
         throw new Error(`Invalid month: '${month}'`);
 
     const hue = (config.baseHue + monthIndex * config.hueIncrement) % 360;
-    // TODO: Move into Template?
-    return `hsl(${hue}, 70%, ${lightness * 100}%)`;
+
+    return hue;
 }
 
 export function getDateColorTestData() {
     const htmlDates = config.testDates.map(dStr => {
-        const d = new Date(dStr);
+        const date = new Date(dStr);
         return {
-            date: d,
+            date: date,
             dateText: dStr,
-            color: getDateColor(d.toISOString(), "America/New_York", 0.75),
+            hue: getDateHue(date, "America/New_York"),
         };
     });
     return htmlDates;

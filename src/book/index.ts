@@ -19,7 +19,7 @@ export function buildFullHtml(
             style: styleCss,
             colorTestDates: getDateColorTestData().map(d => ({
                 date: d.dateText,
-                color: d.color,
+                hue: d.hue,
             })),
             stats: getEntriesStats(entries).map(d => ({
                 label: d.name,

@@ -2,9 +2,9 @@ import { DayOneEntry } from "../../../types/DayOneEntry";
 
 export function getDateTimeStrings(entry: DayOneEntry) {
     const date = new Date(entry.creationDate);
-    const timezone = entry.location?.timeZoneName;
+    const timeZone = entry.location?.timeZoneName;
     const timeRaw = date.toLocaleTimeString("en-US", {
-        timeZone: timezone,
+        timeZone: timeZone,
         hour: "numeric",
         minute: "2-digit",
     });
@@ -13,16 +13,16 @@ export function getDateTimeStrings(entry: DayOneEntry) {
 
     return {
         weekday: date.toLocaleDateString("en-US", {
-            timeZone: timezone,
+            timeZone: timeZone,
             weekday: "long",
         }),
         monthDay: date.toLocaleDateString("en-US", {
-            timeZone: timezone,
+            timeZone: timeZone,
             month: "long",
             day: "numeric",
         }),
         year: date.toLocaleDateString("en-US", {
-            timeZone: timezone,
+            timeZone: timeZone,
             year: "numeric",
         }),
         time: timeStr,

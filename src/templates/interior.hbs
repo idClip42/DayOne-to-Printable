@@ -18,7 +18,7 @@ Prettier formatting gets rid of this, so we have to add it elsewhere.
         <div class="page-layout" id="first-page">
             <div style="display: none">
                 {{#each colorTestDates}}
-                    <div style="background-color: {{this.color}}">
+                    <div style="background-color: hsl({{hue}}, 70%, 75%)">
                         {{this.date}}
                     </div>
                 {{/each}}

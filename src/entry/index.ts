@@ -2,7 +2,7 @@ import { DayOneEntry } from "../types/DayOneEntry";
 import { createContentHtml } from "./internal/content";
 import { EntryTemplateVars } from "../templates/entry.hbs";
 import { renderTemplate } from "../utilities/template";
-import { getDateColor } from "../date/color";
+import { getDateHue } from "../date/color";
 import { getWeather } from "./internal/metadata/weather";
 import { getLocationString } from "./internal/metadata/location";
 import type { TagsLibrary } from "../tags";
@@ -18,10 +18,9 @@ export function convertEntryToHTML(
     const weather = getWeather(entry);
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
         contentHtml: createContentHtml(entry),
-        monthColor: getDateColor(
-            entry.creationDate,
-            entry.location?.timeZoneName,
-            0.75
+        monthHue: getDateHue(
+            new Date(entry.creationDate),
+            entry.location?.timeZoneName
         ),
         weekday: dateTime.weekday,
         monthDay: dateTime.monthDay,

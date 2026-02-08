@@ -6,8 +6,8 @@ type TableDatum = {
 export interface InteriorTemplateVars {
     style: string;
     colorTestDates: {
-        color: string;
         date: string;
+        hue: number;
     }[];
     stats: TableDatum[];
     tagStats: TableDatum[];

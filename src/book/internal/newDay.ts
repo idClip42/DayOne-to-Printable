@@ -1,4 +1,4 @@
-import { getDateColor } from "../../date/color";
+import { getDateHue } from "../../date/color";
 import type { NewDayTemplateVars } from "../../templates/newDay.hbs";
 import type { DayOneEntry } from "../../types/DayOneEntry";
 import { renderTemplate } from "../../utilities/template";
@@ -7,17 +7,15 @@ const TEMPLATE_PATH = "src/templates/newDay.hbs";
 
 export function makeNewDayElement(entry: DayOneEntry): string {
     const date = new Date(entry.creationDate);
-    // TODO: Define date text format in Template, not here.
+    const timeZone = entry.location?.timeZoneName;
     return renderTemplate<NewDayTemplateVars>(TEMPLATE_PATH, {
-        monthColor: getDateColor(
-            entry.creationDate,
-            entry.location?.timeZoneName,
-            0.4
-        ),
-        dateText: date.toLocaleString("en-US", {
-            timeZone: entry.location?.timeZoneName,
+        monthHue: getDateHue(date, timeZone),
+        weekday: date.toLocaleDateString("en-US", {
+            timeZone: timeZone,
             weekday: "long",
-            year: undefined,
+        }),
+        monthDay: date.toLocaleDateString("en-US", {
+            timeZone: timeZone,
             month: "long",
             day: "numeric",
         }),

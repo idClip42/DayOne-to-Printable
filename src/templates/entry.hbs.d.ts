@@ -1,6 +1,6 @@
 export interface EntryTemplateVars {
     contentHtml: string;
-    monthColor: string;
+    monthHue: number;
     weekday: string;
     monthDay: string;
     year: string;

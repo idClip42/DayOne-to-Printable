@@ -1,4 +1,5 @@
 export interface NewDayTemplateVars {
-    monthColor: string;
-    dateText: string;
+    monthHue: number;
+    weekday: string;
+    monthDay: string;
 }
