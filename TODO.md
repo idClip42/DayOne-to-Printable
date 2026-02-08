@@ -32,8 +32,10 @@
   - [ ] Even though paragraphs shouldn't break, quote blocks should be able to break (between paragraphs).
   - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
   - [x] ~~Oh, do we need to take all the CSS out of the @page group??~~ Nope.
+  - [ ] Example: Early 2022, the philosophy thing.
 - [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
   - [ ] We'd also want to do this with headers, right below date-time metadata.
+  - [ ] New day marker example: 2022, Sat Sept 10, Thurs Sept 15
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
 
