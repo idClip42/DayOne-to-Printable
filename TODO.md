@@ -28,7 +28,7 @@
 - [ ] Quote blocks avoid breaking inside when they shouldn't
   - [ ] Even though paragraphs shouldn't break, quote blocks should be able to break (between paragraphs).
   - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
-  - [ ] Oh, do we need to take all the CSS out of the @page group??
+  - [x] ~~Oh, do we need to take all the CSS out of the @page group??~~ Nope.
 - [ ] What if we gave those single newline lines (which are treated as part of the `<p>` elements of the text above them) their own `<p>` elements?
   - [ ] Figure out how to distinguish between the two, and add a class that sets `top-margin: 0`.
   - [ ] This would let the column break on those as well, which would really help with avoiding big blank spaces.
