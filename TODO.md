@@ -14,9 +14,9 @@
   - [x] No, I'm not even working with it in code.
 - [x] I'm leaving TODOs around the code - find them and deal with them.
 - [x] Try removing all the page vs screen stuff from the CSS.
-- [ ] Go around, check how all exported functions are used.
-  - [ ] If they're used by multiple things in multiple places, they're good.
-  - [ ] If they're used in one place and simplistic, though... kill 'em.
+- [x] Go around, check how all exported functions are used.
+  - [x] If they're used by multiple things in multiple places, they're good.
+  - [x] If they're used in one place and simplistic, though... kill 'em.
 - [ ] Render both books and look over them to make sure everything looks right.
 
 ## Issues
