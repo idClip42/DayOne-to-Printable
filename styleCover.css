@@ -154,7 +154,7 @@ section {
 .spine .accent {
     left: var(--hinge-in);
     width: calc(100% - (var(--hinge-in) * 2));
-    background: var(--spine-accent-color);
+    background: hsl(var(--spine-accent-hue), 70%, 55%);
 
     position: absolute;
     bottom: calc(0.35in + 1.2in); /* volume offset + volume block height */
