@@ -61,21 +61,21 @@ section {
     padding-top: 2in; /* adjust as needed to hit the top-third visually */
 }
 
-.year {
+.front .year {
     font-size: 60pt;
     font-weight: 600;
     letter-spacing: 0em;
     margin-bottom: 0.2em;
 }
 
-.months {
+.front .months {
     font-size: 28pt;
     font-weight: 400;
     letter-spacing: 0.06em;
     margin-bottom: 1.2em;
 }
 
-.author {
+.front .author {
     font-size: 16pt;
     font-weight: 400;
     letter-spacing: 0.08em;
@@ -115,12 +115,23 @@ section {
     letter-spacing: 0.04em;
 }
 
-.spine-main {
+.spine .spine-title {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.spine-volume {
+.spine .spine-title .year {
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: 0em;
+}
+
+.spine .spine-title .months {
+    font-size: 20pt;
+    letter-spacing: 0em;
+}
+
+.spine .volume {
     position: absolute;
     bottom: 0.35in; /* deliberate, physical margin */
     left: 50%;
@@ -129,29 +140,18 @@ section {
     writing-mode: initial;
 }
 
-.vol-label {
+.spine .volume .vol-label {
     font-size: 8pt;
     letter-spacing: 0.08em;
     opacity: 0.8;
 }
 
-.vol-number {
+.spine .volume .vol-number {
     font-size: 18pt;
     font-weight: 600;
 }
 
-.year-spine {
-    font-size: 24pt;
-    font-weight: 600;
-    letter-spacing: 0em;
-}
-
-.month-spine {
-    font-size: 20pt;
-    letter-spacing: 0em;
-}
-
-.spine-accent {
+.spine .accent {
     left: var(--hinge-in);
     width: calc(100% - (var(--hinge-in) * 2));
     background: var(--spine-accent-color);
