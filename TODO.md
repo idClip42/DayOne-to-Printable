@@ -47,4 +47,5 @@
   - [ ] You'd probably do it the same way as attachments - see: `getAttachmentMarkdown()`
   - [ ] UPDATE: Create the HTML element within the Markdown itself?
     - [ ] This is presuming we can regex replace every single-newline line with double-newline HTML blocks, and that'll work for multiple single-newline lines in a row.
+    - [ ] I’d have to play with the normal paragraph margins too. Have paragraphs have only a top margin and no bottom margin, and kill the top one on the single-newline paragraphs.
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
