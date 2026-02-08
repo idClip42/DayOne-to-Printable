@@ -32,12 +32,17 @@
   - [ ] Even though paragraphs shouldn't break, quote blocks should be able to break (between paragraphs).
   - [ ] What if we added the CSS rule directly on the elements instead of via the stylesheet?
   - [x] ~~Oh, do we need to take all the CSS out of the @page group??~~ Nope.
+- [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
+  - [ ] We'd also want to do this with headers, right below date-time metadata.
+- [ ] Emojis don't make it through the Lulu upload process.
+  - [ ] Once uploaded, they are replaced with bullets.
+
+## Ideas
+
 - [ ] What if we gave those single newline lines (which are treated as part of the `<p>` elements of the text above them) their own `<p>` elements?
   - [ ] Figure out how to distinguish between the two, and add a class that sets `top-margin: 0`.
   - [ ] This would let the column break on those as well, which would really help with avoiding big blank spaces.
   - [ ] You'd probably do it the same way as attachments - see: `getAttachmentMarkdown()`
   - [ ] UPDATE: Create the HTML element within the Markdown itself?
-- [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
-  - [ ] We'd also want to do this with headers, right below date-time metadata.
-- [ ] Emojis don't make it through the Lulu upload process.
-  - [ ] Once uploaded, they are replaced with bullets.
+    - [ ] This is presuming we can regex replace every single-newline line with double-newline HTML blocks, and that'll work for multiple single-newline lines in a row.
+- [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
