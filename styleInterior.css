@@ -90,10 +90,6 @@ ol {
     padding-left: 15px;
 }
 
-li {
-    break-inside: avoid;
-}
-
 pre,
 code {
     /* Allows wrapping of text */
