@@ -12,7 +12,7 @@
   - [x] Changing the text to lorem ipsum and making images invisible are part of the same process of obfuscation.
 - [x] Is there a way to force `pagedjs` to error out or something if it screws up formatting?
   - [x] No, I'm not even working with it in code.
-- [ ] I'm leaving TODOs around the code - find them and deal with them.
+- [x] I'm leaving TODOs around the code - find them and deal with them.
 - [x] Try removing all the page vs screen stuff from the CSS.
 - [ ] Go around, check how all exported functions are used.
   - [ ] If they're used by multiple things in multiple places, they're good.
