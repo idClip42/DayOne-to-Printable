@@ -15,7 +15,7 @@ Prettier formatting gets rid of this, so we have to add it elsewhere.
         <script src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
     </head>
     <body>
-        <div id="first-page">
+        <div class="page-layout" id="first-page">
             <div style="display: none">
                 {{#each colorTestDates}}
                     <div style="background-color: {{this.color}}">
@@ -28,13 +28,13 @@ Prettier formatting gets rid of this, so we have to add it elsewhere.
                 <h2>
                     Stats
                 </h2>
-                <table class="info-table">
+                <table>
                     {{#each stats}}
                         <tr>
-                            <td class="info-table-label">
+                            <td class="label">
                                 {{this.label}}
                             </td>
-                            <td class="info-table-value">
+                            <td class="value">
                                 {{this.value}}
                             </td>
                         </tr>
@@ -46,13 +46,13 @@ Prettier formatting gets rid of this, so we have to add it elsewhere.
                 <h2>
                     Tags
                 </h2>
-                <table class="info-table">
+                <table>
                     {{#each tagStats}}
                         <tr>
-                            <td class="info-table-label">
+                            <td class="label">
                                 {{this.label}}
                             </td>
-                            <td class="info-table-value">
+                            <td class="value">
                                 {{this.value}}
                             </td>
                         </tr>
@@ -61,7 +61,7 @@ Prettier formatting gets rid of this, so we have to add it elsewhere.
             </div>
         </div>
 
-        <div id="entries">
+        <div class="page-layout" id="entries">
             {{#each entriesHtml}}
                 {{{this}}}
             {{/each}}

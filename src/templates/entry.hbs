@@ -1,14 +1,14 @@
 <article class="entry">
     <div
-        class="entry-metadata"
+        class="metadata"
         style="background: linear-gradient(to bottom, {{monthColor}}, #ffffff)"
     >
         <p class="pre-date-time">
-            <span class="entry-weekday">{{weekday}}</span>
-            <span class="entry-weather">{{weather}}</span>
+            <span class="weekday">{{weekday}}</span>
+            <span class="weather">{{weather}}</span>
         </p>
 
-        <h2 class="entry-date">
+        <h2 class="date">
             {{dateTime}}
         </h2>
 
@@ -17,17 +17,17 @@
         </div>
 
         <p class="post-date-time">
-            <span class="entry-location">{{location}}</span>
+            <span>{{location}}</span>
         </p>
 
-        <p class="entry-tags">
+        <p class="tags">
             Tags:
             {{#each tagHtmls}}
                 {{this}}
             {{/each}}
         </p>
     </div>
-    <div class="entry-content">
+    <div>
         {{{contentHtml}}}
     </div>
 </article>
