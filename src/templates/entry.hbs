@@ -5,7 +5,14 @@
     >
         <p class="pre-date-time">
             <span class="weekday">{{weekday}}</span>
-            <span class="weather">{{weather}}</span>
+            <span class="weather">
+                {{#if weather}}
+                    {{weather}},
+                {{/if}}
+                {{#if tempF includeZero=true}}
+                    {{tempF}}°F
+                {{/if}}
+            </span>
         </p>
 
         <h2 class="date">

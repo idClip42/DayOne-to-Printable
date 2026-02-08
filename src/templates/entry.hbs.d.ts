@@ -7,6 +7,7 @@ export interface EntryTemplateVars {
     time: string;
     amPm: string;
     weather: string;
+    tempF: number | undefined;
     location: string;
     tagHtmls: string[];
 }

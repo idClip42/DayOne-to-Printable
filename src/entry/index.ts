@@ -3,7 +3,7 @@ import { createContentHtml } from "./internal/content";
 import { EntryTemplateVars } from "../templates/entry.hbs";
 import { renderTemplate } from "../utilities/template";
 import { getDateColor } from "../date/color";
-import { getWeatherString } from "./internal/metadata/weather";
+import { getWeather } from "./internal/metadata/weather";
 import { getLocationString } from "./internal/metadata/location";
 import type { TagsLibrary } from "../tags";
 import { getDateTimeStrings } from "./internal/metadata/dateTime";
@@ -15,6 +15,7 @@ export function convertEntryToHTML(
     tagsLibrary: TagsLibrary
 ): string {
     const dateTime = getDateTimeStrings(entry);
+    const weather = getWeather(entry);
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
         contentHtml: createContentHtml(entry),
         monthColor: getDateColor(
@@ -27,7 +28,8 @@ export function convertEntryToHTML(
         year: dateTime.year,
         time: dateTime.time,
         amPm: dateTime.amPm,
-        weather: getWeatherString(entry),
+        weather: weather.weather,
+        tempF: weather.tempF,
         location: getLocationString(entry),
         tagHtmls: entry.tags?.map(t => tagsLibrary.getTagHtml(t)) || [],
     });
