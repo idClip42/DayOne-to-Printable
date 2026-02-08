@@ -10,11 +10,6 @@
         @top-center {
             content: string(headerDate);
         }
-
-        .hidden-date {
-            display: none;
-            string-set: headerDate content(text);
-        }
     }
 
     @page :right {
@@ -24,6 +19,11 @@
     @page :left {
         margin-right: 1.25in;
     }
+}
+
+.hidden-date {
+    display: none;
+    string-set: headerDate content(text);
 }
 
 /* #region HTML Tags */
