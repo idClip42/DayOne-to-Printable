@@ -4,7 +4,15 @@ import { AttachInfo } from "./info";
 
 const TEMPLATE_PATH = "src/templates/attachment.hbs";
 
-export function getAttachmentText(info: AttachInfo): string {
+export function getAttachmentMarkdown(info: AttachInfo): string {
+    const text = getAttachmentText(info);
+    const htmlBlock = renderTemplate<AttachmentTemplateVars>(TEMPLATE_PATH, {
+        text: text,
+    });
+    return `\n\n${htmlBlock}\n\n`;
+}
+
+function getAttachmentText(info: AttachInfo): string {
     if (info.type === "Photo") {
         let value = `${info.type}: Missing ${info.data.type} '${info.data.identifier}'`;
         if (info.data.filename) value += ` ('${info.data.filename}')`;
@@ -19,13 +27,6 @@ export function getAttachmentText(info: AttachInfo): string {
         const badInput = info as any;
         throw new Error(`Unhandled attachment type: '${badInput.type}'.`);
     }
-}
-
-export function getAttachmentMarkdown(text: string): string {
-    const htmlBlock = renderTemplate<AttachmentTemplateVars>(TEMPLATE_PATH, {
-        text: text,
-    });
-    return `\n\n${htmlBlock}\n\n`;
 }
 
 function secondsToTimeString(seconds: number): string {

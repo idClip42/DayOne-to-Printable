@@ -1,8 +1,5 @@
 import { getImageFilePath } from "../images";
-import {
-    getAttachmentMarkdown,
-    getAttachmentText,
-} from "../attachments/textProcess";
+import { getAttachmentMarkdown } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
 
@@ -146,7 +143,7 @@ export function processText(inputText: string, entry: DayOneEntry): string {
 
                 // If it's not an image, or we couldn't find the image,
                 // default to this.
-                return getAttachmentMarkdown(getAttachmentText(attachmentInfo));
+                return getAttachmentMarkdown(attachmentInfo);
             }
         )
         .replace(
