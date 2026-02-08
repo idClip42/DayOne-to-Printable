@@ -17,7 +17,7 @@
 - [x] Go around, check how all exported functions are used.
   - [x] If they're used by multiple things in multiple places, they're good.
   - [x] If they're used in one place and simplistic, though... kill 'em.
-- [ ] Render both books and look over them to make sure everything looks right.
+- [x] Render both books and look over them to make sure everything looks right.
 
 ## Issues
 
