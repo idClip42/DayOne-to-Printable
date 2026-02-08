@@ -7,6 +7,8 @@ export function updateHtmlAttachments(htmlText: string): string {
         // TODO: I'd really love to get any and
         // TODO: all HTML out of the codebase
         // TODO: and into the `templates` folder.
+        // TODO: Note that you cannot truly parse
+        // TODO: HTML with Regex.
         "<p class='attachment-block'>"
     );
 
