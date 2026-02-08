@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-/* TODO: Organize this one too. */
+/* #region HTML Tags */
 
 body {
     width: var(--total-width);
@@ -29,6 +29,17 @@ body {
     color: #d4d8e0;
 }
 
+section {
+    padding: 0.75in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #endregion */
+
+/* #region Full Cover */
+
 #cover {
     grid-template-columns: var(--front-back-width-in) var(--spine-width) var(
             --front-back-width-in
@@ -39,20 +50,55 @@ body {
     height: 100%;
 }
 
-/* Shared panel styling */
-section {
-    padding: 0.75in;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* #endregion */
+
+/* #region Front Cover */
+
+.front {
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start; /* move items toward the top */
+    padding-top: 2in; /* adjust as needed to hit the top-third visually */
 }
 
-/* Back cover */
+.year {
+    font-size: 60pt;
+    font-weight: 600;
+    letter-spacing: 0em;
+    margin-bottom: 0.2em;
+}
+
+.months {
+    font-size: 28pt;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2em;
+}
+
+.author {
+    font-size: 16pt;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+}
+
+.front .subtitle {
+    margin-top: 0.5em;
+    font-size: 14pt;
+    opacity: 0.85;
+}
+
+/* #endregion */
+
+/* #region Back Cover */
+
 .back {
     background: #2b3a50;
 }
 
-/* Spine */
+/* #endregion */
+
+/* #region Spine */
+
 .spine {
     /* Bleed background outward into hinges */
     margin-left: calc(-1 * var(--hinge-in));
@@ -94,21 +140,6 @@ section {
     font-weight: 600;
 }
 
-/* Front cover */
-.front {
-    flex-direction: column;
-    text-align: center;
-    justify-content: flex-start; /* move items toward the top */
-    padding-top: 2in; /* adjust as needed to hit the top-third visually */
-}
-
-.year {
-    font-size: 60pt;
-    font-weight: 600;
-    letter-spacing: 0em;
-    margin-bottom: 0.2em;
-}
-
 .year-spine {
     font-size: 24pt;
     font-weight: 600;
@@ -130,21 +161,4 @@ section {
     height: 5pt;
 }
 
-.months {
-    font-size: 28pt;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    margin-bottom: 1.2em;
-}
-
-.author {
-    font-size: 16pt;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-}
-
-.front .subtitle {
-    margin-top: 0.5em;
-    font-size: 14pt;
-    opacity: 0.85;
-}
+/* #endregion */
