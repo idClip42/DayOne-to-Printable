@@ -20,6 +20,7 @@ export function processTags(entries: ReadonlyArray<DayOneEntry>): TagInfo[] {
                 MAX_LIGHTNESS,
                 inverseLerp(MAX_TAGS, MIN_TAGS, item.count)
             ) * 100;
+        // TODO: Move into Template?
         const color = `hsl(${hue},${sat}%,${value}%)`;
         return {
             tag: item.tag,

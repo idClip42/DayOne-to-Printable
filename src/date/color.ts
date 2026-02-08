@@ -16,6 +16,7 @@ export function getDateColor(
         throw new Error(`Invalid month: '${month}'`);
 
     const hue = (config.baseHue + monthIndex * config.hueIncrement) % 360;
+    // TODO: Move into Template?
     return `hsl(${hue}, 70%, ${lightness * 100}%)`;
 }
 

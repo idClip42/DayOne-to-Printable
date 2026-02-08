@@ -7,6 +7,7 @@ const TEMPLATE_PATH = "src/templates/newDay.hbs";
 
 export function makeNewDayElement(entry: DayOneEntry): string {
     const date = new Date(entry.creationDate);
+    // TODO: Define date text format in Template, not here.
     return renderTemplate<NewDayTemplateVars>(TEMPLATE_PATH, {
         monthColor: getDateColor(
             entry.creationDate,

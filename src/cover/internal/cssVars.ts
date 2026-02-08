@@ -5,6 +5,7 @@ function getYearAccentColor(year: number): string {
     /** cool-blue starting point */
     const YEAR_ACCENT_START = 210;
     const hue = numberToHue(year, YEAR_ACCENT_START);
+    // TODO: Move the hsl string down.
     return `hsl(${hue}, 70%, 55%)`;
 }
 
