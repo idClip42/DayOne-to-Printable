@@ -53,5 +53,12 @@
 - [ ] Take another pass at the single newline lines.
   - [ ] Right now, it's an involved HTML creation process that has a lot of special steps and doesn't cover quote blocks.
   - [ ] Maybe we *should* look into doing everything as paragraphs and just tagging them with some arbitrary thing that we search for later, like we had with the attachments.
+- [ ] Consider rewriting `src/entry/internal/content/internal/text/process.ts`
+  - [ ] This is a big job.
+  - [ ] We'll need to produce a test markdown that features every single issue we've ever seen, and a parallel test markdown that shows what it should look like when done.
+  - [ ] We should have done this a while back - **that whole stack needs to be testable.**
+  - [ ] Once you have that test framework, then you can rewrite the rules.
+  - [ ] Break up the rules into categories - separate files, maybe.
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
+  - [ ] Or should we be trying to get HTML *out* of the markdown? Probably that?
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
