@@ -223,6 +223,19 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // TODO: Investigate its use AFTER two bulleted lists end (correctly) in January 14 "The multiverse".
             // TODO: Investigate its use after a clear paragraph break in February 12 "Just watched some Game Maker’s Toolkit videos". (Would this case be fine if we just made it \n?)
             // TODO: Investigate its double-use in February 18, "Mackenzie is asking if I’m gonna respond". (Would this case be fine if we just made it \n?)
+            //
+            // How the robot is wording it:
+            //
+            // TEMPORARY: U+2028 normalization
+            // --------------------------------
+            // DayOne uses U+2028 inconsistently.
+            // If normalized earlier, it is captured by the single-newline
+            // paragraph promotion logic and produces incorrect structure.
+            //
+            // This MUST run *after* paragraph wrapping, even though it
+            // logically belongs in input sanitization.
+            //
+            // Revisit once U+2028 semantics are fully understood.
             /\u2028/g,
             "<br>"
         )
