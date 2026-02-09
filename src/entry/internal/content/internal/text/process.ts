@@ -233,6 +233,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
+            // Get rid of stray backslashes in single-line code.
+            // (We'll probably need to do this with code-blocks eventually too.)
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            /`([^`\n]+)`/g,
+            (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
+        )
+        .replace(
             // For some reason, I've got "---" horizontal rules with images
             // on the same line.
             // This adds a couple line breaks so that the horizontal rule
