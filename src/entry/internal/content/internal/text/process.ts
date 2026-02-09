@@ -438,6 +438,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Some exported Markdown uses "==text==" to indicate highlights, but this syntax
             // isn't supported by all Markdown parsers. To preserve formatting in HTML,
             // we convert these to <strong><mark>text</mark></strong>.
+            //
+            // TODO: This is actually a use case for pre-parsing the interior markdown.
+            // TODO: And because it can happen right at the end, we don't have to worry
+            // TODO: about running `process.ts` in a nested way.
             /\*\*==(.+?)==\*\*/g,
             "<strong><mark>$1</mark></strong>"
         )
