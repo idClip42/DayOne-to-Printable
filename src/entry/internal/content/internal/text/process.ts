@@ -321,5 +321,22 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Apparently we've got some "\-\-\-" in there too.
             /\\-\\-\\-/g,
             "---"
+        )
+        .replace(
+            // But we need to fix our quote blocks, which are filled with <br>s
+            // and we don't want them to be.
+            // We want to leave only the <br>s that indicate a single-newline
+            // paragraph break.
+            //
+            // (We're probably undoing an earlier rule at this point.)
+            //
+            // 1. Remove <br> from content lines ONLY when followed by an empty quote line
+            /^(>.*)<br>\n(?=>\s*<br>\n)/gm,
+            "$1\n"
+        )
+        .replace(
+            // 2. Normalize empty quote lines
+            /^>\s*<br>\n/gm,
+            "> \n"
         );
 }
