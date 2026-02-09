@@ -184,6 +184,10 @@ blockquote {
     background-color: lightgray;
 }
 
+p.single-newline {
+    background-color: salmon;
+}
+
 /* #endregion */
 
 /* #region Entry Metadata */

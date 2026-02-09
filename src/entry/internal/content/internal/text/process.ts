@@ -70,6 +70,22 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<br>"
         )
         .replace(
+            // Now that we know `<br>` marks all of our single-newline paragraph breaks,
+            // we can replace that with a full-on `<p>` element with a special class.
+            // We'll use this to structurally distinguish these single-newline paragraphs
+            // without them looking any different visually.
+            // TODO: This leaves the content as raw markdown,
+            // TODO: so this is not a viable solution.
+            // TODO: Template once this works.
+            /<br>([\s\S]*?)(?=<br>|\n|$)/g,
+            (_, content) =>
+                `\n \n<p class="single-newline">${content.trim()}</p>\n \n`
+            // Putting a space between the newlines is a hack fix.
+            // When I put them together, some other rule gets rid
+            // of one of them and then the bullets that follow don't
+            // convert to HTML properly.
+        )
+        .replace(
             // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
             // Replace it with a <br>.
             // One example of a place this shows up is in single-newlines in bullets that are meant to
@@ -240,6 +256,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /`([^`\n]+)`/g,
             (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
         )
+        .replace(/>[^<]*</g, match => {
+            return match;
+            // Get rid of stray backslashes in text content between HTML tags.
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            // TODO: Delete this once you know you don't need it.
+            // match.replace(/\\([^\\])/g, "$1")
+        })
         .replace(
             // For some reason, I've got "---" horizontal rules with images
             // on the same line.
