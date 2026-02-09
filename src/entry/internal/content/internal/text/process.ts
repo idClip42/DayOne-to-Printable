@@ -11,6 +11,14 @@ const SINGLE_NEWLINE_TEMPLATE_PATH = "src/templates/singleNewlineParagraph.hbs";
 export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
         .replace(
+            // #: 1
+            // NAME: Header Line Isolation
+            // CATEGORY: Structural Markdown Guards
+            // PURPOSE: Guarantees headers terminate cleanly and do not “leak” formatting into body text.
+            // DEPENDS ON: Raw Markdown still intact (should be very early)
+            // CONFLICTS: None directly. Later newline-collapsing rules could negate this if reordered.
+            // WARNINGS: None.
+            //
             // Add an extra return after every header line of any level.
             // This makes absolutely sure that no body text is also formatted
             // like a header.
@@ -18,6 +26,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             match => match + "\n"
         )
         .replace(
+            // #: 2
+            // NAME: Fix Blank Blockquote Lines with CR
+            // CATEGORY: Blockquote Integrity
+            // PURPOSE: Repairs malformed empty quote lines so subsequent content remains quoted.
+            // DEPENDS ON: Raw blockquote syntax preserved
+            // CONFLICTS: Later <br> manipulation inside quotes. Quote normalization rules near the end.
+            // WARNINGS: This rule is extremely specific; it probably belongs in a “DayOne CRLF anomalies” subgroup.
+            //
             // Fixes blank "> " lines with \r line endings anywhere inside a blockquote.
             // Ensures that content following such lines remains part of the quote by
             // prepending "> ", preserving proper Markdown blockquote structure.
@@ -25,6 +41,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "> \n> "
         )
         .replace(
+            // #: 3
+            // NAME: Blockquote Termination Guard
+            // CATEGORY: Blockquote Integrity
+            // PURPOSE: Ensures content following a blockquote doesn’t accidentally merge into it.
+            // DEPENDS ON: Blockquotes still being line-based (> intact)
+            // CONFLICTS: Can be partially undone by later quote <br> cleanup. Can be affected by newline normalization rules.
+            // WARNINGS: This rule is defensive but broad — it operates across quote boundaries and paragraph boundaries.
+            //
             // Add extra newlines at end of ">" block quotes.
             // This makes sure commentary after block quotes
             // (without an extra newline to separate it out)
@@ -33,6 +57,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             match => match + "\n"
         )
         .replace(
+            // #: 4
+            // NAME: List Item / Paragraph Boundary Guard
+            // CATEGORY: List Integrity
+            // PURPOSE: Prevents a paragraph following a list item from being parsed as part of that item.
+            // DEPENDS ON: List syntax still raw. No <br> inserted yet.
+            // CONFLICTS: This rule must run before any newline-to-<br> logic.
+            // WARNINGS: None.
+            //
             // Insert an extra newline after list items when the next line starts with text.
             // This ensures that any paragraph-like content following a list item is not treated
             // as part of the same list item by Markdown parsers.
@@ -54,6 +86,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "\n\n"
         )
         .replace(
+            // #: 5
+            // NAME: Single-Newline → <br> Conversion
+            // CATEGORY: Line-break Normalization
+            // PURPOSE: Turns “soft” line breaks into semantic <br> without breaking MD structures.
+            // DEPENDS ON: Structural guards (lists, quotes, headers) already reinforced
+            // CONFLICTS: Quote <br> cleanup at the end. Code block normalization (later replaces <br> back to \n). Single-newline paragraph wrapper (next rule).
+            // WARNINGS: his is a keystone rule — many later rules exist specifically to clean up its side effects.
+            //
             // Replace single `\n` (not followed by a list item, blockquote, or table line) with <br>.
             // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
             /*
@@ -75,6 +115,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<br>"
         )
         .replace(
+            // #: 6
+            // NAME: Single-Newline Paragraph Wrapper
+            // CATEGORY: Line-break Normalization / HTML Injection
+            // PURPOSE: Elevates single-newline paragraphs into a semantic structure distinguishable in HTML.
+            // DEPENDS ON: Rule 5 having already replaced newlines with <br>. No lists / quotes inside content.
+            // CONFLICTS: Recursively calls processText (⚠️ huge coupling). Quote <br> cleanup explicitly undoes parts of this later. Code cleanup removes <br>.
+            // WARNINGS: This rule is doing: Markdown parsing; HTML parsing assumptions; Recursive text processing; Rendering concerns; It’s the emotional core of your pipeline — powerful, but dangerous.
+            //
             // Now that we know `<br>` marks all of our single-newline paragraph breaks,
             // we can replace that with a full-on `<p>` element with a special class.
             // We'll use this to structurally distinguish these single-newline paragraphs
@@ -143,6 +191,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
+            // #: 7
+            // NAME: Unicode Line Separator Normalization
+            // CATEGORY: Line-break Normalization
+            // PURPOSE: Normalizes weird DayOne line separators into expected breaks.
+            // DEPENDS ON: Structural guards (lists, quotes, headers) already reinforced
+            // CONFLICTS: Quote cleanup. Code block cleanup.
+            // WARNINGS: This belongs with Rule 5 logically, even if execution order stays separate.
+            //
             // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
             // Replace it with a <br>.
             // One example of a place this shows up is in single-newlines in bullets that are meant to
@@ -158,12 +214,28 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<br>"
         )
         .replace(
+            // #: 8
+            // NAME: Preserve Line Breaks Within Blockquotes
+            // CATEGORY: Blockquote Integrity
+            // PURPOSE: Allows multi-line quotes to preserve internal breaks without ending the quote.
+            // DEPENDS ON: <br> already being semantic. Quote markers intact.
+            // CONFLICTS: Explicitly undone later by quote <br> cleanup rules.
+            // WARNINGS: This is a “temporary corruption” rule — it knowingly introduces garbage that must be cleaned later.
+            //
             // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
             // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
             /(?<=^>.*)\n(?=> )/gm,
             "<br>\n"
         )
         .replace(
+            // #: 9
+            // NAME: Ensure Spacing Before Images
+            // CATEGORY: Image & Attachment Normalization
+            // PURPOSE: Ensures images don’t get glued to preceding text.
+            // DEPENDS ON: Images still in markdown form
+            // CONFLICTS: List/image fix rule later. Newline collapsing rules.
+            // WARNINGS: None.
+            //
             // Ensure at least two newlines before an image — but only if there’s real content above.
             /*
                 Matches:
@@ -181,6 +253,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
+            // #: 10
+            // NAME: Ensure Spacing After Images
+            // CATEGORY: Image & Attachment Normalization
+            // PURPOSE: Symmetric with Rule 9 — isolates images visually and structurally.
+            // DEPENDS ON: Images still in markdown form
+            // CONFLICTS: List/image fix rule
+            // WARNINGS: None
+            //
             // Ensure at least two newlines after an image — but only if there’s real content below.
             /*
                 Matches:
@@ -198,6 +278,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
+            // #: 11
+            // NAME: Inline Images Inside Lists Fix
+            // CATEGORY: List Integrity / Image Normalization
+            // PURPOSE: Prevents image spacing rules from breaking list nesting.
+            // DEPENDS ON: Rules 9 & 10 having already added spacing
+            // CONFLICTS: Future newline normalization
+            // WARNINGS: This rule is a patch for Rules 9 & 10 — they should be grouped together.
+            //
             // All images are surrounded by "\n\n" double newlines.
             // When an image is inserted mid-list,
             // at one of the nested levels instead of the top level,
@@ -210,6 +298,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
         )
         .replace(
+            // #: 12
+            // NAME: Resolve DayOne Image Attachments
+            // CATEGORY: Image & Attachment Normalization
+            // PURPOSE: Replaces DayOne pseudo-URLs with real image paths or fallback attachments.
+            // DEPENDS ON: Entry metadata available. Before code/image spacing rules ideally.
+            // CONFLICTS: None.
+            // WARNINGS: None.
+            //
             // Replaces all DayOne image links with the link
             // to the actual relevant image.
             /!\[]\(dayone-moment:(.*?)\)/g,
@@ -229,6 +325,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
+            // #: 13
+            // NAME: Remove Empty Fenced Code Blocks
+            // CATEGORY: Code Normalization
+            // PURPOSE: Rejoins DayOne’s fragmented code blocks.
+            // DEPENDS ON: Raw code fences intact
+            // CONFLICTS: None.
+            // WARNINGS: None.
+            //
             // For some reason, DayOne separates each code block line
             // into separate blocks with separate triple-backticks.
             // So this re-merges them.
@@ -236,6 +340,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             ""
         )
         .replace(
+            // #: 14
+            // NAME: Normalize Code Block Content
+            // CATEGORY: Code Normalization
+            // PURPOSE:Remove stray backslashes; Convert <br> back to \n; Collapse excessive newlines
+            // DEPENDS ON: Rule 5 having possibly introduced <br>. Must run after single-newline logic.
+            // CONFLICTS: Inline code cleanup later might diverge logic. Backslash cleanup elsewhere.
+            // WARNINGS: None.
+            //
             // In code blocks:
             // This removes backslashes,
             // puts back single quotes,
@@ -252,6 +364,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
+            // #: 15
+            // NAME: Unicode Bullet Normalization
+            // CATEGORY: List Integrity
+            // PURPOSE: Turns copy-pasted bullets into real Markdown lists.
+            // DEPENDS ON: Before list spacing rules ideally
+            // CONFLICTS: None
+            // WARNINGS: None
+            //
             // There's at least one copy-pasted list with
             // actual unicode bullets that isn't interpreted
             // as a list and becomes one line in the HTML.
@@ -262,6 +382,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "-"
         )
         .replace(
+            // #: 16
+            // NAME: Collapse Excess Newlines Before Lists
+            // CATEGORY: List Integrity / Line-break Normalization
+            // PURPOSE: Prevents list parsing issues due to excessive vertical whitespace.
+            // DEPENDS ON: After paragraph / image spacing rules
+            // CONFLICTS: Header spacing. Image spacing.
+            // WARNINGS: None.
+            //
             // If there are multiple newlines before a line that looks like `[-] stuff`,
             // // then replace the extra newlines (just the extras!) with `<br>` —
             // // but leave the final newline intact, so that the list item still starts on its own line.
@@ -272,6 +400,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             match => "\n"
         )
         .replace(
+            // #: 17
+            // NAME: Bold Highlight Conversion
+            // CATEGORY: Highlight & Formatting Extensions
+            // PURPOSE: Preserves DayOne highlight syntax inside bold text.
+            // DEPENDS ON: Must run before plain highlight rule
+            // CONFLICTS: None if ordered correctly
+            // WARNINGS: None.
+            //
             // Convert "**==highlighted text==**" into HTML bold + highlight.
             // Some exported Markdown uses "==text==" to indicate highlights, but this syntax
             // isn't supported by all Markdown parsers. To preserve formatting in HTML,
@@ -280,6 +416,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<strong><mark>$1</mark></strong>"
         )
         .replace(
+            // #: 18
+            // NAME: Plain Highlight Conversion
+            // CATEGORY: Highlight & Formatting Extensions
+            // PURPOSE: Extends Markdown with highlight support.
+            // DEPENDS ON: After Rule 17
+            // CONFLICTS: None.
+            // WARNINGS: None.
+            //
             // Convert "==highlighted text==" into HTML <mark> tags.
             // This handles highlight syntax not supported by standard Markdown.
             // Run this *after* the bold-highlight rule to avoid nested replacements.
@@ -287,12 +431,28 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<mark>$1</mark>"
         )
         .replace(
+            // #: 19
+            // NAME: Flatten Nested Blockquotes
+            // CATEGORY: Blockquote Integrity
+            // PURPOSE: Disallows multi-tier quote nesting.
+            // DEPENDS ON: Raw quotes still intact
+            // CONFLICTS: Earlier quote-specific formatting rules
+            // WARNINGS: None
+            //
             // No multi-tiered quote blocks.
             // They don't show up in the journal, so they shouldn't show up here.
             /^(\s*>){2,}\s?/gm,
             "> "
         )
         .replace(
+            // #: 20
+            // NAME: URL Backslash Cleanup
+            // CATEGORY: Escape / Backslash Cleanup
+            // PURPOSE: Removes stray escapes from URLs.
+            // DEPENDS ON: URLs not yet parsed to HTML
+            // CONFLICTS: Code block cleanup if misordered
+            // WARNINGS: None
+            //
             // Get rid of stray backslashes in URLs.
             // Backslashes at this point are unprocessed markdown, and we can kill
             // all of them unless they're escaping another backslash.
@@ -300,6 +460,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
+            // #: 21
+            // NAME: Quote Line Backslash Cleanup
+            // CATEGORY: Escape / Backslash Cleanup
+            // PURPOSE: Same as Rule 20, but scoped to quotes
+            // DEPENDS ON: Quote structure intact
+            // CONFLICTS: None
+            // WARNINGS: None
+            //
             // Get rid of stray backslashes in quote blocks.
             // Backslashes at this point are unprocessed markdown, and we can kill
             // all of them unless they're escaping another backslash.
@@ -307,6 +475,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
+            // #: 22
+            // NAME: Inline Code Backslash Cleanup
+            // CATEGORY: Escape / Backslash Cleanup
+            // PURPOSE: Normalizes escaped characters in inline code.
+            // DEPENDS ON: Before code block normalization ideally
+            // CONFLICTS: None
+            // WARNINGS: None
+            //
             // Get rid of stray backslashes in single-line code.
             // (We'll probably need to do this with code-blocks eventually too.)
             // Backslashes at this point are unprocessed markdown, and we can kill
@@ -315,6 +491,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
         )
         .replace(
+            // #: 23
+            // NAME: Horizontal Rule / Image Separation
+            // CATEGORY: Horizontal Rule Fixups
+            // PURPOSE:
+            // DEPENDS ON:
+            // CONFLICTS:
+            // WARNINGS:
+            //
             // For some reason, I've got "---" horizontal rules with images
             // on the same line.
             // This adds a couple line breaks so that the horizontal rule
@@ -323,16 +507,40 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "---\n\n!"
         )
         .replace(
+            // #: 24
+            // NAME: Horizontal Rules Inside Quotes
+            // CATEGORY: Horizontal Rule Fixups / Blockquote Integrity
+            // PURPOSE:
+            // DEPENDS ON:
+            // CONFLICTS:
+            // WARNINGS:
+            //
             // Some horizontal rules are in quote blocks. This fixes those entirely.
             /> ---/g,
             "> <hr>"
         )
         .replace(
+            // #: 25
+            // NAME: Escaped Horizontal Rule Cleanup
+            // CATEGORY: Horizontal Rule Fixups
+            // PURPOSE:
+            // DEPENDS ON:
+            // CONFLICTS:
+            // WARNINGS:
+            //
             // Apparently we've got some "\-\-\-" in there too.
             /\\-\\-\\-/g,
             "---"
         )
         .replace(
+            // #: 26
+            // NAME: Quote <br> Cleanup – Phase 1
+            // CATEGORY: Blockquote Integrity / Line-break Normalization
+            // PURPOSE: Removes unwanted <br> pollution inside quotes.
+            // DEPENDS ON: Rule 8 having added them
+            // CONFLICTS: Explicitly undoes earlier rules.
+            // WARNINGS: Explicitly undoes earlier rules.
+            //
             // But we need to fix our quote blocks, which are filled with <br>s
             // and we don't want them to be.
             // We want to leave only the <br>s that indicate a single-newline
@@ -345,6 +553,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "$1\n"
         )
         .replace(
+            // #: 27
+            // NAME: Quote <br> Cleanup – Phase 2
+            // CATEGORY: Blockquote Integrity
+            // PURPOSE: Normalizes empty quote lines.
+            // DEPENDS ON:
+            // CONFLICTS:
+            // WARNINGS:
+            //
             // 2. Normalize empty quote lines
             /^>\s*<br>\n/gm,
             "> \n"
