@@ -219,14 +219,18 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "> "
         )
         .replace(
-            // Get rid of stray backslashes around punctuation in URLs.
+            // Get rid of stray backslashes in URLs.
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
             /(https?:\/\/.*)$/gm,
-            line => line.replace(/\\([\\() .\-_:/?=&%#])/g, "$1")
+            line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
-            // Get rid of stray backslashes around punctuation in quote blocks.
+            // Get rid of stray backslashes in quote blocks.
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
             /^>\s*.*$/gm,
-            line => line.replace(/\\([().\-.,:;!?*])/g, "$1")
+            line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
             // For some reason, I've got "---" horizontal rules with images
