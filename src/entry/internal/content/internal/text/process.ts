@@ -8,6 +8,10 @@ import { SingleNewlineParagraphTemplateVars } from "../../../../../templates/sin
 
 const SINGLE_NEWLINE_TEMPLATE_PATH = "src/templates/singleNewlineParagraph.hbs";
 
+// TODO: 1. Design cumulative test for all rules that shows all rules working.
+// TODO: 2. Break rules into category files, and validate against test file.
+// TODO: 3. Refine rules.
+
 export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
         .replace(
@@ -22,6 +26,7 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Add an extra return after every header line of any level.
             // This makes absolutely sure that no body text is also formatted
             // like a header.
+            // TODO: We should probably enforce always having two newlines, instead of arbitrarily adding one.
             /(^#{1,}.*\n)/gm,
             match => match + "\n"
         )
@@ -210,6 +215,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // So these just pop up randomly every so often, and their context is inconsistent.
             // I count 103 in volume 2 alone.
             // So I guess they just have to be acceptable losses?
+            //
+            // TODO: Maybe we need to flag specifically when this shows up mid-bullet.
+            // TODO: Make it a <br> mid-bullet, make it a \n otherwise (before any other processing)?
+            // TODO: Investigate its use at the end of a blockquote in January 1 "Mackenzie and Fireworks"
+            // TODO: (vs. mid-blockquote in Jan 4 "Morning" -  Would this case be fine if we just made it \n?).
+            // TODO: Investigate its use AFTER two bulleted lists end (correctly) in January 14 "The multiverse".
+            // TODO: Investigate its use after a clear paragraph break in February 12 "Just watched some Game Maker’s Toolkit videos". (Would this case be fine if we just made it \n?)
+            // TODO: Investigate its double-use in February 18, "Mackenzie is asking if I’m gonna respond". (Would this case be fine if we just made it \n?)
             /\u2028/g,
             "<br>"
         )
