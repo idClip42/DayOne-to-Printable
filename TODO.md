@@ -56,6 +56,7 @@
 - [ ] Consider rewriting `src/entry/internal/content/internal/text/process.ts`
   - [ ] This is a big job.
   - [ ] We'll need to produce a test markdown that features every single issue we've ever seen, and a parallel test markdown that shows what it should look like when done.
+    - [ ] Have it write results files for easy perusal, maybe.
   - [ ] We should have done this a while back - **that whole stack needs to be testable.**
   - [ ] Once you have that test framework, then you can rewrite the rules.
   - [ ] Break up the rules into categories - separate files, maybe.
