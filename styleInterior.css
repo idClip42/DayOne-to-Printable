@@ -180,6 +180,7 @@ blockquote {
 .entry table {
     font-size: 6pt;
 }
+
 .entry tr:nth-child(even) {
     background-color: lightgray;
 }
