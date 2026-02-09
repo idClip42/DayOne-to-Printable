@@ -80,7 +80,14 @@ h6 {
 }
 
 p {
-    margin-top: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 0;
+    /* 
+    We need the margins set up this way
+    so that the special one-newline
+    paragraphs can set "top" to `0`.
+    */
+
     break-inside: avoid;
     page-break-inside: avoid; /* legacy but still useful */
 }
@@ -187,6 +194,7 @@ blockquote {
 
 p.single-newline {
     background-color: salmon;
+    margin-top: 0;
 }
 
 /* #endregion */

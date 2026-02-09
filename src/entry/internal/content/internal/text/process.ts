@@ -2,6 +2,7 @@ import { getImageFilePath } from "../images";
 import { getAttachmentMarkdown } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
+import { marked } from "marked";
 
 export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
@@ -74,12 +75,58 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // we can replace that with a full-on `<p>` element with a special class.
             // We'll use this to structurally distinguish these single-newline paragraphs
             // without them looking any different visually.
-            // TODO: This leaves the content as raw markdown,
-            // TODO: so this is not a viable solution.
-            // TODO: Template once this works.
+            // NOTE: I'm pretty sure this won't affect quote blocks or lists.
             /<br>([\s\S]*?)(?=<br>|\n|$)/g,
-            (_, content) =>
-                `\n \n<p class="single-newline">${content.trim()}</p>\n \n`
+            (_, content) => {
+                // We know that `content.trim()` is a
+                // single line of text.
+                // Whatever it may have in it, it has
+                // no new lines. Everything is
+                // self-contained...
+
+                // ...Which means we can safely process
+                // that line before parsing it.
+                // Get rid of any stray backslashes in
+                // code backticks and whatnot.
+                const processedContent = processText(content.trim(), entry);
+
+                // If we drop the content straight in,
+                // it'll be left as raw markdown in an
+                // HTML element, so we have to parse it.
+                const parsedContent = marked.parse(processedContent, {
+                    async: false,
+                });
+                // But if we drop the `<p>` element it
+                // produces in our template, it doesn't
+                // work for some reason - creates a
+                // separate paragraph.
+
+                // We know (or rather, assume) that a
+                // simple line of text, when passed
+                // through the parser, will produce a
+                // `<p>` paragraph...
+                const TAG_START = "<p>";
+                const TAG_END = "</p>\n";
+                if (
+                    !parsedContent.startsWith(TAG_START) ||
+                    !parsedContent.endsWith(TAG_END)
+                ) {
+                    throw new Error(
+                        `Unhandled single-newline paragraph md => html: \n${JSON.stringify(parsedContent)}`
+                    );
+                }
+
+                // ...so we steal the HTML content of the
+                // `<p>` from out of the tags...
+                const clippedContent = parsedContent.substring(
+                    TAG_START.length,
+                    parsedContent.length - TAG_END.length
+                );
+
+                // ...and we pass it into our waiting template.
+                // TODO: Add template once this works.
+                return `\n \n<p class="single-newline">${clippedContent}</p>\n \n`;
+            }
             // Putting a space between the newlines is a hack fix.
             // When I put them together, some other rule gets rid
             // of one of them and then the bullets that follow don't
@@ -179,6 +226,7 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             ""
         )
         .replace(
+            // In code blocks:
             // This removes backslashes,
             // puts back single quotes,
             // and replaces anything more than
@@ -204,7 +252,7 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "-"
         )
         .replace(
-            //If there are multiple newlines before a line that looks like `[-] stuff`,
+            // If there are multiple newlines before a line that looks like `[-] stuff`,
             // // then replace the extra newlines (just the extras!) with `<br>` —
             // // but leave the final newline intact, so that the list item still starts on its own line.
             // // (The extra `<br>` is because the formatting seems to ignore the first one.)
@@ -256,14 +304,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /`([^`\n]+)`/g,
             (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
         )
-        .replace(/>[^<]*</g, match => {
-            return match;
-            // Get rid of stray backslashes in text content between HTML tags.
-            // Backslashes at this point are unprocessed markdown, and we can kill
-            // all of them unless they're escaping another backslash.
-            // TODO: Delete this once you know you don't need it.
-            // match.replace(/\\([^\\])/g, "$1")
-        })
         .replace(
             // For some reason, I've got "---" horizontal rules with images
             // on the same line.
