@@ -3,6 +3,10 @@ import { getAttachmentMarkdown } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
 import { marked } from "marked";
+import { renderTemplate } from "../../../../../utilities/template";
+import { SingleNewlineParagraphTemplateVars } from "../../../../../templates/singleNewlineParagraph.hbs";
+
+const SINGLE_NEWLINE_TEMPLATE_PATH = "src/templates/singleNewlineParagraph.hbs";
 
 export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
@@ -124,13 +128,19 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                 );
 
                 // ...and we pass it into our waiting template.
-                // TODO: Add template once this works.
-                return `\n \n<p class="single-newline">${clippedContent}</p>\n \n`;
+                const html = renderTemplate<SingleNewlineParagraphTemplateVars>(
+                    SINGLE_NEWLINE_TEMPLATE_PATH,
+                    {
+                        htmlContent: clippedContent,
+                    }
+                );
+
+                // Putting a space between the newlines is a hack fix.
+                // When I put them together, some other rule gets rid
+                // of one of them and then the bullets that follow don't
+                // convert to HTML properly.
+                return `\n \n${html}\n \n`;
             }
-            // Putting a space between the newlines is a hack fix.
-            // When I put them together, some other rule gets rid
-            // of one of them and then the bullets that follow don't
-            // convert to HTML properly.
         )
         .replace(
             // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
