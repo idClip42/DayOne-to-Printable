@@ -50,3 +50,4 @@
     - [ ] I’d have to play with the normal paragraph margins too. Have paragraphs have only a top margin and no bottom margin, and kill the top one on the single-newline paragraphs.
     - [ ] Test these changes by highlighting the modified elements in a color.
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
+- [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
