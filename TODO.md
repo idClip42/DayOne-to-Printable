@@ -50,5 +50,8 @@
     - [x] This is presuming we can regex replace every single-newline line with double-newline HTML blocks, and that'll work for multiple single-newline lines in a row.
     - [x] I’d have to play with the normal paragraph margins too. Have paragraphs have only a top margin and no bottom margin, and kill the top one on the single-newline paragraphs.
     - [x] Test these changes by highlighting the modified elements in a color.
+- [ ] Take another pass at the single newline lines.
+  - [ ] Right now, it's an involved HTML creation process that has a lot of special steps and doesn't cover quote blocks.
+  - [ ] Maybe we *should* look into doing everything as paragraphs and just tagging them with some arbitrary thing that we search for later, like we had with the attachments.
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
