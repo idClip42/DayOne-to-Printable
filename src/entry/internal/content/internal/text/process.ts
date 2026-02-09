@@ -70,16 +70,25 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             "<br>"
         )
         .replace(
+            // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
+            // Replace it with a <br>.
+            // One example of a place this shows up is in single-newlines in bullets that are meant to
+            // stay within those bullets.
+            // Also spotting it:
+            // - On normal text after a quote block
+            // - On normal text after normal text
+            // - Mid-quote block
+            // So these just pop up randomly every so often, and their context is inconsistent.
+            // I count 103 in volume 2 alone.
+            // So I guess they just have to be acceptable losses?
+            /\u2028/g,
+            "<br>"
+        )
+        .replace(
             // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
             // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
             /(?<=^>.*)\n(?=> )/gm,
             "<br>\n"
-        )
-        .replace(
-            // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
-            // Replace it with a <br>.
-            /\u2028/g,
-            "<br>"
         )
         .replace(
             // Ensure at least two newlines before an image — but only if there’s real content above.
