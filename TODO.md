@@ -59,6 +59,10 @@
     - [ ] Have it write results files for easy perusal, maybe.
     - [ ] Multiple test files
       - [ ] Individual files for individual groups of rules
+        - [ ] Actually, **just do unit tests.**
+          - [ ] `testA.input.md`
+          - [ ] `testA.expected.md`
+          - [ ] Something like that.
       - [ ] And a file that covers everythihng
     - [ ] Render a diff
   - [ ] We should have done this a while back - **that whole stack needs to be testable.**
