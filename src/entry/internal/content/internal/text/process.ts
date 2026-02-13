@@ -42,6 +42,12 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
+            // NEW: Replace multiple spaces between bullet and text with one space.
+            /^([ \t]*)([-*])[ \t]{2,}/gm,
+            "$1$2 "
+        )
+
+        .replace(
             // #: 1
             // NAME: Header Line Isolation
             // CATEGORY: Structural Markdown Guards
