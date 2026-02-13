@@ -2,6 +2,9 @@ import REPLACERS from "../../../../../../../htmlReplacers.json";
 
 const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 
+// TODO: We need to figure out how to get backslash-Rs into the test cases.
+// TODO: Maybe just copy the json-stringified string.
+
 export function fixBlockquotes(input: string): string {
     let output = input
         .replace(
@@ -152,6 +155,8 @@ function fillQuoteRuns(md: string): string {
                     // TODO: We should see evidence of this in the "cat" entry.
                     lines[k] = addQuotePrefix(
                         /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
+                        // TODO: Have we killed this one?
+                        // TODO: Looks like we have.
                     );
                     // We also assume that this is the last line of the
                     // quote.
@@ -183,6 +188,9 @@ function fillQuoteRuns(md: string): string {
                     // Which means we gotta fill in
                     lines[k] = addQuotePrefix(
                         /* "[[QUOTE_ADDED_UPCOMING]]" + */ lines[k]
+                        // TODO: Reverse this?
+                        // TODO: In which case, this whole area of the logic
+                        // TODO: can be gotten rid of.
                     );
                 }
             }
