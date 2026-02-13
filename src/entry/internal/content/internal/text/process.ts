@@ -272,8 +272,18 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Revisit once U+2028 semantics are fully understood.
             /\u2028/g,
             // "<br>"
-            `${U_2028_TAG}\n\n`
+            `${U_2028_TAG}`
             // TODO: We need multiple rules for the different contexts this is encountered in.
+            // TODO: No
+            // TODO: Not quite
+            // TODO: This really is just a single return
+            // TODO: In test 2, we see it comes after a newline
+            // TODO: So we need to replace it with a newline
+            // TODO: And if it's on a line that starts with a "> ",
+            // TODO: We replace with with a newline+">".
+            // TODO: That's it. That's the rule.
+            // TODO: Move it up to the top group.
+            // TODO: Later rules will add the requisite tag.
         )
 
         .replace(
