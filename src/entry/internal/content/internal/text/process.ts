@@ -78,6 +78,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
+            // 19: Flatten Nested Blockquotes
+            // No multi-tiered quote blocks.
+            // They don't show up in the journal, so they shouldn't show up here.
+            /^(\s*>){2,}\s?/gm,
+            "> "
+        )
+
+        .replace(
             // 16.1: All lists must have two newlines before them.
             /(^|\n)([^\n]*?)\n+(?=^[ \t]*[-*] )/gm,
             (match, prefix, line, offset, full) => {
@@ -368,20 +376,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Run this *after* the bold-highlight rule to avoid nested replacements.
             /==(.+?)==/g,
             "<mark>$1</mark>"
-        )
-        .replace(
-            // #: 19
-            // NAME: Flatten Nested Blockquotes
-            // CATEGORY: Blockquote Integrity
-            // PURPOSE: Disallows multi-tier quote nesting.
-            // DEPENDS ON: Raw quotes still intact
-            // CONFLICTS: Earlier quote-specific formatting rules
-            // WARNINGS: None
-            //
-            // No multi-tiered quote blocks.
-            // They don't show up in the journal, so they shouldn't show up here.
-            /^(\s*>){2,}\s?/gm,
-            "> "
         )
         .replace(
             // #: 20
