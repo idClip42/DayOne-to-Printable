@@ -1,8 +1,33 @@
+import REPLACERS from "../../../../../../htmlReplacers.json";
+
 const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
+
+function handleSingleNewlinesInsideBlockquotes(md: string): string {
+    // Match:
+    //   > nonblank text\n
+    //   > nonblank text   (where the 2nd line is NOT a list/table/nested-quote start)
+    const re =
+        /(^[ \t]*> (?!\s*$)[^\n]*\S[^\n]*)\n([ \t]*> )(?!\s*$)(?![ \t]*(?:[*\-+]\s|\d+\.\s|>|\||[:|\- ]+\|))([^\n]*)/gm;
+
+    let prev: string;
+    do {
+        prev = md;
+        // Turn single-newline separation into:
+        //   > line1
+        //   >
+        //   > TAGline2
+        md = md.replace(
+            re,
+            `$1\n$2\n$2${REPLACERS.singleNewlineParagraph.tag}$3`
+        );
+    } while (md !== prev);
+
+    return md;
+}
 
 export function fixBlockquotes(input: string): string {
     let output = fillQuoteRuns(input);
-    return output
+    output = output
         .replace(
             // Collapse any nested quote prefix to a single "> ".
             // Examples it fixes:
@@ -28,6 +53,11 @@ export function fixBlockquotes(input: string): string {
             /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm,
             "$1\n"
         );
+    // .replace(
+    //     /(^[ \t]*> (?!\s*$)[^\n]*\S[^\n]*)\n([ \t]*> )(?!\s*$)(?![ \t]*(?:[*\-+]\s|\d+\.\s|>|\||[:|\- ]+\|))([^\n]*)/gm,
+    //     `$1\n$2\n$2${REPLACERS.singleNewlineParagraph.tag}$3`
+    // );
+    return handleSingleNewlinesInsideBlockquotes(output);
 }
 
 function fillQuoteRuns(md: string): string {
