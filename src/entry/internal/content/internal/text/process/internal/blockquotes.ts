@@ -58,6 +58,13 @@ export function fixBlockquotes(input: string): string {
 
     output = handleSingleNewlinesInsideBlockquotes(output);
 
+    output = output.replace(
+        // Insert a blank line between a non-quote text line and a following quote line.
+        // (Won't fire if there's already a blank line, because then the next char is "\n", not ">".)
+        /^(?![ \t]*>)(?!\s*$)([^\n]*\S[^\n]*)\n(?=[ \t]*>\s)/gm,
+        "$1\n\n"
+    );
+
     return output;
 }
 
