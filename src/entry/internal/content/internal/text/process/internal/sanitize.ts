@@ -18,11 +18,8 @@ export function sanitizeInput(input: string): string {
             "-"
         )
         .replace(
-            // 2: Fix Blank Blockquote Lines with CR
-            // Fixes blank "> " lines with \r line endings anywhere inside a blockquote.
-            // Ensures that content following such lines remains part of the quote by
-            // prepending "> ", preserving proper Markdown blockquote structure.
-            /^> \r/gm,
-            "> \n> "
+            // Replace all "\r"s with "\n"s.
+            /\r/gm,
+            "\n"
         );
 }

@@ -114,58 +114,59 @@ function fillQuoteRuns(md: string): string {
             if (!isQuote(lines[k])) {
                 // Now we have to figure out if `lines[k]` is intended as a quote.
 
-                const hasPrevLine = k > 0;
-                if (!hasPrevLine) throw new Error("This will never happen.");
-                const prevLine = lines[k - 1];
-
                 const isLastLine = k === lines.length - 1;
                 if (isLastLine) {
                     // If the last line isn't quote-blocked,
                     // it's not a quote.
-                    lines[k] = /* "[[QUOTE_ADDED_LAST_LINE]]" + */ lines[k];
+                    // But let's add an extra newline to
+                    // separate it.
+                    lines[k] =
+                        "\n" + /* "[[QUOTE_ADDED_LAST_LINE]]" + */ lines[k];
                     break;
                 }
-                const nextLine = lines[k + 1];
+                // const nextLine = lines[k + 1];
 
+                const prevLine = lines[k - 1];
                 const prevHasBlankQuote = prevLine.trim() === ">";
                 if (prevHasBlankQuote) {
+                    // If there's a blank quote line and then a non-quote line,
+                    // this line  was intended as part of the quote.
+                    // TODO: We should see evidence of this in the "cat" entry.
                     lines[k] = addQuotePrefix(
                         /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
                     );
-                    // If there's a blank quote line and then a non-quote line
-                    // we should assume that this is the last line of the
+                    // We also assume that this is the last line of the
                     // quote.
-                    // TODO: Does nothing in the raw journal data flag this one?
-                    // TODO: The tests do, though, which is weird.
                     break;
                 }
 
-                const nextHasBlankLine = !nextLine.trim();
-                if (nextHasBlankLine) {
-                    // If the next line is totally blank,
-                    // we assume this line to not be a block quote.
-                    // But we should probably separate it from the pack.
-                    lines[k] =
-                        "\n" + /* "[[QUOTE_ADDED_NEXT_BLANK]]" + */ lines[k];
-                    break;
-                }
+                const nextLines = lines.slice(k);
+                const nextEmptyLine = nextLines.findIndex(l => l.trim() === "");
+                const nextQuoteLine = nextLines.findIndex(l =>
+                    l.trim().startsWith(">")
+                );
 
-                const anyMoreQuotes = lines
-                    .slice(k + 1)
-                    .some(l => l.trim().startsWith(">"));
-                if (!anyMoreQuotes) {
-                    // If there are no more quotes after this line,
+                const anyMoreQuotes = nextQuoteLine > 0;
+                const anyMoreEmpties = nextEmptyLine > 0;
+                const breakBeforeNextQuote =
+                    !anyMoreQuotes ||
+                    (anyMoreEmpties && nextEmptyLine < nextQuoteLine);
+
+                if (breakBeforeNextQuote) {
+                    // If there's an empty line before the next quote block,
+                    // or if there text ends with no more quote blocks,
                     // then this ain't gonna be a quote.
                     // And we should probably separate it from the pack.
                     lines[k] = "\n" + /* "[[QUOTE_ADDED_END]]" + */ lines[k];
                     break;
+                } else {
+                    // Otherwise, we are coming up on another quote block
+                    // without any kind of interruption.
+                    // Which means we gotta fill in
+                    lines[k] = addQuotePrefix(
+                        /* "[[QUOTE_ADDED_UPCOMING]]" + */ lines[k]
+                    );
                 }
-
-                // In any other situation,
-                // The quote ends.
-                // No newlines ended because these tend to be
-                // single-spaced.
-                lines[k] = /* "[[QUOTE_ADDED_DEF]]" + */ lines[k];
             }
         }
 
