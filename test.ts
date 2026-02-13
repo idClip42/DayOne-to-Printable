@@ -29,6 +29,9 @@ if (MODE === TestMode.MakeOutput) {
         fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
     }
 } else if (MODE === TestMode.CompareToOutput) {
+    if (inputFilenames.length !== outputFilenames.length)
+        throw new Error("Different input and output file counts.");
+
     // Clear out output folder
     const preexistingDiffs = fs.readdirSync(OUTPUT_DIR);
     for (const diffFilename of preexistingDiffs)
