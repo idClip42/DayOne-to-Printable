@@ -2,11 +2,9 @@ import { getImageFilePath } from "../images";
 import { getAttachmentMarkdown } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
-import { marked } from "marked";
-import { renderTemplate } from "../../../../../utilities/template";
-import { SingleNewlineParagraphTemplateVars } from "../../../../../templates/singleNewlineParagraph.hbs";
 
-const SINGLE_NEWLINE_TEMPLATE_PATH = "src/templates/singleNewlineParagraph.hbs";
+const U_2028_TAG = "[[U_2028]]";
+const SINGLE_NEWLINE_P_TAG = "[[SINGLE_NEWLINE_P]]";
 
 // TODO: 1. Design cumulative test for all rules that shows all rules working.
 // TODO: 2. Break rules into category files, and validate against test file.
@@ -76,13 +74,14 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /(!?\[.*?\]\(.*?\))\n(?=\S)/g,
             (_, image) => `${image}\n\n`
         )
-
         .replace(
-            // 19: Flatten Nested Blockquotes
-            // No multi-tiered quote blocks.
-            // They don't show up in the journal, so they shouldn't show up here.
-            /^(\s*>){2,}\s?/gm,
-            "> "
+            // 23: Horizontal Rule / Image Separation
+            // For some reason, I've got "---" horizontal rules with images
+            // on the same line.
+            // This adds a couple line breaks so that the horizontal rule
+            // renders correctly.
+            /---\s+!/g,
+            "---\n\n!"
         )
 
         .replace(
@@ -114,15 +113,102 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
-            // #: 5
-            // NAME: Single-Newline → <br> Conversion
-            // CATEGORY: Line-break Normalization
-            // PURPOSE: Turns “soft” line breaks into semantic <br> without breaking MD structures.
-            // DEPENDS ON: Structural guards (lists, quotes, headers) already reinforced
-            // CONFLICTS: Quote <br> cleanup at the end. Code block normalization (later replaces <br> back to \n). Single-newline paragraph wrapper (next rule).
-            // WARNINGS: his is a keystone rule — many later rules exist specifically to clean up its side effects.
-            //
-            // Replace single `\n` (not followed by a list item, blockquote, or table line) with <br>.
+            // TODO: This doesn't fix everything.
+            // TODO: This isn't anywhere near working.
+            /(^>[^\S\r\n]*\n)\s*(?=[^>\s])/gm,
+            "$1> "
+        )
+        .replace(
+            // 19: Flatten Nested Blockquotes
+            // No multi-tiered quote blocks.
+            // They don't show up in the journal, so they shouldn't show up here.
+            /^(\s*>){2,}\s?/gm,
+            "> "
+        )
+        .replace(
+            // 24: Horizontal Rules Inside Quotes
+            // Some horizontal rules are in quote blocks. This fixes those entirely.
+            /> ---/g,
+            "> <hr>"
+        )
+
+        .replace(
+            // 12: Resolve DayOne Image Attachments
+            // Replaces all DayOne image links with the link
+            // to the actual relevant image.
+            /!\[]\(dayone-moment:(.*?)\)/g,
+            (_, match) => {
+                const attachmentInfo = getAttachmentInfo(entry, match);
+                if (attachmentInfo.type === "Photo") {
+                    const imageFilePath = getImageFilePath(
+                        entry,
+                        match.replace("//", "")
+                    );
+                    if (imageFilePath) return `![](${imageFilePath})`;
+                }
+
+                // If it's not an image, or we couldn't find the image,
+                // default to this.
+                return getAttachmentMarkdown(attachmentInfo);
+            }
+        )
+
+        .replace(
+            // 13: Remove Empty Fenced Code Blocks
+            // PURPOSE: Rejoins DayOne’s fragmented code blocks.
+            // For some reason, DayOne separates each code block line
+            // into separate blocks with separate triple-backticks.
+            // So this re-merges them.
+            /```[\n\r]+```/g,
+            ""
+        )
+        .replace(
+            // 14: Normalize Code Block Content
+            // CATEGORY: Code Normalization
+            // PURPOSE:Remove stray backslashes; ~~Convert <br> back to \n;~~ Collapse excessive newlines
+            // In code blocks:
+            // This removes backslashes,
+            // puts back single quotes,
+            // and replaces anything more than
+            // two newlines with just two newlines.
+            /```([\s\S]*?)```/g,
+            (match, codeBlock) => {
+                const normalized = codeBlock
+                    .replace(/\\/g, "")
+                    // .replace(/<br>/g, "\n")
+                    .replace(/\n{2,}/g, "\n\n");
+                const final = `\`\`\`${normalized}\`\`\``;
+                return final;
+            }
+        )
+
+        .replace(
+            // 20: URL Backslash Cleanup
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            /(https?:\/\/.*)$/gm,
+            line => line.replace(/\\([^\\])/g, "$1")
+        )
+        .replace(
+            // 21: Quote Line Backslash Cleanup
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            /^>\s*.*$/gm,
+            line => line.replace(/\\([^\\])/g, "$1")
+        )
+        .replace(
+            // 22: Inline Code Backslash Cleanup
+            // Get rid of stray backslashes in single-line code.
+            // (We'll probably need to do this with code-blocks eventually too.)
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            /`([^`\n]+)`/g,
+            (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
+        )
+
+        .replace(
+            // 5: Single-Newline Conversion
+            // Replace single `\n` (not followed by a list item, blockquote, or table line).
             // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
             /*
                 Breakdown:
@@ -140,84 +226,9 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                     - `\S` — Next character must be non-whitespace
             */
             /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
-            "<br>"
+            `\n\n${SINGLE_NEWLINE_P_TAG}`
         )
-        .replace(
-            // #: 6
-            // NAME: Single-Newline Paragraph Wrapper
-            // CATEGORY: Line-break Normalization / HTML Injection
-            // PURPOSE: Elevates single-newline paragraphs into a semantic structure distinguishable in HTML.
-            // DEPENDS ON: Rule 5 having already replaced newlines with <br>. No lists / quotes inside content.
-            // CONFLICTS: Recursively calls processText (⚠️ huge coupling). Quote <br> cleanup explicitly undoes parts of this later. Code cleanup removes <br>.
-            // WARNINGS: This rule is doing: Markdown parsing; HTML parsing assumptions; Recursive text processing; Rendering concerns; It’s the emotional core of your pipeline — powerful, but dangerous.
-            //
-            // Now that we know `<br>` marks all of our single-newline paragraph breaks,
-            // we can replace that with a full-on `<p>` element with a special class.
-            // We'll use this to structurally distinguish these single-newline paragraphs
-            // without them looking any different visually.
-            // NOTE: I'm pretty sure this won't affect quote blocks or lists.
-            /<br>([\s\S]*?)(?=<br>|\n|$)/g,
-            (_, content) => {
-                // We know that `content.trim()` is a
-                // single line of text.
-                // Whatever it may have in it, it has
-                // no new lines. Everything is
-                // self-contained...
 
-                // ...Which means we can safely process
-                // that line before parsing it.
-                // Get rid of any stray backslashes in
-                // code backticks and whatnot.
-                const processedContent = processText(content.trim(), entry);
-
-                // If we drop the content straight in,
-                // it'll be left as raw markdown in an
-                // HTML element, so we have to parse it.
-                const parsedContent = marked.parse(processedContent, {
-                    async: false,
-                });
-                // But if we drop the `<p>` element it
-                // produces in our template, it doesn't
-                // work for some reason - creates a
-                // separate paragraph.
-
-                // We know (or rather, assume) that a
-                // simple line of text, when passed
-                // through the parser, will produce a
-                // `<p>` paragraph...
-                const TAG_START = "<p>";
-                const TAG_END = "</p>\n";
-                if (
-                    !parsedContent.startsWith(TAG_START) ||
-                    !parsedContent.endsWith(TAG_END)
-                ) {
-                    throw new Error(
-                        `Unhandled single-newline paragraph md => html: \n${JSON.stringify(parsedContent)}`
-                    );
-                }
-
-                // ...so we steal the HTML content of the
-                // `<p>` from out of the tags...
-                const clippedContent = parsedContent.substring(
-                    TAG_START.length,
-                    parsedContent.length - TAG_END.length
-                );
-
-                // ...and we pass it into our waiting template.
-                const html = renderTemplate<SingleNewlineParagraphTemplateVars>(
-                    SINGLE_NEWLINE_TEMPLATE_PATH,
-                    {
-                        htmlContent: clippedContent,
-                    }
-                );
-
-                // Putting a space between the newlines is a hack fix.
-                // When I put them together, some other rule gets rid
-                // of one of them and then the bullets that follow don't
-                // convert to HTML properly.
-                return `\n \n${html}\n \n`;
-            }
-        )
         .replace(
             // #: 7
             // NAME: Unicode Line Separator Normalization
@@ -260,88 +271,11 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             //
             // Revisit once U+2028 semantics are fully understood.
             /\u2028/g,
-            "<br>"
+            // "<br>"
+            `${U_2028_TAG}\n\n`
+            // TODO: We need multiple rules for the different contexts this is encountered in.
         )
-        .replace(
-            // #: 8
-            // NAME: Preserve Line Breaks Within Blockquotes
-            // CATEGORY: Blockquote Integrity
-            // PURPOSE: Allows multi-line quotes to preserve internal breaks without ending the quote.
-            // DEPENDS ON: <br> already being semantic. Quote markers intact.
-            // CONFLICTS: Explicitly undone later by quote <br> cleanup rules.
-            // WARNINGS: This is a “temporary corruption” rule — it knowingly introduces garbage that must be cleaned later.
-            //
-            // Insert <br> before a new blockquote line ("> ") *only if* the previous line also starts with "> ".
-            // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
-            /(?<=^>.*)\n(?=> )/gm,
-            "<br>\n"
-        )
-        .replace(
-            // #: 12
-            // NAME: Resolve DayOne Image Attachments
-            // CATEGORY: Image & Attachment Normalization
-            // PURPOSE: Replaces DayOne pseudo-URLs with real image paths or fallback attachments.
-            // DEPENDS ON: Entry metadata available. Before code/image spacing rules ideally.
-            // CONFLICTS: None.
-            // WARNINGS: None.
-            //
-            // Replaces all DayOne image links with the link
-            // to the actual relevant image.
-            /!\[]\(dayone-moment:(.*?)\)/g,
-            (_, match) => {
-                const attachmentInfo = getAttachmentInfo(entry, match);
-                if (attachmentInfo.type === "Photo") {
-                    const imageFilePath = getImageFilePath(
-                        entry,
-                        match.replace("//", "")
-                    );
-                    if (imageFilePath) return `![](${imageFilePath})`;
-                }
 
-                // If it's not an image, or we couldn't find the image,
-                // default to this.
-                return getAttachmentMarkdown(attachmentInfo);
-            }
-        )
-        .replace(
-            // #: 13
-            // NAME: Remove Empty Fenced Code Blocks
-            // CATEGORY: Code Normalization
-            // PURPOSE: Rejoins DayOne’s fragmented code blocks.
-            // DEPENDS ON: Raw code fences intact
-            // CONFLICTS: None.
-            // WARNINGS: None.
-            //
-            // For some reason, DayOne separates each code block line
-            // into separate blocks with separate triple-backticks.
-            // So this re-merges them.
-            /```[\n\r]+```/g,
-            ""
-        )
-        .replace(
-            // #: 14
-            // NAME: Normalize Code Block Content
-            // CATEGORY: Code Normalization
-            // PURPOSE:Remove stray backslashes; Convert <br> back to \n; Collapse excessive newlines
-            // DEPENDS ON: Rule 5 having possibly introduced <br>. Must run after single-newline logic.
-            // CONFLICTS: Inline code cleanup later might diverge logic. Backslash cleanup elsewhere.
-            // WARNINGS: None.
-            //
-            // In code blocks:
-            // This removes backslashes,
-            // puts back single quotes,
-            // and replaces anything more than
-            // two newlines with just two newlines.
-            /```([\s\S]*?)```/g,
-            (match, codeBlock) => {
-                const normalized = codeBlock
-                    .replace(/\\/g, "")
-                    .replace(/<br>/g, "\n")
-                    .replace(/\n{2,}/g, "\n\n");
-                const final = `\`\`\`${normalized}\`\`\``;
-                return final;
-            }
-        )
         .replace(
             // #: 17
             // NAME: Bold Highlight Conversion
@@ -376,113 +310,5 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Run this *after* the bold-highlight rule to avoid nested replacements.
             /==(.+?)==/g,
             "<mark>$1</mark>"
-        )
-        .replace(
-            // #: 20
-            // NAME: URL Backslash Cleanup
-            // CATEGORY: Escape / Backslash Cleanup
-            // PURPOSE: Removes stray escapes from URLs.
-            // DEPENDS ON: URLs not yet parsed to HTML
-            // CONFLICTS: Code block cleanup if misordered
-            // WARNINGS: None
-            //
-            // Get rid of stray backslashes in URLs.
-            // Backslashes at this point are unprocessed markdown, and we can kill
-            // all of them unless they're escaping another backslash.
-            /(https?:\/\/.*)$/gm,
-            line => line.replace(/\\([^\\])/g, "$1")
-        )
-        .replace(
-            // #: 21
-            // NAME: Quote Line Backslash Cleanup
-            // CATEGORY: Escape / Backslash Cleanup
-            // PURPOSE: Same as Rule 20, but scoped to quotes
-            // DEPENDS ON: Quote structure intact
-            // CONFLICTS: None
-            // WARNINGS: None
-            //
-            // Get rid of stray backslashes in quote blocks.
-            // Backslashes at this point are unprocessed markdown, and we can kill
-            // all of them unless they're escaping another backslash.
-            /^>\s*.*$/gm,
-            line => line.replace(/\\([^\\])/g, "$1")
-        )
-        .replace(
-            // #: 22
-            // NAME: Inline Code Backslash Cleanup
-            // CATEGORY: Escape / Backslash Cleanup
-            // PURPOSE: Normalizes escaped characters in inline code.
-            // DEPENDS ON: Before code block normalization ideally
-            // CONFLICTS: None
-            // WARNINGS: None
-            //
-            // Get rid of stray backslashes in single-line code.
-            // (We'll probably need to do this with code-blocks eventually too.)
-            // Backslashes at this point are unprocessed markdown, and we can kill
-            // all of them unless they're escaping another backslash.
-            /`([^`\n]+)`/g,
-            (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
-        )
-        .replace(
-            // #: 23
-            // NAME: Horizontal Rule / Image Separation
-            // CATEGORY: Horizontal Rule Fixups
-            // PURPOSE:
-            // DEPENDS ON:
-            // CONFLICTS:
-            // WARNINGS:
-            //
-            // For some reason, I've got "---" horizontal rules with images
-            // on the same line.
-            // This adds a couple line breaks so that the horizontal rule
-            // renders correctly.
-            /---\s+!/g,
-            "---\n\n!"
-        )
-        .replace(
-            // #: 24
-            // NAME: Horizontal Rules Inside Quotes
-            // CATEGORY: Horizontal Rule Fixups / Blockquote Integrity
-            // PURPOSE:
-            // DEPENDS ON:
-            // CONFLICTS:
-            // WARNINGS:
-            //
-            // Some horizontal rules are in quote blocks. This fixes those entirely.
-            /> ---/g,
-            "> <hr>"
-        )
-        .replace(
-            // #: 26
-            // NAME: Quote <br> Cleanup – Phase 1
-            // CATEGORY: Blockquote Integrity / Line-break Normalization
-            // PURPOSE: Removes unwanted <br> pollution inside quotes.
-            // DEPENDS ON: Rule 8 having added them
-            // CONFLICTS: Explicitly undoes earlier rules.
-            // WARNINGS: Explicitly undoes earlier rules.
-            //
-            // But we need to fix our quote blocks, which are filled with <br>s
-            // and we don't want them to be.
-            // We want to leave only the <br>s that indicate a single-newline
-            // paragraph break.
-            //
-            // (We're probably undoing an earlier rule at this point.)
-            //
-            // 1. Remove <br> from content lines ONLY when followed by an empty quote line
-            /^(>.*)<br>\n(?=>\s*<br>\n)/gm,
-            "$1\n"
-        )
-        .replace(
-            // #: 27
-            // NAME: Quote <br> Cleanup – Phase 2
-            // CATEGORY: Blockquote Integrity
-            // PURPOSE: Normalizes empty quote lines.
-            // DEPENDS ON:
-            // CONFLICTS:
-            // WARNINGS:
-            //
-            // 2. Normalize empty quote lines
-            /^>\s*<br>\n/gm,
-            "> \n"
         );
 }
