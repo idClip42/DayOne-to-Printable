@@ -16,10 +16,5 @@ export function sanitizeInput(input: string): string {
             // - Sometimes there will be indentation whitespace
             /(?<=\n\s*>?\s*)•/g,
             "-"
-        )
-        .replace(
-            // Replace all "\r"s with "\n"s.
-            /\r/gm,
-            /*"[[BACKSLASH_R]]" + */ "\n"
         );
 }
