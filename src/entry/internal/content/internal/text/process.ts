@@ -78,6 +78,21 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
+            // 16.1: All lists must have two newlines before them.
+            /(^|\n)([^\n]*?)\n+(?=^[ \t]*[-*] )/gm,
+            (match, prefix, line, offset, full) => {
+                if (offset === 0) return match;
+
+                if (/^[ \t]*[-*] /.test(line)) {
+                    // previous line is list item → inside list
+                    return match;
+                }
+
+                return prefix + line + "\n\n";
+            }
+        )
+
+        .replace(
             // #: 5
             // NAME: Single-Newline → <br> Conversion
             // CATEGORY: Line-break Normalization
@@ -325,24 +340,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                 const final = `\`\`\`${normalized}\`\`\``;
                 return final;
             }
-        )
-        .replace(
-            // #: 16
-            // NAME: Collapse Excess Newlines Before Lists
-            // CATEGORY: List Integrity / Line-break Normalization
-            // PURPOSE: Prevents list parsing issues due to excessive vertical whitespace.
-            // DEPENDS ON: After paragraph / image spacing rules
-            // CONFLICTS: Header spacing. Image spacing.
-            // WARNINGS: None.
-            //
-            // If there are multiple newlines before a line that looks like `[-] stuff`,
-            // // then replace the extra newlines (just the extras!) with `<br>` —
-            // // but leave the final newline intact, so that the list item still starts on its own line.
-            // // (The extra `<br>` is because the formatting seems to ignore the first one.)
-            // Actually let's just get rid of the extra newlines altogether.
-            /\n{2,}(?=\s*- )/g,
-            // match => "<br>".repeat(match.length - 1) + "<br>\n"
-            match => "\n"
         )
         .replace(
             // #: 17
