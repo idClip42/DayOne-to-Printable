@@ -1,8 +1,8 @@
-import { getImageFilePath } from "../images";
-import { getAttachmentMarkdown } from "../attachments/textProcess";
-import { DayOneEntry } from "../../../../../types/DayOneEntry";
-import { getAttachmentInfo } from "../attachments/info";
-import REPLACERS from "./../../../../../htmlReplacers.json";
+import { getImageFilePath } from "../../images";
+import { getAttachmentMarkdown } from "../../attachments/textProcess";
+import { DayOneEntry } from "../../../../../../types/DayOneEntry";
+import { getAttachmentInfo } from "../../attachments/info";
+import REPLACERS from "../../../../../../htmlReplacers.json";
 
 export function processText(
     inputText: string,
