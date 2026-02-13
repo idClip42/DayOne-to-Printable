@@ -4,8 +4,6 @@ import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
 import REPLACERS from "./../../../../../htmlReplacers.json";
 
-const U_2028_TAG = "[[U_2028]]";
-
 // TODO: 1. Design cumulative test for all rules that shows all rules working.
 // TODO: 2. Break rules into category files, and validate against test file.
 // TODO: 3. Refine rules.
