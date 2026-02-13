@@ -91,6 +91,19 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                 return prefix + line + "\n\n";
             }
         )
+        .replace(
+            // 11: Inline Images Inside Lists Fix
+            // All images are surrounded by "\n\n" double newlines.
+            // When an image is inserted mid-list,
+            // at one of the nested levels instead of the top level,
+            // this line break breaks the list entirely.
+            // We fix this by:
+            // - Finding images that come after list items
+            // - Removing both line breaks from the start
+            // - Removing one of the two line breaks from the finish.
+            /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
+            (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
+        )
 
         .replace(
             // #: 5
@@ -254,26 +267,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
             /(?<=^>.*)\n(?=> )/gm,
             "<br>\n"
-        )
-        .replace(
-            // #: 11
-            // NAME: Inline Images Inside Lists Fix
-            // CATEGORY: List Integrity / Image Normalization
-            // PURPOSE: Prevents image spacing rules from breaking list nesting.
-            // DEPENDS ON: Rules 9 & 10 having already added spacing
-            // CONFLICTS: Future newline normalization
-            // WARNINGS: This rule is a patch for Rules 9 & 10 — they should be grouped together.
-            //
-            // All images are surrounded by "\n\n" double newlines.
-            // When an image is inserted mid-list,
-            // at one of the nested levels instead of the top level,
-            // this line break breaks the list entirely.
-            // We fix this by:
-            // - Finding images that come after list items
-            // - Removing both line breaks from the start
-            // - Removing one of the two line breaks from the finish.
-            /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
-            (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
         )
         .replace(
             // #: 12
