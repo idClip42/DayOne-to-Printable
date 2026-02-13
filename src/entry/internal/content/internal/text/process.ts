@@ -14,6 +14,33 @@ const SINGLE_NEWLINE_TEMPLATE_PATH = "src/templates/singleNewlineParagraph.hbs";
 
 export function processText(inputText: string, entry: DayOneEntry): string {
     return inputText
+
+        .replace(
+            // 25: Escaped Horizontal Rule Cleanup
+            // Apparently we've got some "\-\-\-" in there too.
+            /\\-\\-\\-/g,
+            "---"
+        )
+        .replace(
+            // 15: Unicode Bullet Normalization
+            // There's at least one copy-pasted list with
+            // actual unicode bullets that isn't interpreted
+            // as a list and becomes one line in the HTML.
+            // Of note:
+            // - Sometimes these lists will be in block quotes
+            // - Sometimes there will be indentation whitespace
+            /(?<=\n\s*>?\s*)•/g,
+            "-"
+        )
+        .replace(
+            // 2: Fix Blank Blockquote Lines with CR
+            // Fixes blank "> " lines with \r line endings anywhere inside a blockquote.
+            // Ensures that content following such lines remains part of the quote by
+            // prepending "> ", preserving proper Markdown blockquote structure.
+            /^> \r/gm,
+            "> \n> "
+        )
+
         .replace(
             // #: 1
             // NAME: Header Line Isolation
@@ -29,21 +56,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // TODO: We should probably enforce always having two newlines, instead of arbitrarily adding one.
             /(^#{1,}.*\n)/gm,
             match => match + "\n"
-        )
-        .replace(
-            // #: 2
-            // NAME: Fix Blank Blockquote Lines with CR
-            // CATEGORY: Blockquote Integrity
-            // PURPOSE: Repairs malformed empty quote lines so subsequent content remains quoted.
-            // DEPENDS ON: Raw blockquote syntax preserved
-            // CONFLICTS: Later <br> manipulation inside quotes. Quote normalization rules near the end.
-            // WARNINGS: This rule is extremely specific; it probably belongs in a “DayOne CRLF anomalies” subgroup.
-            //
-            // Fixes blank "> " lines with \r line endings anywhere inside a blockquote.
-            // Ensures that content following such lines remains part of the quote by
-            // prepending "> ", preserving proper Markdown blockquote structure.
-            /^> \r/gm,
-            "> \n> "
         )
         .replace(
             // #: 3
@@ -390,24 +402,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             }
         )
         .replace(
-            // #: 15
-            // NAME: Unicode Bullet Normalization
-            // CATEGORY: List Integrity
-            // PURPOSE: Turns copy-pasted bullets into real Markdown lists.
-            // DEPENDS ON: Before list spacing rules ideally
-            // CONFLICTS: None
-            // WARNINGS: None
-            //
-            // There's at least one copy-pasted list with
-            // actual unicode bullets that isn't interpreted
-            // as a list and becomes one line in the HTML.
-            // Of note:
-            // - Sometimes these lists will be in block quotes
-            // - Sometimes there will be indentation whitespace
-            /(?<=\n\s*>?\s*)•/g,
-            "-"
-        )
-        .replace(
             // #: 16
             // NAME: Collapse Excess Newlines Before Lists
             // CATEGORY: List Integrity / Line-break Normalization
@@ -548,19 +542,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Some horizontal rules are in quote blocks. This fixes those entirely.
             /> ---/g,
             "> <hr>"
-        )
-        .replace(
-            // #: 25
-            // NAME: Escaped Horizontal Rule Cleanup
-            // CATEGORY: Horizontal Rule Fixups
-            // PURPOSE:
-            // DEPENDS ON:
-            // CONFLICTS:
-            // WARNINGS:
-            //
-            // Apparently we've got some "\-\-\-" in there too.
-            /\\-\\-\\-/g,
-            "---"
         )
         .replace(
             // #: 26
