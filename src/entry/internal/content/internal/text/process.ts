@@ -5,8 +5,7 @@ import { getAttachmentInfo } from "../attachments/info";
 import REPLACERS from "./../../../../../htmlReplacers.json";
 
 export function processText(inputText: string, entry: DayOneEntry): string {
-    return inputText
-
+    const sanitizedInput = inputText
         .replace(
             // 25: Escaped Horizontal Rule Cleanup
             // Apparently we've got some "\-\-\-" in there too.
@@ -45,8 +44,9 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // This is the regular version.
             /\u2028/g,
             `\n`
-        )
+        );
 
+    const structureCleanup = sanitizedInput
         .replace(
             // 1.1: Header Line Isolation
             // Enforces exactly two newlines after every header.
@@ -90,8 +90,9 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // renders correctly.
             /---\s+!/g,
             "---\n\n!"
-        )
+        );
 
+    const listFixes = structureCleanup
         .replace(
             // 16.1: All lists must have two newlines before them.
             /(^|\n)([^\n]*?)\n+(?=^[ \t]*[-*] )/gm,
@@ -118,8 +119,9 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // - Removing one of the two line breaks from the finish.
             /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
             (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
-        )
+        );
 
+    const blockquoteFixes = listFixes
         .replace(
             // TODO: This doesn't fix everything.
             // TODO: This isn't anywhere near working.
@@ -138,29 +140,9 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Some horizontal rules are in quote blocks. This fixes those entirely.
             /> ---/g,
             "> <hr>"
-        )
+        );
 
-        .replace(
-            // 12: Resolve DayOne Image Attachments
-            // Replaces all DayOne image links with the link
-            // to the actual relevant image.
-            /!\[]\(dayone-moment:(.*?)\)/g,
-            (_, match) => {
-                const attachmentInfo = getAttachmentInfo(entry, match);
-                if (attachmentInfo.type === "Photo") {
-                    const imageFilePath = getImageFilePath(
-                        entry,
-                        match.replace("//", "")
-                    );
-                    if (imageFilePath) return `![](${imageFilePath})`;
-                }
-
-                // If it's not an image, or we couldn't find the image,
-                // default to this.
-                return getAttachmentMarkdown(attachmentInfo);
-            }
-        )
-
+    const codeFixes = blockquoteFixes
         .replace(
             // 13: Remove Empty Fenced Code Blocks
             // PURPOSE: Rejoins DayOne’s fragmented code blocks.
@@ -188,8 +170,30 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                 const final = `\`\`\`${normalized}\`\`\``;
                 return final;
             }
-        )
+        );
 
+    const attachmentFillIns = codeFixes.replace(
+        // 12: Resolve DayOne Image Attachments
+        // Replaces all DayOne image links with the link
+        // to the actual relevant image.
+        /!\[]\(dayone-moment:(.*?)\)/g,
+        (_, match) => {
+            const attachmentInfo = getAttachmentInfo(entry, match);
+            if (attachmentInfo.type === "Photo") {
+                const imageFilePath = getImageFilePath(
+                    entry,
+                    match.replace("//", "")
+                );
+                if (imageFilePath) return `![](${imageFilePath})`;
+            }
+
+            // If it's not an image, or we couldn't find the image,
+            // default to this.
+            return getAttachmentMarkdown(attachmentInfo);
+        }
+    );
+
+    const backslashCleanup = attachmentFillIns
         .replace(
             // 20: URL Backslash Cleanup
             // Backslashes at this point are unprocessed markdown, and we can kill
@@ -212,13 +216,13 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // all of them unless they're escaping another backslash.
             /`([^`\n]+)`/g,
             (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
-        )
+        );
 
-        .replace(
-            // 5: Single-Newline Conversion
-            // Replace single `\n` (not followed by a list item, blockquote, or table line).
-            // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
-            /*
+    const singleNewlineConversion = backslashCleanup.replace(
+        // 5: Single-Newline Conversion
+        // Replace single `\n` (not followed by a list item, blockquote, or table line).
+        // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
+        /*
                 Breakdown:
                 - `(?<!\n)` — Not preceded by another newline (we're not in a blank line).
                 - `\n` — The newline we might want to replace.
@@ -233,10 +237,11 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                         - a table alignment row (like `|:---|:---|`)
                     - `\S` — Next character must be non-whitespace
             */
-            /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
-            `\n\n${REPLACERS.singleNewlineParagraph.tag}`
-        )
+        /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
+        `\n\n${REPLACERS.singleNewlineParagraph.tag}`
+    );
 
+    const extensions = singleNewlineConversion
         .replace(
             // #: 17
             // NAME: Bold Highlight Conversion
@@ -272,4 +277,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /==(.+?)==/g,
             "<mark>$1</mark>"
         );
+
+    return extensions;
 }
