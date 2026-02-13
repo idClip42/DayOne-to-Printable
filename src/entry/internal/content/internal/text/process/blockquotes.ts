@@ -2,32 +2,32 @@ const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 
 export function fixBlockquotes(input: string): string {
     let output = fillQuoteRuns(input);
-    output = output.replace(
-        // Collapse any nested quote prefix to a single "> ".
-        // Examples it fixes:
-        //   ">> hello"      -> "> hello"
-        //   "> > hello"     -> "> hello"
-        //   ">    > hello"  -> "> hello"
-        //   ">>> hello"     -> "> hello"
-        /^([^\S\r\n]*)>(?:[^\S\r\n]*>)+[^\S\r\n]*/gm,
-        "$1> "
-    );
-    output = output.replace(
-        // 24: Horizontal Rules Inside Quotes
-        // Some horizontal rules are in quote blocks. This fixes those entirely.
-        /> ---/g,
-        "> <hr>"
-    );
-    output = output.replace(
-        // Ensure exactly ONE empty line after the end of a blockquote run
-        // - Match a quote line
-        // - Next line must NOT start another quote line
-        // - Replace any number of blank lines following with exactly one blank line
-        // but only if there is more non-whitespace content later (avoid trailing blanks at EOF).
-        /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm,
-        "$1\n"
-    );
-    return output;
+    return output
+        .replace(
+            // Collapse any nested quote prefix to a single "> ".
+            // Examples it fixes:
+            //   ">> hello"      -> "> hello"
+            //   "> > hello"     -> "> hello"
+            //   ">    > hello"  -> "> hello"
+            //   ">>> hello"     -> "> hello"
+            /^([^\S\r\n]*)>(?:[^\S\r\n]*>)+[^\S\r\n]*/gm,
+            "$1> "
+        )
+        .replace(
+            // 24: Horizontal Rules Inside Quotes
+            // Some horizontal rules are in quote blocks. This fixes those entirely.
+            /> ---/g,
+            "> <hr>"
+        )
+        .replace(
+            // Ensure exactly ONE empty line after the end of a blockquote run
+            // - Match a quote line
+            // - Next line must NOT start another quote line
+            // - Replace any number of blank lines following with exactly one blank line
+            // but only if there is more non-whitespace content later (avoid trailing blanks at EOF).
+            /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm,
+            "$1\n"
+        );
 }
 
 function fillQuoteRuns(md: string): string {
