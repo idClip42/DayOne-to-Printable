@@ -273,6 +273,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Convert "==highlighted text==" into HTML <mark> tags.
             // This handles highlight syntax not supported by standard Markdown.
             // Run this *after* the bold-highlight rule to avoid nested replacements.
+            // TODO: I think we need to figure out something clever here to make this reasonable.
+            // TODO: We can't do the tag thing because we can't guarantee this is the start of an element,
+            // TODO: and it could be in any...
+            // TODO: ...unless we abuse an existing MD element type?
             /==(.+?)==/g,
             "<mark>$1</mark>"
         );
