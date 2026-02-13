@@ -1,4 +1,4 @@
-import REPLACERS from "../../../../../../htmlReplacers.json";
+import REPLACERS from "../../../../../../../htmlReplacers.json";
 
 export function handleSingleNewlines(input: string): string {
     return input.replace(

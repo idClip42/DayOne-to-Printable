@@ -1,4 +1,4 @@
-import REPLACERS from "../../../../../../htmlReplacers.json";
+import REPLACERS from "../../../../../../../htmlReplacers.json";
 
 const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 

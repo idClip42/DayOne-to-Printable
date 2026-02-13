@@ -1,7 +1,7 @@
-import { DayOneEntry } from "../../../../../../types/DayOneEntry";
-import { getAttachmentInfo } from "../../attachments/info";
-import { getAttachmentMarkdown } from "../../attachments/textProcess";
-import { getImageFilePath } from "../../images";
+import { DayOneEntry } from "../../../../../../../types/DayOneEntry";
+import { getAttachmentInfo } from "../../../attachments/info";
+import { getAttachmentMarkdown } from "../../../attachments/textProcess";
+import { getImageFilePath } from "../../../images";
 
 // TODO: We need to be able to test this.
 // TODO: All our tests are image-less.

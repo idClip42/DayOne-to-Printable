@@ -1,13 +1,13 @@
 import { DayOneEntry } from "../../../../../../types/DayOneEntry";
-import { sanitizeInput } from "./sanitize";
-import { cleanStructure } from "./structure";
-import { fixLists } from "./lists";
-import { fixBlockquotes } from "./blockquotes";
-import { fixCode } from "./code";
-import { fillInAttachments } from "./attachments";
-import { cleanBackslashes } from "./backslashes";
-import { handleExtensions } from "./extensions";
-import { handleSingleNewlines } from "./singleNewlines";
+import { sanitizeInput } from "./internal/sanitize";
+import { cleanStructure } from "./internal/structure";
+import { fixLists } from "./internal/lists";
+import { fixBlockquotes } from "./internal/blockquotes";
+import { fixCode } from "./internal/code";
+import { fillInAttachments } from "./internal/attachments";
+import { cleanBackslashes } from "./internal/backslashes";
+import { handleExtensions } from "./internal/extensions";
+import { handleSingleNewlines } from "./internal/singleNewlines";
 
 export function processText(
     inputText: string,
