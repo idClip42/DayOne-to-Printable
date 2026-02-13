@@ -3,8 +3,8 @@ import REPLACERS from "../../../../../../htmlReplacers.json";
 export function handleSingleNewlines(input: string): string {
     return input.replace(
         // 5: Single-Newline Conversion
-        // Replace single `\n` (not followed by a list item, blockquote, or table line).
-        // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
+        // Replace single `\n` (not followed by a list item, blockquote, or table line)
+        // with double newlines and a tag to mark it so the HTML can be updated later.
         /*
                 Breakdown:
                 - `(?<!\n)` — Not preceded by another newline (we're not in a blank line).

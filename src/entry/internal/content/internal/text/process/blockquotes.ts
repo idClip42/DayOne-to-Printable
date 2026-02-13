@@ -3,6 +3,14 @@ export function fixBlockquotes(input: string): string {
         .replace(
             // TODO: This doesn't fix everything.
             // TODO: This isn't anywhere near working.
+
+            // TODO: We need to add ">" to every line
+            // TODO: that needs them - including multiple
+            // TODO: lines without it in a row.
+
+            // TODO: Once all the ">" are added, we
+            // TODO: need to find the single-newline
+            // TODO: things and give them the tag.
             /(^>[^\S\r\n]*\n)\s*(?=[^>\s])/gm,
             "$1> "
         )

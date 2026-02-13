@@ -1,4 +1,6 @@
 export function fixCode(input: string): string {
+    // TODO: Find examples of code blocks in the journal
+    // TODO: and make tests for them.
     return input
         .replace(
             // 13: Remove Empty Fenced Code Blocks
@@ -12,7 +14,7 @@ export function fixCode(input: string): string {
         .replace(
             // 14: Normalize Code Block Content
             // CATEGORY: Code Normalization
-            // PURPOSE:Remove stray backslashes; ~~Convert <br> back to \n;~~ Collapse excessive newlines
+            // PURPOSE:Remove stray backslashes; Collapse excessive newlines
             // In code blocks:
             // This removes backslashes,
             // puts back single quotes,
@@ -22,7 +24,6 @@ export function fixCode(input: string): string {
             (match, codeBlock) => {
                 const normalized = codeBlock
                     .replace(/\\/g, "")
-                    // .replace(/<br>/g, "\n")
                     .replace(/\n{2,}/g, "\n\n");
                 const final = `\`\`\`${normalized}\`\`\``;
                 return final;

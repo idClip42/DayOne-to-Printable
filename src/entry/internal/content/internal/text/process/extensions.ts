@@ -32,6 +32,7 @@ export function handleExtensions(input: string): string {
             // TODO: We can't do the tag thing because we can't guarantee this is the start of an element,
             // TODO: and it could be in any...
             // TODO: ...unless we abuse an existing MD element type?
+            // TODO: If we do this right, we only need one rule.
             /==(.+?)==/g,
             "<mark>$1</mark>"
         );

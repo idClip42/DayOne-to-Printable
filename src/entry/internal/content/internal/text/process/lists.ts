@@ -1,4 +1,6 @@
 export function fixLists(input: string): string {
+    // TODO: Find the example of a nested list with a newline in it
+    // TODO: that you were looking at the other day.
     return input
         .replace(
             // 16.1: All lists must have two newlines before them.
