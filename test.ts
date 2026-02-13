@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { createTwoFilesPatch } from "diff";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 
 const TEST_DIR = "tests";
@@ -28,6 +29,11 @@ if (MODE === TestMode.MakeOutput) {
         fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
     }
 } else if (MODE === TestMode.CompareToOutput) {
+    // Clear out output folder
+    const preexistingDiffs = fs.readdirSync(OUTPUT_DIR);
+    for (const diffFilename of preexistingDiffs)
+        fs.rmSync(path.join(OUTPUT_DIR, diffFilename));
+
     const testNames = inputFilenames.map(fn => fn.replace(INPUT_EXT, ""));
     for (const i in testNames) {
         const index = Number(i);
@@ -43,13 +49,27 @@ if (MODE === TestMode.MakeOutput) {
 
         const inputFullPath = path.join(TEST_DIR, inputFilename);
         const inputText = fs.readFileSync(inputFullPath, "utf8");
-        const outputFullPath = path.join(TEST_DIR, outputFilename);
-        const outputText = fs.readFileSync(outputFullPath, "utf8");
+        const expectedOutputFullPath = path.join(TEST_DIR, outputFilename);
+        const expectedOutputText = fs.readFileSync(
+            expectedOutputFullPath,
+            "utf8"
+        );
 
-        const processedInput = processText(inputText, null);
+        const currentOutput = processText(inputText, null);
 
-        if (processedInput !== outputText) {
-            console.log(`Test '${testName}' failed.`);
+        if (currentOutput !== expectedOutputText) {
+            console.log(`!!! Test '${testName}' failed.`);
+
+            const patch = createTwoFilesPatch(
+                expectedOutputFullPath, // old filename (shown in diff header)
+                "test-result", // new filename
+                expectedOutputText,
+                currentOutput,
+                "Expected", // optional old header
+                "Actual", // optional new header
+                { context: 3 } // lines of context
+            );
+            fs.writeFileSync(path.join(OUTPUT_DIR, "output.diff"), patch);
         }
     }
 }
