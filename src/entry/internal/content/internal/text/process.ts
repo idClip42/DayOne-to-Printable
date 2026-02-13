@@ -53,52 +53,31 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /^(#{1,6}.*)\n+/gm,
             "$1\n\n"
         )
-
         .replace(
-            // #: 3
-            // NAME: Blockquote Termination Guard
-            // CATEGORY: Blockquote Integrity
-            // PURPOSE: Ensures content following a blockquote doesn’t accidentally merge into it.
-            // DEPENDS ON: Blockquotes still being line-based (> intact)
-            // CONFLICTS: Can be partially undone by later quote <br> cleanup. Can be affected by newline normalization rules.
-            // WARNINGS: This rule is defensive but broad — it operates across quote boundaries and paragraph boundaries.
-            //
+            // 3: Blockquote Termination Guard
             // Add extra newlines at end of ">" block quotes.
-            // This makes sure commentary after block quotes
-            // (without an extra newline to separate it out)
-            // doesn't get merged in with the block quotes.
             />[^>].*\n(?!>)/g,
             match => match + "\n"
         )
         .replace(
-            // #: 4
-            // NAME: List Item / Paragraph Boundary Guard
-            // CATEGORY: List Integrity
-            // PURPOSE: Prevents a paragraph following a list item from being parsed as part of that item.
-            // DEPENDS ON: List syntax still raw. No <br> inserted yet.
-            // CONFLICTS: This rule must run before any newline-to-<br> logic.
-            // WARNINGS: None.
-            //
+            // 4: List Item / Paragraph Boundary Guard
             // Insert an extra newline after list items when the next line starts with text.
-            // This ensures that any paragraph-like content following a list item is not treated
-            // as part of the same list item by Markdown parsers.
-            /*
-                Breakdown of the pattern:
-                - `(?<=^[-*+] .+)` — Positive lookbehind:
-                    - Ensures the preceding line starts with a list item (`-`, `*`, or `+` followed by a space),
-                    and has at least one character after the marker.
-                - `\n` — Matches the single newline after that list item.
-                - `(?=[^\s\-*+>\d])` — Positive lookahead:
-                    - Ensures the next line starts with a non-whitespace character
-                    that is NOT another list marker (`-`, `*`, `+`), a blockquote (`>`), or a number (like `1.`).
-                    - In other words, the line begins with a plain text character.
-                - `gm` flags:
-                    - `g` (global): apply the replacement throughout the string.
-                    - `m` (multiline): so `^` and `$` apply to each line, not just the whole string.
-            */
             /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
             "\n\n"
         )
+        .replace(
+            // 9: Ensure Spacing Before Images
+            // Ensure at least two newlines before an image — but only if there’s real content above.
+            /([^\n\s][^\n]*?)\n([ \t]*!?\[.*?\]\(.*?\))/g,
+            (_, before, image) => `${before}\n\n${image}`
+        )
+        .replace(
+            // 10: Ensure Spacing After Images
+            // Ensure at least two newlines after an image — but only if there’s real content below.
+            /(!?\[.*?\]\(.*?\))\n(?=\S)/g,
+            (_, image) => `${image}\n\n`
+        )
+
         .replace(
             // #: 5
             // NAME: Single-Newline → <br> Conversion
@@ -261,56 +240,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // This helps preserve line breaks within quoted blocks without affecting quote boundaries.
             /(?<=^>.*)\n(?=> )/gm,
             "<br>\n"
-        )
-        .replace(
-            // #: 9
-            // NAME: Ensure Spacing Before Images
-            // CATEGORY: Image & Attachment Normalization
-            // PURPOSE: Ensures images don’t get glued to preceding text.
-            // DEPENDS ON: Images still in markdown form
-            // CONFLICTS: List/image fix rule later. Newline collapsing rules.
-            // WARNINGS: None.
-            //
-            // Ensure at least two newlines before an image — but only if there’s real content above.
-            /*
-                Matches:
-                - Any non-whitespace, non-newline content ending in a single `\n` (group 1)
-                - Followed by an optional space and an image tag (group 2)
-                - Only if it's not already preceded by two `\n` or at the very start
-    
-                We replace the single `\n` with `\n\n` to ensure a proper paragraph break.
-            */
-            /([^\n\s][^\n]*?)\n([ \t]*!?\[.*?\]\(.*?\))/g,
-            (_, before, image) => {
-                // console.log("before");
-                // console.log(_);
-                return `${before}\n\n${image}`;
-            }
-        )
-        .replace(
-            // #: 10
-            // NAME: Ensure Spacing After Images
-            // CATEGORY: Image & Attachment Normalization
-            // PURPOSE: Symmetric with Rule 9 — isolates images visually and structurally.
-            // DEPENDS ON: Images still in markdown form
-            // CONFLICTS: List/image fix rule
-            // WARNINGS: None
-            //
-            // Ensure at least two newlines after an image — but only if there’s real content below.
-            /*
-                Matches:
-                - An image tag followed by a single `\n` (group 1)
-                - Only if what follows is a line that starts with a non-whitespace character (group 2)
-                - This implies it's not the end, and we want the image to be more cleanly separated.
-    
-                We replace the single newline with a double.
-            */
-            /(!?\[.*?\]\(.*?\))\n(?=\S)/g,
-            (_, image) => {
-                // console.log("after");
-                // console.log(_);
-                return `${image}\n\n`;
-            }
         )
         .replace(
             // #: 11
