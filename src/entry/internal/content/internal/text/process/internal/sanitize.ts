@@ -20,6 +20,6 @@ export function sanitizeInput(input: string): string {
         .replace(
             // Replace all "\r"s with "\n"s.
             /\r/gm,
-            "\n"
+            /*"[[BACKSLASH_R]]" + */ "\n"
         );
 }
