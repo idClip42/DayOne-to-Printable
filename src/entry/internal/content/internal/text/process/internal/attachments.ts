@@ -3,11 +3,6 @@ import { getAttachmentInfo } from "../../../attachments/info";
 import { getAttachmentMarkdown } from "../../../attachments/textProcess";
 import { getImageFilePath } from "../../../images";
 
-// TODO: We need to be able to test this.
-// TODO: All our tests are image-less.
-// TODO: We need image examples, and we need
-// TODO: missing media examples.
-
 export function fillInAttachments(
     input: string,
     entry: DayOneEntry | null

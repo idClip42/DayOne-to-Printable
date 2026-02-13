@@ -180,7 +180,7 @@ function fillQuoteRuns(md: string): string {
                     // or if there text ends with no more quote blocks,
                     // then this ain't gonna be a quote.
                     // And we should probably separate it from the pack.
-                    lines[k] = "\n" + "[[QUOTE_ADDED_END]]" + lines[k];
+                    lines[k] = "\n" + /* "[[QUOTE_ADDED_END]]" + */ lines[k];
                     break;
                 } else {
                     // Otherwise, we are coming up on another quote block
