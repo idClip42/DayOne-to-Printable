@@ -5,6 +5,7 @@ const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 export function fixBlockquotes(input: string): string {
     let output = input
         .replace(
+            // TODO: Does this belong in this file?
             // Newlines immediately followed by U-2028
             // get turned into double newlines.
             /\n\u2028/g,
@@ -19,6 +20,9 @@ export function fixBlockquotes(input: string): string {
             (full, indent, content) =>
                 `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
         );
+
+    // TODO: "\r" indicates a single-line break within a block quote,
+    // TODO: and must be replaced with "\n> ".
 
     output = fillQuoteRuns(output);
 

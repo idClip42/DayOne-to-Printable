@@ -1,8 +1,8 @@
 export function fixLists(input: string): string {
-    // TODO: Find the example of a nested list with a newline in it
-    // TODO: that you were looking at the other day.
-    // TODO: I'd say "or make one", but we need to confirm what it was...
-    // TODO: I think it was a "\r" thing, so maybe look for those.
+    // TODO: Line breaks internal to list items happen
+    // TODO: via a "\r".
+    // TODO: So we need to find all "\r"s in list items
+    // TODO: and replace them with <br>s.
     return input
         .replace(
             // 16.1: All lists must have two newlines before them.
