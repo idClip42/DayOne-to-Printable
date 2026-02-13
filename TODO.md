@@ -21,6 +21,8 @@
 
 ## Issues
 
+- [ ] You fucked up the spine margin.
+  - [ ] The Vol. text is too low and gets cut off by the cover wrapping under the spine.
 - [ ] Image processing is rotating (unrotating?) some images. (This may be a lost cause)
   - [ ] August 18, 2022, 9:57 AM
   - [ ] July 15, 2023 · 1:35 PM
