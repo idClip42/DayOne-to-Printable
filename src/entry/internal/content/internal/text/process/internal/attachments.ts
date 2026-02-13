@@ -18,6 +18,8 @@ export function fillInAttachments(
         // to the actual relevant image.
         /!\[]\(dayone-moment:(.*?)\)/g,
         (_, match) => {
+            if (!entry) return "![]()";
+
             const attachmentInfo = getAttachmentInfo(entry, match);
             if (attachmentInfo.type === "Photo") {
                 const imageFilePath = getImageFilePath(
