@@ -25,7 +25,8 @@ if (MODE === TestMode.MakeOutput) {
     for (const inputFilename of inputFilenames) {
         const fullPath = path.join(TEST_DIR, inputFilename);
         const inputText = fs.readFileSync(fullPath, "utf8");
-        const outputText = processText(inputText, null);
+        const inputMarkdown = JSON.parse(inputText);
+        const outputText = processText(inputMarkdown, null);
         fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
     }
 } else if (MODE === TestMode.CompareToOutput) {
