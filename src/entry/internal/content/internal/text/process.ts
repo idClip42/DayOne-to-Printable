@@ -38,6 +38,20 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /^> \r/gm,
             "> \n> "
         )
+        .replace(
+            // 7.1: Unicode Line Separator Normalization
+            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
+            // This is the quote block version.
+            /(^>.*)\u2028/gm,
+            "$1\n> "
+        )
+        .replace(
+            // 7.2: Unicode Line Separator Normalization
+            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
+            // This is the regular version.
+            /\u2028/g,
+            `\n`
+        )
 
         .replace(
             // 1.1: Header Line Isolation
@@ -227,63 +241,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             */
             /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
             `\n\n${REPLACERS.singleNewlineParagraph.tag}`
-        )
-
-        .replace(
-            // #: 7
-            // NAME: Unicode Line Separator Normalization
-            // CATEGORY: Line-break Normalization
-            // PURPOSE: Normalizes weird DayOne line separators into expected breaks.
-            // DEPENDS ON: Structural guards (lists, quotes, headers) already reinforced
-            // CONFLICTS: Quote cleanup. Code block cleanup.
-            // WARNINGS: This belongs with Rule 5 logically, even if execution order stays separate.
-            //
-            // U+2028 appears to be an unusual line separator that is showing up in my stuff sometimes.
-            // Replace it with a <br>.
-            // One example of a place this shows up is in single-newlines in bullets that are meant to
-            // stay within those bullets.
-            // Also spotting it:
-            // - On normal text after a quote block
-            // - On normal text after normal text
-            // - Mid-quote block
-            // So these just pop up randomly every so often, and their context is inconsistent.
-            // I count 103 in volume 2 alone.
-            // So I guess they just have to be acceptable losses?
-            //
-            // TODO: Maybe we need to flag specifically when this shows up mid-bullet.
-            // TODO: Make it a <br> mid-bullet, make it a \n otherwise (before any other processing)?
-            // TODO: Investigate its use at the end of a blockquote in January 1 "Mackenzie and Fireworks"
-            // TODO: (vs. mid-blockquote in Jan 4 "Morning" -  Would this case be fine if we just made it \n?).
-            // TODO: Investigate its use AFTER two bulleted lists end (correctly) in January 14 "The multiverse".
-            // TODO: Investigate its use after a clear paragraph break in February 12 "Just watched some Game Maker’s Toolkit videos". (Would this case be fine if we just made it \n?)
-            // TODO: Investigate its double-use in February 18, "Mackenzie is asking if I’m gonna respond". (Would this case be fine if we just made it \n?)
-            //
-            // How the robot is wording it:
-            //
-            // TEMPORARY: U+2028 normalization
-            // --------------------------------
-            // DayOne uses U+2028 inconsistently.
-            // If normalized earlier, it is captured by the single-newline
-            // paragraph promotion logic and produces incorrect structure.
-            //
-            // This MUST run *after* paragraph wrapping, even though it
-            // logically belongs in input sanitization.
-            //
-            // Revisit once U+2028 semantics are fully understood.
-            /\u2028/g,
-            // "<br>"
-            `${U_2028_TAG}`
-            // TODO: We need multiple rules for the different contexts this is encountered in.
-            // TODO: No
-            // TODO: Not quite
-            // TODO: This really is just a single return
-            // TODO: In test 2, we see it comes after a newline
-            // TODO: So we need to replace it with a newline
-            // TODO: And if it's on a line that starts with a "> ",
-            // TODO: We replace with with a newline+">".
-            // TODO: That's it. That's the rule.
-            // TODO: Move it up to the top group.
-            // TODO: Later rules will add the requisite tag.
         )
 
         .replace(
