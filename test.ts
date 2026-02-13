@@ -69,7 +69,10 @@ if (MODE === TestMode.MakeOutput) {
                 "Actual", // optional new header
                 { context: 3 } // lines of context
             );
-            fs.writeFileSync(path.join(OUTPUT_DIR, "output.diff"), patch);
+            fs.writeFileSync(
+                path.join(OUTPUT_DIR, `${testName}.md.diff`),
+                patch
+            );
         }
     }
 }
