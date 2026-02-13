@@ -21,8 +21,22 @@ export function fixBlockquotes(input: string): string {
                 `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
         );
 
-    // TODO: "\r" indicates a single-line break within a block quote,
-    // TODO: and must be replaced with "\n> ".
+    output = output.replace(
+        // For any blockquote line (line begins with optional indent + ">" + optional space),
+        // replace carriage returns (\r) within that line with a newline + same indent + "> ",
+        // effectively splitting it into multiple quoted lines.
+        /^([ \t]*> ?[^\n]*)$/gm,
+        line => {
+            const m = line.match(/^([ \t]*)>( ?)([^\n]*)$/);
+            if (!m) return line;
+            const indent = m[1];
+            const spaceAfter = m[2]; // either " " or ""
+            const rest = m[3];
+
+            // Preserve whether the original used "> " or ">" when inserting the continuation.
+            return `${indent}>${spaceAfter}${rest.replace(/\r/g, /* "[[BACKSLASH_R_QUOTE]]" + */ `\n${indent}>${spaceAfter}`)}`;
+        }
+    );
 
     output = fillQuoteRuns(output);
 
