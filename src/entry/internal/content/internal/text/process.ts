@@ -42,12 +42,6 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
-            // NEW: Replace multiple spaces between bullet and text with one space.
-            /^([ \t]*)([-*])[ \t]{2,}/gm,
-            "$1$2 "
-        )
-
-        .replace(
             // 1.1: Header Line Isolation
             // Enforces exactly two newlines after every header.
             /^(#{1,6}.*)\n+/gm,
@@ -64,6 +58,11 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             // Insert an extra newline after list items when the next line starts with text.
             /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
             "\n\n"
+        )
+        .replace(
+            // NEW: Replace multiple spaces between bullet and text with one space.
+            /^([ \t]*)([-*])[ \t]{2,}/gm,
+            "$1$2 "
         )
         .replace(
             // 9: Ensure Spacing Before Images
