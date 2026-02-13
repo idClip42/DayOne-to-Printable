@@ -24,19 +24,5 @@ export function sanitizeInput(input: string): string {
             // prepending "> ", preserving proper Markdown blockquote structure.
             /^> \r/gm,
             "> \n> "
-        )
-        .replace(
-            // 7.1: Unicode Line Separator Normalization
-            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
-            // This is the quote block version.
-            /(^>.*)\u2028/gm,
-            "$1\n> "
-        )
-        .replace(
-            // 7.2: Unicode Line Separator Normalization
-            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
-            // This is the regular version.
-            /\u2028/g,
-            `\n`
         );
 }

@@ -2,31 +2,26 @@ import REPLACERS from "../../../../../../htmlReplacers.json";
 
 const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 
-function handleSingleNewlinesInsideBlockquotes(md: string): string {
-    // Match:
-    //   > nonblank text\n
-    //   > nonblank text   (where the 2nd line is NOT a list/table/nested-quote start)
-    const re =
-        /(^[ \t]*> (?!\s*$)[^\n]*\S[^\n]*)\n([ \t]*> )(?!\s*$)(?![ \t]*(?:[*\-+]\s|\d+\.\s|>|\||[:|\- ]+\|))([^\n]*)/gm;
-
-    let prev: string;
-    do {
-        prev = md;
-        // Turn single-newline separation into:
-        //   > line1
-        //   >
-        //   > TAGline2
-        md = md.replace(
-            re,
-            `$1\n$2\n$2${REPLACERS.singleNewlineParagraph.tag}$3`
-        );
-    } while (md !== prev);
-
-    return md;
-}
-
 export function fixBlockquotes(input: string): string {
-    let output = fillQuoteRuns(input);
+    let output = input
+        .replace(
+            // Newlines immediately followed by U-2028
+            // get turned into double newlines.
+            /\n\u2028/g,
+            "\n\n"
+        )
+        .replace(
+            /^([ \t]*)> ([^\n]*)$/gm,
+            // Replace any U+2028 that appears *within a single blockquote line* by splitting it into
+            // a new quoted line: "\n{same indent}> "
+            //
+            // Handles multiple U+2028s on the same quote line and will NOT cross line boundaries.
+            (full, indent, content) =>
+                `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
+        );
+
+    output = fillQuoteRuns(output);
+
     output = output
         .replace(
             // Collapse any nested quote prefix to a single "> ".
@@ -52,12 +47,18 @@ export function fixBlockquotes(input: string): string {
             // but only if there is more non-whitespace content later (avoid trailing blanks at EOF).
             /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm,
             "$1\n"
+        )
+        .replace(
+            // 7.1: Unicode Line Separator Normalization
+            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
+            // This is the quote block version.
+            /(^>.*)\u2028/gm,
+            "$1\n> "
         );
-    // .replace(
-    //     /(^[ \t]*> (?!\s*$)[^\n]*\S[^\n]*)\n([ \t]*> )(?!\s*$)(?![ \t]*(?:[*\-+]\s|\d+\.\s|>|\||[:|\- ]+\|))([^\n]*)/gm,
-    //     `$1\n$2\n$2${REPLACERS.singleNewlineParagraph.tag}$3`
-    // );
-    return handleSingleNewlinesInsideBlockquotes(output);
+
+    output = handleSingleNewlinesInsideBlockquotes(output);
+
+    return output;
 }
 
 function fillQuoteRuns(md: string): string {
@@ -103,7 +104,58 @@ function fillQuoteRuns(md: string): string {
 
             if (isBlank(lines[k])) break;
 
-            if (!isQuote(lines[k])) lines[k] = addQuotePrefix(lines[k]);
+            if (!isQuote(lines[k])) {
+                // Now we have to figure out if `lines[k]` is intended as a quote.
+
+                const hasPrevLine = k > 0;
+                if (!hasPrevLine) throw new Error("This will never happen.");
+                const prevLine = lines[k - 1];
+
+                const isLastLine = k === lines.length - 1;
+                if (isLastLine) {
+                    // If the last line isn't quote-blocked,
+                    // it's not a quote.
+                    lines[k] = /*"[[QUOTE_ADDED_LAST_LINE]]" +*/ lines[k];
+                    break;
+                }
+                const nextLine = lines[k + 1];
+
+                const prevHasBlankQuote = prevLine.trim() === ">";
+                if (prevHasBlankQuote) {
+                    lines[k] = addQuotePrefix(
+                        /*"[[QUOTE_ADDED_PREV_BLANK]]" +*/ lines[k]
+                    );
+                    // If there's a blank quote line and then a non-quote line
+                    // we should assume that this is the last line of the
+                    // quote.
+                    break;
+                }
+
+                const nextHasBlankLine = !nextLine.trim();
+                if (nextHasBlankLine) {
+                    // If the next line is totally blank,
+                    // we assume this line to not be a block quote.
+                    // But we should probably separate it from the pack.
+                    lines[k] =
+                        "\n" + /*"[[QUOTE_ADDED_NEXT_BLANK]]" +*/ lines[k];
+                    break;
+                }
+
+                const anyMoreQuotes = lines
+                    .slice(k + 1)
+                    .some(l => l.trim().startsWith(">"));
+                if (!anyMoreQuotes) {
+                    // If there are no more quotes after this line,
+                    // then this ain't gonna be a quote.
+                    // And we should probably separate it from the pack.
+                    lines[k] = "\n" + /*"[[QUOTE_ADDED_END]]" +*/ lines[k];
+                    break;
+                }
+
+                // In any other situation,
+                // keep the quote block going.
+                lines[k] = addQuotePrefix(/*"[[QUOTE_ADDED_DEF]]" +*/ lines[k]);
+            }
         }
 
         // Advance to end of run so we don't re-scan the same block repeatedly.
@@ -111,4 +163,27 @@ function fillQuoteRuns(md: string): string {
     }
 
     return lines.join("\n");
+}
+
+function handleSingleNewlinesInsideBlockquotes(md: string): string {
+    // Match:
+    //   > nonblank text\n
+    //   > nonblank text   (where the 2nd line is NOT a list/table/nested-quote start)
+    const re =
+        /(^[ \t]*> (?!\s*$)[^\n]*\S[^\n]*)\n([ \t]*> )(?!\s*$)(?![ \t]*(?:[*\-+]\s|\d+\.\s|>|\||[:|\- ]+\|))([^\n]*)/gm;
+
+    let prev: string;
+    do {
+        prev = md;
+        // Turn single-newline separation into:
+        //   > line1
+        //   >
+        //   > TAGline2
+        md = md.replace(
+            re,
+            `$1\n$2\n$2${REPLACERS.singleNewlineParagraph.tag}$3`
+        );
+    } while (md !== prev);
+
+    return md;
 }

@@ -21,6 +21,13 @@ export function processText(
     output = fixCode(output);
     output = fillInAttachments(output, entry);
     output = cleanBackslashes(output);
+    output = output.replace(
+        // 7.2: Unicode Line Separator Normalization
+        // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
+        // This is the regular version.
+        /\u2028/g,
+        `\n`
+    );
     output = handleSingleNewlines(output);
     output = handleExtensions(output);
     return output;
