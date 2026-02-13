@@ -48,21 +48,12 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         )
 
         .replace(
-            // #: 1
-            // NAME: Header Line Isolation
-            // CATEGORY: Structural Markdown Guards
-            // PURPOSE: Guarantees headers terminate cleanly and do not “leak” formatting into body text.
-            // DEPENDS ON: Raw Markdown still intact (should be very early)
-            // CONFLICTS: None directly. Later newline-collapsing rules could negate this if reordered.
-            // WARNINGS: None.
-            //
-            // Add an extra return after every header line of any level.
-            // This makes absolutely sure that no body text is also formatted
-            // like a header.
-            // TODO: We should probably enforce always having two newlines, instead of arbitrarily adding one.
-            /(^#{1,}.*\n)/gm,
-            match => match + "\n"
+            // 1.1: Header Line Isolation
+            // Enforces exactly two newlines after every header.
+            /^(#{1,6}.*)\n+/gm,
+            "$1\n\n"
         )
+
         .replace(
             // #: 3
             // NAME: Blockquote Termination Guard
