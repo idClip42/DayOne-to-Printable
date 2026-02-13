@@ -1,8 +1,4 @@
 export function fixLists(input: string): string {
-    // TODO: Line breaks internal to list items happen
-    // TODO: via a "\r".
-    // TODO: So we need to find all "\r"s in list items
-    // TODO: and replace them with <br>s.
     return input
         .replace(
             // 16.1: All lists must have two newlines before them.
@@ -30,5 +26,11 @@ export function fixLists(input: string): string {
             // - Removing one of the two line breaks from the finish.
             /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
             (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
+        )
+        .replace(
+            // Replace all *carriage return characters* (\r) that occur within an unordered list item line
+            // (lines that start with optional indent + (*|-|+) + space).
+            /^([ \t]*[*+-] [^\n]*)$/gm,
+            line => line.replace(/\r/g, /* "[[BACKSLASH_R_BR]]" + */ "<br>")
         );
 }
