@@ -7,12 +7,6 @@ export function cleanStructure(input: string): string {
             "$1\n\n"
         )
         .replace(
-            // 3: Blockquote Termination Guard
-            // Add extra newlines at end of ">" block quotes.
-            />[^>].*\n(?!>)/g,
-            match => match + "\n"
-        )
-        .replace(
             // 4: List Item / Paragraph Boundary Guard
             // Insert an extra newline after list items when the next line starts with text.
             /(?<=^[-*+] .+)\n(?=[^\s\-*+>\d])/gm,
