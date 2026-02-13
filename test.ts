@@ -73,6 +73,10 @@ if (MODE === TestMode.MakeOutput) {
                 path.join(OUTPUT_DIR, `${testName}.md.diff`),
                 patch
             );
+            fs.writeFileSync(
+                path.join(OUTPUT_DIR, outputFilename),
+                currentOutput
+            );
         }
     }
 }
