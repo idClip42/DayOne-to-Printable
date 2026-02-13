@@ -60,23 +60,22 @@ if (MODE === TestMode.MakeOutput) {
         if (currentOutput !== expectedOutputText) {
             console.log(`!!! Test '${testName}' failed.`);
 
+            const targetOutputFilePath = path.join(OUTPUT_DIR, outputFilename);
+
             const patch = createTwoFilesPatch(
                 expectedOutputFullPath, // old filename (shown in diff header)
-                "test-result", // new filename
+                targetOutputFilePath, // new filename
                 expectedOutputText,
                 currentOutput,
-                "Expected", // optional old header
-                "Actual", // optional new header
+                "(Expected)", // optional old header
+                "(Actual)", // optional new header
                 { context: 3 } // lines of context
             );
             fs.writeFileSync(
                 path.join(OUTPUT_DIR, `${testName}.md.diff`),
                 patch
             );
-            fs.writeFileSync(
-                path.join(OUTPUT_DIR, outputFilename),
-                currentOutput
-            );
+            fs.writeFileSync(targetOutputFilePath, currentOutput);
         }
     }
 }
