@@ -4,8 +4,25 @@ import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
 import REPLACERS from "./../../../../../htmlReplacers.json";
 
-export function processText(inputText: string, entry: DayOneEntry): string {
-    const sanitizedInput = inputText
+export function processText(
+    inputText: string,
+    entry: DayOneEntry | null
+): string {
+    let output = inputText;
+    output = sanitizeInput(output);
+    output = cleanStructure(output);
+    output = fixLists(output);
+    output = fixBlockquotes(output);
+    output = fixCode(output);
+    output = fillInAttachments(output, entry);
+    output = cleanBackslashes(output);
+    output = handleSingleNewlines(output);
+    output = handleExtensions(output);
+    return output;
+}
+
+function sanitizeInput(input: string): string {
+    return input
         .replace(
             // 25: Escaped Horizontal Rule Cleanup
             // Apparently we've got some "\-\-\-" in there too.
@@ -45,8 +62,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /\u2028/g,
             `\n`
         );
+}
 
-    const structureCleanup = sanitizedInput
+function cleanStructure(input: string): string {
+    return input
         .replace(
             // 1.1: Header Line Isolation
             // Enforces exactly two newlines after every header.
@@ -91,8 +110,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /---\s+!/g,
             "---\n\n!"
         );
+}
 
-    const listFixes = structureCleanup
+function fixLists(input: string): string {
+    return input
         .replace(
             // 16.1: All lists must have two newlines before them.
             /(^|\n)([^\n]*?)\n+(?=^[ \t]*[-*] )/gm,
@@ -120,8 +141,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
             (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
         );
+}
 
-    const blockquoteFixes = listFixes
+function fixBlockquotes(input: string): string {
+    return input
         .replace(
             // TODO: This doesn't fix everything.
             // TODO: This isn't anywhere near working.
@@ -141,8 +164,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /> ---/g,
             "> <hr>"
         );
+}
 
-    const codeFixes = blockquoteFixes
+function fixCode(input: string): string {
+    return input
         .replace(
             // 13: Remove Empty Fenced Code Blocks
             // PURPOSE: Rejoins DayOne’s fragmented code blocks.
@@ -171,8 +196,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                 return final;
             }
         );
+}
 
-    const attachmentFillIns = codeFixes.replace(
+function fillInAttachments(input: string, entry: DayOneEntry | null): string {
+    return input.replace(
         // 12: Resolve DayOne Image Attachments
         // Replaces all DayOne image links with the link
         // to the actual relevant image.
@@ -192,8 +219,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             return getAttachmentMarkdown(attachmentInfo);
         }
     );
+}
 
-    const backslashCleanup = attachmentFillIns
+function cleanBackslashes(input: string): string {
+    return input
         .replace(
             // 20: URL Backslash Cleanup
             // Backslashes at this point are unprocessed markdown, and we can kill
@@ -217,8 +246,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /`([^`\n]+)`/g,
             (_, code) => `\`${code.replace(/\\([^\\])/g, "$1")}\``
         );
+}
 
-    const singleNewlineConversion = backslashCleanup.replace(
+function handleSingleNewlines(input: string): string {
+    return input.replace(
         // 5: Single-Newline Conversion
         // Replace single `\n` (not followed by a list item, blockquote, or table line).
         // This converts paragraph-style line breaks to <br> without affecting Markdown structures.
@@ -240,8 +271,10 @@ export function processText(inputText: string, entry: DayOneEntry): string {
         /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
         `\n\n${REPLACERS.singleNewlineParagraph.tag}`
     );
+}
 
-    const extensions = singleNewlineConversion
+function handleExtensions(input: string): string {
+    return input
         .replace(
             // #: 17
             // NAME: Bold Highlight Conversion
@@ -277,6 +310,4 @@ export function processText(inputText: string, entry: DayOneEntry): string {
             /==(.+?)==/g,
             "<mark>$1</mark>"
         );
-
-    return extensions;
 }
