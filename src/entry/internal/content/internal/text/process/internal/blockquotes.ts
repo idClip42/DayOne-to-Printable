@@ -115,7 +115,7 @@ function fillQuoteRuns(md: string): string {
                 if (isLastLine) {
                     // If the last line isn't quote-blocked,
                     // it's not a quote.
-                    lines[k] = /*"[[QUOTE_ADDED_LAST_LINE]]" +*/ lines[k];
+                    lines[k] = /* "[[QUOTE_ADDED_LAST_LINE]]" + */ lines[k];
                     break;
                 }
                 const nextLine = lines[k + 1];
@@ -123,11 +123,13 @@ function fillQuoteRuns(md: string): string {
                 const prevHasBlankQuote = prevLine.trim() === ">";
                 if (prevHasBlankQuote) {
                     lines[k] = addQuotePrefix(
-                        /*"[[QUOTE_ADDED_PREV_BLANK]]" +*/ lines[k]
+                        /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
                     );
                     // If there's a blank quote line and then a non-quote line
                     // we should assume that this is the last line of the
                     // quote.
+                    // TODO: Does nothing in the raw journal data flag this one?
+                    // TODO: The tests do, though, which is weird.
                     break;
                 }
 
@@ -137,7 +139,7 @@ function fillQuoteRuns(md: string): string {
                     // we assume this line to not be a block quote.
                     // But we should probably separate it from the pack.
                     lines[k] =
-                        "\n" + /*"[[QUOTE_ADDED_NEXT_BLANK]]" +*/ lines[k];
+                        "\n" + /* "[[QUOTE_ADDED_NEXT_BLANK]]" + */ lines[k];
                     break;
                 }
 
@@ -148,13 +150,15 @@ function fillQuoteRuns(md: string): string {
                     // If there are no more quotes after this line,
                     // then this ain't gonna be a quote.
                     // And we should probably separate it from the pack.
-                    lines[k] = "\n" + /*"[[QUOTE_ADDED_END]]" +*/ lines[k];
+                    lines[k] = "\n" + /* "[[QUOTE_ADDED_END]]" + */ lines[k];
                     break;
                 }
 
                 // In any other situation,
-                // keep the quote block going.
-                lines[k] = addQuotePrefix(/*"[[QUOTE_ADDED_DEF]]" +*/ lines[k]);
+                // The quote ends.
+                // No newlines ended because these tend to be
+                // single-spaced.
+                lines[k] = /* "[[QUOTE_ADDED_DEF]]" + */ lines[k];
             }
         }
 
