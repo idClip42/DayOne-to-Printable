@@ -5,13 +5,51 @@ import { processText } from "./src/entry/internal/content/internal/text/process"
 const TEST_DIR = "tests";
 const INPUT_EXT = ".input.md";
 const OUTPUT_EXT = ".output.md";
+const OUTPUT_DIR = "output-tests";
+
+enum TestMode {
+    MakeOutput,
+    CompareToOutput,
+}
+
+const MODE = ((): TestMode => {
+    return TestMode.CompareToOutput;
+})();
 
 const testFilenames = fs.readdirSync(TEST_DIR);
 const inputFilenames = testFilenames.filter(fn => fn.endsWith(INPUT_EXT));
+const outputFilenames = testFilenames.filter(fn => fn.endsWith(OUTPUT_EXT));
 
-for (const inputFilename of inputFilenames) {
-    const fullpath = path.join(TEST_DIR, inputFilename);
-    const inputText = fs.readFileSync(fullpath, "utf8");
-    const outputText = processText(inputText, null);
-    fs.writeFileSync(fullpath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
+if (MODE === TestMode.MakeOutput) {
+    for (const inputFilename of inputFilenames) {
+        const fullPath = path.join(TEST_DIR, inputFilename);
+        const inputText = fs.readFileSync(fullPath, "utf8");
+        const outputText = processText(inputText, null);
+        fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
+    }
+} else if (MODE === TestMode.CompareToOutput) {
+    const testNames = inputFilenames.map(fn => fn.replace(INPUT_EXT, ""));
+    for (const i in testNames) {
+        const index = Number(i);
+
+        const testName = testNames[index];
+        const inputFilename = inputFilenames[index];
+        const outputFilename = outputFilenames[index];
+
+        if (!inputFilename.includes(testName))
+            throw new Error(`'${inputFilename}' doesn't have '${testName}'.`);
+        if (!outputFilename.includes(testName))
+            throw new Error(`'${outputFilename}' doesn't have '${testName}'.`);
+
+        const inputFullPath = path.join(TEST_DIR, inputFilename);
+        const inputText = fs.readFileSync(inputFullPath, "utf8");
+        const outputFullPath = path.join(TEST_DIR, outputFilename);
+        const outputText = fs.readFileSync(outputFullPath, "utf8");
+
+        const processedInput = processText(inputText, null);
+
+        if (processedInput !== outputText) {
+            console.log(`Test '${testName}' failed.`);
+        }
+    }
 }
