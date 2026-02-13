@@ -7,20 +7,20 @@ type AttachPdf = { type: "PDF"; data: DayOneEntry["pdfAttachments"][number] };
 export type AttachInfo = AttachVideo | AttachAudio | AttachPdf | AttachPhoto;
 
 export function getAttachmentInfo(
-    entry: DayOneEntry,
+    entry: DayOneEntry | null,
     pathString: string
 ): AttachInfo {
     if (pathString.startsWith("//")) {
         const testStr = pathString.replace("//", "");
         const data = findData(
-            entry.photos,
+            entry?.photos || [],
             pathString,
             p => p.identifier === testStr
         );
         return {
             type: "Photo",
             data: data || {
-                date: entry.creationDate,
+                date: entry?.creationDate || new Date().toISOString(),
                 identifier: pathString,
                 md5: "???",
                 type: "???",
@@ -29,7 +29,7 @@ export function getAttachmentInfo(
     } else if (pathString.startsWith("/video/")) {
         const testStr = pathString.replace("/video/", "");
         const data = findData(
-            entry.videos,
+            entry?.videos || [],
             pathString,
             p => p.identifier === testStr
         );
@@ -45,7 +45,7 @@ export function getAttachmentInfo(
     } else if (pathString.startsWith("/audio/")) {
         const testStr = pathString.replace("/audio/", "");
         const data = findData(
-            entry.audios,
+            entry?.audios || [],
             pathString,
             p => p.identifier === testStr
         );
@@ -62,7 +62,7 @@ export function getAttachmentInfo(
     } else if (pathString.startsWith("/pdfAttachment/")) {
         const testStr = pathString.replace("/pdfAttachment/", "");
         const data = findData(
-            entry.pdfAttachments,
+            entry?.pdfAttachments || [],
             pathString,
             p => p.identifier === testStr
         );
