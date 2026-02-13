@@ -5,6 +5,7 @@ import config from "../../../../config.json";
 import { replaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
 import { preprocessText } from "./internal/text/preprocess";
 import { processText } from "./internal/text/process";
+import HTML_REPLACERS from "./../../../htmlReplacers.json";
 
 export function createContentHtml(entry: DayOneEntry): string {
     const preprocessedText = preprocessText(entry.text);
@@ -19,6 +20,15 @@ export function createContentHtml(entry: DayOneEntry): string {
 
     // Parse the modified Markdown into HTML.
     let htmlResult = marked.parse(processedText, { async: false });
+
+    for (const key in HTML_REPLACERS) {
+        const replacer = HTML_REPLACERS[key as keyof typeof HTML_REPLACERS];
+        htmlResult = htmlResult.replace(
+            new RegExp(replacer.find, "g"),
+            replacer.replace
+        );
+    }
+
     // Update all image tags.
     htmlResult = processHtmlImages(entry, htmlResult);
     // Replace all text content with Lorem Ipsum,

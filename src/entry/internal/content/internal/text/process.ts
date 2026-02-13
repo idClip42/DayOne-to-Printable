@@ -2,9 +2,9 @@ import { getImageFilePath } from "../images";
 import { getAttachmentMarkdown } from "../attachments/textProcess";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 import { getAttachmentInfo } from "../attachments/info";
+import REPLACERS from "./../../../../../htmlReplacers.json";
 
 const U_2028_TAG = "[[U_2028]]";
-const SINGLE_NEWLINE_P_TAG = "[[SINGLE_NEWLINE_P]]";
 
 // TODO: 1. Design cumulative test for all rules that shows all rules working.
 // TODO: 2. Break rules into category files, and validate against test file.
@@ -226,7 +226,7 @@ export function processText(inputText: string, entry: DayOneEntry): string {
                     - `\S` — Next character must be non-whitespace
             */
             /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
-            `\n\n${SINGLE_NEWLINE_P_TAG}`
+            `\n\n${REPLACERS.singleNewlineParagraph.tag}`
         )
 
         .replace(
