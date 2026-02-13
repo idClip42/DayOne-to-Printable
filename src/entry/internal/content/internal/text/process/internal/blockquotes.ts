@@ -147,21 +147,21 @@ function fillQuoteRuns(md: string): string {
                 }
                 // const nextLine = lines[k + 1];
 
-                const prevLine = lines[k - 1];
-                const prevHasBlankQuote = prevLine.trim() === ">";
-                if (prevHasBlankQuote) {
-                    // If there's a blank quote line and then a non-quote line,
-                    // this line  was intended as part of the quote.
-                    // TODO: We should see evidence of this in the "cat" entry.
-                    lines[k] = addQuotePrefix(
-                        /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
-                        // TODO: Have we killed this one?
-                        // TODO: Looks like we have.
-                    );
-                    // We also assume that this is the last line of the
-                    // quote.
-                    break;
-                }
+                // const prevLine = lines[k - 1];
+                // const prevHasBlankQuote = prevLine.trim() === ">";
+                // if (prevHasBlankQuote) {
+                //     // If there's a blank quote line and then a non-quote line,
+                //     // this line  was intended as part of the quote.
+                //     // We should see evidence of this in the "cat" entry.
+                //     lines[k] = addQuotePrefix(
+                //         /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
+                //         // Have we killed this one?
+                //         // Looks like we have.
+                //     );
+                //     // We also assume that this is the last line of the
+                //     // quote.
+                //     break;
+                // }
 
                 const nextLines = lines.slice(k);
                 const nextEmptyLine = nextLines.findIndex(l => l.trim() === "");
@@ -180,18 +180,17 @@ function fillQuoteRuns(md: string): string {
                     // or if there text ends with no more quote blocks,
                     // then this ain't gonna be a quote.
                     // And we should probably separate it from the pack.
-                    lines[k] = "\n" + /* "[[QUOTE_ADDED_END]]" + */ lines[k];
+                    lines[k] = "\n" + "[[QUOTE_ADDED_END]]" + lines[k];
                     break;
                 } else {
                     // Otherwise, we are coming up on another quote block
                     // without any kind of interruption.
                     // Which means we gotta fill in
-                    lines[k] = addQuotePrefix(
-                        /* "[[QUOTE_ADDED_UPCOMING]]" + */ lines[k]
-                        // TODO: Reverse this?
-                        // TODO: In which case, this whole area of the logic
-                        // TODO: can be gotten rid of.
-                    );
+                    lines[k] = /* "[[QUOTE_ADDED_UPCOMING]]" + */ lines[k]; //addQuotePrefix(
+                    // TODO: This is now the same as the other conditional.
+                    // TODO: This whole area of the logic
+                    // TODO: can be gotten rid of.
+                    //);
                 }
             }
         }
