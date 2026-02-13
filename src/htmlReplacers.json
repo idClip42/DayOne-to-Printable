@@ -1,7 +1,7 @@
 {
     "singleNewlineParagraph": {
-        "tag": "SINGLE_NEWLINE_P",
-        "find": "<p>SINGLE_NEWLINE_P",
+        "tag": "SINGLE_NEWLINE_P ",
+        "find": "<p>SINGLE_NEWLINE_P ",
         "replace": "<p class='single-newline'>"
     }
 }
