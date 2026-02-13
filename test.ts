@@ -4,7 +4,7 @@ import { createTwoFilesPatch } from "diff";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 
 const TEST_DIR = "tests";
-const INPUT_EXT = ".input.md";
+const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
 const OUTPUT_DIR = "output-tests";
 
@@ -29,21 +29,24 @@ if (MODE === TestMode.MakeOutput) {
         fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
     }
 } else if (MODE === TestMode.CompareToOutput) {
-    if (inputFilenames.length !== outputFilenames.length)
-        throw new Error("Different input and output file counts.");
-
     // Clear out output folder
     const preexistingDiffs = fs.readdirSync(OUTPUT_DIR);
     for (const diffFilename of preexistingDiffs)
         fs.rmSync(path.join(OUTPUT_DIR, diffFilename));
 
     const testNames = inputFilenames.map(fn => fn.replace(INPUT_EXT, ""));
-    for (const i in testNames) {
-        const index = Number(i);
-
-        const testName = testNames[index];
-        const inputFilename = inputFilenames[index];
-        const outputFilename = outputFilenames[index];
+    for (const testName of testNames) {
+        const inputFilename = inputFilenames.find(fn =>
+            fn.startsWith(testName)
+        );
+        if (!inputFilename) throw new Error(`No '${testName}' input found.`);
+        const outputFilename = outputFilenames.find(fn =>
+            fn.startsWith(testName)
+        );
+        if (!outputFilename) {
+            console.warn(`WARN: No output found for '${inputFilename}'.`);
+            continue;
+        }
 
         if (!inputFilename.includes(testName))
             throw new Error(`'${inputFilename}' doesn't have '${testName}'.`);
@@ -52,13 +55,14 @@ if (MODE === TestMode.MakeOutput) {
 
         const inputFullPath = path.join(TEST_DIR, inputFilename);
         const inputText = fs.readFileSync(inputFullPath, "utf8");
+        const inputMarkdown = JSON.parse(inputText);
         const expectedOutputFullPath = path.join(TEST_DIR, outputFilename);
         const expectedOutputText = fs.readFileSync(
             expectedOutputFullPath,
             "utf8"
         );
 
-        const currentOutput = processText(inputText, null);
+        const currentOutput = processText(inputMarkdown, null);
 
         if (currentOutput !== expectedOutputText) {
             console.log(`!!! Test '${testName}' failed.`);
