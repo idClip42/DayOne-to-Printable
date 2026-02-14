@@ -7,8 +7,8 @@ import { TagsLibrary } from "../../tags";
 export function processEntries(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary
-): string[] {
-    const entriesHtml: string[] = [];
+): Promise<string[]> {
+    const entriesHtml: Promise<string>[] = [];
     for (const e in entries) {
         const entryIndex = Number(e);
         if (entryIndex % 100 === 0) logProgress(entryIndex, entries);
@@ -22,13 +22,13 @@ export function processEntries(
         }
 
         if (!checkIsSameDay(entryIndex, entries)) {
-            entriesHtml.push(makeNewDayElement(entry));
+            entriesHtml.push(Promise.resolve(makeNewDayElement(entry)));
         }
 
         const entryHtml = convertEntryToHTML(entry, tagsLibrary);
         entriesHtml.push(entryHtml);
     }
-    return entriesHtml;
+    return Promise.all(entriesHtml);
 }
 
 function logProgress(entryIndex: number, entries: DayOneEntry[]) {

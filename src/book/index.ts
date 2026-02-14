@@ -8,11 +8,11 @@ import { processEntries } from "./internal/processEntries";
 
 const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 
-export function buildFullHtml(
+export async function buildFullHtml(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary,
     styleCss: string
-): string {
+): Promise<string> {
     const fullHtml =
         "<!DOCTYPE html>\n" +
         renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
@@ -29,7 +29,7 @@ export function buildFullHtml(
                 label: t.html,
                 value: t.count.toLocaleString(),
             })),
-            entriesHtml: processEntries(entries, tagsLibrary),
+            entriesHtml: await processEntries(entries, tagsLibrary),
         });
 
     return fullHtml;

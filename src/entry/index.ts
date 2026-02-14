@@ -10,14 +10,14 @@ import { getDateTimeStrings } from "./internal/metadata/dateTime";
 
 const TEMPLATE_PATH = "src/templates/entry.hbs";
 
-export function convertEntryToHTML(
+export async function convertEntryToHTML(
     entry: DayOneEntry,
     tagsLibrary: TagsLibrary
-): string {
+): Promise<string> {
     const dateTime = getDateTimeStrings(entry);
     const weather = getWeather(entry);
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
-        contentHtml: createContentHtml(entry),
+        contentHtml: await createContentHtml(entry),
         monthHue: getDateHue(
             new Date(entry.creationDate),
             entry.location?.timeZoneName

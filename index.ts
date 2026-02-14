@@ -9,6 +9,7 @@ import { buildFullHtml } from "./src/book";
 
 const startTimeMs = Date.now();
 
+// TODO: Load in stylesheet asynchronously
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
 
 const dataPath = path.join(
@@ -24,15 +25,18 @@ if (!fs.existsSync(config.files.output.directory))
 
 if (config.content.images.runResize) await resizeImages();
 
+/** This must be synchronous */
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
 const tagsLibrary = new TagsLibrary(entries);
-const fullHTML = buildFullHtml(entries, tagsLibrary, stylesheet);
-
-fs.writeFileSync(outputPath, fullHTML);
-console.log(`✅ Exported HTML journal to ${outputPath}`);
+const interiorFilePromise = buildFullHtml(entries, tagsLibrary, stylesheet)
+    .then(fullHTML => {
+        console.log("Writing interior file...");
+        return fs.promises.writeFile(outputPath, fullHTML);
+    })
+    .then(() => console.log(`✅ Exported HTML journal to ${outputPath}`));
 
 const coverOutputPath = path.join(
     config.files.output.directory,
@@ -42,8 +46,11 @@ const coverHtml = generateCoverHtml({
     start: new Date(entries[0].creationDate),
     end: new Date(entries[entries.length - 1].creationDate),
 });
-fs.writeFileSync(coverOutputPath, coverHtml);
-console.log(`✅ Exported HTML cover to ${coverOutputPath}`);
+const coverFilePromise = fs.promises
+    .writeFile(coverOutputPath, coverHtml)
+    .then(() => console.log(`✅ Exported HTML cover to ${coverOutputPath}`));
+
+await Promise.all([interiorFilePromise, coverFilePromise]);
 
 const endTimeMs = Date.now();
 const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;
