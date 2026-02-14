@@ -3,6 +3,7 @@ import path from "path";
 import config from "./config.json";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 import type { DayOneEntry } from "./src/types/DayOneEntry";
+import { logProgress } from "./src/utilities/progress";
 
 const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
@@ -21,14 +22,6 @@ const dataPath = path.join(
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
-
-function logProgress(entryIndex: number, entries: DayOneEntry[]) {
-    const entry = entries[entryIndex];
-    const perc = entryIndex / entries.length;
-    console.log(
-        `Entries processed: ${(perc * 100).toFixed(2)}% (${new Date(entry.creationDate).toDateString()})`
-    );
-}
 
 for (const e in entries) {
     const index = Number(e);

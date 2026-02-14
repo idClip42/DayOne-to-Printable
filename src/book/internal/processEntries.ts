@@ -3,6 +3,7 @@ import { isSameLocalDay } from "../../date/compare";
 import { convertEntryToHTML } from "../../entry";
 import { makeNewDayElement } from "./newDay";
 import { TagsLibrary } from "../../tags";
+import { logProgress } from "../../utilities/progress";
 
 export function processEntries(
     entries: DayOneEntry[],
@@ -29,14 +30,6 @@ export function processEntries(
         entriesHtml.push(entryHtml);
     }
     return entriesHtml;
-}
-
-function logProgress(entryIndex: number, entries: DayOneEntry[]) {
-    const entry = entries[entryIndex];
-    const perc = entryIndex / entries.length;
-    console.log(
-        `Entries processed: ${(perc * 100).toFixed(2)}% (${new Date(entry.creationDate).toDateString()})`
-    );
 }
 
 function checkIsSameDay(entryIndex: number, entries: DayOneEntry[]) {
