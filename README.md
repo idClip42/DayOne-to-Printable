@@ -274,13 +274,16 @@ Under `cover.dimensions`, set:
 You can usually ignore `hingeIn`.
 It appears to be roughly a quarter inch, but hardcover hinge behavior is somewhat opaque.
 
-Run again:
+You can also probably ignore `safetyMargin`.
+This appears to be consistent across all book sizes.
+
+Run:
 
 ```bash
-npm start
+npm run cover
 ```
 
-This will regenerate everything.
+This will regenerate just the cover.
 
 Open `output/cover.html` in Chrome and print to PDF using the same print settings as before.
 

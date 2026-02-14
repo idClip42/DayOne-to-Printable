@@ -4,7 +4,6 @@ import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
 import { resizeImages } from "./src/preprocess/resizeImages";
 import { TagsLibrary } from "./src/tags";
-import { generateCoverHtml } from "./src/cover";
 import { buildFullHtml } from "./src/book";
 
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
@@ -31,14 +30,3 @@ const fullHTML = buildFullHtml(entries, tagsLibrary, stylesheet);
 
 fs.writeFileSync(outputPath, fullHTML);
 console.log(`✅ Exported HTML journal to ${outputPath}`);
-
-const coverOutputPath = path.join(
-    config.files.output.directory,
-    config.files.output.coverHtmlFile
-);
-const coverHtml = generateCoverHtml({
-    start: new Date(entries[0].creationDate),
-    end: new Date(entries[entries.length - 1].creationDate),
-});
-fs.writeFileSync(coverOutputPath, coverHtml);
-console.log(`✅ Exported HTML cover to ${coverOutputPath}`);

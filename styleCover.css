@@ -1,5 +1,7 @@
 :root {
     --front-back-width-in: calc((var(--total-width) - var(--spine-width)) / 2);
+    --volume-offset: 0.35in;
+    --volume-offset-accent: 1.2in;
 }
 
 @page {
@@ -12,6 +14,15 @@
 }
 
 /* #region HTML Tags */
+
+html {
+    /* 
+    Keeps the print down to one page. 
+    Because sometimes there's a weird extra blank page.
+    Needed on both <html> and <body>.
+    */
+    overflow: hidden;
+}
 
 body {
     width: var(--total-width);
@@ -27,10 +38,16 @@ body {
         sans-serif;
     background: #2b3a50;
     color: #d4d8e0;
+
+    /* 
+    Keeps the print down to one page. 
+    Because sometimes there's a weird extra blank page.
+    Needed on both <html> and <body>.
+    */
+    overflow: hidden;
 }
 
 section {
-    padding: 0.75in;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,30 +75,38 @@ section {
     flex-direction: column;
     text-align: center;
     justify-content: flex-start; /* move items toward the top */
-    padding-top: 2in; /* adjust as needed to hit the top-third visually */
+
+    padding-left: 0;
+    padding-right: var(--safety-margin);
+    padding-top: var(--safety-margin);
+    padding-bottom: var(--safety-margin);
 }
 
-.front .year {
+.front .safe {
+    padding-top: 2in;
+}
+
+.front .safe .year {
     font-size: 60pt;
     font-weight: 600;
     letter-spacing: 0em;
     margin-bottom: 0.2em;
 }
 
-.front .months {
+.front .safe .months {
     font-size: 28pt;
     font-weight: 400;
     letter-spacing: 0.06em;
     margin-bottom: 1.2em;
 }
 
-.front .author {
+.front .safe .author {
     font-size: 16pt;
     font-weight: 400;
     letter-spacing: 0.08em;
 }
 
-.front .subtitle {
+.front .safe .subtitle {
     margin-top: 0.5em;
     font-size: 14pt;
     opacity: 0.85;
@@ -93,6 +118,11 @@ section {
 
 .back {
     background: #2b3a50;
+
+    padding-left: var(--safety-margin);
+    padding-right: 0;
+    padding-top: var(--safety-margin);
+    padding-bottom: var(--safety-margin);
 }
 
 /* #endregion */
@@ -107,6 +137,8 @@ section {
     /* Reclaim space so text stays centered */
     padding-left: var(--hinge-in);
     padding-right: var(--hinge-in);
+    padding-top: var(--safety-margin);
+    padding-bottom: var(--safety-margin);
 
     position: relative;
     background: #141d28;
@@ -115,49 +147,52 @@ section {
     letter-spacing: 0.04em;
 }
 
-.spine .spine-title {
+.spine .safe .spine-title {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.spine .spine-title .year {
+.spine .safe .spine-title .year {
     font-size: 24pt;
     font-weight: 600;
     letter-spacing: 0em;
 }
 
-.spine .spine-title .months {
+.spine .safe .spine-title .months {
     font-size: 20pt;
     letter-spacing: 0em;
 }
 
-.spine .volume {
+.spine .safe .volume {
     position: absolute;
-    bottom: 0.35in; /* deliberate, physical margin */
+    bottom: calc(var(--safety-margin) + var(--volume-offset));
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     writing-mode: initial;
 }
 
-.spine .volume .vol-label {
+.spine .safe .volume .vol-label {
     font-size: 8pt;
     letter-spacing: 0.08em;
     opacity: 0.8;
 }
 
-.spine .volume .vol-number {
+.spine .safe .volume .vol-number {
     font-size: 18pt;
     font-weight: 600;
 }
 
-.spine .accent {
+.spine .safe .accent {
     left: var(--hinge-in);
     width: calc(100% - (var(--hinge-in) * 2));
     background: hsl(var(--spine-accent-hue), 70%, 55%);
 
     position: absolute;
-    bottom: calc(0.35in + 1.2in); /* volume offset + volume block height */
+    bottom: calc(
+        var(--safety-margin) + var(--volume-offset) +
+            var(--volume-offset-accent)
+    ); /* volume offset + volume block height */
     height: 5pt;
 }
 
