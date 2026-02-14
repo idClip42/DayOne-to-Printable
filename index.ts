@@ -25,8 +25,6 @@ if (config.content.images.runResize) await resizeImages();
 const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
-// TODO: Write all raw entry Markdown to a single Markdown file for reference?
-// TODO: What does the rich text format look like?
 
 const tagsLibrary = new TagsLibrary(entries);
 const fullHTML = buildFullHtml(entries, tagsLibrary, stylesheet);

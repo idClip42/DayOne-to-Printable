@@ -52,24 +52,24 @@
     - [x] This is presuming we can regex replace every single-newline line with double-newline HTML blocks, and that'll work for multiple single-newline lines in a row.
     - [x] I’d have to play with the normal paragraph margins too. Have paragraphs have only a top margin and no bottom margin, and kill the top one on the single-newline paragraphs.
     - [x] Test these changes by highlighting the modified elements in a color.
-- [ ] Take another pass at the single newline lines.
-  - [ ] Right now, it's an involved HTML creation process that has a lot of special steps and doesn't cover quote blocks.
-  - [ ] Maybe we *should* look into doing everything as paragraphs and just tagging them with some arbitrary thing that we search for later, like we had with the attachments.
-- [ ] Consider rewriting `src/entry/internal/content/internal/text/process.ts`
-  - [ ] This is a big job.
-  - [ ] We'll need to produce a test markdown that features every single issue we've ever seen, and a parallel test markdown that shows what it should look like when done.
-    - [ ] Have it write results files for easy perusal, maybe.
-    - [ ] Multiple test files
-      - [ ] Individual files for individual groups of rules
-        - [ ] Actually, **just do unit tests.**
-          - [ ] `testA.input.md`
-          - [ ] `testA.expected.md`
-          - [ ] Something like that.
-      - [ ] And a file that covers everythihng
-    - [ ] Render a diff
-  - [ ] We should have done this a while back - **that whole stack needs to be testable.**
-  - [ ] Once you have that test framework, then you can rewrite the rules.
-  - [ ] Break up the rules into categories - separate files, maybe.
+- [x] Take another pass at the single newline lines.
+  - [x] Right now, it's an involved HTML creation process that has a lot of special steps and doesn't cover quote blocks.
+  - [x] Maybe we *should* look into doing everything as paragraphs and just tagging them with some arbitrary thing that we search for later, like we had with the attachments.
+- [x] Consider rewriting `src/entry/internal/content/internal/text/process.ts`
+  - [x] This is a big job.
+  - [x] We'll need to produce a test markdown that features every single issue we've ever seen, and a parallel test markdown that shows what it should look like when done.
+    - [x] Have it write results files for easy perusal, maybe.
+    - [x] Multiple test files
+      - [x] Individual files for individual groups of rules
+        - [x] Actually, **just do unit tests.**
+          - [x] `testA.input.md`
+          - [x] `testA.expected.md`
+          - [x] Something like that.
+      - [x] And a file that covers everythihng
+    - [x] Render a diff
+  - [x] We should have done this a while back - **that whole stack needs to be testable.**
+  - [x] Once you have that test framework, then you can rewrite the rules.
+  - [x] Break up the rules into categories - separate files, maybe.
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
   - [ ] Or should we be trying to get HTML *out* of the markdown? Probably that?
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
