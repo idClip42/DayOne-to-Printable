@@ -47,16 +47,21 @@
   - [x] Then we can pick from those and move them over.
 - [ ] Entries to use for new tests:
 	- [x] June 5 2022, “Helped set up more tables and umbrellas”
-		- [ ] Weird bullet spacing.
+		- [x] Weird bullet spacing.
 		- [x] Also June 6, “This morning I’m sore”
 		- [x] June 6, “Yeah, the chest is almost fine right now...
 		- [x] June 6, “Oh boy”
-		- [ ] There’s a lot of these. June 7, June 8...
-		- [ ] They come and go - some entries are normal, some aren’t. It’s weird.
-		- [ ] Also shows up
+		- [x] There’s a lot of these. June 7, June 8...
+		- [x] They come and go - some entries are normal, some aren’t. It’s weird.
+		- [x] Also shows up
 			- [x] Jan 21, 2023
+  			- [x] ~~IDENTICAL formatting to June 5. IDENTICAL.~~
+	- [ ] EXPLANATION
+  	- [ ] It happens with entries that have a gap between bullets.
+  	- [ ] That is, `- text\n\n-text`.
+  	- [ ] If that exists, then the whole list is fucked up.
 	- [x] Jun 4, 2022, “That thing I mentioned earlier”
-		- [ ] A counterexample to the above - good bullets.
+		- [x] A counterexample to the above - good bullets.
 	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
 		- [ ] There’s a broken horizontal rule here... just above a photo.
 		- [ ] Thought we dealt with that.
