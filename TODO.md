@@ -60,22 +60,32 @@
   	- [ ] It happens with entries that have a gap between bullets.
   	- [ ] That is, `- text\n\n-text`.
   	- [ ] If that exists, then the whole list is fucked up.
+  	- [ ] Need to figure out what this will look like in final markdown and update the `.output.md`.
 	- [x] Jun 4, 2022, “That thing I mentioned earlier”
 		- [x] A counterexample to the above - good bullets.
 	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
 		- [x] There’s a broken horizontal rule here... just above a photo.
 		- [x] Thought we dealt with that.
 		- [ ] Maybe we just need to enforce two lines above and two lines below in all situations
+		- [ ] `.output.md` is prepped for this.
 		- [x] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
 			- [x] It’s below the fish and chips gif.
 	- [x] October 26, 2022 “My morning” “Figured out how to solve”
-		- [ ] Text between quote blocks is code for some reason.
+		- [x] Text between quote blocks is code for some reason.
 		- [x] December 14, 2022, “My day”, “A little long, so let’s see”
-			- [ ] Another example.
+			- [x] Another example.
+  	- [ ] EXPLANATION
+    	- [ ] This is what happens when a nested bullet comes after an element that isn't a bullet that's interrupting a list.
+    	- [ ] I think we need to:
+      	- [ ] Insert extra, un-nested bullets before the existing ones.
+      	- [ ] Mark them with a tag
+    	- [ ] Need to figure out what this will look like in final markdown and update the `.output.md`.
 	- [x] Jan 4, 2023, 7:03am
-		- [ ] An example I already found of numbered lists getting screwed up in quote blocks.
+		- [x] An example I already found of numbered lists getting screwed up in quote blocks.
 		- [x] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
-		- [ ] At least the numbered list formatting works regardless of the starting number.
+		- [x] At least the numbered list formatting works regardless of the starting number.
+		- [ ] So we gotta figure this out with some regex.
+		- [ ] I *think* the `.output.md` stuff is prepped for this.
 
 ## Ideas
 
