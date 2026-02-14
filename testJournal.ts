@@ -25,6 +25,8 @@ const REPLACERS: [string, string][] = (() => {
     }
 })();
 
+const startTimeMs = Date.now();
+
 // Clear out output folder
 const preexistingDiffs = fs.readdirSync(OUTPUT_DIR);
 for (const diffFilename of preexistingDiffs)
@@ -64,3 +66,7 @@ for (const e in entries) {
     fs.writeFileSync(path.join(OUTPUT_DIR, name + INPUT_EXT), escapedText);
     fs.writeFileSync(path.join(OUTPUT_DIR, name + OUTPUT_EXT), processedText);
 }
+
+const endTimeMs = Date.now();
+const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;
+console.log(`All entries processed in ${elapsedSeconds.toFixed(2)}s.`);
