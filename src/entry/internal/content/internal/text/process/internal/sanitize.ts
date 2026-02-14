@@ -16,5 +16,12 @@ export function sanitizeInput(input: string): string {
             // - Sometimes there will be indentation whitespace
             /(?<=\n\s*>?\s*)•/g,
             "-"
+        )
+        .replace(
+            // Newlines immediately followed by U-2028
+            // get turned into double newlines.
+            // `blockquotes.ts` also handles U-2028.
+            /\n\u2028/g,
+            "\n\n"
         );
 }

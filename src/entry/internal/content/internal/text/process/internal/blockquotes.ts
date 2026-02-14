@@ -5,23 +5,15 @@ const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 // TODO: Quote block lists (see Jan 4, 2023, 2:03am) get screwed up.
 
 export function fixBlockquotes(input: string): string {
-    let output = input
-        .replace(
-            // TODO: Does this belong in this file?
-            // Newlines immediately followed by U-2028
-            // get turned into double newlines.
-            /\n\u2028/g,
-            "\n\n"
-        )
-        .replace(
-            /^([ \t]*)> ([^\n]*)$/gm,
-            // Replace any U+2028 that appears *within a single blockquote line* by splitting it into
-            // a new quoted line: "\n{same indent}> "
-            //
-            // Handles multiple U+2028s on the same quote line and will NOT cross line boundaries.
-            (full, indent, content) =>
-                `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
-        );
+    let output = input.replace(
+        /^([ \t]*)> ([^\n]*)$/gm,
+        // Replace any U+2028 that appears *within a single blockquote line* by splitting it into
+        // a new quoted line: "\n{same indent}> "
+        // Handles multiple U+2028s on the same quote line and will NOT cross line boundaries.
+        // `sanitize.ts` also handles U-2028.
+        (full, indent, content) =>
+            `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
+    );
 
     output = output.replace(
         // For any blockquote line (line begins with optional indent + ">" + optional space),
