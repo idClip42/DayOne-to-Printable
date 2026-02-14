@@ -15,6 +15,15 @@
 
 /* #region HTML Tags */
 
+html {
+    /* 
+    Keeps the print down to one page. 
+    Because sometimes there's a weird extra blank page.
+    Needed on both <html> and <body>.
+    */
+    overflow: hidden;
+}
+
 body {
     width: var(--total-width);
     height: var(--height);
@@ -29,6 +38,13 @@ body {
         sans-serif;
     background: #2b3a50;
     color: #d4d8e0;
+
+    /* 
+    Keeps the print down to one page. 
+    Because sometimes there's a weird extra blank page.
+    Needed on both <html> and <body>.
+    */
+    overflow: hidden;
 }
 
 section {
