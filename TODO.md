@@ -46,30 +46,30 @@
   - [x] Maybe add a test script feature that does that.
   - [x] Then we can pick from those and move them over.
 - [ ] Entries to use for new tests:
-	- [ ] June 5 2022, “Helped set up more tables and umbrellas”
+	- [x] June 5 2022, “Helped set up more tables and umbrellas”
 		- [ ] Weird bullet spacing.
-		- [ ] Also June 6, “This morning I’m sore”
-		- [ ] June 6, “Yeah, the chest is almost fine right now...
-		- [ ] June 6, “Oh boy”
+		- [x] Also June 6, “This morning I’m sore”
+		- [x] June 6, “Yeah, the chest is almost fine right now...
+		- [x] June 6, “Oh boy”
 		- [ ] There’s a lot of these. June 7, June 8...
 		- [ ] They come and go - some entries are normal, some aren’t. It’s weird.
 		- [ ] Also shows up
-			- [ ] Jan 21, 2023
-	- [ ] Jun 4, 2022, “That thing I mentioned earlier”
+			- [x] Jan 21, 2023
+	- [x] Jun 4, 2022, “That thing I mentioned earlier”
 		- [ ] A counterexample to the above - good bullets.
-	- [ ] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
+	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
 		- [ ] There’s a broken horizontal rule here... just above a photo.
 		- [ ] Thought we dealt with that.
 		- [ ] Maybe we just need to enforce two lines above and two lines below in all situations
-		- [ ] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
+		- [x] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
 			- [ ] It’s below the fish and chips gif.
-	- [ ] October 26, 2022 “My morning” “Figured out how to solve”
+	- [x] October 26, 2022 “My morning” “Figured out how to solve”
 		- [ ] Text between quote blocks is code for some reason.
-		- [ ] December 14, 2022, “My day”, “A little long, so let’s see”
+		- [x] December 14, 2022, “My day”, “A little long, so let’s see”
 			- [ ] Another example.
-	- [ ] Jan 4, 2023, 7:03am
+	- [x] Jan 4, 2023, 7:03am
 		- [ ] An example I already found of numbered lists getting screwed up in quote blocks.
-		- [ ] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
+		- [x] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
 		- [ ] At least the numbered list formatting works regardless of the starting number.
 
 ## Ideas
