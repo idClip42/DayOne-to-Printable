@@ -12,7 +12,10 @@ interface CoverDates {
     end: Date;
 }
 
-export function generateCoverHtml({ start, end }: CoverDates): string {
+export async function generateCoverHtml({
+    start,
+    end,
+}: CoverDates): Promise<string> {
     const cover = config.cover;
     const stylesheet = fs.readFileSync(config.files.stylesheets.cover, "utf8");
     const { yearLine, monthLine } = formatCoverDate(start, end);
@@ -20,7 +23,7 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
 
     return (
         "<!DOCTYPE html>\n" +
-        renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
+        (await renderTemplate<CoverTemplateVars>(TEMPLATE_PATH, {
             css: {
                 vars: cssVars,
                 style: stylesheet,
@@ -30,6 +33,6 @@ export function generateCoverHtml({ start, end }: CoverDates): string {
             volumeNumber: cover.content.volume,
             author: cover.content.author,
             subtitle: cover.content.subtitle,
-        })
+        }))
     );
 }

@@ -4,11 +4,14 @@ import { AttachInfo } from "./info";
 
 const TEMPLATE_PATH = "src/templates/attachment.hbs";
 
-export function getAttachmentMarkdown(info: AttachInfo): string {
+export async function getAttachmentMarkdown(info: AttachInfo): Promise<string> {
     const text = getAttachmentText(info);
-    const htmlBlock = renderTemplate<AttachmentTemplateVars>(TEMPLATE_PATH, {
-        text: text,
-    });
+    const htmlBlock = await renderTemplate<AttachmentTemplateVars>(
+        TEMPLATE_PATH,
+        {
+            text: text,
+        }
+    );
     return `\n\n${htmlBlock}\n\n`;
 }
 

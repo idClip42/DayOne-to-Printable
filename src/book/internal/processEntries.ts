@@ -8,11 +8,11 @@ import { logProgress } from "../../utilities/progress";
 export function processEntries(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary
-): string[] {
-    const entriesHtml: string[] = [];
+): Promise<string[]> {
+    const entriesHtmlPromises: Promise<string>[] = [];
+    let finishedCounter = 0;
     for (const e in entries) {
         const entryIndex = Number(e);
-        if (entryIndex % 100 === 0) logProgress(entryIndex, entries);
 
         const entry = entries[entryIndex];
         if (entry.isAllDay) {
@@ -23,13 +23,24 @@ export function processEntries(
         }
 
         if (!checkIsSameDay(entryIndex, entries)) {
-            entriesHtml.push(makeNewDayElement(entry));
+            entriesHtmlPromises.push(Promise.resolve(makeNewDayElement(entry)));
         }
 
-        const entryHtml = convertEntryToHTML(entry, tagsLibrary);
-        entriesHtml.push(entryHtml);
+        const entryHtmlPromise = convertEntryToHTML(entry, tagsLibrary).then(
+            result => {
+                // Log progress when thing is complete
+                finishedCounter++;
+                if (
+                    finishedCounter % 100 === 0 ||
+                    finishedCounter === entries.length - 1
+                )
+                    logProgress(finishedCounter, entries);
+                return result;
+            }
+        );
+        entriesHtmlPromises.push(entryHtmlPromise);
     }
-    return entriesHtml;
+    return Promise.all(entriesHtmlPromises);
 }
 
 function checkIsSameDay(entryIndex: number, entries: DayOneEntry[]) {

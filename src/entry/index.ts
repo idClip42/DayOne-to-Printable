@@ -10,14 +10,20 @@ import { getDateTimeStrings } from "./internal/metadata/dateTime";
 
 const TEMPLATE_PATH = "src/templates/entry.hbs";
 
-export function convertEntryToHTML(
+export async function convertEntryToHTML(
     entry: DayOneEntry,
     tagsLibrary: TagsLibrary
-): string {
+): Promise<string> {
     const dateTime = getDateTimeStrings(entry);
     const weather = getWeather(entry);
+
+    const contentHtmlPromise = createContentHtml(entry);
+    const tagHtmlsPromise = entry.tags
+        ? await Promise.all(entry.tags.map(t => tagsLibrary.getTagHtml(t)))
+        : Promise.resolve([]);
+
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
-        contentHtml: createContentHtml(entry),
+        contentHtml: await contentHtmlPromise,
         monthHue: getDateHue(
             new Date(entry.creationDate),
             entry.location?.timeZoneName
@@ -30,6 +36,6 @@ export function convertEntryToHTML(
         weather: weather.weather,
         tempF: weather.tempF,
         location: getLocationString(entry),
-        tagHtmls: entry.tags?.map(t => tagsLibrary.getTagHtml(t)) || [],
+        tagHtmls: await tagHtmlsPromise,
     });
 }

@@ -5,7 +5,7 @@ import { renderTemplate } from "../../utilities/template";
 
 const TEMPLATE_PATH = "src/templates/newDay.hbs";
 
-export function makeNewDayElement(entry: DayOneEntry): string {
+export function makeNewDayElement(entry: DayOneEntry): Promise<string> {
     const date = new Date(entry.creationDate);
     const timeZone = entry.location?.timeZoneName;
     return renderTemplate<NewDayTemplateVars>(TEMPLATE_PATH, {
