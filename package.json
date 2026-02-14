@@ -6,7 +6,8 @@
     "scripts": {
         "start": "tsx index.ts",
         "test": "tsx testRun.ts",
-        "testgen": "tsx testGen.ts"
+        "testgen": "tsx testGen.ts",
+        "testjournal": "tsx testJournal.ts"
     },
     "author": "",
     "license": "ISC",
