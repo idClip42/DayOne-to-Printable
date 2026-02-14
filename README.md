@@ -274,6 +274,9 @@ Under `cover.dimensions`, set:
 You can usually ignore `hingeIn`.
 It appears to be roughly a quarter inch, but hardcover hinge behavior is somewhat opaque.
 
+You can also probably ignore `safetyMargin`.
+This appears to be consistent across all book sizes.
+
 Run:
 
 ```bash
