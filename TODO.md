@@ -67,7 +67,7 @@
 		- [ ] Text between quote blocks is code for some reason.
 		- [ ] December 14, 2022, “My day”, “A little long, so let’s see”
 			- [ ] Another example.
-	- [ ] Jan 4, 2023, 2:03am
+	- [ ] Jan 4, 2023, 7:03am
 		- [ ] An example I already found of numbered lists getting screwed up in quote blocks.
 		- [ ] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
 		- [ ] At least the numbered list formatting works regardless of the starting number.
