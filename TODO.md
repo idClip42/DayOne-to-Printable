@@ -41,6 +41,32 @@
   - [ ] New day marker example: 2022, Sat Sept 10, Thurs Sept 15
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
+- [ ] Entries to use for new tests:
+	- [ ] June 5 2022, “Helped set up more tables and umbrellas”
+		- [ ] Weird bullet spacing.
+		- [ ] Also June 6, “This morning I’m sore”
+		- [ ] June 6, “Yeah, the chest is almost fine right now...
+		- [ ] June 6, “Oh boy”
+		- [ ] There’s a lot of these. June 7, June 8...
+		- [ ] They come and go - some entries are normal, some aren’t. It’s weird.
+		- [ ] Also shows up
+			- [ ] Jan 21, 2023
+	- [ ] Jun 4, 2022, “That thing I mentioned earlier”
+		- [ ] A counterexample to the above - good bullets.
+	- [ ] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
+		- [ ] There’s a broken horizontal rule here... just above a photo.
+		- [ ] Thought we dealt with that.
+		- [ ] Maybe we just need to enforce two lines above and two lines below in all situations
+		- [ ] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
+			- [ ] It’s below the fish and chips gif.
+	- [ ] October 26, 2022 “My morning” “Figured out how to solve”
+		- [ ] Text between quote blocks is code for some reason.
+		- [ ] December 14, 2022, “My day”, “A little long, so let’s see”
+			- [ ] Another example.
+	- [ ] Jan 4, 2023, 2:03am
+		- [ ] An example I already found of numbered lists getting screwed up in quote blocks.
+		- [ ] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
+		- [ ] At least the numbered list formatting works regardless of the starting number.
 
 ## Ideas
 
