@@ -63,11 +63,11 @@
 	- [x] Jun 4, 2022, “That thing I mentioned earlier”
 		- [x] A counterexample to the above - good bullets.
 	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
-		- [ ] There’s a broken horizontal rule here... just above a photo.
-		- [ ] Thought we dealt with that.
+		- [x] There’s a broken horizontal rule here... just above a photo.
+		- [x] Thought we dealt with that.
 		- [ ] Maybe we just need to enforce two lines above and two lines below in all situations
 		- [x] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
-			- [ ] It’s below the fish and chips gif.
+			- [x] It’s below the fish and chips gif.
 	- [x] October 26, 2022 “My morning” “Figured out how to solve”
 		- [ ] Text between quote blocks is code for some reason.
 		- [x] December 14, 2022, “My day”, “A little long, so let’s see”
