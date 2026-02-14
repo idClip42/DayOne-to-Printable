@@ -41,6 +41,7 @@ const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
+const fileSavePromises = [];
 for (const e in entries) {
     const index = Number(e);
     if (index % 100 === 0) logProgress(index, entries);
@@ -63,10 +64,19 @@ for (const e in entries) {
     const escapedText = JSON.stringify(text);
     const processedText = processText(text, null);
 
-    fs.writeFileSync(path.join(OUTPUT_DIR, name + INPUT_EXT), escapedText);
-    fs.writeFileSync(path.join(OUTPUT_DIR, name + OUTPUT_EXT), processedText);
+    const promA = fs.promises.writeFile(
+        path.join(OUTPUT_DIR, name + INPUT_EXT),
+        escapedText
+    );
+    const promB = fs.promises.writeFile(
+        path.join(OUTPUT_DIR, name + OUTPUT_EXT),
+        processedText
+    );
+    fileSavePromises.push(promA, promB);
 }
 
+console.log("Waiting for saving to finish...");
+await Promise.all(fileSavePromises);
 const endTimeMs = Date.now();
 const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;
 console.log(`All entries processed in ${elapsedSeconds.toFixed(2)}s.`);
