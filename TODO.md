@@ -41,6 +41,10 @@
   - [ ] New day marker example: 2022, Sat Sept 10, Thurs Sept 15
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
+- [ ] Create some kind of pipeline for pulling tests straight from journal entries?
+  - [ ] What if I saved each entry’s raw text as a .input.json file?
+  - [ ] Maybe add a test script feature that does that.
+  - [ ] Then we can pick from those and move them over.
 - [ ] Entries to use for new tests:
 	- [ ] June 5 2022, “Helped set up more tables and umbrellas”
 		- [ ] Weird bullet spacing.
