@@ -103,6 +103,6 @@
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
   - [ ] Or should we be trying to get HTML *out* of the markdown? Probably that?
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
-- [ ] Can we speed up the rendering process with promises anywhere?
-  - [ ] Doesn't look like anything currently uses `await`.
-  - [ ] But `createContentHtml()` uses a sync version of the MD to HTML parser.
+- [x] Can we speed up the rendering process with promises anywhere?
+  - [x] Doesn't look like anything currently uses `await`.
+  - [x] But `createContentHtml()` uses a sync version of the MD to HTML parser.
