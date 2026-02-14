@@ -8,6 +8,8 @@ const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
 const OUTPUT_DIR = "output-tests";
 
+if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
+
 enum TestMode {
     MakeOutput,
     CompareToOutput,
