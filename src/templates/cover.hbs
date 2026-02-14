@@ -15,31 +15,37 @@
     <body>
         <div id="cover">
             <section class="back">
-                <!-- intentionally blank for now -->
+                <div class="safe">
+                    <!-- intentionally blank for now -->
+                </div>
             </section>
 
             <section class="spine">
-                <div class="spine-title">
-                    <span class="year">{{yearText}}</span>
-                    <span class="months">: {{monthText}}</span>
-                </div>
+                <div class="safe">
+                    <div class="spine-title">
+                        <span class="year">{{yearText}}</span>
+                        <span class="months">: {{monthText}}</span>
+                    </div>
 
-                <div class="accent"></div>
+                    <div class="accent"></div>
 
-                <div class="volume">
-                    <div class="vol-label">VOL.</div>
-                    <div class="vol-number">{{volumeNumber}}</div>
+                    <div class="volume">
+                        <div class="vol-label">VOL.</div>
+                        <div class="vol-number">{{volumeNumber}}</div>
+                    </div>
                 </div>
             </section>
 
             <section class="front">
-                <div class="year">{{yearText}}</div>
-                <div class="months">{{monthText}}</div>
-                <div class="author">{{author}}</div>
+                <div class="safe">
+                    <div class="year">{{yearText}}</div>
+                    <div class="months">{{monthText}}</div>
+                    <div class="author">{{author}}</div>
 
-                {{#if subtitle}}
-                    <div class="subtitle">{{subtitle}}</div>
-                {{/if}}
+                    {{#if subtitle}}
+                        <div class="subtitle">{{subtitle}}</div>
+                    {{/if}}
+                </div>
             </section>
         </div>
     </body>
