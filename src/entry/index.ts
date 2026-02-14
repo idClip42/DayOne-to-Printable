@@ -16,8 +16,14 @@ export async function convertEntryToHTML(
 ): Promise<string> {
     const dateTime = getDateTimeStrings(entry);
     const weather = getWeather(entry);
+
+    const contentHtmlPromise = createContentHtml(entry);
+    const tagHtmlsPromise = entry.tags
+        ? await Promise.all(entry.tags.map(t => tagsLibrary.getTagHtml(t)))
+        : Promise.resolve([]);
+
     return renderTemplate<EntryTemplateVars>(TEMPLATE_PATH, {
-        contentHtml: await createContentHtml(entry),
+        contentHtml: await contentHtmlPromise,
         monthHue: getDateHue(
             new Date(entry.creationDate),
             entry.location?.timeZoneName
@@ -30,8 +36,6 @@ export async function convertEntryToHTML(
         weather: weather.weather,
         tempF: weather.tempF,
         location: getLocationString(entry),
-        tagHtmls: entry.tags
-            ? await Promise.all(entry.tags.map(t => tagsLibrary.getTagHtml(t)))
-            : [],
+        tagHtmls: await tagHtmlsPromise,
     });
 }
