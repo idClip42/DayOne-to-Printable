@@ -11,28 +11,38 @@ const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 export async function buildFullHtml(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary,
-    styleCss: Promise<string>
+    styleCssPromise: Promise<string>
 ): Promise<string> {
+    const tagsPromise = Promise.all(
+        tagsLibrary.getOrderedTagsInfo().map(async t => ({
+            label: await t.htmlPromise,
+            value: t.count.toLocaleString(),
+        }))
+    );
+    const entriesPromise = processEntries(entries, tagsLibrary);
+
+    console.log("Processing entries...");
+
+    const templateVars: InteriorTemplateVars = {
+        style: await styleCssPromise,
+        colorTestDates: getDateColorTestData().map(d => ({
+            date: d.dateText,
+            hue: d.hue,
+        })),
+        stats: getEntriesStats(entries).map(d => ({
+            label: d.name,
+            value: d.value.toLocaleString(),
+        })),
+        tagStats: await tagsPromise,
+        entriesHtml: await entriesPromise,
+    };
+
     const fullHtml =
         "<!DOCTYPE html>\n" +
-        (await renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
-            style: await styleCss,
-            colorTestDates: getDateColorTestData().map(d => ({
-                date: d.dateText,
-                hue: d.hue,
-            })),
-            stats: getEntriesStats(entries).map(d => ({
-                label: d.name,
-                value: d.value.toLocaleString(),
-            })),
-            tagStats: await Promise.all(
-                tagsLibrary.getOrderedTagsInfo().map(async t => ({
-                    label: await t.htmlPromise,
-                    value: t.count.toLocaleString(),
-                }))
-            ),
-            entriesHtml: await processEntries(entries, tagsLibrary),
-        }));
+        (await renderTemplate<InteriorTemplateVars>(
+            INTERIOR_TEMPLATE_PATH,
+            templateVars
+        ));
 
     return fullHtml;
 }
