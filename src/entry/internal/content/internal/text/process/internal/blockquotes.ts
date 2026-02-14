@@ -2,8 +2,7 @@ import REPLACERS from "../../../../../../../htmlReplacers.json";
 
 const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
 
-// TODO: We need to figure out how to get backslash-Rs into the test cases.
-// TODO: Maybe just copy the json-stringified string.
+// TODO: Quote block lists (see Jan 4, 2023, 2:03am) get screwed up.
 
 export function fixBlockquotes(input: string): string {
     let output = input
