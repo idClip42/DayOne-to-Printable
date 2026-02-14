@@ -7,6 +7,8 @@ import { TagsLibrary } from "./src/tags";
 import { generateCoverHtml } from "./src/cover";
 import { buildFullHtml } from "./src/book";
 
+const startTimeMs = Date.now();
+
 const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
 
 const dataPath = path.join(
@@ -42,3 +44,7 @@ const coverHtml = generateCoverHtml({
 });
 fs.writeFileSync(coverOutputPath, coverHtml);
 console.log(`✅ Exported HTML cover to ${coverOutputPath}`);
+
+const endTimeMs = Date.now();
+const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;
+console.log(`Journal rendered in ${elapsedSeconds.toFixed(2)}s.`);
