@@ -33,7 +33,8 @@
             "totalWidthIn": 20.688,
             "heightIn": 12.75,
             "spineWidthIn": 1.938,
-            "hingeIn": 0.25
+            "hingeIn": 0.25,
+            "safetyMargin": 0.6125
         }
     }
 }

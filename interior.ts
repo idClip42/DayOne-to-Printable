@@ -4,7 +4,6 @@ import { DayOneEntry } from "./src/types/DayOneEntry";
 import config from "./config.json";
 import { resizeImages } from "./src/preprocess/resizeImages";
 import { TagsLibrary } from "./src/tags";
-import { generateCoverHtml } from "./src/cover";
 import { buildFullHtml } from "./src/book";
 
 const startTimeMs = Date.now();
@@ -44,19 +43,7 @@ const interiorFilePromise = buildFullHtml(
     })
     .then(() => console.log(`✅ Exported HTML journal to ${outputPath}`));
 
-const coverOutputPath = path.join(
-    config.files.output.directory,
-    config.files.output.coverHtmlFile
-);
-const coverFilePromise = generateCoverHtml({
-    start: new Date(entries[0].creationDate),
-    end: new Date(entries[entries.length - 1].creationDate),
-})
-    .then(coverHtml => fs.promises.writeFile(coverOutputPath, coverHtml))
-    .then(() => console.log(`✅ Exported HTML cover to ${coverOutputPath}`));
-
-await Promise.all([interiorFilePromise, coverFilePromise]);
-
+await interiorFilePromise;
 const endTimeMs = Date.now();
 const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;
 console.log(`Journal rendered in ${elapsedSeconds.toFixed(2)}s.`);
