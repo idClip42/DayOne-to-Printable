@@ -9,8 +9,10 @@ import { buildFullHtml } from "./src/book";
 
 const startTimeMs = Date.now();
 
-// TODO: Load in stylesheet asynchronously
-const stylesheet = fs.readFileSync(config.files.stylesheets.interior, "utf8");
+const stylesheetPromise = fs.promises.readFile(
+    config.files.stylesheets.interior,
+    "utf8"
+);
 
 const dataPath = path.join(
     config.files.input.directory,
@@ -31,7 +33,11 @@ const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
 const tagsLibrary = new TagsLibrary(entries);
-const interiorFilePromise = buildFullHtml(entries, tagsLibrary, stylesheet)
+const interiorFilePromise = buildFullHtml(
+    entries,
+    tagsLibrary,
+    stylesheetPromise
+)
     .then(fullHTML => {
         console.log("Writing interior file...");
         return fs.promises.writeFile(outputPath, fullHTML);

@@ -11,12 +11,12 @@ const INTERIOR_TEMPLATE_PATH = "src/templates/interior.hbs";
 export async function buildFullHtml(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary,
-    styleCss: string
+    styleCss: Promise<string>
 ): Promise<string> {
     const fullHtml =
         "<!DOCTYPE html>\n" +
         renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
-            style: styleCss,
+            style: await styleCss,
             colorTestDates: getDateColorTestData().map(d => ({
                 date: d.dateText,
                 hue: d.hue,
