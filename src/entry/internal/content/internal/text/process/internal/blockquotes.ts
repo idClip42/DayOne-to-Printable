@@ -1,40 +1,34 @@
 import REPLACERS from "../../../../../../../htmlReplacers.json";
 
-const REQUIRE_WHITESPACE_AFTER_PREFIX = true;
-
 // TODO: Quote block lists (see Jan 4, 2023, 2:03am) get screwed up.
 
 export function fixBlockquotes(input: string): string {
-    let output = input.replace(
-        /^([ \t]*)> ([^\n]*)$/gm,
-        // Replace any U+2028 that appears *within a single blockquote line* by splitting it into
-        // a new quoted line: "\n{same indent}> "
-        // Handles multiple U+2028s on the same quote line and will NOT cross line boundaries.
-        // `sanitize.ts` also handles U-2028.
-        (full, indent, content) =>
-            `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
-    );
+    let output = input
+        .replace(
+            /^([ \t]*)> ([^\n]*)$/gm,
+            // Replace any U+2028 that appears *within a single blockquote line* by splitting it into
+            // a new quoted line: "\n{same indent}> "
+            // Handles multiple U+2028s on the same quote line and will NOT cross line boundaries.
+            // `sanitize.ts` also handles U-2028.
+            (full, indent, content) =>
+                `${indent}> ${content.replace(/\u2028/g, `\n${indent}> `)}`
+        )
+        .replace(
+            // For any blockquote line (line begins with optional indent + ">" + optional space),
+            // replace carriage returns (\r) within that line with a newline + same indent + "> ",
+            // effectively splitting it into multiple quoted lines.
+            /^([ \t]*> ?[^\n]*)$/gm,
+            line => {
+                const m = line.match(/^([ \t]*)>( ?)([^\n]*)$/);
+                if (!m) return line;
+                const indent = m[1];
+                const spaceAfter = m[2]; // either " " or ""
+                const rest = m[3];
 
-    output = output.replace(
-        // For any blockquote line (line begins with optional indent + ">" + optional space),
-        // replace carriage returns (\r) within that line with a newline + same indent + "> ",
-        // effectively splitting it into multiple quoted lines.
-        /^([ \t]*> ?[^\n]*)$/gm,
-        line => {
-            const m = line.match(/^([ \t]*)>( ?)([^\n]*)$/);
-            if (!m) return line;
-            const indent = m[1];
-            const spaceAfter = m[2]; // either " " or ""
-            const rest = m[3];
-
-            // Preserve whether the original used "> " or ">" when inserting the continuation.
-            return `${indent}>${spaceAfter}${rest.replace(/\r/g, /* "[[BACKSLASH_R_QUOTE]]" + */ `\n${indent}>${spaceAfter}`)}`;
-        }
-    );
-
-    output = fillQuoteRuns(output);
-
-    output = output
+                // Preserve whether the original used "> " or ">" when inserting the continuation.
+                return `${indent}>${spaceAfter}${rest.replace(/\r/g, /* "[[BACKSLASH_R_QUOTE]]" + */ `\n${indent}>${spaceAfter}`)}`;
+            }
+        )
         .replace(
             // Collapse any nested quote prefix to a single "> ".
             // Examples it fixes:
@@ -78,119 +72,6 @@ export function fixBlockquotes(input: string): string {
     );
 
     return output;
-}
-
-function fillQuoteRuns(md: string): string {
-    // NOTE: Do NOT normalize \r here; caller will handle carriage returns separately.
-    const lines = md.split("\n");
-
-    let inFence = false;
-
-    const isFence = (s: string) => /^\s*```/.test(s);
-
-    // Two modes (as you described):
-    // - whitespace->-nowhitespace:   /^\s*>[^\s]/  (i.e., ">" followed by a non-whitespace char)
-    // - whitespace->-whitespace:     /^\s*>\s/     (i.e., ">" followed by whitespace)
-    //
-    // For this function we treat "quote line" as:
-    // - REQUIRE_WHITESPACE_AFTER_PREFIX === true  => only match whitespace->-whitespace
-    // - REQUIRE_WHITESPACE_AFTER_PREFIX === false => match either form (any line that begins with optional ws + ">")
-    const isQuote = (s: string) =>
-        REQUIRE_WHITESPACE_AFTER_PREFIX ? /^\s*>\s/.test(s) : /^\s*>/.test(s);
-
-    const isBlank = (s: string) => /^\s*$/.test(s);
-
-    // When we need to add a quote marker, preserve any leading indentation already present.
-    // (If you truly want ">" as the first character always, change this to: (s) => `> ${s}`)
-    const addQuotePrefix = (s: string) => s.replace(/^(\s*)/, "$1> ");
-
-    for (let i = 0; i < lines.length; i++) {
-        // Skip fenced code blocks entirely.
-        if (isFence(lines[i])) {
-            inFence = !inFence;
-            continue;
-        }
-        if (inFence) continue;
-
-        // Start of a quote run.
-        if (!isQuote(lines[i])) continue;
-
-        // Walk forward until a blank line (ends the quote run per your corpus assumption),
-        // prefixing any non-blank lines that are missing the quote marker.
-        let k = i + 1;
-        for (; k < lines.length; k++) {
-            if (isFence(lines[k])) break;
-
-            if (isBlank(lines[k])) break;
-
-            if (!isQuote(lines[k])) {
-                // Now we have to figure out if `lines[k]` is intended as a quote.
-
-                const isLastLine = k === lines.length - 1;
-                if (isLastLine) {
-                    // If the last line isn't quote-blocked,
-                    // it's not a quote.
-                    // But let's add an extra newline to
-                    // separate it.
-                    lines[k] =
-                        "\n" + /* "[[QUOTE_ADDED_LAST_LINE]]" + */ lines[k];
-                    break;
-                }
-                // const nextLine = lines[k + 1];
-
-                // const prevLine = lines[k - 1];
-                // const prevHasBlankQuote = prevLine.trim() === ">";
-                // if (prevHasBlankQuote) {
-                //     // If there's a blank quote line and then a non-quote line,
-                //     // this line  was intended as part of the quote.
-                //     // We should see evidence of this in the "cat" entry.
-                //     lines[k] = addQuotePrefix(
-                //         /* "[[QUOTE_ADDED_PREV_BLANK]]" + */ lines[k]
-                //         // Have we killed this one?
-                //         // Looks like we have.
-                //     );
-                //     // We also assume that this is the last line of the
-                //     // quote.
-                //     break;
-                // }
-
-                const nextLines = lines.slice(k);
-                const nextEmptyLine = nextLines.findIndex(l => l.trim() === "");
-                const nextQuoteLine = nextLines.findIndex(l =>
-                    l.trim().startsWith(">")
-                );
-
-                const anyMoreQuotes = nextQuoteLine > 0;
-                const anyMoreEmpties = nextEmptyLine > 0;
-                const breakBeforeNextQuote =
-                    !anyMoreQuotes ||
-                    (anyMoreEmpties && nextEmptyLine < nextQuoteLine);
-
-                if (breakBeforeNextQuote) {
-                    // If there's an empty line before the next quote block,
-                    // or if there text ends with no more quote blocks,
-                    // then this ain't gonna be a quote.
-                    // And we should probably separate it from the pack.
-                    lines[k] = "\n" + /* "[[QUOTE_ADDED_END]]" + */ lines[k];
-                    break;
-                } else {
-                    // Otherwise, we are coming up on another quote block
-                    // without any kind of interruption.
-                    // Which means we gotta fill in
-                    lines[k] = /* "[[QUOTE_ADDED_UPCOMING]]" + */ lines[k]; //addQuotePrefix(
-                    // TODO: This is now the same as the other conditional.
-                    // TODO: This whole area of the logic
-                    // TODO: can be gotten rid of.
-                    //);
-                }
-            }
-        }
-
-        // Advance to end of run so we don't re-scan the same block repeatedly.
-        i = k - 1;
-    }
-
-    return lines.join("\n");
 }
 
 function handleSingleNewlinesInsideBlockquotes(md: string): string {
