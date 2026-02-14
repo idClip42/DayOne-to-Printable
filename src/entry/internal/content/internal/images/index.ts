@@ -5,6 +5,7 @@ import { RESIZED_IMAGES_EXT } from "../../../../../preprocess/resizeImages";
 import fs from "fs";
 import { renderTemplate } from "../../../../../utilities/template";
 import { ImageTemplateVars } from "../../../../../templates/image.hbs";
+import { replaceAsync } from "../../../../../utilities/replaceAsync";
 
 const TEMPLATE_PATH = "src/templates/image.hbs";
 
@@ -60,7 +61,7 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
 }
 
 export function processHtmlImages(entry: DayOneEntry, html: string) {
-    return html.replace(/<img([^>]*)>/g, (match, p1) => {
+    return replaceAsync(html, /<img([^>]*)>/g, (match, p1) => {
         return renderTemplate<ImageTemplateVars>(TEMPLATE_PATH, {
             imgAttributes: p1,
             obfuscate: config.content.obfuscate,

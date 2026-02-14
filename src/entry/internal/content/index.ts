@@ -16,7 +16,7 @@ export async function createContentHtml(entry: DayOneEntry): Promise<string> {
         );
     }
 
-    const processedText = processText(preprocessedText, entry);
+    const processedText = await processText(preprocessedText, entry);
 
     // Parse the modified Markdown into HTML.
     let htmlResult = await marked.parse(processedText);
@@ -30,7 +30,7 @@ export async function createContentHtml(entry: DayOneEntry): Promise<string> {
     }
 
     // Update all image tags.
-    htmlResult = processHtmlImages(entry, htmlResult);
+    htmlResult = await processHtmlImages(entry, htmlResult);
     // Replace all text content with Lorem Ipsum,
     // if configured to do so.
     if (config.content.obfuscate) {

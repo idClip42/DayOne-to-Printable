@@ -9,17 +9,17 @@ import { cleanBackslashes } from "./internal/backslashes";
 import { handleExtensions } from "./internal/extensions";
 import { handleSingleNewlines } from "./internal/singleNewlines";
 
-export function processText(
+export async function processText(
     inputText: string,
     entry: DayOneEntry | null
-): string {
+): Promise<string> {
     let output = inputText;
     output = sanitizeInput(output);
     output = cleanStructure(output);
     output = fixLists(output);
     output = fixBlockquotes(output);
     output = fixCode(output);
-    output = fillInAttachments(output, entry);
+    output = await fillInAttachments(output, entry);
     output = cleanBackslashes(output);
     output = output.replace(
         // 7.2: Unicode Line Separator Normalization

@@ -48,12 +48,11 @@ const coverOutputPath = path.join(
     config.files.output.directory,
     config.files.output.coverHtmlFile
 );
-const coverHtml = generateCoverHtml({
+const coverFilePromise = generateCoverHtml({
     start: new Date(entries[0].creationDate),
     end: new Date(entries[entries.length - 1].creationDate),
-});
-const coverFilePromise = fs.promises
-    .writeFile(coverOutputPath, coverHtml)
+})
+    .then(coverHtml => fs.promises.writeFile(coverOutputPath, coverHtml))
     .then(() => console.log(`✅ Exported HTML cover to ${coverOutputPath}`));
 
 await Promise.all([interiorFilePromise, coverFilePromise]);

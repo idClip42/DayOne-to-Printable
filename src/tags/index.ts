@@ -13,7 +13,7 @@ export class TagsLibrary {
         this._tagsLibrary = processTags(entries);
     }
 
-    public getTagHtml(tag: string): string {
+    public getTagHtml(tag: string): Promise<string> {
         const infoIndex = this._tagsLibrary.findIndex(test => test.tag === tag);
         if (infoIndex < 0) throw new Error(`Unrecognized tag: ${tag}`);
         const info = this._tagsLibrary[infoIndex];
@@ -35,7 +35,7 @@ export class TagsLibrary {
         return this._tagsLibrary
             .map(item => ({
                 tag: item.tag,
-                html: this.getTagHtml(item.tag),
+                htmlPromise: this.getTagHtml(item.tag),
                 count: item.count,
             }))
             .reverse(); // Reverse so highest counts are first

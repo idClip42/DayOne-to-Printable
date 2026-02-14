@@ -26,8 +26,12 @@ if (MODE === TestMode.MakeOutput) {
         const fullPath = path.join(TEST_DIR, inputFilename);
         const inputText = fs.readFileSync(fullPath, "utf8");
         const inputMarkdown = JSON.parse(inputText);
-        const outputText = processText(inputMarkdown, null);
-        fs.writeFileSync(fullPath.replace(INPUT_EXT, OUTPUT_EXT), outputText);
+        processText(inputMarkdown, null).then(outputText =>
+            fs.promises.writeFile(
+                fullPath.replace(INPUT_EXT, OUTPUT_EXT),
+                outputText
+            )
+        );
     }
 } else if (MODE === TestMode.CompareToOutput) {
     // Clear out output folder
@@ -63,27 +67,30 @@ if (MODE === TestMode.MakeOutput) {
             "utf8"
         );
 
-        const currentOutput = processText(inputMarkdown, null);
+        processText(inputMarkdown, null).then(currentOutput => {
+            if (currentOutput !== expectedOutputText) {
+                console.log(`!!! Test '${testName}' failed.`);
 
-        if (currentOutput !== expectedOutputText) {
-            console.log(`!!! Test '${testName}' failed.`);
+                const targetOutputFilePath = path.join(
+                    OUTPUT_DIR,
+                    outputFilename
+                );
 
-            const targetOutputFilePath = path.join(OUTPUT_DIR, outputFilename);
-
-            const patch = createTwoFilesPatch(
-                expectedOutputFullPath, // old filename (shown in diff header)
-                targetOutputFilePath, // new filename
-                expectedOutputText,
-                currentOutput,
-                "(Expected)", // optional old header
-                "(Actual)", // optional new header
-                { context: 3 } // lines of context
-            );
-            fs.writeFileSync(
-                path.join(OUTPUT_DIR, `${testName}.md.diff`),
-                patch
-            );
-            fs.writeFileSync(targetOutputFilePath, currentOutput);
-        }
+                const patch = createTwoFilesPatch(
+                    expectedOutputFullPath, // old filename (shown in diff header)
+                    targetOutputFilePath, // new filename
+                    expectedOutputText,
+                    currentOutput,
+                    "(Expected)", // optional old header
+                    "(Actual)", // optional new header
+                    { context: 3 } // lines of context
+                );
+                fs.writeFileSync(
+                    path.join(OUTPUT_DIR, `${testName}.md.diff`),
+                    patch
+                );
+                fs.writeFileSync(targetOutputFilePath, currentOutput);
+            }
+        });
     }
 }

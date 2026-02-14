@@ -30,6 +30,8 @@ export async function convertEntryToHTML(
         weather: weather.weather,
         tempF: weather.tempF,
         location: getLocationString(entry),
-        tagHtmls: entry.tags?.map(t => tagsLibrary.getTagHtml(t)) || [],
+        tagHtmls: entry.tags
+            ? await Promise.all(entry.tags.map(t => tagsLibrary.getTagHtml(t)))
+            : [],
     });
 }

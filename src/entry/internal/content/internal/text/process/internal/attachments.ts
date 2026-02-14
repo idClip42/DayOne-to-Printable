@@ -1,4 +1,5 @@
 import { DayOneEntry } from "../../../../../../../types/DayOneEntry";
+import { replaceAsync } from "../../../../../../../utilities/replaceAsync";
 import { getAttachmentInfo } from "../../../attachments/info";
 import { getAttachmentMarkdown } from "../../../attachments/textProcess";
 import { getImageFilePath } from "../../../images";
@@ -6,14 +7,15 @@ import { getImageFilePath } from "../../../images";
 export function fillInAttachments(
     input: string,
     entry: DayOneEntry | null
-): string {
-    return input.replace(
+): Promise<string> {
+    return replaceAsync(
+        input,
         // 12: Resolve DayOne Image Attachments
         // Replaces all DayOne image links with the link
         // to the actual relevant image.
         /!\[]\(dayone-moment:(.*?)\)/g,
-        (_, match) => {
-            if (!entry) return "![]()";
+        (_, match): Promise<string> => {
+            if (!entry) return Promise.resolve("![]()");
 
             const attachmentInfo = getAttachmentInfo(entry, match);
             if (attachmentInfo.type === "Photo") {
@@ -21,7 +23,8 @@ export function fillInAttachments(
                     entry,
                     match.replace("//", "")
                 );
-                if (imageFilePath) return `![](${imageFilePath})`;
+                if (imageFilePath)
+                    return Promise.resolve(`![](${imageFilePath})`);
             }
 
             // If it's not an image, or we couldn't find the image,

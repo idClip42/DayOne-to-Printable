@@ -15,7 +15,7 @@ export async function buildFullHtml(
 ): Promise<string> {
     const fullHtml =
         "<!DOCTYPE html>\n" +
-        renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
+        (await renderTemplate<InteriorTemplateVars>(INTERIOR_TEMPLATE_PATH, {
             style: await styleCss,
             colorTestDates: getDateColorTestData().map(d => ({
                 date: d.dateText,
@@ -25,12 +25,14 @@ export async function buildFullHtml(
                 label: d.name,
                 value: d.value.toLocaleString(),
             })),
-            tagStats: tagsLibrary.getOrderedTagsInfo().map(t => ({
-                label: t.html,
-                value: t.count.toLocaleString(),
-            })),
+            tagStats: await Promise.all(
+                tagsLibrary.getOrderedTagsInfo().map(async t => ({
+                    label: await t.htmlPromise,
+                    value: t.count.toLocaleString(),
+                }))
+            ),
             entriesHtml: await processEntries(entries, tagsLibrary),
-        });
+        }));
 
     return fullHtml;
 }
