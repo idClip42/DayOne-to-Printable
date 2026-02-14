@@ -5,9 +5,25 @@ import { processText } from "./src/entry/internal/content/internal/text/process"
 import type { DayOneEntry } from "./src/types/DayOneEntry";
 import { logProgress } from "./src/utilities/progress";
 
+const OBFUS_FILE = "testObfuscation.json";
 const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
 const OUTPUT_DIR = "output-tests";
+
+const REPLACERS: [string, string][] = (() => {
+    if (fs.existsSync(OBFUS_FILE)) {
+        const obfusText = fs.readFileSync(OBFUS_FILE, "utf8");
+        const obfusObj = JSON.parse(obfusText);
+        if (!Array.isArray(obfusObj))
+            throw new Error(`'${OBFUS_FILE}' is not an array.`);
+        return obfusObj.map<[string, string]>(o => [o[0], o[1]]);
+    } else {
+        console.warn(
+            "WARN: No test obfuscation file. Entries will be saved as-is."
+        );
+        return [];
+    }
+})();
 
 // Clear out output folder
 const preexistingDiffs = fs.readdirSync(OUTPUT_DIR);
@@ -38,7 +54,10 @@ for (const e in entries) {
         d.getHours().toString().padStart(2, "0") +
         d.getMinutes().toString().padStart(2, "0");
 
-    const text = entry.text;
+    let text = entry.text;
+    for (const repl of REPLACERS) {
+        text = text.replace(new RegExp(repl[0], "gi"), repl[1]);
+    }
     const escapedText = JSON.stringify(text);
     const processedText = processText(text, null);
 
