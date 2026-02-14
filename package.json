@@ -4,7 +4,8 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "start": "tsx index.ts",
+        "start": "tsx cover.ts & tsx interior.ts",
+        "cover": "tsx cover.ts",
         "test": "tsx testRun.ts",
         "testgen": "tsx testGen.ts",
         "testjournal": "tsx testJournal.ts"

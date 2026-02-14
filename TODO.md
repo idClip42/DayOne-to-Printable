@@ -21,8 +21,8 @@
 
 ## Issues
 
-- [ ] You fucked up the spine margin.
-  - [ ] The Vol. text is too low and gets cut off by the cover wrapping under the spine.
+- [x] You fucked up the spine margin.
+  - [x] The Vol. text is too low and gets cut off by the cover wrapping under the spine.
 - [ ] Image processing is rotating (unrotating?) some images. (This may be a lost cause)
   - [ ] August 18, 2022, 9:57 AM
   - [ ] July 15, 2023 · 1:35 PM
@@ -118,3 +118,6 @@
 - [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
   - [ ] Or should we be trying to get HTML *out* of the markdown? Probably that?
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
+- [x] Can we speed up the rendering process with promises anywhere?
+  - [x] Doesn't look like anything currently uses `await`.
+  - [x] But `createContentHtml()` uses a sync version of the MD to HTML parser.

@@ -14,6 +14,7 @@ export function generateCssVars(year: number) {
   --height: ${dimensions.heightIn}in;
   --spine-width: ${dimensions.spineWidthIn}in;
   --hinge-in: ${dimensions.hingeIn}in;
+  --safety-margin: ${dimensions.safetyMargin}in;
   --spine-accent-hue: ${hue};
 }
     `.trim();

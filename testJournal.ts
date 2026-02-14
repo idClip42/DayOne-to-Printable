@@ -10,6 +10,8 @@ const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
 const OUTPUT_DIR = "output-tests";
 
+if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
+
 const REPLACERS: [string, string][] = (() => {
     if (fs.existsSync(OBFUS_FILE)) {
         const obfusText = fs.readFileSync(OBFUS_FILE, "utf8");
@@ -62,17 +64,19 @@ for (const e in entries) {
         text = text.replace(new RegExp(repl[0], "gi"), repl[1]);
     }
     const escapedText = JSON.stringify(text);
-    const processedText = processText(text, null);
+    const filePromises = processText(text, null).then(processedText => {
+        const promA = fs.promises.writeFile(
+            path.join(OUTPUT_DIR, name + INPUT_EXT),
+            escapedText
+        );
+        const promB = fs.promises.writeFile(
+            path.join(OUTPUT_DIR, name + OUTPUT_EXT),
+            processedText
+        );
 
-    const promA = fs.promises.writeFile(
-        path.join(OUTPUT_DIR, name + INPUT_EXT),
-        escapedText
-    );
-    const promB = fs.promises.writeFile(
-        path.join(OUTPUT_DIR, name + OUTPUT_EXT),
-        processedText
-    );
-    fileSavePromises.push(promA, promB);
+        return Promise.all([promA, promB]);
+    });
+    fileSavePromises.push(filePromises);
 }
 
 console.log("Waiting for saving to finish...");
