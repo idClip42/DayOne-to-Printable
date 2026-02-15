@@ -3,5 +3,10 @@
         "tag": "SINGLE_NEWLINE_P ",
         "find": "<p>SINGLE_NEWLINE_P ",
         "replace": "<p class='single-newline'>"
+    },
+    "midListBreak": {
+        "tag": "MID_LIST_BREAK",
+        "find": "<p>MID_LIST_BREAK",
+        "replace": "<p class='hidden-format-fix-element'>"
     }
 }

@@ -1,5 +1,12 @@
+import REPLACERS from "./../../../../../../../htmlReplacers.json";
+
 export function fixLists(input: string): string {
     return input
+        .replace(
+            // Match an empty line (\n or \r\n) that is between two markdown bullets
+            /(^[ \t]*[-*+]\s.*\r?\n)(\r?\n)(?=[ \t]*[-*+]\s)/gm,
+            `$1\n${REPLACERS.midListBreak.tag}\n`
+        )
         .replace(
             // 16.1: All lists must have two newlines before them.
             /(^|\n)([^\n]*?)\n+(?=^[ \t]*[-*] )/gm,

@@ -196,6 +196,10 @@ p.single-newline {
     margin-top: 0;
 }
 
+.entry .hidden-format-fix-element {
+    display: none;
+}
+
 /* #endregion */
 
 /* #region Entry Metadata */

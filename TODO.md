@@ -56,11 +56,11 @@
 		- [x] Also shows up
 			- [x] Jan 21, 2023
   			- [x] ~~IDENTICAL formatting to June 5. IDENTICAL.~~
-	- [ ] EXPLANATION
-  	- [ ] It happens with entries that have a gap between bullets.
-  	- [ ] That is, `- text\n\n-text`.
-  	- [ ] If that exists, then the whole list is fucked up.
-  	- [ ] Need to figure out what this will look like in final markdown and update the `.output.md`.
+	- [x] EXPLANATION
+  	- [x] It happens with entries that have a gap between bullets.
+  	- [x] That is, `- text\n\n-text`.
+  	- [x] If that exists, then the whole list is fucked up.
+  	- [x] Need to figure out what this will look like in final markdown and update the `.output.md`.
 	- [x] Jun 4, 2022, “That thing I mentioned earlier”
 		- [x] A counterexample to the above - good bullets.
 	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
