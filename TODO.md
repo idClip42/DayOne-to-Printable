@@ -84,8 +84,9 @@
 		- [x] An example I already found of numbered lists getting screwed up in quote blocks.
 		- [x] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”
 		- [x] At least the numbered list formatting works regardless of the starting number.
-		- [ ] So we gotta figure this out with some regex.
-		- [ ] I *think* the `.output.md` stuff is prepped for this.
+		- [x] So we gotta figure this out with some regex.
+		- [x] I *think* the `.output.md` stuff is prepped for this.
+		- [x] Turns out this was already solved, I was just screwing it up with where I handled quote block backslashes.
 
 ## Ideas
 

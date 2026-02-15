@@ -1,7 +1,5 @@
 import REPLACERS from "../../../../../../../htmlReplacers.json";
 
-// TODO: Quote block lists (see Jan 4, 2023, 7:03am) get screwed up.
-
 export function fixBlockquotes(input: string): string {
     let output = input
         .replace(
@@ -60,6 +58,13 @@ export function fixBlockquotes(input: string): string {
             // This is the quote block version.
             /(^>.*)\u2028/gm,
             "$1\n> "
+        )
+        .replace(
+            // 21: Quote Line Backslash Cleanup
+            // Backslashes at this point are unprocessed markdown, and we can kill
+            // all of them unless they're escaping another backslash.
+            /^>\s*.*$/gm,
+            line => line.replace(/\\([^\\])/g, "$1")
         );
 
     output = handleSingleNewlinesInsideBlockquotes(output);

@@ -1,17 +1,11 @@
 export function cleanBackslashes(input: string): string {
+    // NOTE: We moved the quote block one to mid-quote block.
     return input
         .replace(
             // 20: URL Backslash Cleanup
             // Backslashes at this point are unprocessed markdown, and we can kill
             // all of them unless they're escaping another backslash.
             /(https?:\/\/.*)$/gm,
-            line => line.replace(/\\([^\\])/g, "$1")
-        )
-        .replace(
-            // 21: Quote Line Backslash Cleanup
-            // Backslashes at this point are unprocessed markdown, and we can kill
-            // all of them unless they're escaping another backslash.
-            /^>\s*.*$/gm,
             line => line.replace(/\\([^\\])/g, "$1")
         )
         .replace(
