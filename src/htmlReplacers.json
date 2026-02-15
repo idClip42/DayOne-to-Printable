@@ -8,5 +8,10 @@
         "tag": "MID_LIST_BREAK",
         "find": "<p>MID_LIST_BREAK",
         "replace": "<p class='hidden-format-fix-element'>"
+    },
+    "hiddenParentBullet": {
+        "tag": "HIDDEN_PARENT_BULLET",
+        "find": "<li>HIDDEN_PARENT_BULLET",
+        "replace": "<li class='hidden-parent-bullet'>"
     }
 }

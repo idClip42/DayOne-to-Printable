@@ -74,12 +74,12 @@
 		- [x] Text between quote blocks is code for some reason.
 		- [x] December 14, 2022, “My day”, “A little long, so let’s see”
 			- [x] Another example.
-  	- [ ] EXPLANATION
-    	- [ ] This is what happens when a nested bullet comes after an element that isn't a bullet that's interrupting a list.
-    	- [ ] I think we need to:
-      	- [ ] Insert extra, un-nested bullets before the existing ones.
-      	- [ ] Mark them with a tag
-    	- [ ] Need to figure out what this will look like in final markdown and update the `.output.md`.
+  	- [x] EXPLANATION
+    	- [x] This is what happens when a nested bullet comes after an element that isn't a bullet that's interrupting a list.
+    	- [x] I think we need to:
+      	- [x] Insert extra, un-nested bullets before the existing ones.
+      	- [x] Mark them with a tag
+    	- [x] Need to figure out what this will look like in final markdown and update the `.output.md`.
 	- [x] Jan 4, 2023, 7:03am
 		- [x] An example I already found of numbered lists getting screwed up in quote blocks.
 		- [x] Another example: Jan 21, 2023, “Mackenzie” “So while I was in the movie”

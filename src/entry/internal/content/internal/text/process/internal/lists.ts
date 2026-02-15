@@ -39,6 +39,28 @@ export function fixLists(input: string): string {
             //     (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
             // )
             .replace(
+                // Fix orphaned nested list items by inserting ALL missing parent bullets
+                /(^|\n)(?![\t]*[-*+] )[^\n]*\n(\t+[-*+] .*)/g,
+
+                (match, lineStart, nestedBulletLine) => {
+                    // Count how many tabs precede the bullet
+                    const tabCount =
+                        nestedBulletLine.match(/^\t+/)?.[0].length ?? 0;
+
+                    // Build placeholder parent bullets for every missing ancestor level
+                    let placeholders = "";
+                    for (let i = 0; i < tabCount; i++) {
+                        placeholders += `${"\t".repeat(i)}- ${REPLACERS.hiddenParentBullet.tag}\n`;
+                    }
+
+                    // Insert placeholders between the non-bullet line and the nested bullet
+                    return match.replace(
+                        /\n(\t+[-*+] .*)$/,
+                        `\n${placeholders}$1`
+                    );
+                }
+            )
+            .replace(
                 // Replace all *carriage return characters* (\r) that occur within an unordered list item line
                 // (lines that start with optional indent + (*|-|+) + space).
                 /^([ \t]*[*+-] [^\n]*)$/gm,

@@ -200,6 +200,12 @@ p.single-newline {
     display: none;
 }
 
+.entry li.hidden-parent-bullet {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* #endregion */
 
 /* #region Entry Metadata */
