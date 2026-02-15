@@ -33,7 +33,7 @@ export function fixLists(input: string): string {
             // - Finding images that come after list items
             // - Removing both line breaks from the start
             // - Removing one of the two line breaks from the finish.
-            /(\n[ \t]*[-*][^\n]*)(\n\n)!?\[\]\((.*?)\)\n\n/g,
+            /(\n[ \t]*[-*+] [^\n]+)(\n\n)!?\[\]\((.*?)\)\n\n/g,
             (_, bulletLine, _gap, url) => `${bulletLine} ![](${url})\n`
         )
         .replace(

@@ -66,8 +66,8 @@
 	- [x] August 24, 2022 “Wilde” “Part of my motivation for letting Leo”
 		- [x] There’s a broken horizontal rule here... just above a photo.
 		- [x] Thought we dealt with that.
-		- [ ] Maybe we just need to enforce two lines above and two lines below in all situations
-		- [ ] `.output.md` is prepped for this.
+		- [x] Maybe we just need to enforce two lines above and two lines below in all situations
+		- [x] `.output.md` is prepped for this.
 		- [x] Another example: Jan 23, 2023, “Ok. Photo cleaning time.”
 			- [x] It’s below the fish and chips gif.
 	- [x] October 26, 2022 “My morning” “Figured out how to solve”
