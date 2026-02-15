@@ -42,8 +42,7 @@ for (const testName of testNames) {
 
     processText(inputMarkdown, null).then(currentOutput => {
         if (currentOutput !== expectedOutputText) {
-            console.log(`!!! Test '${testName}' failed.`);
-
+            const diffFilePath = path.join(OUTPUT_DIR, `${testName}.md.diff`);
             const targetOutputFilePath = path.join(OUTPUT_DIR, outputFilename);
 
             const patch = createTwoFilesPatch(
@@ -55,11 +54,11 @@ for (const testName of testNames) {
                 "(Actual)", // optional new header
                 { context: 3 } // lines of context
             );
-            fs.writeFileSync(
-                path.join(OUTPUT_DIR, `${testName}.md.diff`),
-                patch
-            );
+
+            fs.writeFileSync(diffFilePath, patch);
             fs.writeFileSync(targetOutputFilePath, currentOutput);
+
+            console.log(`FAIL: ${diffFilePath}`);
         }
     });
 }
