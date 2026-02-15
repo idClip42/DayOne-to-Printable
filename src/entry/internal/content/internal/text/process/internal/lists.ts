@@ -3,7 +3,9 @@ import REPLACERS from "./../../../../../../../htmlReplacers.json";
 export function fixLists(input: string): string {
     return input
         .replace(
-            // Match an empty line (\n or \r\n) that is between two markdown bullets
+            // Match an empty line (\n or \r\n) that is between two markdown bullets.
+            // Put a temporary element between them, which we'll hide later.
+            // Otherwise, the gap breaks the whole list.
             /(^[ \t]*[-*+]\s.*\r?\n)(\r?\n)(?=[ \t]*[-*+]\s)/gm,
             `$1\n${REPLACERS.midListBreak.tag}\n`
         )
