@@ -7,10 +7,12 @@ import { preprocessText } from "./internal/text/preprocess";
 import { processText } from "./internal/text/process";
 import HTML_REPLACERS from "./../../../htmlReplacers.json";
 
+const REGEX_TABLE_BLOCK = /```[\s\n]*\|.*\|.*\n.*```/;
+
 export async function createContentHtml(entry: DayOneEntry): Promise<string> {
     const preprocessedText = preprocessText(entry.text);
 
-    if (/```[\s\n]*\|.*\|.*\n.*```/.test(preprocessedText)) {
+    if (REGEX_TABLE_BLOCK.test(preprocessedText)) {
         console.log(
             `⚠️ Possible table-in-code-block found in '${new Date(entry.creationDate).toLocaleString()}'`
         );

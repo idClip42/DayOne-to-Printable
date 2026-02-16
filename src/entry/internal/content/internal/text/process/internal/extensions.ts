@@ -1,3 +1,6 @@
+const REGEX_HIGHLIGHT_BOLD = /\*\*==(.+?)==\*\*/g;
+const REGEX_HIGHLIGHT = /==(.+?)==/g;
+
 export function handleExtensions(input: string): string {
     return input
         .replace(
@@ -13,7 +16,7 @@ export function handleExtensions(input: string): string {
             // Some exported Markdown uses "==text==" to indicate highlights, but this syntax
             // isn't supported by all Markdown parsers. To preserve formatting in HTML,
             // we convert these to <strong><mark>text</mark></strong>.
-            /\*\*==(.+?)==\*\*/g,
+            REGEX_HIGHLIGHT_BOLD,
             "<strong><mark>$1</mark></strong>"
         )
         .replace(
@@ -33,7 +36,7 @@ export function handleExtensions(input: string): string {
             // TODO: and it could be in any...
             // TODO: ...unless we abuse an existing MD element type?
             // TODO: If we do this right, we only need one rule.
-            /==(.+?)==/g,
+            REGEX_HIGHLIGHT,
             "<mark>$1</mark>"
         );
 }

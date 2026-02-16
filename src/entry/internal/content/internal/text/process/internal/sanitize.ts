@@ -1,9 +1,13 @@
+const REGEX_ESC_HR = /\\-\\-\\-/g;
+const REGEX_BULLET = /(?<=\n\s*>?\s*)•/g;
+const REGEX_U_2028 = /\n\u2028/g;
+
 export function sanitizeInput(input: string): string {
     return input
         .replace(
             // 25: Escaped Horizontal Rule Cleanup
             // Apparently we've got some "\-\-\-" in there too.
-            /\\-\\-\\-/g,
+            REGEX_ESC_HR,
             "---"
         )
         .replace(
@@ -14,14 +18,14 @@ export function sanitizeInput(input: string): string {
             // Of note:
             // - Sometimes these lists will be in block quotes
             // - Sometimes there will be indentation whitespace
-            /(?<=\n\s*>?\s*)•/g,
+            REGEX_BULLET,
             "-"
         )
         .replace(
             // Newlines immediately followed by U-2028
             // get turned into double newlines.
             // `blockquotes.ts` also handles U-2028.
-            /\n\u2028/g,
+            REGEX_U_2028,
             "\n\n"
         );
 }

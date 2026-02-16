@@ -9,6 +9,8 @@ import { cleanBackslashes } from "./internal/backslashes";
 import { handleExtensions } from "./internal/extensions";
 import { handleSingleNewlines } from "./internal/singleNewlines";
 
+const REGEX_U_2028 = /\u2028/g;
+
 export async function processText(
     inputText: string,
     entry: DayOneEntry | null
@@ -25,7 +27,7 @@ export async function processText(
         // 7.2: Unicode Line Separator Normalization
         // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
         // This is the regular version.
-        /\u2028/g,
+        REGEX_U_2028,
         `\n`
     );
     output = handleSingleNewlines(output);

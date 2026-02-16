@@ -1,5 +1,8 @@
 import REPLACERS from "../../../../../../../htmlReplacers.json";
 
+const REGEX_SINGLE_NEWLINES =
+    /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g;
+
 export function handleSingleNewlines(input: string): string {
     return input.replace(
         // 5: Single-Newline Conversion
@@ -20,7 +23,7 @@ export function handleSingleNewlines(input: string): string {
                         - a table alignment row (like `|:---|:---|`)
                     - `\S` — Next character must be non-whitespace
             */
-        /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g,
+        REGEX_SINGLE_NEWLINES,
         `\n\n${REPLACERS.singleNewlineParagraph.tag}`
     );
 }

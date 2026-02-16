@@ -8,6 +8,7 @@ import { ImageTemplateVars } from "../../../../../templates/image.hbs";
 import { replaceAsync } from "../../../../../utilities/replaceAsync";
 
 const TEMPLATE_PATH = "src/templates/image.hbs";
+const REGEX_IMG_TAG = /<img([^>]*)>/g;
 
 /** Directory where your images are stored */
 const photosDir = path.join(
@@ -61,7 +62,7 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
 }
 
 export function processHtmlImages(entry: DayOneEntry, html: string) {
-    return replaceAsync(html, /<img([^>]*)>/g, (match, p1) => {
+    return replaceAsync(html, REGEX_IMG_TAG, (match, p1) => {
         return renderTemplate<ImageTemplateVars>(TEMPLATE_PATH, {
             imgAttributes: p1,
             obfuscate: config.content.obfuscate,

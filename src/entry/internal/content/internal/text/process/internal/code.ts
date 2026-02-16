@@ -1,3 +1,8 @@
+const REGEX_REJOIN = /```[\n\r]+```/g;
+const REGEX_BACKSLASHES_A = /```([\s\S]*?)```/g;
+const REGEX_BACKSLASHES_B = /\\/g;
+const REGEX_BACKSLASHES_C = /\n{2,}/g;
+
 export function fixCode(input: string): string {
     // TODO: Find examples of code blocks in the journal
     // TODO: and make tests for them.
@@ -8,7 +13,7 @@ export function fixCode(input: string): string {
             // For some reason, DayOne separates each code block line
             // into separate blocks with separate triple-backticks.
             // So this re-merges them.
-            /```[\n\r]+```/g,
+            REGEX_REJOIN,
             ""
         )
         .replace(
@@ -20,11 +25,11 @@ export function fixCode(input: string): string {
             // puts back single quotes,
             // and replaces anything more than
             // two newlines with just two newlines.
-            /```([\s\S]*?)```/g,
+            REGEX_BACKSLASHES_A,
             (match, codeBlock) => {
                 const normalized = codeBlock
-                    .replace(/\\/g, "")
-                    .replace(/\n{2,}/g, "\n\n");
+                    .replace(REGEX_BACKSLASHES_B, "")
+                    .replace(REGEX_BACKSLASHES_C, "\n\n");
                 const final = `\`\`\`${normalized}\`\`\``;
                 return final;
             }
