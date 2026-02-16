@@ -4,6 +4,8 @@ import config from "./config.json";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 import type { DayOneEntry } from "./src/types/DayOneEntry";
 
+// TODO: Make fully async like the other two test files.
+
 const OBFUS_FILE = "testObfuscation.json";
 const INPUT_EXT = ".input.json";
 const OUTPUT_EXT = ".output.md";
