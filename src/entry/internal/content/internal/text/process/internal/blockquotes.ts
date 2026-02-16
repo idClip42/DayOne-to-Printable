@@ -52,13 +52,14 @@ export function fixBlockquotes(input: string): string {
             /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm,
             "$1\n"
         )
-        .replace(
-            // 7.1: Unicode Line Separator Normalization
-            // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
-            // This is the quote block version.
-            /(^>.*)\u2028/gm,
-            "$1\n> "
-        )
+        // TODO: Don't think we need this
+        // .replace(
+        //     // 7.1: Unicode Line Separator Normalization
+        //     // U+2028 appears to be an unusual newline that is showing up in my stuff sometimes.
+        //     // This is the quote block version.
+        //     /(^>.*)\u2028/gm,
+        //     "$1\n> "
+        // )
         .replace(
             // 21: Quote Line Backslash Cleanup
             // Backslashes at this point are unprocessed markdown, and we can kill
