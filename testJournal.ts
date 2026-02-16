@@ -3,7 +3,6 @@ import path from "path";
 import config from "./config.json";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 import type { DayOneEntry } from "./src/types/DayOneEntry";
-import { logProgress } from "./src/utilities/progress";
 
 const OBFUS_FILE = "testObfuscation.json";
 const INPUT_EXT = ".input.json";
@@ -43,10 +42,10 @@ const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
+console.log("Processing entries...");
 const fileSavePromises = [];
 for (const e in entries) {
     const index = Number(e);
-    if (index % 100 === 0) logProgress(index, entries);
     const entry = entries[index];
     const d = new Date(entry.creationDate);
     const name =
@@ -79,7 +78,6 @@ for (const e in entries) {
     fileSavePromises.push(filePromises);
 }
 
-console.log("Waiting for saving to finish...");
 await Promise.all(fileSavePromises);
 const endTimeMs = Date.now();
 const elapsedSeconds = (endTimeMs - startTimeMs) / 1000;

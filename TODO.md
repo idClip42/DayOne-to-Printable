@@ -19,6 +19,7 @@
   - [ ] Once uploaded, they are replaced with bullets.
 - [ ] Entries to use for new tests:
   - [ ] Find examples of code blocks in the journal and make tests out of them.
+    - [ ] Feb 15, 2026, 9:28pm, "Late night return to the book thing"
 
 ## Ideas
 

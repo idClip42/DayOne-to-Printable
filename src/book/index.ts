@@ -19,9 +19,9 @@ export async function buildFullHtml(
             value: t.count.toLocaleString(),
         }))
     );
-    const entriesPromise = processEntries(entries, tagsLibrary);
 
     console.log("Processing entries...");
+    const entriesPromise = processEntries(entries, tagsLibrary);
 
     const templateVars: InteriorTemplateVars = {
         style: await styleCssPromise,

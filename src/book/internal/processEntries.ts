@@ -3,7 +3,6 @@ import { isSameLocalDay } from "../../date/compare";
 import { convertEntryToHTML } from "../../entry";
 import { makeNewDayElement } from "./newDay";
 import { TagsLibrary } from "../../tags";
-import { logProgress } from "../../utilities/progress";
 
 export function processEntries(
     entries: DayOneEntry[],
@@ -26,18 +25,7 @@ export function processEntries(
             entriesHtmlPromises.push(Promise.resolve(makeNewDayElement(entry)));
         }
 
-        const entryHtmlPromise = convertEntryToHTML(entry, tagsLibrary).then(
-            result => {
-                // Log progress when thing is complete
-                finishedCounter++;
-                if (
-                    finishedCounter % 100 === 0 ||
-                    finishedCounter === entries.length - 1
-                )
-                    logProgress(finishedCounter, entries);
-                return result;
-            }
-        );
+        const entryHtmlPromise = convertEntryToHTML(entry, tagsLibrary);
         entriesHtmlPromises.push(entryHtmlPromise);
     }
     return Promise.all(entriesHtmlPromises);
