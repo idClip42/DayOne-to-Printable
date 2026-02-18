@@ -22,6 +22,8 @@
     - [x] Feb 15, 2026, 9:28pm, "Late night return to the book thing"
 - [ ] Fix code block parsing.
   - [ ] Start with the SINGLE_NEWLINE_P shit.
+  - [ ] Maybe we need to match the larger code block group first?
+    - [ ] Like, identify blocks of text meant to be part of one code block, and then dig into them after that initial match. Multi-layer find and replace.
 
 ## Ideas
 
