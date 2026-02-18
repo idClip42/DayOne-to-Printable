@@ -17,9 +17,11 @@
   - [ ] Unless there's some way in CSS to specifically indicate tag-less content text.
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
-- [ ] Entries to use for new tests:
-  - [ ] Find examples of code blocks in the journal and make tests out of them.
-    - [ ] Feb 15, 2026, 9:28pm, "Late night return to the book thing"
+- [x] Entries to use for new tests:
+  - [x] Find examples of code blocks in the journal and make tests out of them.
+    - [x] Feb 15, 2026, 9:28pm, "Late night return to the book thing"
+- [ ] Fix code block parsing.
+  - [ ] Start with the SINGLE_NEWLINE_P shit.
 
 ## Ideas
 
