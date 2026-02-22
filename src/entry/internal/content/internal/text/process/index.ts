@@ -30,7 +30,7 @@ export async function processText(
         REGEX_U_2028,
         `\n`
     );
-    output = handleSingleNewlines(output);
+    output = handleSingleNewlines(output, entry);
     output = handleExtensions(output);
     return output;
 }

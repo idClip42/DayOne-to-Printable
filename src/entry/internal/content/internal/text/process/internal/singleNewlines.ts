@@ -1,9 +1,14 @@
 import REPLACERS from "../../../../../../../htmlReplacers.json";
+import { DayOneEntry } from "../../../../../../../types/DayOneEntry";
 
 const REGEX_SINGLE_NEWLINES =
     /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g;
+const REGEX_TRIPLE_BACKTICKS = /```/g;
 
-export function handleSingleNewlines(input: string): string {
+export function handleSingleNewlines(
+    input: string,
+    entry: DayOneEntry | null
+): string {
     return input.replace(
         // 5: Single-Newline Conversion
         // Replace single `\n` (not followed by a list item, blockquote, or table line)
@@ -22,8 +27,34 @@ export function handleSingleNewlines(input: string): string {
                         - a table row (starting with `|`)
                         - a table alignment row (like `|:---|:---|`)
                     - `\S` — Next character must be non-whitespace
+                - Extra internal logic ensures this is not within a code block.
             */
         REGEX_SINGLE_NEWLINES,
-        `\n\n${REPLACERS.singleNewlineParagraph.tag}`
+        (match: string, offset: number, fullStr: string) => {
+            const beforeNewline = fullStr.substring(0, offset);
+            const afterNewline = fullStr.substring(offset);
+
+            const backtickInstancesBefore =
+                beforeNewline.match(REGEX_TRIPLE_BACKTICKS)?.length ?? 0;
+            const backtickInstancesAfter =
+                afterNewline.match(REGEX_TRIPLE_BACKTICKS)?.length ?? 0;
+
+            const beforeIsEven = backtickInstancesBefore % 2 === 0;
+            const afterIsEven = backtickInstancesAfter % 2 === 0;
+
+            // These should match - if they don't, there's a problem.
+            if (beforeIsEven !== afterIsEven) {
+                console.warn(
+                    `WARN: Backticks count mismatch in entry: ${entry?.creationDate}`
+                );
+                return match;
+            }
+
+            // If there's an odd number of before backticks, we're mid-code-block.
+            if (!beforeIsEven) return match;
+
+            // Otherwise, we're not in a code block and can add the tag.
+            return `\n\n${REPLACERS.singleNewlineParagraph.tag}`;
+        }
     );
 }
