@@ -90,7 +90,16 @@ export function fixBlockquotes(input: string): string {
         // Insert a blank line between a non-quote text line and a following quote line.
         // (Won't fire if there's already a blank line, because then the next char is "\n", not ">".)
         REGEX_BLANK_LINE,
-        "$1\n\n"
+        match => {
+            // We need to stop this happening
+            // when this is a code block line.
+            // Due to the oddities of DayOne
+            // code blocks, we can check for
+            // that with this:
+            if (match.trim().startsWith("```")) return match;
+
+            return match + "\n";
+        }
     );
 
     return output;
