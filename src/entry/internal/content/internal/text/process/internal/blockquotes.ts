@@ -7,7 +7,8 @@ const REGEX_CARRIAGE_RETURN_B = /^([ \t]*)>( ?)([^\n]*)$/;
 const REGEX_CARRIAGE_RETURN_C = /\r/g;
 const REGEX_NESTED_QUOTES = /^([^\S\r\n]*)>(?:[^\S\r\n]*>)+[^\S\r\n]*/gm;
 const REGEX_HORIZONTAL_RULES = /> ---/g;
-const REGEX_ONE_EMPTY_LINE = /(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm;
+const REGEX_ONE_EMPTY_LINE =
+    /(?<!```.*\n)(^[ \t]*>.*\n)(?![ \t]*>)(?:[ \t]*\n)*(?=\S)/gm;
 const REGEX_BACKSLASH_A = /^>\s*.*$/gm;
 const REGEX_BACKSLASH_B = /\\([^\\])/g;
 const REGEX_BLANK_LINE =
