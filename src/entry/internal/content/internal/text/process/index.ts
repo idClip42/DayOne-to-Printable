@@ -19,7 +19,6 @@ export async function processText(
     output = sanitizeInput(output);
     output = cleanStructure(output);
     output = fixLists(output);
-    output = fixCode(output);
     output = fixBlockquotes(output);
     output = await fillInAttachments(output, entry);
     output = cleanBackslashes(output);
@@ -30,6 +29,7 @@ export async function processText(
         REGEX_U_2028,
         `\n`
     );
+    output = fixCode(output);
     output = handleSingleNewlines(output, entry);
     output = handleExtensions(output);
     return output;
