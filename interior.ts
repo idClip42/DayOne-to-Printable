@@ -31,6 +31,23 @@ const rawJson = fs.readFileSync(dataPath, "utf-8");
 const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
+(() => {
+    const firstEntryDate = new Date(entries[0].creationDate).toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+        }
+    );
+    const lastEntryDate = new Date(
+        entries[entries.length - 1].creationDate
+    ).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+    });
+    console.log(`${firstEntryDate} => ${lastEntryDate}`);
+})();
+
 const tagsLibrary = new TagsLibrary(entries);
 const interiorFilePromise = buildFullHtml(
     entries,
