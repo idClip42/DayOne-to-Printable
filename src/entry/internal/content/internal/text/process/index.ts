@@ -19,8 +19,8 @@ export async function processText(
     output = sanitizeInput(output);
     output = cleanStructure(output);
     output = fixLists(output);
-    output = fixBlockquotes(output);
     output = fixCode(output);
+    output = fixBlockquotes(output);
     output = await fillInAttachments(output, entry);
     output = cleanBackslashes(output);
     output = output.replace(
