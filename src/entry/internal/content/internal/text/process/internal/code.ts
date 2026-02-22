@@ -1,5 +1,5 @@
 const REGEX_MOVE_FENCE_INDENT = /(\r?\n)(\s+)```(\r?\n)/g;
-const REGEX_REJOIN = /```[\n\r]```/g;
+const REGEX_REJOIN = /(?:\r?\n)```(?:\r?\n)```(?:\r?\n)/g;
 const REGEX_BACKSLASHES_A = /```([\s\S]*?)```/g;
 const REGEX_BACKSLASHES_B = /\\/g;
 const REGEX_BACKSLASHES_C = /\n{2,}/g;
