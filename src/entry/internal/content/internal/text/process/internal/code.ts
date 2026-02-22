@@ -1,12 +1,20 @@
-const REGEX_REJOIN = /```[\n\r]+```/g;
+const REGEX_MOVE_FENCE_INDENT = /(\r?\n)(\s+)```(\r?\n)/g;
+const REGEX_REJOIN = /```[\n\r]```/g;
 const REGEX_BACKSLASHES_A = /```([\s\S]*?)```/g;
 const REGEX_BACKSLASHES_B = /\\/g;
 const REGEX_BACKSLASHES_C = /\n{2,}/g;
 
 export function fixCode(input: string): string {
-    // TODO: Find examples of code blocks in the journal
-    // TODO: and make tests for them.
     return input
+        .replace(
+            // Normalize Indented Opening Fences
+            // PURPOSE: DayOne sometimes indents opening triple-backticks.
+            // Markdown treats this as structural indentation, which fragments
+            // code blocks. This moves the indentation inside the fence so it
+            // becomes literal code content instead.
+            REGEX_MOVE_FENCE_INDENT,
+            "$1```$3$2"
+        )
         .replace(
             // 13: Remove Empty Fenced Code Blocks
             // PURPOSE: Rejoins DayOne’s fragmented code blocks.
