@@ -2,6 +2,7 @@ const REGEX_MOVE_FENCE_INDENT = /(\r?\n)([ \t]+)```(\r?\n)/g;
 const REGEX_CODE_BLANK_LINE =
     /```(?:\r?\n)(?:\r?\n)(?:\r?\n)```(?:\r?\n)(?:\r?\n)```(?:\r?\n)/g;
 const REGEX_REJOIN = /(?:\r?\n)```(?:\r?\n)(?:\r?\n)```/g;
+const REGEX_EXTRA_NEWLINES_POST_CODE = /```(?:\r?\n)(?:\r?\n)(?:\r?\n)/g;
 const REGEX_BACKSLASHES_A = /```([\s\S]*?)```/g;
 const REGEX_BACKSLASHES_B = /\\/g;
 const REGEX_BACKSLASHES_C = /\n{2,}/g;
@@ -30,6 +31,11 @@ export function fixCode(input: string): string {
             // So this re-merges them.
             REGEX_REJOIN,
             ""
+        )
+        .replace(
+            // Replacing two empty lines after code blocks with one
+            REGEX_EXTRA_NEWLINES_POST_CODE,
+            "```\n\n"
         )
         .replace(
             // 14: Normalize Code Block Content
