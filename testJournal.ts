@@ -3,6 +3,7 @@ import path from "path";
 import config from "./config.json";
 import { processText } from "./src/entry/internal/content/internal/text/process";
 import type { DayOneEntry } from "./src/types/DayOneEntry";
+import chalk from "chalk";
 
 const OBFUS_FILE = "testObfuscation.json";
 const INPUT_EXT = ".input.json";
@@ -22,7 +23,9 @@ if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
 const replacers: Promise<[string, string][]> = (() => {
     if (!fs.existsSync(OBFUS_FILE)) {
         console.warn(
-            "WARN: No test obfuscation file. Entries will be saved as-is."
+            chalk.yellow(
+                "WARN: No test obfuscation file. Entries will be saved as-is."
+            )
         );
         return Promise.resolve([]);
     }

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { createTwoFilesPatch } from "diff";
 import { processText } from "./src/entry/internal/content/internal/text/process";
+import chalk from "chalk";
 
 const TEST_DIR = "tests";
 const INPUT_EXT = ".input.json";
@@ -41,7 +42,11 @@ fs.promises
                 fn.startsWith(testName)
             );
             if (!outputFilename) {
-                console.warn(`WARN: No output found for '${inputFilename}'.`);
+                console.warn(
+                    chalk.yellow(
+                        `WARN: No output file found for '${inputFilename}'.`
+                    )
+                );
                 return Promise.resolve();
             }
 
@@ -99,7 +104,11 @@ fs.promises
                                     realOutput
                                 )
                             )
-                            .then(() => console.log(`FAIL: ${diffFilePath}`));
+                            .then(() =>
+                                console.error(
+                                    chalk.red(`FAIL: ${diffFilePath}`)
+                                )
+                            );
                     }
                 }
             );

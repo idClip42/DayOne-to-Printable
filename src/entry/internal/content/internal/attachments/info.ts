@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { DayOneEntry } from "../../../../../types/DayOneEntry";
 
 type AttachPhoto = { type: "Photo"; data: DayOneEntry["photos"][number] };
@@ -91,7 +92,7 @@ function findData<T>(
         );
     const photoInfo = set.find(predicate);
     if (!photoInfo) {
-        console.warn(`No photo info for path '${pathString}'.`);
+        console.warn(chalk.yellow(`No photo info for path '${pathString}'.`));
         return null;
     }
     return photoInfo;

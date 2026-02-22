@@ -36,4 +36,4 @@
   - [ ] Is there some unused part of the markdown schema we can use here as a pretend "highlight" tag?
   - [ ] Do we need to extend "htmlReplacers" to support end tags as well? So we can bookend things?
   - [ ] Do we need to not filter the "==" that the journal puts into the markdown, and instead track it down in the final HTML?
-- [ ] Use `chalk` to color logs.
+- [x] Use `chalk` to color logs.

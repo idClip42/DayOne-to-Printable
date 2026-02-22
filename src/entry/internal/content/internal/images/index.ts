@@ -6,6 +6,7 @@ import fs from "fs";
 import { renderTemplate } from "../../../../../utilities/template";
 import { ImageTemplateVars } from "../../../../../templates/image.hbs";
 import { replaceAsync } from "../../../../../utilities/replaceAsync";
+import chalk from "chalk";
 
 const TEMPLATE_PATH = "src/templates/image.hbs";
 const REGEX_IMG_TAG = /<img([^>]*)>/g;
@@ -27,7 +28,9 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
     if (photo) {
         if (!photo.md5) {
             console.warn(
-                `WARNING: Missing photo file name for ID '${photo.identifier}' ('${photo.type}') on ${new Date(entry.creationDate).toLocaleString()}.`
+                chalk.yellow(
+                    `${new Date(entry.creationDate).toLocaleString()}: Missing photo file name for ID '${photo.identifier}' ('${photo.type}').`
+                )
             );
             return "";
         }
@@ -40,7 +43,11 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
             `${photo.md5}.${photo.type}`
         );
         if (!fs.existsSync(originalFilePath)) {
-            console.warn(`No original path: '${originalFilePath}'`);
+            console.warn(
+                chalk.yellow(
+                    `${new Date(entry.creationDate).toLocaleString()}: No original path: '${originalFilePath}'`
+                )
+            );
         }
 
         const pathToCheck = path.join(
@@ -48,7 +55,11 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
             srcFilePath
         );
         if (!fs.existsSync(pathToCheck)) {
-            console.error(`'${pathToCheck}' doesn't exist.`);
+            console.warn(
+                chalk.yellow(
+                    `${new Date(entry.creationDate).toLocaleString()}: '${pathToCheck}' doesn't exist.`
+                )
+            );
             return "";
         }
 
@@ -56,7 +67,9 @@ export function getImageFilePath(entry: DayOneEntry, photoId: string) {
     }
 
     console.warn(
-        `No photo found in entry '${new Date(entry.creationDate).toLocaleString()}' with ID: '${photoId}'`
+        chalk.yellow(
+            `${new Date(entry.creationDate).toLocaleString()}: No photo found with ID: '${photoId}'`
+        )
     );
     return "";
 }

@@ -5,6 +5,7 @@ import config from "./config.json";
 import { resizeImages } from "./src/preprocess/resizeImages";
 import { TagsLibrary } from "./src/tags";
 import { buildFullHtml } from "./src/book";
+import chalk from "chalk";
 
 const startTimeMs = Date.now();
 
@@ -45,7 +46,7 @@ console.log(entries.length, "entries");
         year: "numeric",
         month: "short",
     });
-    console.log(`${firstEntryDate} => ${lastEntryDate}`);
+    console.log(chalk.cyanBright(`${firstEntryDate} => ${lastEntryDate}`));
 })();
 
 const tagsLibrary = new TagsLibrary(entries);

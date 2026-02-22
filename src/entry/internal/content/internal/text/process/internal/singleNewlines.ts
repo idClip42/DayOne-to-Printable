@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import REPLACERS from "../../../../../../../htmlReplacers.json";
 import { DayOneEntry } from "../../../../../../../types/DayOneEntry";
 
@@ -45,7 +46,9 @@ export function handleSingleNewlines(
             // These should match - if they don't, there's a problem.
             if (beforeIsEven !== afterIsEven) {
                 console.warn(
-                    `WARN: Backticks count mismatch in entry: ${entry?.creationDate}`
+                    chalk.yellow(
+                        `${entry ? new Date(entry.creationDate).toLocaleString() : "NO DATE"}: Backticks count even/odd mismatch - ${backtickInstancesBefore} vs ${backtickInstancesAfter}.`
+                    )
                 );
                 return match;
             }
