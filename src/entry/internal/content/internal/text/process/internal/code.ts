@@ -1,5 +1,7 @@
-const REGEX_MOVE_FENCE_INDENT = /(\r?\n)(\s+)```(\r?\n)/g;
-const REGEX_REJOIN = /(?:\r?\n)```(?:\r?\n)```(?:\r?\n)/g;
+const REGEX_MOVE_FENCE_INDENT = /(\r?\n)([ \t]+)```(\r?\n)/g;
+const REGEX_CODE_BLANK_LINE =
+    /```(?:\r?\n)(?:\r?\n)(?:\r?\n)```(?:\r?\n)(?:\r?\n)```(?:\r?\n)/g;
+const REGEX_REJOIN = /(?:\r?\n)```(?:\r?\n)(?:\r?\n)```/g;
 const REGEX_BACKSLASHES_A = /```([\s\S]*?)```/g;
 const REGEX_BACKSLASHES_B = /\\/g;
 const REGEX_BACKSLASHES_C = /\n{2,}/g;
@@ -14,6 +16,11 @@ export function fixCode(input: string): string {
             // becomes literal code content instead.
             REGEX_MOVE_FENCE_INDENT,
             "$1```$3$2"
+        )
+        .replace(
+            // DayOne has a weird way of indicating an blank line in a code block
+            REGEX_CODE_BLANK_LINE,
+            "\n```\n\n"
         )
         .replace(
             // 13: Remove Empty Fenced Code Blocks
