@@ -6,7 +6,6 @@ import { fixBlockquotes } from "./internal/blockquotes";
 import { fixCode } from "./internal/code";
 import { fillInAttachments } from "./internal/attachments";
 import { cleanBackslashes } from "./internal/backslashes";
-import { handleExtensions } from "./internal/extensions";
 import { handleSingleNewlines } from "./internal/singleNewlines";
 
 const REGEX_U_2028 = /\u2028/g;
@@ -31,6 +30,5 @@ export async function processText(
     );
     output = fixCode(output);
     output = handleSingleNewlines(output, entry);
-    output = handleExtensions(output);
     return output;
 }

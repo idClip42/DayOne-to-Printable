@@ -34,10 +34,10 @@
     - [x] Yes, that.
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
 - [ ] Reassess title position on spine. Should it be centered relative to spine edges, or relative to top edge and pre-volume-label accent?
-- [ ] Rework the highlighting rules.
-  - [ ] We need something more clever.
-  - [ ] Is there some unused part of the markdown schema we can use here as a pretend "highlight" tag?
-  - [ ] Do we need to extend "htmlReplacers" to support end tags as well? So we can bookend things?
-  - [ ] Do we need to not filter the "==" that the journal puts into the markdown, and instead track it down in the final HTML?
-- [ ] Do some CSS styling for the highlight `<mark>` tags.
+- [x] Rework the highlighting rules.
+  - [x] We need something more clever.
+  - [x] Is there some unused part of the markdown schema we can use here as a pretend "highlight" tag?
+  - [x] Do we need to extend "htmlReplacers" to support end tags as well? So we can bookend things?
+  - [x] Do we need to not filter the "==" that the journal puts into the markdown, and instead track it down in the final HTML?
+- [x] Do some CSS styling for the highlight `<mark>` tags.
 - [x] Use `chalk` to color logs.

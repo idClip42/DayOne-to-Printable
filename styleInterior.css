@@ -130,6 +130,12 @@ blockquote {
     break-inside: auto; /* This doesn't do what I want it to, but I'll leave it in. */
 }
 
+mark {
+    background-color: #ffebab;
+    color: inherit;
+    padding: 0;
+}
+
 /* #endregion */
 
 /* #region Pages */

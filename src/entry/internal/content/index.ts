@@ -6,6 +6,7 @@ import { replaceHtmlTextWithLoremIpsum } from "./internal/loremIpsum";
 import { preprocessText } from "./internal/text/preprocess";
 import { processText } from "./internal/text/process";
 import HTML_REPLACERS from "./../../../htmlReplacers.json";
+import { highlightExtension } from "./internal/text/marked/highlightExtension";
 
 const REGEX_TABLE_BLOCK = /```[\s\n]*\|.*\|.*\n.*```/;
 
@@ -19,6 +20,8 @@ export async function createContentHtml(entry: DayOneEntry): Promise<string> {
     }
 
     const processedText = await processText(preprocessedText, entry);
+
+    marked.use({ extensions: [highlightExtension] });
 
     // Parse the modified Markdown into HTML.
     let htmlResult = await marked.parse(processedText);
