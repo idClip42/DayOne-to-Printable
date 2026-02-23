@@ -9,12 +9,14 @@
   - [ ] February 2, 2025, 4:50 PM (4ef2b394fe5008ee1428f2ce2a2bdce9.jpg)
   - [ ] March 22, 2025, 5:43 PM (Bike)
   - [ ] (Check to make sure that some of these weren't just originally oriented wrong.)
-- [ ] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
-  - [ ] We'd also want to do this with headers, right below date-time metadata.
-  - [ ] New day marker example: 2022, Sat Sept 10, Thurs Sept 15
-- [ ] Is there any way at all that we can prevent individual list items from breaking inside *just* their text, not inside their children?
-  - [ ] (I guess the way to do that would be to wrap them in `<span>`s, and I don't know that I can do that.)
-  - [ ] Unless there's some way in CSS to specifically indicate tag-less content text.
+- [x] New day markers and date-time metadata are set to `break-after: never`, but this seems to be undermined by `pagedjs`.
+  - [x] We'd also want to do this with headers, right below date-time metadata.
+  - [x] New day marker example: 2022, Sat Sept 10, Thurs Sept 15
+  - [x] I think I've investigated and reorganized as much as I can, and I don't think I can fix this.
+- [x] Is there any way at all that we can prevent individual list items from breaking inside *just* their text, not inside their children?
+  - [x] (I guess the way to do that would be to wrap them in `<span>`s, and I don't know that I can do that.)
+  - [x] Unless there's some way in CSS to specifically indicate tag-less content text.
+  - [x] No. It's not an option.
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
 - [x] Entries to use for new tests:
@@ -27,8 +29,9 @@
 
 ## Ideas
 
-- [ ] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
-  - [ ] Or should we be trying to get HTML *out* of the markdown? Probably that?
+- [x] What if we put image HTML directly in the markdown, instead of doing an HTML regex replacer after the fact?
+  - [x] Or should we be trying to get HTML *out* of the markdown? Probably that?
+    - [x] Yes, that.
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
 - [ ] Reassess title position on spine. Should it be centered relative to spine edges, or relative to top edge and pre-volume-label accent?
 - [ ] Rework the highlighting rules.
