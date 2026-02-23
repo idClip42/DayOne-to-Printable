@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import REPLACERS from "../../../../../../../htmlReplacers.json";
 import { DayOneEntry } from "../../../../../../../types/DayOneEntry";
+import { isInCodeBlock } from "./utils";
 
 const REGEX_SINGLE_NEWLINES =
     /(?<!\n)\n(?!\n)(?= *(?![*\-+>|] |\d+\. |\||[:|\- ]+\|)\S)/g;
@@ -32,31 +33,7 @@ export function handleSingleNewlines(
             */
         REGEX_SINGLE_NEWLINES,
         (match: string, offset: number, fullStr: string) => {
-            const beforeNewline = fullStr.substring(0, offset);
-            const afterNewline = fullStr.substring(offset);
-
-            const backtickInstancesBefore =
-                beforeNewline.match(REGEX_TRIPLE_BACKTICKS)?.length ?? 0;
-            const backtickInstancesAfter =
-                afterNewline.match(REGEX_TRIPLE_BACKTICKS)?.length ?? 0;
-
-            const beforeIsEven = backtickInstancesBefore % 2 === 0;
-            const afterIsEven = backtickInstancesAfter % 2 === 0;
-
-            // These should match - if they don't, there's a problem.
-            if (beforeIsEven !== afterIsEven) {
-                console.warn(
-                    chalk.yellow(
-                        `${entry ? new Date(entry.creationDate).toLocaleString() : "NO DATE"}: Backticks count even/odd mismatch - ${backtickInstancesBefore} vs ${backtickInstancesAfter}.`
-                    )
-                );
-                return match;
-            }
-
-            // If there's an odd number of before backticks, we're mid-code-block.
-            if (!beforeIsEven) return match;
-
-            // Otherwise, we're not in a code block and can add the tag.
+            if (isInCodeBlock(fullStr, offset, entry)) return match;
             return `\n\n${REPLACERS.singleNewlineParagraph.tag}`;
         }
     );

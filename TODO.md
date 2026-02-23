@@ -11,6 +11,3 @@
   - [ ] (Check to make sure that some of these weren't just originally oriented wrong.)
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
-- [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
-  - [ ] It does screw up the thing.
-  - [ ] In that the tags are left in the HTML and parsed as HTML.
