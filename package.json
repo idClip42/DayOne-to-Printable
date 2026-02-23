@@ -8,7 +8,8 @@
         "cover": "tsx cover.ts",
         "test": "tsx testRun.ts",
         "testgen": "tsx testGen.ts",
-        "testjournal": "tsx testJournal.ts"
+        "testjournal": "tsx testJournal.ts",
+        "testhtml": "tsx testHtml.ts"
     },
     "author": "",
     "license": "ISC",
