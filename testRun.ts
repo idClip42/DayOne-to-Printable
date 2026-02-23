@@ -96,13 +96,13 @@ fs.promises
                         // before saving new ones.
                         return clearOutputFolderPromise
                             .then(() =>
-                                fs.promises.writeFile(diffFilePath, patch)
-                            )
-                            .then(() =>
-                                fs.promises.writeFile(
-                                    targetOutputFilePath,
-                                    realOutput
-                                )
+                                Promise.all([
+                                    fs.promises.writeFile(diffFilePath, patch),
+                                    fs.promises.writeFile(
+                                        targetOutputFilePath,
+                                        realOutput
+                                    ),
+                                ])
                             )
                             .then(() =>
                                 console.error(
