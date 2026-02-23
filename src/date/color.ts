@@ -10,7 +10,7 @@ export function getDateHue(date: Date, timeZone: string): number {
     if (isNaN(monthIndex) || monthIndex < 0)
         throw new Error(`Invalid month: '${month}'`);
 
-    const hue = (config.baseHue + monthIndex * config.hueIncrement) % 360;
+    const hue = (config.baseHue + monthIndex * config.hueIncrement + 360) % 360;
 
     return hue;
 }
