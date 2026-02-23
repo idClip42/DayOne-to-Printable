@@ -1,45 +1,41 @@
-<article class="entry">
-    <div
-        class="metadata"
-        style="background: linear-gradient(to bottom, hsl({{monthHue}}, 70%, 75%), #ffffff)"
-    >
-        <p class="pre-date-time">
-            <span class="weekday">{{weekday}}</span>
-            <span class="weather">
-                {{#if weather}}
-                    {{weather}},
-                {{/if}}
-                {{#if tempF includeZero=true}}
-                    {{tempF}}°F
-                {{/if}}
-            </span>
-        </p>
+<div
+    class="entry-metadata"
+    style="background: linear-gradient(to bottom, hsl({{monthHue}}, 70%, 75%), #ffffff)"
+>
+    <p class="pre-date-time">
+        <span class="weekday">{{weekday}}</span>
+        <span class="weather">
+            {{#if weather}}
+                {{weather}},
+            {{/if}}
+            {{#if tempF includeZero=true}}
+                {{tempF}}°F
+            {{/if}}
+        </span>
+    </p>
 
-        <h2 class="date">
-            {{monthDay}}
-            ·
-            {{time}}
-            <span class="am-pm">{{amPm}}</span>
-        </h2>
+    <h2 class="date">
+        {{monthDay}}
+        ·
+        {{time}}
+        <span class="am-pm">{{amPm}}</span>
+    </h2>
 
-        <div class="hidden-date">
-            {{weekday}},
-            {{monthDay}},
-            {{year}}
-        </div>
-
-        <p class="post-date-time">
-            <span>{{location}}</span>
-        </p>
-
-        <p class="tags">
-            Tags:
-            {{#each tagHtmls}}
-                {{this}}
-            {{/each}}
-        </p>
+    <div class="hidden-date">
+        {{weekday}},
+        {{monthDay}},
+        {{year}}
     </div>
-    <div>
-        {{{contentHtml}}}
-    </div>
-</article>
+
+    <p class="post-date-time">
+        <span>{{location}}</span>
+    </p>
+
+    <p class="tags">
+        Tags:
+        {{#each tagHtmls}}
+            {{this}}
+        {{/each}}
+    </p>
+</div>
+{{{contentHtml}}}

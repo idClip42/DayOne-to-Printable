@@ -47,36 +47,48 @@ h1 {
     font-size: 12pt;
     margin: 0.5em 0em;
     line-height: 1.25;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 h2 {
     font-size: 11pt;
     margin: 0.5em 0em;
     line-height: 1.25;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 h3 {
     font-size: 10pt;
     margin: 0.5em 0em;
     line-height: 1.25;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 h4 {
     font-size: 10pt;
     margin: 0.25em 0em;
     line-height: 1.2;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 h5 {
     font-size: 10pt;
     margin: 0em 0em;
     line-height: 1.1;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 h6 {
     font-size: 10pt;
     margin: 0em 0em;
     line-height: 1;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 p {
@@ -149,6 +161,10 @@ blockquote {
     font-size: 1em;
 }
 
+.stats-group tr:nth-child(even) {
+    background-color: initial;
+}
+
 .stats-group .label {
     text-align: left;
 }
@@ -160,10 +176,6 @@ blockquote {
 /* #endregion */
 
 /* #region Entries */
-
-.entry {
-    margin-bottom: 2em;
-}
 
 .entry-photo {
     text-align: center;
@@ -184,11 +196,11 @@ blockquote {
     hyphens: auto; /* The IDs get too long for the columns */
 }
 
-.entry table {
+table {
     font-size: 6pt;
 }
 
-.entry tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: lightgray;
 }
 
@@ -196,11 +208,11 @@ p.single-newline {
     margin-top: 0;
 }
 
-.entry .hidden-format-fix-element {
+.hidden-format-fix-element {
     display: none;
 }
 
-.entry li.hidden-parent-bullet {
+li.hidden-parent-bullet {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -210,33 +222,33 @@ p.single-newline {
 
 /* #region Entry Metadata */
 
-.entry .metadata {
+.entry-metadata {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff);
     border-radius: 0.25em 0.25em 0 0;
 
     break-inside: avoid;
-    page-break-inside: avoid;
     break-after: avoid;
-    page-break-after: avoid;
 
     padding: 2px;
+
+    margin-top: 2em;
 }
 
-.entry .metadata .date {
+.entry-metadata .date {
     font-size: 12pt;
     margin: 0;
 }
 
-.entry .metadata .weekday {
+.entry-metadata .weekday {
     display: inline-block;
 }
 
-.entry .metadata .weather {
+.entry-metadata .weather {
     float: right;
 }
 
-.entry .metadata .pre-date-time,
-.entry .metadata .post-date-time {
+.entry-metadata .pre-date-time,
+.entry-metadata .post-date-time {
     color: #555;
     font-size: 8pt;
     margin: 0;
@@ -250,7 +262,7 @@ p.single-newline {
     letter-spacing: 0.02em;
 }
 
-.entry .metadata .tags {
+.entry-metadata .tags {
     color: #555;
     font-size: 8pt;
     margin: 0;
@@ -285,6 +297,8 @@ p.single-newline {
 
     break-inside: avoid;
     break-after: avoid;
+
+    margin-top: 2em;
 }
 
 /* #endregion */
