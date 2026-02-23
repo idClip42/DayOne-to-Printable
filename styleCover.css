@@ -2,6 +2,10 @@
     --front-back-width-in: calc((var(--total-width) - var(--spine-width)) / 2);
     --volume-offset: 0.35in;
     --volume-offset-accent: 1.2in;
+    --spine-title-bottom: calc(
+        var(--safety-margin) + var(--volume-offset) +
+            var(--volume-offset-accent)
+    );
 }
 
 @page {
@@ -148,8 +152,15 @@ section {
 }
 
 .spine .safe .spine-title {
-    margin-top: auto;
-    margin-bottom: auto;
+    position: absolute;
+    top: var(--safety-margin);
+    bottom: var(--spine-title-bottom);
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .spine .safe .spine-title .year {
@@ -189,10 +200,7 @@ section {
     background: hsl(var(--spine-accent-hue), 70%, 55%);
 
     position: absolute;
-    bottom: calc(
-        var(--safety-margin) + var(--volume-offset) +
-            var(--volume-offset-accent)
-    ); /* volume offset + volume block height */
+    bottom: var(--spine-title-bottom);
     height: 5pt;
 }
 

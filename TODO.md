@@ -12,4 +12,3 @@
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
 - [ ] Do we need to account for when journal entries include `<something>`? Will HTML tag-looking things screw up the MD parser, or will it be fine?
-- [ ] Reassess title position on spine. Should it be centered relative to spine edges, or relative to top edge and pre-volume-label accent?
