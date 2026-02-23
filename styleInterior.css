@@ -276,8 +276,6 @@ p.single-newline {
 
 .new-day {
     display: block;
-    page-break-after: avoid;
-    page-break-before: auto;
 
     padding: 9px 2px 9px 2px;
     margin-bottom: 0.5em;
@@ -285,8 +283,8 @@ p.single-newline {
     font-size: 1em;
     letter-spacing: 0.05em;
 
-    break-after: avoid-column;
-    break-inside: avoid-column;
+    break-inside: avoid;
+    break-after: avoid;
 }
 
 /* #endregion */
