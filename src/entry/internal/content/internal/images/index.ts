@@ -9,7 +9,7 @@ import { replaceAsync } from "../../../../../utilities/replaceAsync";
 import chalk from "chalk";
 
 const TEMPLATE_PATH = "src/templates/image.hbs";
-const REGEX_IMG_TAG = /<img([^>]*)>/g;
+const REGEX_IMG_TAG = /<p>\s*<img([^>]*)>\s*<\/p>/g;
 
 /** Directory where your images are stored */
 const photosDir = path.join(
