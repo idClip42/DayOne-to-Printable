@@ -96,10 +96,14 @@ export async function resizeImages() {
         return resizeImage(input, outputPhotosFolder)
             .then(() => {
                 resizedFileCount++;
-                if (resizedFileCount % PERC_INTERVAL === 0)
+                if (resizedFileCount % PERC_INTERVAL === 0) {
+                    const currTime = Date.now();
                     console.log(
-                        `${Math.round((resizedFileCount / files.length) * 100)}% (${resizedFileCount}/${files.length} files resized)`
+                        `${Math.round((resizedFileCount / files.length) * 100)}% ` +
+                            `(${resizedFileCount}/${files.length} files resized) ` +
+                            `(${Math.round((currTime - startTime) / 1000)}s)`
                     );
+                }
             })
             .catch(e =>
                 console.error(`Failed to resize file '${file}': ${e.message}`)
