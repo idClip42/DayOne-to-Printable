@@ -81,6 +81,7 @@ async function resizeImage(inputPath: string, outputDir: string) {
 
 export async function resizeImages() {
     const PERC_INTERVAL = 20;
+    const startTime = Date.now();
     const files = fs.readdirSync(inputPhotosFolder);
     for (let f = 0; f < files.length; ++f) {
         const file = files[f];
@@ -92,4 +93,8 @@ export async function resizeImages() {
 
         await resizeImage(input, outputPhotosFolder);
     }
+    const endTime = Date.now();
+    console.log(
+        `All images resized in ${Math.round((endTime - startTime) / 1000)}s`
+    );
 }
