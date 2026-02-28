@@ -15,7 +15,7 @@ export async function processText(
     entry: DayOneEntry | null
 ): Promise<string> {
     let output = inputText;
-    output = sanitizeInput(output);
+    output = sanitizeInput(output, entry);
     output = cleanStructure(output);
     output = fixLists(output);
     output = fixBlockquotes(output);
