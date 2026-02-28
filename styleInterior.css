@@ -180,6 +180,10 @@ mark {
     text-align: center;
     break-inside: avoid;
 }
+p + .entry-photo {
+    /* Add a gap between a paragraph and an image. */
+    margin-top: 1em;
+}
 
 .entry-photo img {
     width: 100%;
