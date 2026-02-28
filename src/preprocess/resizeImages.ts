@@ -80,21 +80,36 @@ async function resizeImage(inputPath: string, outputDir: string) {
 }
 
 export async function resizeImages() {
+    // Time stats:
+    // Runtime before making everything async: 207s.
+    // Runtime after: 72s. 60s.
+
     const PERC_INTERVAL = 20;
     const startTime = Date.now();
-    const files = fs.readdirSync(inputPhotosFolder);
-    for (let f = 0; f < files.length; ++f) {
-        const file = files[f];
+    const files = await fs.promises.readdir(inputPhotosFolder);
+
+    console.log(`Resizing ${files.length} files...`);
+    let resizedFileCount = 0;
+
+    const filePromises = files.map<Promise<void>>(file => {
         const input = path.join(inputPhotosFolder, file);
+        return resizeImage(input, outputPhotosFolder)
+            .then(() => {
+                resizedFileCount++;
+                if (resizedFileCount % PERC_INTERVAL === 0)
+                    console.log(
+                        `${Math.round((resizedFileCount / files.length) * 100)}% (${resizedFileCount}/${files.length} files resized)`
+                    );
+            })
+            .catch(e =>
+                console.error(`Failed to resize file '${file}': ${e.message}`)
+            );
+    });
 
-        if (f % PERC_INTERVAL === 0)
-            console.log(`${Math.round((f / files.length) * 100)}%`);
-        console.log(`Resizing '${file}'...`);
-
-        await resizeImage(input, outputPhotosFolder);
-    }
-    const endTime = Date.now();
-    console.log(
-        `All images resized in ${Math.round((endTime - startTime) / 1000)}s`
-    );
+    await Promise.all(filePromises).then(() => {
+        const endTime = Date.now();
+        console.log(
+            `All images resized in ${Math.round((endTime - startTime) / 1000)}s`
+        );
+    });
 }
