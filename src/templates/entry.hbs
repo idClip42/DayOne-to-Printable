@@ -1,49 +1,51 @@
-{{#if isNewDay}}
-    <div class="new-day" style="color: hsl({{monthHue}}, 70%, 40%)">
-        <span>
-            {{weekday}},
+<div class="prevent-break">
+    {{#if isNewDay}}
+        <div class="new-day" style="color: hsl({{monthHue}}, 70%, 40%)">
+            <span>
+                {{weekday}},
+                {{monthDay}}
+            </span>
+        </div>
+    {{/if}}
+    <div
+        class="entry-metadata"
+        style="background: linear-gradient(to bottom, hsl({{monthHue}}, 70%, 75%), #ffffff)"
+    >
+        <p class="pre-date-time">
+            <span class="weekday">{{weekday}}</span>
+            <span class="weather">
+                {{#if weather}}
+                    {{weather}},
+                {{/if}}
+                {{#if tempF includeZero=true}}
+                    {{tempF}}°F
+                {{/if}}
+            </span>
+        </p>
+
+        <h2 class="date">
             {{monthDay}}
-        </span>
+            ·
+            {{time}}
+            <span class="am-pm">{{amPm}}</span>
+        </h2>
+
+        <div class="hidden-date">
+            {{weekday}},
+            {{monthDay}},
+            {{year}}
+        </div>
+
+        <p class="post-date-time">
+            <span>{{location}}</span>
+        </p>
+
+        <p class="tags">
+            Tags:
+            {{#each tagHtmls}}
+                {{this}}
+            {{/each}}
+        </p>
     </div>
-{{/if}}
-<div
-    class="entry-metadata"
-    style="background: linear-gradient(to bottom, hsl({{monthHue}}, 70%, 75%), #ffffff)"
->
-    <p class="pre-date-time">
-        <span class="weekday">{{weekday}}</span>
-        <span class="weather">
-            {{#if weather}}
-                {{weather}},
-            {{/if}}
-            {{#if tempF includeZero=true}}
-                {{tempF}}°F
-            {{/if}}
-        </span>
-    </p>
-
-    <h2 class="date">
-        {{monthDay}}
-        ·
-        {{time}}
-        <span class="am-pm">{{amPm}}</span>
-    </h2>
-
-    <div class="hidden-date">
-        {{weekday}},
-        {{monthDay}},
-        {{year}}
-    </div>
-
-    <p class="post-date-time">
-        <span>{{location}}</span>
-    </p>
-
-    <p class="tags">
-        Tags:
-        {{#each tagHtmls}}
-            {{this}}
-        {{/each}}
-    </p>
 </div>
 {{{contentHtml}}}

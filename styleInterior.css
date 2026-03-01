@@ -237,7 +237,6 @@ li.hidden-parent-bullet {
     border-radius: 0.25em 0.25em 0 0;
 
     break-inside: avoid;
-    break-after: avoid;
 
     padding: 2px;
 
@@ -306,9 +305,14 @@ li.hidden-parent-bullet {
     letter-spacing: 0.05em;
 
     break-inside: avoid;
-    break-after: avoid;
 
     margin-top: 2em;
+}
+
+.prevent-break {
+    margin: 0;
+    padding: 0;
+    break-inside: avoid;
 }
 
 /* #endregion */
