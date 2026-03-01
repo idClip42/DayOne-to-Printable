@@ -12,7 +12,8 @@ const TEMPLATE_PATH = "src/templates/entry.hbs";
 
 export async function convertEntryToHTML(
     entry: DayOneEntry,
-    tagsLibrary: TagsLibrary
+    tagsLibrary: TagsLibrary,
+    isNewDay: boolean
 ): Promise<string> {
     const dateTime = getDateTimeStrings(entry);
     const weather = getWeather(entry);
@@ -37,5 +38,6 @@ export async function convertEntryToHTML(
         tempF: weather.tempF,
         location: getLocationString(entry),
         tagHtmls: await tagHtmlsPromise,
+        isNewDay: isNewDay,
     });
 }

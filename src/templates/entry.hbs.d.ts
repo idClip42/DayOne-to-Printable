@@ -10,4 +10,5 @@ export interface EntryTemplateVars {
     tempF: number | undefined;
     location: string;
     tagHtmls: string[];
+    isNewDay: boolean;
 }

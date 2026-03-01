@@ -1,34 +1,26 @@
 import { DayOneEntry } from "../../types/DayOneEntry";
 import { isSameLocalDay } from "../../date/compare";
 import { convertEntryToHTML } from "../../entry";
-import { makeNewDayElement } from "./newDay";
 import { TagsLibrary } from "../../tags";
 
 export function processEntries(
     entries: DayOneEntry[],
     tagsLibrary: TagsLibrary
 ): Promise<string[]> {
-    const entriesHtmlPromises: Promise<string>[] = [];
-    let finishedCounter = 0;
-    for (const e in entries) {
-        const entryIndex = Number(e);
+    return Promise.all(
+        entries.map<Promise<string>>((entry, entryIndex) => {
+            if (entry.isAllDay) {
+                console.log(entry);
+                throw new Error(
+                    "Hit an 'all day' entry - figure out what to do with it."
+                );
+            }
 
-        const entry = entries[entryIndex];
-        if (entry.isAllDay) {
-            console.log(entry);
-            throw new Error(
-                "Hit an 'all day' entry - figure out what to do with it."
-            );
-        }
+            const isNewDay = !checkIsSameDay(entryIndex, entries);
 
-        if (!checkIsSameDay(entryIndex, entries)) {
-            entriesHtmlPromises.push(Promise.resolve(makeNewDayElement(entry)));
-        }
-
-        const entryHtmlPromise = convertEntryToHTML(entry, tagsLibrary);
-        entriesHtmlPromises.push(entryHtmlPromise);
-    }
-    return Promise.all(entriesHtmlPromises);
+            return convertEntryToHTML(entry, tagsLibrary, isNewDay);
+        })
+    );
 }
 
 function checkIsSameDay(entryIndex: number, entries: DayOneEntry[]) {
