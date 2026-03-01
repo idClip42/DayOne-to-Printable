@@ -130,6 +130,10 @@ mark {
     padding: 0;
 }
 
+hr {
+    margin-top: 1em;
+}
+
 /* #endregion */
 
 /* #region Pages */
@@ -180,6 +184,7 @@ mark {
     text-align: center;
     break-inside: avoid;
 }
+
 p + .entry-photo {
     /* Add a gap between a paragraph and an image. */
     margin-top: 1em;
