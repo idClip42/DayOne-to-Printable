@@ -7,6 +7,7 @@ import { getWeather } from "./internal/metadata/weather";
 import { getLocationString } from "./internal/metadata/location";
 import type { TagsLibrary } from "../tags";
 import { getDateTimeStrings } from "./internal/metadata/dateTime";
+import { wrapEntryLeads } from "./internal/content/internal/text/html/wrapEntryLeads";
 
 const TEMPLATE_PATH = "src/templates/entry.hbs";
 
@@ -39,5 +40,8 @@ export async function convertEntryToHTML(
         location: getLocationString(entry),
         tagHtmls: await tagHtmlsPromise,
         isNewDay: isNewDay,
+    }).then(entryHtml => {
+        const finalHtml = wrapEntryLeads(entryHtml);
+        return finalHtml;
     });
 }
