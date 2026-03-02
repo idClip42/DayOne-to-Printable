@@ -11,6 +11,6 @@
   - [ ] (Check to make sure that some of these weren't just originally oriented wrong.)
 - [ ] Emojis don't make it through the Lulu upload process.
   - [ ] Once uploaded, they are replaced with bullets.
-- [ ] Group some of the elements? And set "break-inside" instead of "break-after" to "avoid".
-  - [ ] Refactor so that "new day" is grouped with the metadata.
-  - [ ] How might we grab... let's see, an optional "new day", the metadata, the first element after the metadata, and if that is a header the one after that too, and wrap *that* in a group "don't break inside" element
+- [x] Group some of the elements? And set "break-inside" instead of "break-after" to "avoid".
+  - [x] Refactor so that "new day" is grouped with the metadata.
+  - [x] How might we grab... let's see, an optional "new day", the metadata, the first element after the metadata, and if that is a header the one after that too, and wrap *that* in a group "don't break inside" element
