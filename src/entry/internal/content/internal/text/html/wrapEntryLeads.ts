@@ -2,6 +2,12 @@ import * as cheerio from "cheerio";
 
 const PREVENT_BREAK_CLASS = ".prevent-break";
 
+// Tags that, if encountered, mean "grab one more element after this"
+const includeNextTags = new Set(["h1"]);
+
+// Tags that, if encountered, mean "stop wrapping immediately"
+const stopTags = new Set(["ul"]);
+
 export function wrapEntryLeads(entryHtml: string): string {
     const $ = cheerio.load(entryHtml, { xmlMode: false });
 
@@ -11,16 +17,16 @@ export function wrapEntryLeads(entryHtml: string): string {
         return entryHtml;
     }
 
-    // Determine how many elements to wrap
     let toWrap = 1;
 
     while (toWrap > 0) {
         const firstEl = wrapper.next();
-        if (!firstEl.length) break; // no more siblings
+        if (!firstEl.length) break;
 
-        if (firstEl.is("ul")) break;
+        const tagName = firstEl[0].tagName.toLowerCase();
 
-        if (firstEl.is("h1")) toWrap++;
+        if (stopTags.has(tagName)) break;
+        if (includeNextTags.has(tagName)) toWrap++;
 
         wrapper.append(firstEl);
         toWrap--;
