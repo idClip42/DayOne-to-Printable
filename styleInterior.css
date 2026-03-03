@@ -96,6 +96,14 @@
         break-inside: avoid;
     }
 
+    p:first-child,
+    div:first-child,
+    ul:first-child,
+    ol:first-child,
+    blockquote:first-child {
+        margin-top: 0;
+    }
+
     ul,
     ol {
         padding-left: 15px;
@@ -115,6 +123,7 @@
 
     blockquote {
         margin: 0;
+        margin-top: 1em;
         border-left-color: lightgray;
         border-left-style: solid;
         border-left-width: 3px;
@@ -200,7 +209,8 @@
         break-inside: avoid;
     }
 
-    p + .entry-photo {
+    p + .entry-photo,
+    .prevent-break + .entry-photo {
         /* Add a gap between a paragraph and an image. */
         margin-top: 1em;
     }
@@ -254,8 +264,6 @@
         break-inside: avoid;
 
         padding: 2px;
-
-        margin-top: 2em;
     }
 
     .entry-metadata .date {
@@ -321,13 +329,23 @@
 
         break-inside: avoid;
 
-        margin-top: 2em;
+        /* margin-top: 2em; */
     }
 
     .prevent-break {
-        margin: 0;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0;
         padding: 0;
         break-inside: avoid;
+    }
+
+    .prevent-break:first-child {
+        margin-top: 0;
+    }
+
+    .prevent-break:not(:first-child) {
+        margin-top: 2em;
     }
 
     /* #endregion */
