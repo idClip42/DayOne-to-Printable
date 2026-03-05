@@ -30,9 +30,9 @@
             "volume": 3
         },
         "dimensions": {
-            "totalWidthIn": 20.688,
+            "totalWidthIn": 20.25,
             "heightIn": 12.75,
-            "spineWidthIn": 1.938,
+            "spineWidthIn": 1.5,
             "hingeIn": 0.25,
             "safetyMargin": 0.6125
         }
