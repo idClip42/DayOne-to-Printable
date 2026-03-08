@@ -6,6 +6,7 @@ import { resizeImages } from "./src/preprocess/resizeImages";
 import { TagsLibrary } from "./src/tags";
 import { buildFullHtml } from "./src/book";
 import chalk from "chalk";
+import { estimateVolumeNumber } from "./src/utilities/estimateVolumeNumber";
 
 const startTimeMs = Date.now();
 
@@ -33,20 +34,29 @@ const entries: DayOneEntry[] = JSON.parse(rawJson).entries;
 console.log(entries.length, "entries");
 
 (() => {
-    const firstEntryDate = new Date(entries[0].creationDate).toLocaleDateString(
-        "en-US",
-        {
-            year: "numeric",
-            month: "short",
-        }
-    );
-    const lastEntryDate = new Date(
-        entries[entries.length - 1].creationDate
-    ).toLocaleDateString("en-US", {
+    const firstEntryDate = new Date(entries[0].creationDate);
+    const firstEntryDateStr = firstEntryDate.toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",
     });
-    console.log(chalk.cyanBright(`${firstEntryDate} => ${lastEntryDate}`));
+    const lastEntryDate = new Date(entries[entries.length - 1].creationDate);
+    const lastEntryDateStr = lastEntryDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+    });
+    console.log(
+        chalk.cyanBright(`${firstEntryDateStr} => ${lastEntryDateStr}`)
+    );
+
+    const cfgVol = config.cover.content.volume;
+    const estVol = estimateVolumeNumber(firstEntryDate, lastEntryDate);
+    if (cfgVol !== estVol) {
+        console.warn(
+            chalk.yellow(
+                `Configured vol '${cfgVol}' does not match estimated vol '${estVol}'.`
+            )
+        );
+    }
 })();
 
 const tagsLibrary = new TagsLibrary(entries);
