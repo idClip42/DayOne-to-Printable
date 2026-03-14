@@ -229,6 +229,7 @@
         border: 2px solid lightgray;
         color: rgb(96, 96, 96);
         hyphens: auto; /* The IDs get too long for the columns */
+        word-break: break-word;
     }
 
     table {
