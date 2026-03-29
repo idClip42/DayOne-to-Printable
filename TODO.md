@@ -2,6 +2,10 @@
 
 ## Issues
 
+- [ ] **Switch to parsing the rich text.**
+  - [ ] The markdown "text" isn't the source of truth
+    - [ ] It's non-authorative and lossy
+    - [ ] So we need to learn to parse 
 - [ ] Image processing is rotating (unrotating?) some images. (This may be a lost cause)
   - [ ] August 18, 2022, 9:57 AM
   - [ ] July 15, 2023 · 1:35 PM
