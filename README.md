@@ -202,6 +202,8 @@ Things to check:
 
 * No completely empty columns anywhere
 * No missing text content
+* No missing nested bullets
+  * This is an issue I've found with a couple entries, stemming from an issue with DayOne's text storage.
 * No missing images
 
 If you see empty columns:
