@@ -1,7 +1,7 @@
 {
     "files": {
         "input": {
-            "directory": "input/2023-8-31-DayOne",
+            "directory": "input/2024-12-31-DayOne",
             "dataFile": "Journal.json",
             "photosDirectory": "photos"
         },
@@ -27,7 +27,7 @@
         "content": {
             "author": "Alex Earley",
             "subtitle": "",
-            "volume": 3
+            "volume": 7
         },
         "dimensions": {
             "totalWidthIn": 20.25,
