@@ -1,10 +1,10 @@
 # TODO
 
-## Short Term Issues
+## Immediate Issues
 
-- [ ] Wider tables cause problems
-  - [ ] See Sept 28, 2023, Marvel stuff.
-  - [ ] May 2, 2024 has an example that looks fine.
+- [x] Wider tables cause problems
+  - [x] See Sept 28, 2023, Marvel stuff.
+  - [x] May 2, 2024 has an example that looks fine.
 
 ## Issues
 

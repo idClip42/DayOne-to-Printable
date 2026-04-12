@@ -234,6 +234,15 @@
 
     table {
         font-size: 6pt;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    td,
+    th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
     }
 
     tr:nth-child(even) {
