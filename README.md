@@ -220,7 +220,7 @@ This happens often enough that you should *always* check before moving on.
 ## Optional: Creating the final interior PDF
 
 **UPDATE:**
-This step may not be necessary. At time of writing, I've successfully uploaded the initial PDF of volume 3 to Lulu and it handled it successfully.
+This step may not be necessary. At time of writing, I've successfully uploaded the initial PDFs of volumes 3 through 7 to Lulu and it handled it successfully.
 Try skipping this step, and return to it if there are any upload problems.
 
 Once the initial PDF looks correct:
